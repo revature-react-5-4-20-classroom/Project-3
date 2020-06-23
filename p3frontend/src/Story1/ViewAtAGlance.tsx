@@ -1,4 +1,8 @@
 import React from "react";
+//npm install react-calendar
+//npm i @types/react-calendar
+import Calendar from 'react-calendar';
+import './Calendar.css';
 import { Row, Col, Table, Container } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 
@@ -11,49 +15,8 @@ export class ViewAtAGlance extends React.Component<any,any>
 		programType:'',
 		workType:   '',
 		viewType:   '',
+		batchName:	'Virginia Titans', //might want a batch model which is a copy of the batch on the backend
 		}
-	}
-
-	/*
-		GET
-		requestBody
-		{
-			programType:  'ROCP'
-			workType:     'Curricula'
-		}
-
-		responseBody
-		[
-			{
-				currentWeek:		0,
-				weeksRemaining:		10,
-				activeAssociates:	16,
-				inactiveAssociates:	4,
-				trainer:			'Adam',
-				location:			'Reston'
-			}
-		]
-	*/
-	differentName=()=>
-	{
-		return 0
-	}
-
-	setProgramType=(pt:string)=>
-	{
-		this.differentName()
-		this.setState({programType:pt})
-	}
-
-	setWorkType=(wt:string)=>
-	{
-		this.differentName()
-		this.setState({workType:wt})
-	}
-
-	setViewType=(vt:string)=>
-	{
-		this.setState({viewType:vt})
 	}
 
 	render()
@@ -77,18 +40,22 @@ export class ViewAtAGlance extends React.Component<any,any>
 					</Col>
 				</Row>
 				<br/>
-				{/* <b>programType:</b>
-				<EasyDropdown onSelected={this.setProgramType}  items={['CF','ROCP',  'Standard', 'Spark']}/>
+				<b>batchName</b> {this.state.batchName}
+				<br/>
+				<br/>
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<Calendar/>	}
+				
+		</Container>)
+	}
 
-				<b>workType:</b>
-				<EasyDropdown onSelected={this.setWorkType}     items={['Curricula', 'Client']}/>
-
-				<b>viewType:</b>  
-				<EasyDropdown onSelected={this.setViewType}     items={['Table','Calendar']}/> */}
-
-				<Table bordered>
+	displayTheDataAsATable=()=>
+	{
+		return(
+			<Table bordered>
 				<thead>
 					<tr>
+						<th>Start Date</th>
+						<th>Start End</th>
 						<th>Current Week</th>
 						<th>Remaining Weeks</th>
 						<th>Active Associates</th>
@@ -99,6 +66,8 @@ export class ViewAtAGlance extends React.Component<any,any>
 				</thead>
 				<tbody>
 					<tr>
+						<td>6-23-20</td>
+						<td>7-23-20</td>
 						<td>1</td>
 						<td>10</td>
 						<td>16</td>
@@ -107,6 +76,8 @@ export class ViewAtAGlance extends React.Component<any,any>
 						<td>Reston VA</td>
 					</tr>
 					<tr>
+						<td>6-23-20</td>
+						<td>8-23-20</td>
 						<td>1</td>
 						<td>10</td>
 						<td>16</td>
@@ -115,6 +86,8 @@ export class ViewAtAGlance extends React.Component<any,any>
 						<td>Reston VA</td>
 					</tr>
 					<tr>
+						<td>6-23-20</td>
+						<td>7-30-20</td>
 						<td>8</td>
 						<td>2</td>
 						<td>10</td>
@@ -123,7 +96,50 @@ export class ViewAtAGlance extends React.Component<any,any>
 						<td>Reston VA</td>
 					</tr>
 				</tbody>
-				</Table>
-		</Container>)
+			</Table>
+		)
+	}
+
+	/*
+		GET
+		requestBody
+		{
+			programType:  'ROCP'
+			workType:     'Curricula'
+		}
+
+		responseBody
+		[
+			{
+				batchName:			'The Mavericks',
+				currentWeek:		0,
+				weeksRemaining:		10,
+				activeAssociates:	16,
+				inactiveAssociates:	4,
+				trainer:			'Adam',
+				location:			'Reston'
+			}
+		]
+	*/
+	fetchTheDatas=()=>
+	{
+		return 0
+	}
+
+	setProgramType=(pt:string)=>
+	{
+		this.fetchTheDatas()
+		this.setState({programType:pt})
+	}
+
+	setWorkType=(wt:string)=>
+	{
+		this.fetchTheDatas()
+		this.setState({workType:wt})
+	}
+
+	setViewType=(vt:string)=>
+	{
+		this.setState({viewType:vt})
 	}
 }
