@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>GatewayService</artifactId>
+	<artifactId>gatewayservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GatewayService</name>
 	<description>gateway to the MSA</description>

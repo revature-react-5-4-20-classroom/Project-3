@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>SqsService</artifactId>
+	<artifactId>sqsservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SqsService</name>
 	<description>Service that receives data and inserts it into the database</description>

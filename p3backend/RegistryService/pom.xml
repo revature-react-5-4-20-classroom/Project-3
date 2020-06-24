@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>RegistryService</artifactId>
+	<artifactId>registryservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RegistryService</name>
 	<description>eureka server for MSA communication</description>
