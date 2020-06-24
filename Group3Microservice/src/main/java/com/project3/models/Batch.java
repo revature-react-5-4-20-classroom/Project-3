@@ -4,10 +4,15 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(schema = "project3", name = "batch")
@@ -23,61 +28,30 @@ public class Batch {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer batchId;
 	
-	
-	@Column(name="curriculum")
-	private String curriculum;
-	
 	@Column(name="start_date")
 	private Date startDate;
 	
 	@Column(name="end_date")
 	private Date endDate;
+	
+	@Column(name="isconfirmed")
+	private Boolean isConfirmed;
+	
+	@Column(name="interview_score_lower")
+	private Integer interviewScoreLower;
+	
+	@JoinColumn(name="trainer_id")
+	@OneToOne(fetch = FetchType.EAGER)
+	// May need a JsonIgnoreProperties later on
+	private Trainer trainer;
+	
 
-	public Integer getBatchId() {
-		return batchId;
-	}
-
-	public void setBatchId(Integer batchId) {
-		this.batchId = batchId;
-	}
-
-	public String getCurriculum() {
-		return curriculum;
-	}
-
-	public void setCurriculum(String curriculum) {
-		this.curriculum = curriculum;
-	}
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	@Override
-	public String toString() {
-		return "Batch [batchId=" + batchId + ", curriculum=" + curriculum + ", startDate=" + startDate + ", endDate="
-				+ endDate + "]";
-	}
-
-	public Batch(Integer batchId, String curriculum, Date startDate, Date endDate) {
-		super();
-		this.batchId = batchId;
-		this.curriculum = curriculum;
-		this.startDate = startDate;
-		this.endDate = endDate;
-	}
+	
+	
+//	@JoinColumn(name="location_id")
+//	@ManyToOne(fetch = FetchType.EAGER)
+	
+	
 	
 	
 }
