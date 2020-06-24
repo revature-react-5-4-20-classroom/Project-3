@@ -1,0 +1,8 @@
+th{
+	color:blue;
+}
+
+th:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
