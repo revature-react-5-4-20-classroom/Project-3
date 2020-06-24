@@ -9,6 +9,8 @@ import {
 } from 'react-router-dom';
 import { ViewAtAGlance } from './Story1/ViewAtAGlance';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+import { LineChartTest } from './LineGraphDemo';
+import { ColumnChartTest } from './ChartColumnDemo';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -23,6 +25,7 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
+        {/* <ColumnChartTest /> */}
         <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
