@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import com.revature.DataService.models.SkillsService;
+import com.revature.DataService.models.Skills;
+import com.revature.DataService.services.SkillsService;
+
 
 @RestController
 @RequestMapping("skills")
