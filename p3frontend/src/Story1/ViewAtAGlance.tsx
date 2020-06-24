@@ -15,7 +15,6 @@ export class ViewAtAGlance extends React.Component<any,any>
 		programType:'',
 		workType:   '',
 		viewType:   '',
-		batchName:	'Virginia Titans', //might want a batch model which is a copy of the batch on the backend
 		}
 	}
 
@@ -40,8 +39,6 @@ export class ViewAtAGlance extends React.Component<any,any>
 					</Col>
 				</Row>
 				<br/>
-				<b>batchName</b> {this.state.batchName}
-				<br/>
 				<br/>
 				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<Calendar/>	}
 				
@@ -54,10 +51,12 @@ export class ViewAtAGlance extends React.Component<any,any>
 			<Table bordered>
 				<thead>
 					<tr>
+						<th>id</th>
 						<th>Start Date</th>
 						<th>Start End</th>
 						<th>Current Week</th>
 						<th>Remaining Weeks</th>
+						<th>Skillset</th>
 						<th>Active Associates</th>
 						<th>Inactive Associates</th>
 						<th>Trainer</th>
@@ -66,30 +65,36 @@ export class ViewAtAGlance extends React.Component<any,any>
 				</thead>
 				<tbody>
 					<tr>
+						<td>0</td>
 						<td>6-23-20</td>
 						<td>7-23-20</td>
 						<td>1</td>
 						<td>10</td>
+						<td>Java</td>
 						<td>16</td>
 						<td>4</td>
 						<td>Adam</td>
 						<td>Reston VA</td>
 					</tr>
 					<tr>
+						<td>1</td>
 						<td>6-23-20</td>
 						<td>8-23-20</td>
 						<td>1</td>
 						<td>10</td>
+						<td>Javascript</td>
 						<td>16</td>
 						<td>4</td>
 						<td>Andrew</td>
 						<td>Reston VA</td>
 					</tr>
 					<tr>
+						<td>2</td>
 						<td>6-23-20</td>
 						<td>7-30-20</td>
 						<td>8</td>
 						<td>2</td>
+						<td>Docker</td>
 						<td>10</td>
 						<td>8</td>
 						<td>Alex</td>
