@@ -28,7 +28,7 @@ public class Skillset {
       name = "skillset_skills",
       joinColumns = @JoinColumn(name = "skillset_id",referencedColumnName = "skillset_id"),
       inverseJoinColumns = @JoinColumn(name = "skill_id",referencedColumnName = "skill_id"))
-  private List<Skill> skills;
+  private List<Skills> skills;
   
   
   @ManyToMany(mappedBy = "skillsets")
@@ -60,11 +60,11 @@ public class Skillset {
     this.skillSetName = skillSetName;
   }
 
-  public List<Skill> getSkills() {
+  public List<Skills> getSkills() {
     return skills;
   }
 
-  public void setSkills(List<Skill> skills) {
+  public void setSkills(List<Skillsgi> skills) {
     this.skills = skills;
   }
 
