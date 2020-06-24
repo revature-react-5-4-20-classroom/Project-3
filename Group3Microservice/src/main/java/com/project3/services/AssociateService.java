@@ -1,5 +1,13 @@
 package com.project3.services;
 
-public class AssociateService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.project3.repositories.AssociateRepository;
+
+
+@Service
+public class AssociateService {
+	@Autowired
+	AssociateRepository associateRepository;
 }

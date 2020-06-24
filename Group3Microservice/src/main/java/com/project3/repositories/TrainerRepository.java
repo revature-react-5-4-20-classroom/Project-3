@@ -1,5 +1,10 @@
 package com.project3.repositories;
 
-public interface TrainerRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.project3.models.Trainer;
+
+
+public interface TrainerRepository extends JpaRepository<Trainer, Integer> {
 
 }
