@@ -37,6 +37,9 @@ public class Associate {
 	
 	@Column(name="interview_score")
 	private double interviewScore;
+	
+	@Column(name="assigned_batch_id")
+	private Integer assignedBatchId;
 
 	public Integer getAssociateId() {
 		return associateId;
@@ -86,8 +89,17 @@ public class Associate {
 		this.interviewScore = interviewScore;
 	}
 
+	public Integer getAssignedBatchId() {
+		return assignedBatchId;
+	}
+	
+	public void setAssignedBatchId(Integer id) {
+		this.assignedBatchId = id;
+	}
+	
+	
 	public Associate(Integer associateId, String firstName, String lastName, String email, boolean active,
-			double interviewScore) {
+			double interviewScore, Integer assignedBatchId) {
 		super();
 		this.associateId = associateId;
 		this.firstName = firstName;
@@ -95,12 +107,13 @@ public class Associate {
 		this.email = email;
 		this.active = active;
 		this.interviewScore = interviewScore;
+		this.assignedBatchId = assignedBatchId;
 	}
 
 	@Override
 	public String toString() {
 		return "Associate [associateId=" + associateId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + ", active=" + active + ", interviewScore=" + interviewScore + "]";
+				+ ", email=" + email + ", active=" + active + ", interviewScore=" + interviewScore + ", assignedBatchId= " + assignedBatchId]";
 	}
 	
 	
