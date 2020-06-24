@@ -1,0 +1,13 @@
+server:  
+  port: 8212
+  
+spring:
+  application:    
+    name: gatewayservice
+
+zuul:
+  routes:    
+    eureka:
+      path: /eureka/**
+      url: http://ec2-that-is-given-to-us
+    
