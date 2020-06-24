@@ -1,5 +1,6 @@
 package com.project3.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class TrainerController {
 	@Autowired
 	TrainerService trainerService;
 	
-	@GetMapping
+	  @GetMapping
 	  public List<Trainer> getAllTrainers() {
 	    return trainerService.getAll();
 	  } 
@@ -32,6 +33,27 @@ public class TrainerController {
 	      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 	    }
 	  }
+	  //Commented out until Trainer skillset is defined/implemented
+	  /*
+	  @GetMapping("/eligible")
+	  public ArrayList<Trainer>getTrainerByEligibility(@RequestBody ArrayList<String>cSkills) {
+	    ArrayList<Trainer> eligibles = new ArrayList<Trainer>();
+	    for(Trainer t: getAllTrainers()) {
+	      if(skillsComparison(t.skills, cSkills))
+	        eligibles.add(t);
+	    }
+	    return eligibles;
+	  }
+	  @GetMapping("/ineligible")
+      public ArrayList<Trainer>getTrainerByIneligibility(@RequestBody ArrayList<String>cSkills) {
+        ArrayList<Trainer> ineligibles = new ArrayList<Trainer>();
+        for(Trainer t: getAllTrainers()) {
+          if(!skillsComparison(t.skills, cSkills))
+            ineligibles.add(t);
+        }
+        return ineligibles;
+      }
+	  */
 	  /*
 	  @PostMapping
 	  public Trainer createTrainer(@RequestBody Trainer trainer) {
@@ -44,4 +66,5 @@ public class TrainerController {
 	    return trainerService.update(trainer);
 	  }
 	  */
+	  
 }

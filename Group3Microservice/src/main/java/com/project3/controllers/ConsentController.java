@@ -26,15 +26,12 @@ public class ConsentController {
 	// get all items
 		@CrossOrigin(origins = "*")
 		@GetMapping("/consent")
-		public List<Consent> getAllItems() {
+		public List<Consent> getAllConsents() {
 			return consentService.getAll();
 		}
 		@CrossOrigin(origins="*")
-		@GetMapping("/reviews/{itemId}")
-	    public List<Consent> getAllReviews(@PathVariable Integer trainerId)
-		{
-		    
-		    
+		@GetMapping("/consent/{trainerId}")
+	    public List<Consent> getAllReviews(@PathVariable Integer trainerId){   
 	        return consentService.getConsentByTrainerId(trainerId);
 		}
 		
