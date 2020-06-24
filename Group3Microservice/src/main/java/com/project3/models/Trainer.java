@@ -31,6 +31,9 @@ public class Trainer {
 	@JoinColumn(name="current_batch")
 	@OneToOne(fetch= FetchType.EAGER)
 	private Integer currentBatch;
+	
+	//I'm not certain how this who skills thing will work yet
+	//private skillset skills
 
   public Trainer() {
     super();
