@@ -1,10 +1,13 @@
-package com.revature.DataService.models;
+package com.revature.DataService.services;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.revature.DataService.models.Skills;
+import com.revature.DataService.models.SkillsDao;
+import com.revature.DataService.repositories.SkillsRepository;
 
 
 @Service
@@ -13,26 +16,26 @@ public class SkillsService {
 	
 	
 	@Autowired
-	SkillsDao skillsDao;
+	SkillsRepository skillsRepository;
 	
 	
 	
 	
 	public List<Skills> getAll() {
-		return skillsDao.findAll();
+		return skillsRepository.findAll();
 	}
 	
 	
 	public Skills save(Skills skill) {
 		skill.setSkillId(0);
-		return skillsDao.save(skill);
+		return skillsRepository.save(skill);
 	}
 	
 	
 	public Skills update(Skills skill) {
-	Optional<Skills> existing=skillsDao.findById(skill.getSkillId());
+	Optional<Skills> existing=skillsRepository.findById(skill.getSkillId());
 	if(existing.isPresent()) {
-		return skillsDao.save(skill);
+		return skillsRepository.save(skill);
 	}else {
 		throw new RuntimeException("skill not found");
 	}
