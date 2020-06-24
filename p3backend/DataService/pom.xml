@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>DataService</artifactId>
+	<artifactId>dataservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DataService</name>
 	<description>Retreives data from the database</description>
