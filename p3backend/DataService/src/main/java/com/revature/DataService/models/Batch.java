@@ -48,12 +48,17 @@ public class Batch {
 	// May need a JsonIgnoreProperties later on
 	private Trainer trainer;
 	
+<<<<<<< HEAD
 //	@JoinColumn(name="location_id")
 //	@ManyToOne(fetch = FetchType.EAGER)
 
 	@Column(name="location_id")
 	private Integer locationId;
 
+=======
+	@Column(name="location_id")
+	private Integer locationId;
+>>>>>>> 11dfa2e2dbefd38b4a8098129cb06d9e93547f78
 	
 	@JoinColumn(name="curriculum_id")
 	@OneToOne(fetch = FetchType.EAGER)
@@ -62,6 +67,7 @@ public class Batch {
 //	@OneToMany(mappedBy = "assigned_batch_id", cascade = CascadeType.MERGE)
 //	@JsonIgnoreProperties({"assigned_batch_id"})
 //	private List<Associate> associates;
+<<<<<<< HEAD
 	
 	
 
@@ -136,6 +142,23 @@ public class Batch {
 	}
 
 
+=======
+
+  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
+      Integer interviewScoreLower, Trainer trainer, Integer locationId, Curriculum curriculum,
+      List<Associate> associates) {
+    super();
+    this.batchId = batchId;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.isConfirmed = isConfirmed;
+    this.interviewScoreLower = interviewScoreLower;
+    this.trainer = trainer;
+    this.locationId = locationId;
+    this.curriculum = curriculum;
+//    this.associates = associates;
+  }
+>>>>>>> 11dfa2e2dbefd38b4a8098129cb06d9e93547f78
 
 	public Integer getLocationId() {
 		return locationId;
@@ -188,6 +211,7 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
     //this.associates = associates;
   }
 
+<<<<<<< HEAD
 
 
 //  @Override
@@ -198,5 +222,23 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
 //        + ", associates=" + associates + "]";
 //  }
 //	
+=======
+//  public List<Associate> getAssociates() {
+//    return associates;
+//  }
+//
+//  public void setAssociates(List<Associate> associates) {
+//    this.associates = associates;
+//  }
+
+  @Override
+  public String toString() {
+    return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
+        + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
+        + ", trainer=" + trainer + ", locationId=" + locationId + ", curriculum=" + curriculum
+        + ", associates=]";
+  }
+	
+>>>>>>> 11dfa2e2dbefd38b4a8098129cb06d9e93547f78
 	
 }

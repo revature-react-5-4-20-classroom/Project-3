@@ -20,9 +20,9 @@ public class SkillsetSkills {
 	@Column(name="skill_id")
 	private Integer skillId;
 	
-	@ManyToMany
-	@JoinColumn(name="skill_id", referencedColumnName="skill_id")
-	private List<Skills> skills;
+//	@ManyToMany
+//	@JoinColumn(name="skill_id", referencedColumnName="skill_id")
+//	private List<Skills> skills2;
 	
 	public SkillsetSkills() {
 		super();
@@ -45,20 +45,22 @@ public class SkillsetSkills {
 		this.skillId = skillId;
 	}
 
-	public List<Skills> getSkills() {
-		return skills;
-	}
+//	public List<Skills> getSkills2() {
+//		return skills2;
+//	}
+//
+//	public void setSkills2(List<Skills> skills2) {
+//		this.skills2 = skills2;
+//	}
 
-	public void setSkills(List<Skills> skills) {
-		this.skills = skills;
-	}
-
-	public SkillsetSkills(Integer skillSetId, Integer skillId, List<Skills> skills) {
+	public SkillsetSkills(Integer skillSetId, Integer skillId, List<Skills> skills2) {
 		super();
 		this.skillSetId = skillSetId;
 		this.skillId = skillId;
-		this.skills = skills;
+//		this.skills2 = skills2;
 	}
+
+
 	
 	
 }

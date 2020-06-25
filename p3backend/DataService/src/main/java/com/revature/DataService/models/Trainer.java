@@ -1,7 +1,9 @@
 package com.revature.DataService.models;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,9 +17,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(schema = "project3", name = "trainer")
-public class Trainer {
+public class Trainer implements Serializable {
 	
 	@Id
 	@Column(name="trainer_id")
@@ -33,6 +37,7 @@ public class Trainer {
 	@Column(name="email")
 	private String email;
 	
+
 //	@JoinColumn(name="current_batch")
 //	@OneToOne(fetch= FetchType.EAGER)
 //	private Integer currentBatch;
@@ -40,20 +45,30 @@ public class Trainer {
 	@Column(name="trainer_skillset_id")
 	private Integer trainerSkillsetId;
 	
-	@ManyToOne
-	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
-	private Skillset trainerSkills;
-	
+	@JsonIgnoreProperties({"trainer"})
+	@OneToMany(mappedBy="trainer", cascade=CascadeType.MERGE)
+//	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
+	private List<Skillset> trainerSkills;
+
 	
 	//I'm not certain how this who skills thing will work yet
 	//private skillset skills
 
-	public Skillset getTrainerSkills() {
-		return trainerSkills;
-	}
 
-	public Trainer(Integer trainerId, String firstName, String lastName, String email, Integer trainerSkillsetId,
-			Skillset trainerSkills) {
+
+
+public Trainer() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
+
+  
+
+
+
+public Trainer(Integer trainerId, String firstName, String lastName, String email, Integer trainerSkillsetId,
+			List<Skillset> trainerSkills) {
 		super();
 		this.trainerId = trainerId;
 		this.firstName = firstName;
@@ -63,16 +78,21 @@ public class Trainer {
 		this.trainerSkills = trainerSkills;
 	}
 
-	public void setTrainerSkills(Skillset trainerSkills) {
-		this.trainerSkills = trainerSkills;
-	}
 
-public Trainer() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
 
-  
+
+
+public List<Skillset> getTrainerSkills() {
+	return trainerSkills;
+}
+
+
+
+
+
+public void setTrainerSkills(List<Skillset> trainerSkills) {
+	this.trainerSkills = trainerSkills;
+}
 
 
 
@@ -115,6 +135,14 @@ public Integer getTrainerId() {
   public void setEmail(String email) {
     this.email = email;
   }
+
+
+
+@Override
+public String toString() {
+	return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+			+ email + ", trainerSkillsetId=" + trainerSkillsetId + ", trainerSkills=" + trainerSkills + "]";
+}
 
 //  public Integer getCurrentBatch() {
 //    return currentBatch;

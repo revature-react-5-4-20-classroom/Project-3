@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.revature.DataService.models.Location;
 import com.revature.DataService.models.Skills;
-//import com.revature.DataService.models.SkillsDao;
+import com.revature.DataService.models.Skillset;
 import com.revature.DataService.repositories.SkillsRepository;
 
 
@@ -23,6 +25,15 @@ public class SkillsService {
 	
 	public List<Skills> getAll() {
 		return skillsRepository.findAll();
+	}
+	
+	public Skills getbyId(Integer id) {
+		Optional<Skills> existing=skillsRepository.findById(id);
+		if(existing.isPresent()) {
+			return existing.get();
+		}else {
+			throw new RuntimeException("no id");
+		}
 	}
 	
 	
