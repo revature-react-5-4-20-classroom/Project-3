@@ -26,7 +26,22 @@ public class Batch {
 		
 	}
 	
-	@Id
+	
+	public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
+      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum) {
+    super();
+    this.batchId = batchId;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.isConfirmed = isConfirmed;
+    this.interviewScoreLower = interviewScoreLower;
+    this.trainer = trainer;
+    this.location = location;
+    this.curriculum = curriculum;
+  }
+
+
+  @Id
 	@Column(name="batch_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer batchId;
@@ -48,84 +63,112 @@ public class Batch {
 	// May need a JsonIgnoreProperties later on
 	private Trainer trainer;
 	
-
-	@Column(name="location_id")
-	private Integer locationId;
-	@Column(name="location_id")
-	private Integer locationId;
+	
+	@OneToOne
+	@JoinColumn(name="location_id", referencedColumnName = "location_id")
+	private Location location;
+	
 
 	
 	@JoinColumn(name="curriculum_id")
 	@OneToOne(fetch = FetchType.EAGER)
 	private Curriculum curriculum;
+
+	
+	@JsonIgnoreProperties({"batch"})
+	@OneToMany(mappedBy="batch", cascade = CascadeType.MERGE)
+	private List<Associate> associates;
+	
 	
 
-	public Integer getLocationId() {
-		return locationId;
-	}
 
 
-
-	public void setLocationId(Integer locationId) {
-		this.locationId = locationId;
-	}
-
-
-
-	public Curriculum getCurriculum() {
-		return curriculum;
-	}
-
-
-
-	public void setCurriculum(Curriculum curriculum) {
-		this.curriculum = curriculum;
-	}
-
-
-
-//	public List<Associate> getAssociates() {
-//		return associates;
-//	}
-//
-//
-//
-//	public void setAssociates(List<Associate> associates) {
-//		this.associates = associates;
-//	}
-
-
-
-public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, Trainer trainer, Integer locationId, Curriculum curriculum,
-      List<Associate> associates) {
-    super();
-    this.batchId = batchId;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.isConfirmed = isConfirmed;
-    this.interviewScoreLower = interviewScoreLower;
-    this.trainer = trainer;
-    this.locationId = locationId;
-    this.curriculum = curriculum;
-    //this.associates = associates;
+  public Integer getBatchId() {
+    return batchId;
   }
 
-//  public List<Associate> getAssociates() {
-//    return associates;
-//  }
-//
-//  public void setAssociates(List<Associate> associates) {
-//    this.associates = associates;
-//  }
+
+  public void setBatchId(Integer batchId) {
+    this.batchId = batchId;
+  }
+
+
+  public Date getStartDate() {
+    return startDate;
+  }
+
+
+  public void setStartDate(Date startDate) {
+    this.startDate = startDate;
+  }
+
+
+  public Date getEndDate() {
+    return endDate;
+  }
+
+
+  public void setEndDate(Date endDate) {
+    this.endDate = endDate;
+  }
+
+
+  public Boolean getIsConfirmed() {
+    return isConfirmed;
+  }
+
+
+  public void setIsConfirmed(Boolean isConfirmed) {
+    this.isConfirmed = isConfirmed;
+  }
+
+
+  public Integer getInterviewScoreLower() {
+    return interviewScoreLower;
+  }
+
+
+  public void setInterviewScoreLower(Integer interviewScoreLower) {
+    this.interviewScoreLower = interviewScoreLower;
+  }
+
+
+  public Trainer getTrainer() {
+    return trainer;
+  }
+
+
+  public void setTrainer(Trainer trainer) {
+    this.trainer = trainer;
+  }
+
+
+  public Location getLocation() {
+    return location;
+  }
+
+
+  public void setLocation(Location location) {
+    this.location = location;
+  }
+
+
+  public Curriculum getCurriculum() {
+    return curriculum;
+  }
+
+
+  public void setCurriculum(Curriculum curriculum) {
+    this.curriculum = curriculum;
+  }
+
 
   @Override
   public String toString() {
     return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
         + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
-        + ", trainer=" + trainer + ", locationId=" + locationId + ", curriculum=" + curriculum
-        + ", associates=]";
+        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum + "]";
   }
-
+		
 	
 }
