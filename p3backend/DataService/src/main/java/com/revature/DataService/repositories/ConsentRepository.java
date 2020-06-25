@@ -8,10 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.DataService.models.Consent;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 11dfa2e2dbefd38b4a8098129cb06d9e93547f78
 @Repository
 public interface ConsentRepository extends JpaRepository<Consent, Integer>{
 
