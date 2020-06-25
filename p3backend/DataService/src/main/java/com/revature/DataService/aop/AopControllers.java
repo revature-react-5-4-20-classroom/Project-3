@@ -24,7 +24,7 @@ public class AopControllers {
 @Before(value="within(com.revature.DataService..*)")
 public void logBefore(JoinPoint jp) {
 
-	logger.info("Method"+jp.toShortString()+"called on "+jp.getTarget()+"args:"+Arrays.toString(jp.getArgs()));
+	logger.info(" Method "+jp.toShortString()+" called on "+jp.getTarget()+" args: "+Arrays.toString(jp.getArgs()));
 	
 	
 	
@@ -34,9 +34,9 @@ public void logBefore(JoinPoint jp) {
 public void after(JoinPoint jp, Object result) {
 	
 	if(result!=null) {
-		logger.info("method"+jp.toShortString()+"returned "+result.toString());
+		logger.info(" method "+jp.toShortString()+"returned "+result.toString());
 	}else {
-		logger.info("method"+jp.toShortString()+"returned "+"it returns null");
+		logger.info(" method "+jp.toShortString()+" returned "+" it returns null");
 	}
 	
 }
@@ -44,7 +44,7 @@ public void after(JoinPoint jp, Object result) {
 @AfterThrowing(value="within(com.revature.DataService..*)", throwing="error")
 public void afterThrow(JoinPoint jp,Throwable error) {
 	
-	logger.error("method"+jp.toShortString()+"error "+error.getMessage());
+	logger.error(" method "+jp.toShortString()+" error "+error.getMessage());
 
 	
 	
