@@ -43,23 +43,67 @@ public class Trainer implements Serializable {
 //	@OneToOne(fetch= FetchType.EAGER)
 //	private Integer currentBatch;
 	
-	@Column(name="trainer_skillset_id")
-	private Integer trainerSkillsetId;
-	
-	@JsonIgnoreProperties({"trainer"})
-	@OneToMany(mappedBy="trainer", cascade=CascadeType.MERGE)
+	@ManyToMany(mappedBy="trainers")
+	@JsonIgnoreProperties({"trainers"})
 //	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
 	private List<Skillset> trainerSkills;
 
 	@OneToOne(mappedBy = "trainer")
 	private Consent consent;
 	
-	@JsonIgnoreProperties({"trainers"})
+	@JsonIgnoreProperties({"batches"})
 	@ManyToMany(mappedBy="trainers")
 	private List<Batch> batches;
 
+	public Integer getTrainerId() {
+		return trainerId;
+	}
 
-public List<Batch> getBatches() {
+	public void setTrainerId(Integer trainerId) {
+		this.trainerId = trainerId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Skillset> getTrainerSkills() {
+		return trainerSkills;
+	}
+
+	public void setTrainerSkills(List<Skillset> trainerSkills) {
+		this.trainerSkills = trainerSkills;
+	}
+
+	public Consent getConsent() {
+		return consent;
+	}
+
+	public void setConsent(Consent consent) {
+		this.consent = consent;
+	}
+
+	public List<Batch> getBatches() {
 		return batches;
 	}
 
@@ -67,107 +111,30 @@ public List<Batch> getBatches() {
 		this.batches = batches;
 	}
 
-public Trainer() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
+	@Override
+	public String toString() {
+		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", trainerSkills=" + trainerSkills + ", consent=" + consent + ", batches=" + batches + "]";
+	}
 
-public Trainer(Integer trainerId, String firstName, String lastName, String email,
-    Integer trainerSkillsetId, List<Skillset> trainerSkills, Consent consent) {
-  super();
-  this.trainerId = trainerId;
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.email = email;
-  this.trainerSkillsetId = trainerSkillsetId;
-  this.trainerSkills = trainerSkills;
-  this.consent = consent;
-}
+	public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
+			Consent consent, List<Batch> batches) {
+		super();
+		this.trainerId = trainerId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.trainerSkills = trainerSkills;
+		this.consent = consent;
+		this.batches = batches;
+	}
 
+	public Trainer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-public List<Skillset> getTrainerSkills() {
-	return trainerSkills;
-}
-
-
-public void setTrainerSkills(List<Skillset> trainerSkills) {
-	this.trainerSkills = trainerSkills;
-}
-
-
-public Integer getTrainerSkillsetId() {
-	return trainerSkillsetId;
-}
-
-public void setTrainerSkillsetId(Integer trainerSkillsetId) {
-	this.trainerSkillsetId = trainerSkillsetId;
-}
-
-public Integer getTrainerId() {
-    return trainerId;
-  }
-
-  public void setTrainerId(Integer trainerId) {
-    this.trainerId = trainerId;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-
-  public Consent getConsent() {
-    return consent;
-  }
-
-  public void setConsent(Consent consent) {
-    this.consent = consent;
-  }
-
-
-  @Override
-  public String toString() {
-    return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName
-        + ", email=" + email + ", trainerSkillsetId=" + trainerSkillsetId + ", trainerSkills="
-        + trainerSkills + ", consent=" + consent + "]";
-  }
-
-
-
-
-//  public Integer getCurrentBatch() {
-//    return currentBatch;
-//  }
-//
-//  public void setCurrentBatch(Integer currentBatch) {
-//    this.currentBatch = currentBatch;
-//  }
-
-//  @Override
-//  public String toString() {
-//    return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName
-//        + ", email=" + email + ", currentBatch=" + currentBatch + "]";
-//  }
+	
 
 	
 }

@@ -67,9 +67,10 @@ public class Batch {
 
   @JsonIgnoreProperties({"batches"})
   @ManyToMany(cascade=CascadeType.MERGE)
-  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="skillset_id"))
+  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
   private List<Trainer> trainers;
 
+  @JsonIgnoreProperties({"batch"})
   @OneToOne
   @JoinColumn(name = "location_id", referencedColumnName = "location_id")
   private Location location;
@@ -85,6 +86,7 @@ public class Batch {
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
 
+  @JsonIgnoreProperties({"batch"})
   @OneToOne(mappedBy = "batch")
   private Consent consent;
 
@@ -194,13 +196,15 @@ public Location getLocation() {
   }
 
 
-  @Override
-  public String toString() {
-    return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
-        + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
-        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum
-        + ", associates=" + associates + ", consent=" + consent + "]";
-  }
+
+
+@Override
+public String toString() {
+	return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate + ", isConfirmed="
+			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
+			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
+}
+
 
 
 }

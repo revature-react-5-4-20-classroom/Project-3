@@ -30,7 +30,7 @@ public class Skillset {
   private String skillSetName;
   
   @ManyToMany(cascade=CascadeType.ALL)
-  @JoinTable(name="skillset_skills",schema = "project3",joinColumns=@JoinColumn(name="skillset_id"),inverseJoinColumns=@JoinColumn(name="skill_id") )
+  @JoinTable(name="skillsetskills",schema = "project3",joinColumns=@JoinColumn(name="skillset_id"),inverseJoinColumns=@JoinColumn(name="skill_id") )
   @JsonIgnoreProperties({"skillSets"})
   private List<Skills> skills; 
   
@@ -40,10 +40,15 @@ public class Skillset {
 //      joinColumns = @JoinColumn(name = "skillset_id",referencedColumnName = "skillset_id"),
 //      inverseJoinColumns = @JoinColumn(name = "skill_id",referencedColumnName = "skill_id"))
   
- @JsonIgnoreProperties({"trainerSkills"})
- @ManyToOne
- @JoinColumn(name="skillset_id", referencedColumnName="trainer_skillset_id",insertable=false, updatable=false) //
- private Trainer trainer;
+  @JsonIgnoreProperties({"trainerSkills"})
+  @ManyToMany(cascade=CascadeType.ALL)
+  @JoinTable(name="trainerskills", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="skillset_id"))
+  private List<Trainer> trainers;
+  
+// @JsonIgnoreProperties({"trainerSkills"})
+// @ManyToOne
+// @JoinColumn(name="skillset_id", referencedColumnName="trainer_skillset_id",insertable=false, updatable=false) //
+// private Trainer trainer;
   
   @JsonIgnoreProperties({"skillset"})
   @OneToOne(mappedBy = "skillset")
@@ -75,28 +80,29 @@ public class Skillset {
     this.skillSetName = skillSetName;
   }
 
-public Trainer getTrainer() {
-	return trainer;
-}
 
-
-public void setTrainer(Trainer trainer) {
-	this.trainer = trainer;
-}
-
-
-public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, Trainer trainer) {
+public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, List<Trainer> trainers,
+		Curriculum curriculum) {
 	super();
 	this.skillSetId = skillSetId;
 	this.skillSetName = skillSetName;
 	this.skills = skills;
-	this.trainer = trainer;
+	this.trainers = trainers;
+	this.curriculum = curriculum;
 }
 
 @Override
 public String toString() {
-	return "Skillset [skillSetId=" + skillSetId + ", skillSetName=" + skillSetName + ", skills=" + skills + ", trainer="
-			+ trainer + "]";
+	return "Skillset [skillSetId=" + skillSetId + ", skillSetName=" + skillSetName + ", skills=" + skills
+			+ ", trainers=" + trainers + ", curriculum=" + curriculum + "]";
+}
+
+public List<Trainer> getTrainers() {
+	return trainers;
+}
+
+public void setTrainers(List<Trainer> trainers) {
+	this.trainers = trainers;
 }
 
 public List<Skills> getSkills() {

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(schema = "project3", name = "consent")
 public class Consent {
@@ -19,15 +21,17 @@ public class Consent {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer consentId;
 
-  @Column(name = "is_approved")
+  @Column(name = "consent_approved")
   private boolean isApproved;
 
+  @JsonIgnoreProperties({"consent"})
   @OneToOne
   @JoinColumn(name = "batch_id")
   private Batch batch;
 
+  @JsonIgnoreProperties({"consent"})
   @OneToOne
-  @JoinColumn(name = "trainer_id")
+  @JoinColumn(name = "trainerId")
   private Trainer trainer;
 
   public Consent() {

@@ -13,7 +13,7 @@ public interface ClientDemandRepo extends JpaRepository<ClientDemand, Integer>
   
   List<ClientDemand> findByClientDemandId(Integer clientDemandId);
   
-  List<ClientDemand> findByClientId(Integer clientId);
+//  List<ClientDemand> findByClientId(Integer clientId);
   
   List<ClientDemand> findBySkillsetId(Integer skillsetId);
 }
