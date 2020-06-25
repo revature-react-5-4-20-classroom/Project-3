@@ -1,6 +1,6 @@
 package com.revature.ReportsService.models;
 
-public class Cirriculum {
+public class Curriculum {
 
   private Integer curriculumId;
   private String name;
