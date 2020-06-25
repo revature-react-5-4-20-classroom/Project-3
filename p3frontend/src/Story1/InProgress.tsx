@@ -7,6 +7,7 @@ import './Table.css';
 import { Row, Col, Table, Container } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
+import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
 
 const doPrnt=true//prnt will work
 
@@ -22,10 +23,10 @@ export class InProgress extends React.Component<any,any>
 		batchServerData:[	//holds the data fetched from the server. psudo data right now
 			{
 				id:0,
-				dateStart:	new Date(2020,5,20),
-				dateEnd:	new Date(2020,5,20+7*2),
-				weekCurrent:1,
-				weekRemaining:9,
+				dateStart:	new Date(2020,1,0),
+				dateEnd:	new Date(2020,1,0+7*2),
+				weekCurrent:0,
+				weekRemaining:0,
 				skillset:'Java',
 				associatesActive:5,
 				associatesInactive:6,
@@ -47,7 +48,7 @@ export class InProgress extends React.Component<any,any>
 			{
 				id:2,
 				dateStart:	new Date(2020,10,24),
-				dateEnd:	new Date(2020,10,25+7*3),
+				dateEnd:	new Date(2020,10,25+7*4),
 				weekCurrent:1,
 				weekRemaining:9,
 				skillset:'C#',
@@ -156,20 +157,6 @@ And this data is shown as a table and a Calendar view</p><br/>
 		this.setState({})//cause re-render
 	}
 
-	//returns the differentce in dates in weeks. does not consider day of the week
-	//the week is relative to dateSooner even if its on wednesday for example
-	dateDifference(dateSooner:Date,dateLater:Date):number
-	{
-		//convert dates to milliseconds since time began
-		//google milliseconds in a day to convert to day difference
-		let dayDifference=(dateLater.getTime()-dateSooner.getTime())/(8.64e+7)
-
-		//round the day down to the nearest week, relative to dateSooner 
-		let weekRoundDown=Math.floor(dayDifference/7)
-
-		return weekRoundDown
-	}
-
 	//returns an array of batches that are made pretty for displaying
 	convertToDisplayData=(arrayOfBatches:[])=>
 	{
@@ -181,8 +168,8 @@ And this data is shown as a table and a Calendar view</p><br/>
 				dateEnd:			batch.dateEnd.toDateString(),
 				dateSortStart:		batch.dateStart.getTime(),//used to sort the dates
 				dateSortEnd:		batch.dateEnd.getTime(),
-				weekCurrent:		this.dateDifference(batch.dateStart,new Date(Date.now()))+1,
-				weekRemaining:		this.dateDifference(batch.dateStart,batch.dateEnd),
+				weekCurrent:		dateDifferenceWeeks(batch.dateStart,new Date(Date.now())),
+				weekRemaining:		dateDifferenceWeeks(batch.dateStart,batch.dateEnd),
 				skillset:			batch.skillset,
 				associatesActive:	batch.associatesActive,
 				associatesInactive:	batch.associatesInactive,
