@@ -24,10 +24,10 @@ public class Client {
 	
 	// Multiplicity
 	// Note: should skillset/client be one to many?
-	@OneToOne // Skillset should have mappedBy="client"
-	@JsonIgnoreProperties({"client"})
-	@Column(name="client_skillset_id")
-	private Skillset clientSkillset;
+//	@OneToOne // Skillset should have mappedBy="client"
+//	@JsonIgnoreProperties({"client"})
+//	@Column(name="client_skillset_id")
+//	private Skillset clientSkillset;
 	
 //	@OneToOne(mappedBy="clientdemand") // Note: I feel that this should be reversed, but it likely doesn't matter 
 //	@JsonIgnoreProperties({"client"})
@@ -49,13 +49,13 @@ public class Client {
 		this.name = name;
 	}
 
-	public Skillset getClientSkillset() {
-		return clientSkillset;
-	}
-
-	public void setClientSkillset(Skillset clientSkillset) {
-		this.clientSkillset = clientSkillset;
-	}
+//	public Skillset getClientSkillset() {
+//		return clientSkillset;
+//	}
+//
+//	public void setClientSkillset(Skillset clientSkillset) {
+//		this.clientSkillset = clientSkillset;
+//	}
 
 //	public ClientDemand getClientDemand() {
 //		return clientDemand;

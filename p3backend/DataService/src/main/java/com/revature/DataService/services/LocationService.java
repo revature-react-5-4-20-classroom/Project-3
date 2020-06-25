@@ -21,7 +21,8 @@ public class LocationService {
 	
 	//get all
 	public List<Location> getAll(){
-	return 	locationRepository.findAll();
+		throw new RuntimeException("testing aspect");
+//	return 	locationRepository.findAll();
 		
 		
 	}
