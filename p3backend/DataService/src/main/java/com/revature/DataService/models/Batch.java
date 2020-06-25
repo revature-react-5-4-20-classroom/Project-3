@@ -62,12 +62,12 @@ public class Batch {
 	@OneToOne(fetch = FetchType.EAGER)
 	// May need a JsonIgnoreProperties later on
 	private Trainer trainer;
+
 	
 	
 	@OneToOne
 	@JoinColumn(name="location_id", referencedColumnName = "location_id")
 	private Location location;
-	
 
 	
 	@JoinColumn(name="curriculum_id")
