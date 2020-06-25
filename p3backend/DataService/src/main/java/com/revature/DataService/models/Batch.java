@@ -27,10 +27,11 @@ public class Batch {
 	}
 	
 	
-	
+
 	public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
       Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum,
       List<Associate> associates) {
+
     super();
     this.batchId = batchId;
     this.startDate = startDate;
@@ -67,62 +68,78 @@ public class Batch {
 	// May need a JsonIgnoreProperties later on
 	private Trainer trainer;
 	
-	@JoinColumn(name="location_id")
-	@ManyToOne(fetch = FetchType.EAGER)
+	
+	@OneToOne
+	@JoinColumn(name="location_id", referencedColumnName = "location_id")
 	private Location location;
+	
+
 	
 	@JoinColumn(name="curriculum_id")
 	@OneToOne(fetch = FetchType.EAGER)
 	private Curriculum curriculum;
+
 	
-	@OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
 	@JsonIgnoreProperties({"batch"})
+	@OneToMany(mappedBy="batch", cascade = CascadeType.MERGE)
 	private List<Associate> associates;
+	
 
 
   public Integer getBatchId() {
     return batchId;
   }
 
+
   public void setBatchId(Integer batchId) {
     this.batchId = batchId;
   }
+
 
   public Date getStartDate() {
     return startDate;
   }
 
+
   public void setStartDate(Date startDate) {
     this.startDate = startDate;
   }
+
 
   public Date getEndDate() {
     return endDate;
   }
 
+
   public void setEndDate(Date endDate) {
     this.endDate = endDate;
   }
+
 
   public Boolean getIsConfirmed() {
     return isConfirmed;
   }
 
+
   public void setIsConfirmed(Boolean isConfirmed) {
     this.isConfirmed = isConfirmed;
   }
+
 
   public Integer getInterviewScoreLower() {
     return interviewScoreLower;
   }
 
+
   public void setInterviewScoreLower(Integer interviewScoreLower) {
     this.interviewScoreLower = interviewScoreLower;
   }
 
+
   public Trainer getTrainer() {
     return trainer;
   }
+
 
   public void setTrainer(Trainer trainer) {
     this.trainer = trainer;
@@ -133,38 +150,43 @@ public class Batch {
     return location;
   }
 
+
   public void setLocation(Location location) {
     this.location = location;
   }
+
 
   public Curriculum getCurriculum() {
     return curriculum;
   }
 
+
   public void setCurriculum(Curriculum curriculum) {
     this.curriculum = curriculum;
   }
 
+
+
   public List<Associate> getAssociates() {
-    return associates;
-  }
-
-  public void setAssociates(List<Associate> associates) {
-    this.associates = associates;
-  }
+	return associates;
+}
 
 
-
-  @Override
-  public String toString() {
-    return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
-        + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
-        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum
-        + ", associates=" + associates + "]";
-  }
+public void setAssociates(List<Associate> associates) {
+	this.associates = associates;
+}
 
 
 
-	
-	
+@Override
+public String toString() {
+  return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
+      + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
+      + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum
+      + ", associates=" + associates + "]";
+}
+
+
+
+
 }

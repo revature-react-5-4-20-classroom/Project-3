@@ -1,5 +1,6 @@
 package com.revature.DataService.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(schema = "project3", name = "associate")
@@ -41,9 +45,10 @@ public class Associate {
 	@Column(name="interview_score")
 	private double interviewScore;
 	
+
+	@JsonIgnoreProperties({"associate"})
+	@ManyToOne
 	@JoinColumn(name="assigned_batch_id")
-	@ManyToOne(fetch = FetchType.EAGER)
-	// JsonIgnoreProperties({"associates"})
 	private Batch batch;
 
 	public Integer getAssociateId() {
@@ -69,6 +74,7 @@ public class Associate {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 
 	public String getEmail() {
 		return email;
