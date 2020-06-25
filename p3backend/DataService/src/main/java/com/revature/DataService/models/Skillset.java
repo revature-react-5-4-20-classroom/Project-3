@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,15 +25,17 @@ public class Skillset {
   private String skillSetName;
   
   @ManyToMany
-  @JoinTable(
-      name = "skillset_skills",
-      joinColumns = @JoinColumn(name = "skillset_id",referencedColumnName = "skillset_id"),
-      inverseJoinColumns = @JoinColumn(name = "skill_id",referencedColumnName = "skill_id"))
-  private List<Skills> skills;
+//  @JoinTable(
+//      name = "skillset_skills",
+//      joinColumns = @JoinColumn(name = "skillset_id",referencedColumnName = "skillset_id"),
+//      inverseJoinColumns = @JoinColumn(name = "skill_id",referencedColumnName = "skill_id"))
+  
+ @JoinColumn(name="skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
+ private List<SkillsetSkills> skillSetSkills;
   
   
-  @ManyToMany(mappedBy = "skillsets")
-  private List<Curriculum> curricula;
+//  @ManyToMany(mappedBy = "skillsets")
+//  private List<Curriculum> curricula;
   
   public Skillset() {
     super();
@@ -60,21 +63,23 @@ public class Skillset {
     this.skillSetName = skillSetName;
   }
 
-  public List<Skills> getSkills() {
-    return skills;
-  }
+  
 
-  public void setSkills(List<Skillsgi> skills) {
-    this.skills = skills;
-  }
+  public List<SkillsetSkills> getSkillSetSkils() {
+	return skillSetSkills;
+}
 
-  public List<Curriculum> getCurricula() {
-    return curricula;
-  }
+public void setSkillSetSkils(List<SkillsetSkills> skillSetSkils) {
+	this.skillSetSkills = skillSetSkils;
+}
 
-  public void setCurricula(List<Curriculum> curricula) {
-    this.curricula = curricula;
-  }
+//public List<Curriculum> getCurricula() {
+//    return curricula;
+//  }
+//
+//  public void setCurricula(List<Curriculum> curricula) {
+//    this.curricula = curricula;
+//  }
 
   
 }

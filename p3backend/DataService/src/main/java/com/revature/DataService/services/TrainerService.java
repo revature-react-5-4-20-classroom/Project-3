@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.revature.DataService.exceptions.TrainerNotFoundException;
+import com.revature.DataService.models.Skills;
 import com.revature.DataService.models.Trainer;
 import com.revature.DataService.repositories.TrainerRepository;
 
@@ -41,20 +42,5 @@ public class TrainerService {
 	    }
 	  }
 	  */
-	  public boolean skillsComparison(ArrayList<String> tSkills, ArrayList<String> cSkills) {
-	    ArrayList<String> sharedSkills = new ArrayList<String>();
-	    for(String i : cSkills) {
-	      for (String x: tSkills) {
-	        if(x.equals(i))
-	          sharedSkills.add(x);
-	      }
-	    }
-	    System.out.print("Shared Trainer Skills with Curriculum: ");
-	    for(String p : sharedSkills)
-	      System.out.print(p + " ");
-	    if(sharedSkills.size() / cSkills.size() > .8)
-	      return true;
-	    else
-	      return false;
-	  }
+	 
 }
