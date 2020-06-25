@@ -163,7 +163,17 @@ public class Batch {
   }
 
 
-  @Override
+  public List<Associate> getAssociates() {
+	return associates;
+}
+
+
+public void setAssociates(List<Associate> associates) {
+	this.associates = associates;
+}
+
+
+@Override
   public String toString() {
     return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
         + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower

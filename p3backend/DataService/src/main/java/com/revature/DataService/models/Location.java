@@ -49,6 +49,16 @@ public class Location {
 	}
 
 
+	public Batch getBatch() {
+		return batch;
+	}
+
+
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Location [locationId=" + locationId + ", locationName=" + locationName + "]";

@@ -73,6 +73,14 @@ public class Associate {
 		this.lastName = lastName;
 	}
 
+	public Batch getBatch() {
+		return batch;
+	}
+
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
+
 	public String getEmail() {
 		return email;
 	}
