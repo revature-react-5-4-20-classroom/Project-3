@@ -81,7 +81,7 @@ public Trainer getTrainer() {
 
 public void setTrainer(Trainer trainer) {
 	this.trainer = trainer;
-
+}
 
 
 public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, Trainer trainer) {
