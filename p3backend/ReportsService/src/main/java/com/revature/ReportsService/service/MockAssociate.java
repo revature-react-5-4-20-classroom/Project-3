@@ -2,9 +2,11 @@ package com.revature.ReportsService.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 import com.revature.ReportsService.models.Associate;
 
+@Service
 public class MockAssociate {
 
 	private List<Associate> mockAssociatesData;
@@ -22,14 +24,14 @@ public class MockAssociate {
 		this.nextId = 7;
 	}
 
-	public List<Associate> getAll() {
+	public List<Associate> getAssociates() {
 		return this.mockAssociatesData;
 	}
 
 	public Associate getById(Integer id) {
 		Associate out = null;
 		for (Associate c : this.mockAssociatesData) {
-			if (c.getId().equals(id)) {
+			if (c.getAssociateId().equals(id)) {
 				out = c;
 				break;
 			}
