@@ -10,10 +10,10 @@ export async function getBatchById(batchId:number ){
     }
 }
 
-// Confirm/Unconfirm a batch
-export async function batchConfirm(bId : number, isConf : boolean) : Promise<Batch> {
+// Confirm/Unconfirm a batch // Assigm, unassign, or switch batch trainers
+export async function updateBatch(bId : number, isConf : boolean, trainId? : number) : Promise<Batch> {
     try {
-        const dataTransfer =  {isConfirmed : isConf};
+        const dataTransfer =  {batchId: bId, isConfirmed: isConf, trainerId: trainId ? trainId : null};
         const response = await storeClient.patch(`/batches/${bId}`, dataTransfer);
         const {
             batchId, 
@@ -38,17 +38,7 @@ export async function batchConfirm(bId : number, isConf : boolean) : Promise<Bat
             associates
         );
     } catch (e) {
-        console.log("Failed to update batch confirmation", e.message);
+        console.log("Failed to update batch", e.message);
         throw e;
-    }
-}
-
-// Assigm, unassign, or switch batch trainers
-export async function changeBatchTrainer(bId : number, trainId : number, assign : boolean ) {
-    try {
-        
-    } catch (e) {
-        console.log("Failed to update batch trainer assignment", e.message);
-        
     }
 }
