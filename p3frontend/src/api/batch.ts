@@ -42,3 +42,13 @@ export async function batchConfirm(bId : number, isConf : boolean) : Promise<Bat
         throw e;
     }
 }
+
+// Assigm, unassign, or switch batch trainers
+export async function changeBatchTrainer(bId : number, trainId : number, assign : boolean ) {
+    try {
+        
+    } catch (e) {
+        console.log("Failed to update batch trainer assignment", e.message);
+        
+    }
+}
