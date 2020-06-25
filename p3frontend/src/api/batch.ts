@@ -11,6 +11,7 @@ export async function getBatchById(batchId:number ){
 }
 
 // Confirm/Unconfirm a batch // Assigm, unassign, or switch batch trainers
+// NEEDS TO BE UPDATED
 export async function updateBatch(bId : number, isConf : boolean, trainId? : number) : Promise<Batch> {
     try {
         const dataTransfer =  {batchId: bId, isConfirmed: isConf, trainerId: trainId ? trainId : null};

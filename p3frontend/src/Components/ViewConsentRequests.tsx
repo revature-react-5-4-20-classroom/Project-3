@@ -1,5 +1,5 @@
 import React from 'react';
-import {approveConsentRequest, denyConsentRequest, getConsentByTrainerId, getBatchName} from '../api/consent'
+import {approveConsentRequest, denyConsentRequest, getConsentByTrainerId} from '../api/consent'
 import { Consent } from '../models/Consent';
 import { Jumbotron, Container, Row, Col, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, ListGroup, ListGroupItem, Button, Input, Table, Alert } from 'reactstrap';
 

@@ -1,7 +1,7 @@
 import { Trainer } from "./Trainer";
 import { Curriculum } from "./Curriculum";
 import { Associate } from "./Associate";
-
+// NEEDS TO BE UPDATED
 export class Batch{
     batchId:number;
     startDate:string;
