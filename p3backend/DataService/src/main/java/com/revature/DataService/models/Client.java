@@ -26,10 +26,10 @@ public class Client {
 	
 	// Multiplicity
 	// Note: should skillset/client be one to many?
-//	@OneToOne // Skillset should have mappedBy="client"
-//	@JsonIgnoreProperties({"client"})
-//	@Column(name="client_skillset_id")
-//	private Skillset clientSkillset;
+	@OneToOne // Skillset should have mappedBy="client"
+	@JsonIgnoreProperties({"client"})
+  //	@Column(name="client_skillset_id")
+	private Skillset clientSkillset;
 	
 	@OneToMany(mappedBy="client", cascade=CascadeType.MERGE)
 	@JsonIgnoreProperties({"client"})

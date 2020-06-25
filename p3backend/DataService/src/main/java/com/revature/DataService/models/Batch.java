@@ -27,8 +27,11 @@ public class Batch {
 	}
 	
 	
+
 	public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum) {
+      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum,
+      List<Associate> associates) {
+
     super();
     this.batchId = batchId;
     this.startDate = startDate;
@@ -38,7 +41,9 @@ public class Batch {
     this.trainer = trainer;
     this.location = location;
     this.curriculum = curriculum;
+    this.associates = associates;
   }
+
 
 
   @Id
@@ -79,8 +84,6 @@ public class Batch {
 	@OneToMany(mappedBy="batch", cascade = CascadeType.MERGE)
 	private List<Associate> associates;
 	
-	
-
 
 
   public Integer getBatchId() {
@@ -163,6 +166,7 @@ public class Batch {
   }
 
 
+
   public List<Associate> getAssociates() {
 	return associates;
 }
@@ -173,12 +177,16 @@ public void setAssociates(List<Associate> associates) {
 }
 
 
+
 @Override
-  public String toString() {
-    return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
-        + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
-        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum + "]";
-  }
-		
-	
+public String toString() {
+  return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
+      + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
+      + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum
+      + ", associates=" + associates + "]";
+}
+
+
+
+
 }
