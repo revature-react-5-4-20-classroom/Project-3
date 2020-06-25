@@ -2,54 +2,79 @@ package com.revature.ReportsService.models;
 
 public class Associate {
 
-  private Integer associateId;
-  private String firstName;
-  private String lastName;
-  private String email;
-  private Boolean active;
-  private Integer interviewScore;
-  private Integer assignedBatchId;
-  
-  protected Integer getAssociateId() {
-    return associateId;
-  }
-  protected void setAssociateId(Integer associateId) {
-    this.associateId = associateId;
-  }
-  protected String getFirstName() {
-    return firstName;
-  }
-  protected void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-  protected String getLastName() {
-    return lastName;
-  }
-  protected void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-  protected String getEmail() {
-    return email;
-  }
-  protected void setEmail(String email) {
-    this.email = email;
-  }
-  protected Boolean getActive() {
-    return active;
-  }
-  protected void setActive(Boolean active) {
-    this.active = active;
-  }
-  protected Integer getInterviewScore() {
-    return interviewScore;
-  }
-  protected void setInterviewScore(Integer interviewScore) {
-    this.interviewScore = interviewScore;
-  }
-  protected Integer getAssignedBatchId() {
-    return assignedBatchId;
-  }
-  protected void setAssignedBatchId(Integer assignedBatchId) {
-    this.assignedBatchId = assignedBatchId;
-  }
+	private Integer associateId;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private Boolean active;
+	private Integer interviewScore;
+	private Integer assignedBatchId;
+
+	public Associate(Integer associateId, String firstName, String lastName, String email, Boolean active,
+			Integer interviewScore, Integer assignedBatchId) {
+		super();
+		this.associateId = associateId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.active = active;
+		this.interviewScore = interviewScore;
+		this.assignedBatchId = assignedBatchId;
+	}
+
+	public Integer getAssociateId() {
+		return associateId;
+	}
+
+	public void setAssociateId(Integer associateId) {
+		this.associateId = associateId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Integer getInterviewScore() {
+		return interviewScore;
+	}
+
+	public void setInterviewScore(Integer interviewScore) {
+		this.interviewScore = interviewScore;
+	}
+
+	public Integer getAssignedBatchId() {
+		return assignedBatchId;
+	}
+
+	public void setAssignedBatchId(Integer assignedBatchId) {
+		this.assignedBatchId = assignedBatchId;
+	}
 }

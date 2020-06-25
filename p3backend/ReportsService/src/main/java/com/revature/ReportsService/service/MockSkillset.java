@@ -25,7 +25,7 @@ private List<Skillset> skillsets;
 	public Skillset getSkillsetById(Integer id) {
 		Skillset out = null;
 		for(Skillset i : this.skillsets) {
-			if(i.getId().equals(id)) {
+			if(i.getSkillsetId().equals(id)) {
 				out = i;
 				break; 
 			}

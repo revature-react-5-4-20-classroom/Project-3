@@ -25,7 +25,7 @@ public class MockTrainer {
 	public Trainer getTrainerById(Integer id) {
 		Trainer out = null;
 		for(Trainer i : this.trainers) {
-			if(i.getId().equals(id)) {
+			if(i.getTrainerId().equals(id)) {
 				out = i;
 				break; 
 			}
