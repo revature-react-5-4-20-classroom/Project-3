@@ -4,7 +4,8 @@ public class Skillset {
 
   private Integer id;
   private String name;
-  protected Integer getId() {
+  
+  public Integer getId() {
     return id;
   }
   protected void setId(Integer id) {

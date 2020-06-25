@@ -2,8 +2,11 @@ package com.revature.ReportsService.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.revature.ReportsService.models.Trainer;
 
+@Service
 public class MockTrainer {
 
 	private List<Trainer> trainers;
