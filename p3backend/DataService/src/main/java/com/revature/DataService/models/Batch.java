@@ -47,80 +47,11 @@ public class Batch {
 	@OneToOne(fetch = FetchType.EAGER)
 	// May need a JsonIgnoreProperties later on
 	private Trainer trainer;
-	
-<<<<<<< HEAD
-	
-	
-	public Integer getBatchId() {
-		return batchId;
-	}
 
-	public void setBatchId(Integer batchId) {
-		this.batchId = batchId;
-	}
-
-	
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public Boolean getIsConfirmed() {
-		return isConfirmed;
-	}
-
-	public void setIsConfirmed(Boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
-	}
-
-	public Integer getInterviewScoreLower() {
-		return interviewScoreLower;
-	}
-
-	public void setInterviewScoreLower(Integer interviewScoreLower) {
-		this.interviewScoreLower = interviewScoreLower;
-	}
-
-	public Trainer getTrainer() {
-		return trainer;
-	}
-
-	public void setTrainer(Trainer trainer) {
-		this.trainer = trainer;
-	}
-	
-	public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
-			Trainer trainer) {
-		super();
-		this.batchId = batchId;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.isConfirmed = isConfirmed;
-		this.interviewScoreLower = interviewScoreLower;
-		this.trainer = trainer;
-	}
-	
-
-	
-	
 //	@JoinColumn(name="location_id")
 //	@ManyToOne(fetch = FetchType.EAGER)
-=======
 	@Column(name="location_id")
 	private Integer locationId;
->>>>>>> 5d74803ed1ae0e542ecba29c181a488b0a5367f2
 	
 	@JoinColumn(name="curriculum_id")
 	@OneToOne(fetch = FetchType.EAGER)
