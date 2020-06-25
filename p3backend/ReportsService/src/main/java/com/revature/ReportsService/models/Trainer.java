@@ -7,7 +7,8 @@ public class Trainer {
   private String lastName;
   private String email;
   private Integer batchId;
-  protected Integer getId() {
+  
+  public Integer getId() {
     return id;
   }
   protected void setId(Integer id) {
