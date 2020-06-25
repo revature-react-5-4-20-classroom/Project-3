@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -63,11 +65,10 @@ public class Batch {
   @Column(name = "interview_score_lower")
   private Integer interviewScoreLower;
 
-  @JoinColumn(name = "trainer_id")
-  @OneToOne(fetch = FetchType.EAGER)
-  // May need a JsonIgnoreProperties later on
-  private Trainer trainer;
-
+//  @JsonIgnoreProperties({"batches"})
+//  @ManyToMany(cascade=CascadeType.MERGE)
+//  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="skillset_id"))
+//  private List<>
 
   @OneToOne
   @JoinColumn(name = "location_id", referencedColumnName = "location_id")

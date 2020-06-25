@@ -50,12 +50,10 @@ public class Trainer implements Serializable {
 //	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
 	private List<Skillset> trainerSkills;
 
-	
-	//I'm not certain how this who skills thing will work yet
-	//private skillset skills
-
 	@OneToOne(mappedBy = "trainer")
 	private Consent consent;
+	
+	//@ManyToMany()
 
 
 public Trainer() {
