@@ -39,7 +39,7 @@ public class Batch {
     this.isConfirmed = isConfirmed;
     this.interviewScoreLower = interviewScoreLower;
     this.trainer = trainer;
-    this.location = location;
+    //this.location = location;
     this.curriculum = curriculum;
     this.associates = associates;
   }
@@ -69,10 +69,17 @@ public class Batch {
 	private Trainer trainer;
 
 	
+
+
 	
-	@OneToOne
-	@JoinColumn(name="location_id", referencedColumnName = "location_id")
-	private Location location;
+
+	@Column(name="location_id")
+	private Integer locationId;
+
+  
+//	@OneToOne
+//	@JoinColumn(name="location_id", referencedColumnName = "location_id", insertable=false)
+//	private Location location;
 
 	
 	@JoinColumn(name="curriculum_id")
@@ -146,14 +153,14 @@ public class Batch {
   }
 
 
-  public Location getLocation() {
-    return location;
-  }
-
-
-  public void setLocation(Location location) {
-    this.location = location;
-  }
+//  public Location getLocation() {
+//    return location;
+//  }
+//
+//
+//  public void setLocation(Location location) {
+//    this.location = location;
+//  }
 
 
   public Curriculum getCurriculum() {
@@ -177,16 +184,11 @@ public void setAssociates(List<Associate> associates) {
 }
 
 
-
-@Override
-public String toString() {
-  return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
-      + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
-      + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum
-      + ", associates=" + associates + "]";
-}
-
-
-
-
+//@Override
+//  public String toString() {
+//    return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
+//        + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
+//        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum + "]";
+//  }
+		
 }

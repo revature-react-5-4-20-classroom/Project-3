@@ -4,6 +4,9 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
 import { InProgress } from './Story1/InProgress';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+
+import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
+import { ViewConsentRequests } from './Components/ViewConsentRequests';
 import { OverviewClientDemand } from './Story2/OverviewClientDemand';
 import { OverviewTraining } from './Story3/OverviewTraining';
 import { AssignTrainer } from './Story4/AssignTrainer';
@@ -77,6 +80,12 @@ export class App extends React.Component<any, any> {
         </Route>
         <Route path='/assign-trainer'>
           <AssignTrainer/>
+        </Route>
+        <Route path='/trainers'>
+          <TrainerAssignmentComponent />
+        </Route>
+        <Route path='/consent'>
+          <ViewConsentRequests />
         </Route>
       </Router>
     </Container>)

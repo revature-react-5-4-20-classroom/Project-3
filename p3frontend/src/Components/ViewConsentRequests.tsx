@@ -1,7 +1,7 @@
 import React from 'react';
 import {approveConsentRequest, denyConsentRequest, getConsentByTrainerId} from '../api/consent'
 import { Consent } from '../models/Consent';
-import { Jumbotron, Container, Row, Col, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, ListGroup, ListGroupItem, Button, Input, Table, Alert } from 'reactstrap';
+import {  ListGroup, ListGroupItem, Button} from 'reactstrap';
 
 interface IViewConsentRequestsState {
     consentRequests:Consent[];
@@ -18,7 +18,7 @@ export class ViewConsentRequests extends React.Component<any,IViewConsentRequest
     }
 
     componentDidMount(){
-        this.getConsentRequests;
+        this.getConsentRequests();
     }
 
     accept = async(id:number) =>{
@@ -54,9 +54,9 @@ export class ViewConsentRequests extends React.Component<any,IViewConsentRequest
                                     
                                     
                                     
-                                        {/* {getBatchName(1)} */}
-                                        {(<Button color="primary" id={i.toString()} onClick={()=>this.accept(i)}>Accept</Button>)}
-                                        {(<Button color="primary" id={i.toString()} onClick={()=>this.decline(i)}>Decline</Button>)}
+                                        {consent.batchId}
+                                        <Button color="primary" id={i.toString()} onClick={()=>this.accept(i)}>Accept</Button>
+                                        <Button color="primary" id={i.toString()} onClick={()=>this.decline(i)}>Decline</Button>
                                     
                                 
                                 </ListGroupItem>)
