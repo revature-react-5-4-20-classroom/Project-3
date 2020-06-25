@@ -73,15 +73,13 @@ public class Batch {
 	@JoinColumn(name="curriculum_id")
 	@OneToOne(fetch = FetchType.EAGER)
 	private Curriculum curriculum;
-<<<<<<< HEAD
-=======
+
 	
 	@JsonIgnoreProperties({"batch"})
 	@OneToMany(mappedBy="batch", cascade = CascadeType.MERGE)
 	private List<Associate> associates;
 	
 	
->>>>>>> 3e5b21a5e85c7a81d607a89dbd17d95baaf09ee4
 
 
 
