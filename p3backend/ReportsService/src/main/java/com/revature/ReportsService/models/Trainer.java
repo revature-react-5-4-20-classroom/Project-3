@@ -10,6 +10,7 @@ public class Trainer {
   
   public Integer getTrainerId() {
     return trainerId;
+
   }
   public void setTrainerId(Integer trainerId) {
     this.trainerId = trainerId;

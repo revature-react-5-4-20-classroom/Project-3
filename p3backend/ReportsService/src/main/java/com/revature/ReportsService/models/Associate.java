@@ -52,6 +52,4 @@ public class Associate {
   protected void setAssignedBatchId(Integer assignedBatchId) {
     this.assignedBatchId = assignedBatchId;
   }
-  
-  
 }
