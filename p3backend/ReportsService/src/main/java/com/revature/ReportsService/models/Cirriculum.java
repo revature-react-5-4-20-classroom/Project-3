@@ -2,20 +2,22 @@ package com.revature.ReportsService.models;
 
 public class Cirriculum {
 
-  private Integer id;
+  private Integer curriculumId;
   private String name;
-  protected Integer getId() {
-    return id;
+  public Integer getCurriculumId() {
+    return curriculumId;
   }
-  protected void setId(Integer id) {
-    this.id = id;
+  public void setCurriculumId(Integer curriculumId) {
+    this.curriculumId = curriculumId;
   }
-  protected String getName() {
+  public String getName() {
     return name;
   }
-  protected void setName(String name) {
+  public void setName(String name) {
     this.name = name;
   }
+  
+  
   
   
 }

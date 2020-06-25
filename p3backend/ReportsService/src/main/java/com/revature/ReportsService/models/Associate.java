@@ -2,54 +2,55 @@ package com.revature.ReportsService.models;
 
 public class Associate {
 
-  private Integer id;
+  private Integer associateId;
   private String firstName;
   private String lastName;
   private String email;
   private Boolean active;
   private Integer interviewScore;
-  private Integer batchId;
-  public Integer getId() {
-    return id;
+  private Integer assignedBatchId;
+  
+  protected Integer getAssociateId() {
+    return associateId;
   }
-  public void setId(Integer id) {
-    this.id = id;
+  protected void setAssociateId(Integer associateId) {
+    this.associateId = associateId;
   }
-  public String getFirstName() {
+  protected String getFirstName() {
     return firstName;
   }
-  public void setFirstName(String firstName) {
+  protected void setFirstName(String firstName) {
     this.firstName = firstName;
   }
-  public String getLastName() {
+  protected String getLastName() {
     return lastName;
   }
-  public void setLastName(String lastName) {
+  protected void setLastName(String lastName) {
     this.lastName = lastName;
   }
-  public String getEmail() {
+  protected String getEmail() {
     return email;
   }
-  public void setEmail(String email) {
+  protected void setEmail(String email) {
     this.email = email;
   }
-  public Boolean getActive() {
+  protected Boolean getActive() {
     return active;
   }
-  public void setActive(Boolean active) {
+  protected void setActive(Boolean active) {
     this.active = active;
   }
-  public Integer getInterviewScore() {
+  protected Integer getInterviewScore() {
     return interviewScore;
   }
-  public void setInterviewScore(Integer interviewScore) {
+  protected void setInterviewScore(Integer interviewScore) {
     this.interviewScore = interviewScore;
   }
-  public Integer getBatchId() {
-    return batchId;
+  protected Integer getAssignedBatchId() {
+    return assignedBatchId;
   }
-  public void setBatchId(Integer batchId) {
-    this.batchId = batchId;
+  protected void setAssignedBatchId(Integer assignedBatchId) {
+    this.assignedBatchId = assignedBatchId;
   }
   
   
