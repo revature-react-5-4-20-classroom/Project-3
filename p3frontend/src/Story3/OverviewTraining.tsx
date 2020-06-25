@@ -3,7 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 
 
-export class OverviewClientDemand extends React.Component<any,any>
+export class OverviewTraining extends React.Component<any,any>
 {
 	constructor(props:any)
 	{
@@ -17,10 +17,11 @@ export class OverviewClientDemand extends React.Component<any,any>
 	render()
 	{
 		return(<Container>
-				<h6>Story 2. "Overview"</h6><br/>
+				<h6>Story 3. "Training Overview"</h6><br/>
 				<p>Given that there is a Client Demand for engineers with a given Curricula Track
-When I navigate to the `Overview` view
-Then I see graphics depicting the Quantity Demanded vs Quantity Supplied by Curricula Track (Current, in 1 month, in 3 months)</p><br/>
+And Recruitment Team publishes information about individuals that pass the Technical Screening
+When I navigate to the `Training Overview` view
+Then I generate scenarios about possible Batch placements</p><br/>
 				
 			<Row>
 				<Col>

@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch, BrowserRouter, NavLink } from '
 import { InProgress } from './Story1/InProgress';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
 import { OverviewClientDemand } from './Story2/OverviewClientDemand';
+import { OverviewTraining } from './Story3/OverviewTraining';
+import { AssignTrainer } from './Story4/AssignTrainer';
 
 export class App extends React.Component<any,any>
 {
@@ -35,6 +37,12 @@ export class App extends React.Component<any,any>
               <NavItem>
                 <NavLink to='/overview' className='nav-link' activeClassName='active'>Overview</NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink to='/overview-training' className='nav-link' activeClassName='active'>Training Overview</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to='/assign-trainer' className='nav-link' activeClassName='active'>Assign Trainers</NavLink>
+              </NavItem>
             </Nav>
         </Navbar>
         <Route path='/home'>
@@ -45,6 +53,12 @@ export class App extends React.Component<any,any>
         </Route>
         <Route path='/overview'>
           <OverviewClientDemand/>
+        </Route>
+        <Route path='/overview-training'>
+          <OverviewTraining/>
+        </Route>
+        <Route path='/assign-trainer'>
+          <AssignTrainer/>
         </Route>
       </Router>
     </Container>)
