@@ -1,5 +1,7 @@
 package com.revature.DataService.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,14 +32,30 @@ public class Trainer {
 	@Column(name="email")
 	private String email;
 	
-	@JoinColumn(name="current_batch")
-	@OneToOne(fetch= FetchType.EAGER)
-	private Integer currentBatch;
+//	@JoinColumn(name="current_batch")
+//	@OneToOne(fetch= FetchType.EAGER)
+//	private Integer currentBatch;
+	
+//	@OneToMany
+//	@JoinTable(
+//		      name = "skillset_skills",
+//		      joinColumns = @JoinColumn(name = "trainer_skillset_id",referencedColumnName = "skillset_id"),
+//		      inverseJoinColumns = @JoinColumn(name = "skill_id",referencedColumnName = "skill_id"))
+//	private List<Skills> trainerSkills;
+	
 	
 	//I'm not certain how this who skills thing will work yet
 	//private skillset skills
 
-  public Trainer() {
+//	public List<Skills> getTrainerSkills() {
+//		return trainerSkills;
+//	}
+//
+//	public void setTrainerSkills(List<Skills> trainerSkills) {
+//		this.trainerSkills = trainerSkills;
+//	}
+
+public Trainer() {
     super();
     // TODO Auto-generated constructor stub
   }
@@ -47,7 +67,7 @@ public class Trainer {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.currentBatch = currentBatch;
+    //this.currentBatch = currentBatch;
   }
 
   public Integer getTrainerId() {
@@ -82,19 +102,19 @@ public class Trainer {
     this.email = email;
   }
 
-  public Integer getCurrentBatch() {
-    return currentBatch;
-  }
+//  public Integer getCurrentBatch() {
+//    return currentBatch;
+//  }
+//
+//  public void setCurrentBatch(Integer currentBatch) {
+//    this.currentBatch = currentBatch;
+//  }
 
-  public void setCurrentBatch(Integer currentBatch) {
-    this.currentBatch = currentBatch;
-  }
-
-  @Override
-  public String toString() {
-    return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName
-        + ", email=" + email + ", currentBatch=" + currentBatch + "]";
-  }
+//  @Override
+//  public String toString() {
+//    return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName
+//        + ", email=" + email + ", currentBatch=" + currentBatch + "]";
+//  }
 
 	
 }
