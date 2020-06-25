@@ -7,19 +7,19 @@ import com.revature.ReportsService.models.Curriculum;
 @Service
 public class MockCurriculum {
 
-  private List<Curriculum> curriculum;
+  private List<Curriculum> curricula;
   
   public MockCurriculum() {
     super();
   }
   
-  public List<Curriculum> getCurriculum() {
-    return curriculum;
+  public List<Curriculum> getCurricula() {
+    return curricula;
   }
   
   public Curriculum getCurriculumById(Integer id) {
     Curriculum out = null;
-    for (Curriculum c: this.curriculum) {
+    for (Curriculum c: this.curricula) {
       if (c.getCurriculumId().equals(id)) {
         out = c;
         break;
