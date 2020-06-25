@@ -32,7 +32,7 @@ public class Batch {
   
 
   public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum,
+      Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
       List<Associate> associates, Consent consent) {
     super();
     this.batchId = batchId;
@@ -40,7 +40,7 @@ public class Batch {
     this.endDate = endDate;
     this.isConfirmed = isConfirmed;
     this.interviewScoreLower = interviewScoreLower;
-    this.trainer = trainer;
+    this.trainers = trainers;
     this.location = location;
     this.curriculum = curriculum;
     this.associates = associates;
@@ -65,10 +65,10 @@ public class Batch {
   @Column(name = "interview_score_lower")
   private Integer interviewScoreLower;
 
-//  @JsonIgnoreProperties({"batches"})
-//  @ManyToMany(cascade=CascadeType.MERGE)
-//  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="skillset_id"))
-//  private List<>
+  @JsonIgnoreProperties({"batches"})
+  @ManyToMany(cascade=CascadeType.MERGE)
+  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="skillset_id"))
+  private List<Trainer> trainers;
 
   @OneToOne
   @JoinColumn(name = "location_id", referencedColumnName = "location_id")
@@ -139,18 +139,21 @@ public class Batch {
     this.interviewScoreLower = interviewScoreLower;
   }
 
-
-  public Trainer getTrainer() {
-    return trainer;
-  }
-
-
-  public void setTrainer(Trainer trainer) {
-    this.trainer = trainer;
-  }
+  public List<Trainer> getTrainers() {
+	return trainers;
+}
 
 
-  public Location getLocation() {
+
+
+public void setTrainers(List<Trainer> trainers) {
+	this.trainers = trainers;
+}
+
+
+
+
+public Location getLocation() {
     return location;
   }
 

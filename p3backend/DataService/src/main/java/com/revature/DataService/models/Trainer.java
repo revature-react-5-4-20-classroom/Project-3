@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -53,8 +54,18 @@ public class Trainer implements Serializable {
 	@OneToOne(mappedBy = "trainer")
 	private Consent consent;
 	
-	//@ManyToMany()
+	@JsonIgnoreProperties({"trainers"})
+	@ManyToMany(mappedBy="trainers")
+	private List<Batch> batches;
 
+
+public List<Batch> getBatches() {
+		return batches;
+	}
+
+	public void setBatches(List<Batch> batches) {
+		this.batches = batches;
+	}
 
 public Trainer() {
     super();
