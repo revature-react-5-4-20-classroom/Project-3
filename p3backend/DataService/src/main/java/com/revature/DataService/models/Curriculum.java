@@ -30,12 +30,13 @@ public class Curriculum {
 	// This next one is a potential relationship w/ skillset, depending on how the relationships are set up
 	// Note: this is implemented with the assumption that the Skillset model will have a list of Curriculums called "curricula"
 	@ManyToMany
-	@JoinTable(
-			name="curriculumskills",
-			joinColumns = @JoinColumn(name="curriculum_id"),
-			inverseJoinColumns = @JoinColumn(name="skill_set_id"))
-	@JsonIgnoreProperties({"curricula"})
-	List<Skillset> skillsets;
+//	@JoinTable(
+//			name="curriculumskills",
+//			joinColumns = @JoinColumn(name="curriculum_id"),
+//			inverseJoinColumns = @JoinColumn(name="skill_set_id"))
+//	@JsonIgnoreProperties({"curricula"})
+//	@JoinColumn(name="curriculum_id")
+//	List<Skillset> skillsets;
 
 	public Integer getCurriculumId() {
 		return curriculumId;
@@ -53,12 +54,12 @@ public class Curriculum {
 		this.name = name;
 	}
 
-	public List<Skillset> getSkillsets() {
-		return skillsets;
-	}
-
-	public void setSkillsets(List<Skillset> skillsets) {
-		this.skillsets = skillsets;
-	}
+//	public List<Skillset> getSkillsets() {
+//		return skillsets;
+//	}
+//
+//	public void setSkillsets(List<Skillset> skillsets) {
+//		this.skillsets = skillsets;
+//	}
 	
 }

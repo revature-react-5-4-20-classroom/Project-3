@@ -15,7 +15,7 @@ public class Skills {
 	
 	@Id
 	@Column(name="skill_id")
- @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer skillId;
 	
 	
