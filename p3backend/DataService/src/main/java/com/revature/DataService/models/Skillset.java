@@ -81,6 +81,7 @@ public Trainer getTrainer() {
 
 public void setTrainer(Trainer trainer) {
 	this.trainer = trainer;
+}
 
 
 

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import {Consent} from '../models/Consent'
-import { Batch } from '../models/Batch';
+import { Trainer } from '../models/Trainer';
 
 
 export const storeClient = axios.create({
@@ -9,12 +9,39 @@ export const storeClient = axios.create({
     //baseURL : 'http://18.216.197.108:8080',
     //if you don't have the following line, your login won't work
     withCredentials: false, // we should probably change this later
-})
+});
 
 
-export async function createConsentRequest(consent:Consent ){
+export async function getEligibility(trainer:Trainer, batchId:number): Promise<boolean>{
+
+    const response : boolean = await storeClient.get(`/trainer/eligible/${batchId}`,{
+        params: {
+          trainer: trainer,
+        }
+      })
+      return response;
+}
+
+export async function assignTrainer(){
+    const repsone = await storeClient.post('/batch');
+}
+
+
+export async function getAllTrainers() : Promise<any[]>{
     try{
-        const response =  await storeClient.post('/consent', {consent:consent});
+        const response =  await storeClient.get('/trainer');
+        return response.data.map((trainerObj: any) => {
+            const {trainerId, firstName, lastName, email, trainerSkillSetId, trainerSkills  } = trainerObj;
+            return new Trainer(trainerId,firstName, lastName, email, trainerSkillSetId, trainerSkills);
+         })
+    } catch (e){
+        console.log(e)
+        throw e;
+    }
+}
+export async function createConsentRequest(trainerId:number, isApproved:null,batchId:number ){
+    try{
+        const response =  await storeClient.post('/consent', {trainerId:trainerId, isApproved:isApproved, batchId:batchId});
         return response;
     } catch (e){
         console.log(e)
@@ -60,32 +87,5 @@ export async function getBatchName(batchId:number ){
         return response;
     } catch (e){
         console.log(e)
-    }
-}
-
-// Confirm/Unconfirm a batch
-export async function batchConfirm(bId : number, isConf : boolean) : Promise<Batch> {
-    try {
-        const dataTransfer =  {isConfirmed : isConf};
-        const response = await storeClient.patch(`/batches/${bId}`, dataTransfer);
-        const {
-            batchId, 
-            curriculum, 
-            startDate, 
-            endDate, 
-            isConfirmed, 
-            interviewScoreLower
-        } = response.data;
-        return new Batch(
-            batchId,
-            curriculum,
-            startDate,
-            endDate,
-            isConfirmed,
-            interviewScoreLower
-        );
-    } catch (e) {
-        console.log("Failed to update batch confirmation", e.message);
-        throw e;
     }
 }

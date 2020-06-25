@@ -3,6 +3,8 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
 import { ViewAtAGlance } from './Story1/ViewAtAGlance';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
+import { ViewConsentRequests } from './Components/ViewConsentRequests';
 
 export class App extends React.Component<any,any>
 {
@@ -38,6 +40,12 @@ export class App extends React.Component<any,any>
         </Route>
         <Route path='/batches'>
           <ViewAtAGlance/>
+        </Route>
+        <Route path='/trainers'>
+          <TrainerAssignmentComponent />
+        </Route>
+        <Route path='/consent'>
+          <ViewConsentRequests />
         </Route>
       </Router>
     </Container>)

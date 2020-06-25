@@ -26,7 +26,7 @@ public class Client {
 	// Note: should skillset/client be one to many?
 	@OneToOne // Skillset should have mappedBy="client"
 	@JsonIgnoreProperties({"client"})
-	@Column(name="client_skillset_id")
+	//@Column(name="client_skillset_id")
 	private Skillset clientSkillset;
 	
 //	@OneToOne(mappedBy="clientdemand") // Note: I feel that this should be reversed, but it likely doesn't matter 

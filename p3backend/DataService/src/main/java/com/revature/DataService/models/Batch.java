@@ -49,8 +49,7 @@ public class Batch {
 	private Trainer trainer;
 	
 
-	@Column(name="location_id")
-	private Integer locationId;
+	
 	@Column(name="location_id")
 	private Integer locationId;
 
