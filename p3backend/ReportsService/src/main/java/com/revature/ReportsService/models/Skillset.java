@@ -2,21 +2,23 @@ package com.revature.ReportsService.models;
 
 public class Skillset {
 
-  private Integer id;
+  private Integer skillsetId;
   private String name;
   
-  public Integer getId() {
-    return id;
+  public Integer getSkillsetId() {
+    return skillsetId;
   }
-  protected void setId(Integer id) {
-    this.id = id;
+  public void setSkillsetId(Integer skillsetId) {
+    this.skillsetId = skillsetId;
   }
-  protected String getName() {
+  public String getName() {
     return name;
   }
-  protected void setName(String name) {
+  public void setName(String name) {
     this.name = name;
   }
+  
+  
   
   
 }

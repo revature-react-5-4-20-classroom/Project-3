@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.revature.DataService.models.Skills;
-import com.revature.DataService.models.SkillsDao;
+//import com.revature.DataService.models.SkillsDao;
 import com.revature.DataService.repositories.SkillsRepository;
 
 

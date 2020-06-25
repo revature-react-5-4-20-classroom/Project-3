@@ -2,42 +2,45 @@ package com.revature.ReportsService.models;
 
 public class Trainer {
 
-  private Integer id;
+  private Integer trainerId;
   private String firstName;
   private String lastName;
   private String email;
-  private Integer batchId;
+  private Integer trainerSkillsetId;
   
-  public Integer getId() {
-    return id;
+  public Integer getTrainerId() {
+    return trainerId;
+
   }
-  protected void setId(Integer id) {
-    this.id = id;
+  public void setTrainerId(Integer trainerId) {
+    this.trainerId = trainerId;
   }
-  protected String getFirstName() {
+  public String getFirstName() {
     return firstName;
   }
-  protected void setFirstName(String firstName) {
+  public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
-  protected String getLastName() {
+  public String getLastName() {
     return lastName;
   }
-  protected void setLastName(String lastName) {
+  public void setLastName(String lastName) {
     this.lastName = lastName;
   }
-  protected String getEmail() {
+  public String getEmail() {
     return email;
   }
-  protected void setEmail(String email) {
+  public void setEmail(String email) {
     this.email = email;
   }
-  protected Integer getBatchId() {
-    return batchId;
+  public Integer getTrainerSkillsetId() {
+    return trainerSkillsetId;
   }
-  protected void setBatchId(Integer batchId) {
-    this.batchId = batchId;
+  public void setTrainerSkillsetId(Integer trainerSkillsetId) {
+    this.trainerSkillsetId = trainerSkillsetId;
   }
+  
+  
   
   
 }

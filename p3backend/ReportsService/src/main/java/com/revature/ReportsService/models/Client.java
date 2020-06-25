@@ -2,20 +2,24 @@ package com.revature.ReportsService.models;
 
 public class Client {
 
-  private Integer id;
+  private Integer clientId;
   private String name;
-  protected Integer getId() {
-    return id;
+  
+  public Integer getClientId() {
+    return clientId;
   }
-  protected void setId(Integer id) {
-    this.id = id;
+  public void setClientId(Integer clientId) {
+    this.clientId = clientId;
   }
-  protected String getName() {
+  public String getName() {
     return name;
   }
-  protected void setName(String name) {
+  public void setName(String name) {
     this.name = name;
   }
+  
+
+
   
   
 }
