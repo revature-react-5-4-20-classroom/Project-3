@@ -11,7 +11,7 @@ public class CurriculumService {
   
   public List<Curriculum> getAll() {
     // Return openFeign grab to db endpoing for all
-    return new MockCurriculum().getCurriculum();
+    return new MockCurriculum().getCurricula();
   }
   
   public Curriculum getById(Integer id) {
