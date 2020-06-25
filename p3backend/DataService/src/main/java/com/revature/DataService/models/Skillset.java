@@ -64,9 +64,9 @@ public class Skillset {
     return skills;
   }
 
-  public void setSkills(List<Skillsgi> skills) {
-    this.skills = skills;
-  }
+//  public void setSkills(List<Skillsgi> skills) {
+//    this.skills = skills;
+//  }
 
   public List<Curriculum> getCurricula() {
     return curricula;

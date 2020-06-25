@@ -30,7 +30,7 @@ public class Trainer {
 	
 	@JoinColumn(name="current_batch")
 	@OneToOne(fetch= FetchType.EAGER)
-	private Integer currentBatch;
+	private Batch currentBatch;
 	
 	//I'm not certain how this who skills thing will work yet
 	//private skillset skills
@@ -41,7 +41,7 @@ public class Trainer {
   }
 
   public Trainer(Integer trainerId, String firstName, String lastName, String email,
-      Integer currentBatch) {
+      Batch currentBatch) {
     super();
     this.trainerId = trainerId;
     this.firstName = firstName;
@@ -82,11 +82,11 @@ public class Trainer {
     this.email = email;
   }
 
-  public Integer getCurrentBatch() {
+  public Batch getCurrentBatch() {
     return currentBatch;
   }
 
-  public void setCurrentBatch(Integer currentBatch) {
+  public void setCurrentBatch(Batch currentBatch) {
     this.currentBatch = currentBatch;
   }
 
