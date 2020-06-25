@@ -6,7 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(schema="project3")
@@ -20,7 +24,6 @@ public class ClientDemand
       this.clientDemandId = clientDemandId;
       this.quantity = quantity;
       this.deadline = deadline;
-      this.clientId = clientId;
     }
 
     @Id
@@ -33,12 +36,14 @@ public class ClientDemand
     
     @Column(name="deadline")
     public LocalDate deadline;
-    
-    @Column(name="client_id")
-    public Integer clientId;
 
     @Column(name="skillset_id")
     public Integer skillsetId;
+    
+    @JsonIgnoreProperties({"clientDemand"})
+    @ManyToOne
+    @JoinColumn(name="client_id")
+    private Client client;
     
     public Integer getClientDemandId()
     {
@@ -70,15 +75,14 @@ public class ClientDemand
       this.deadline = deadline;
     }
 
-    public Integer getClientId()
-    {
-      return clientId;
-    }
+	public Client getClient() {
+		return client;
+	}
 
-    public void setClientId(Integer clientId)
-    {
-      this.clientId = clientId;
-    }
-    
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+
     
 }
