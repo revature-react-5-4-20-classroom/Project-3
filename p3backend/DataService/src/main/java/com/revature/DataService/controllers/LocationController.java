@@ -4,73 +4,69 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import com.revature.DataService.models.Skills;
-import com.revature.DataService.services.SkillsService;
 
+import com.revature.DataService.models.Location;
+import com.revature.DataService.services.LocationService;
 
 @RestController
-@RequestMapping("skills")
-public class SkillsController {
+@RequestMapping(path="/location")
+public class LocationController {
+
 	
 	@Autowired
-	SkillsService skillsService;
-	
-	
-	
-	
-//	@GetMapping
-//	public String hello() {
-//		return "hello";
-//	}
+	LocationService locationservice;
 	
 	@GetMapping
-	public List<Skills> getAll(){
-		return skillsService.getAll();
-	}
-	
-	@PostMapping
-	public Skills save(@RequestBody Skills skill) {
-		System.out.println(skill);
-	
-		return skillsService.save(skill);
-	}
-	
-	
-	@PatchMapping
-	public Skills update(@RequestBody Skills skill) {
-		try {
-			return skillsService.update(skill);
-		}catch(RuntimeException e) {
-			System.out.println(e);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			
-		}
+	public List<Location> getall(){
+		
+		return locationservice.getAll();
 		
 	}
 	
+	
 	@GetMapping("/{id}")
-	public Skills getById(@PathVariable Integer id) {
+	public Location getById(@PathVariable Integer id) {
 		try {
-			return skillsService.getbyId(id);
+			return locationservice.getById(id);
 		}catch(RuntimeException e){
 			e.printStackTrace();
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			
 		}
 		
+	}
+	
+	@PostMapping
+	public Location saveLocation(@RequestBody Location location) {
+		
+		return locationservice.saveOne(location);
+		
+	}
+	
+	@PatchMapping
+	public Location updateLocation(@RequestBody Location location) {
+		try {
+			return locationservice.update(location);
+			
+		}catch(RuntimeException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+			
+		}
 		
 	}
 	
 	
 	
-
+	
+	
+	
 }

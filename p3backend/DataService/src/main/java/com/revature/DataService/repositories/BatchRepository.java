@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.DataService.models.Batch;
 
-
 @Repository
 public interface BatchRepository extends JpaRepository<Batch, Integer>{
 

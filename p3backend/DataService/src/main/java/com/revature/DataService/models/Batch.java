@@ -48,18 +48,55 @@ public class Batch {
 	// May need a JsonIgnoreProperties later on
 	private Trainer trainer;
 	
+
 	@Column(name="location_id")
 	private Integer locationId;
+	@Column(name="location_id")
+	private Integer locationId;
+
 	
 	@JoinColumn(name="curriculum_id")
 	@OneToOne(fetch = FetchType.EAGER)
 	private Curriculum curriculum;
 	
-//	@OneToMany(mappedBy = "assigned_batch_id", cascade = CascadeType.MERGE)
-//	@JsonIgnoreProperties({"assigned_batch_id"})
-//	private List<Associate> associates;
 
-  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
+	public Integer getLocationId() {
+		return locationId;
+	}
+
+
+
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
+	}
+
+
+
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+
+
+	public void setCurriculum(Curriculum curriculum) {
+		this.curriculum = curriculum;
+	}
+
+
+
+//	public List<Associate> getAssociates() {
+//		return associates;
+//	}
+//
+//
+//
+//	public void setAssociates(List<Associate> associates) {
+//		this.associates = associates;
+//	}
+
+
+
+public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
       Integer interviewScoreLower, Trainer trainer, Integer locationId, Curriculum curriculum,
       List<Associate> associates) {
     super();
@@ -71,71 +108,7 @@ public class Batch {
     this.trainer = trainer;
     this.locationId = locationId;
     this.curriculum = curriculum;
-//    this.associates = associates;
-  }
-
-  public Integer getBatchId() {
-    return batchId;
-  }
-
-  public void setBatchId(Integer batchId) {
-    this.batchId = batchId;
-  }
-
-  public Date getStartDate() {
-    return startDate;
-  }
-
-  public void setStartDate(Date startDate) {
-    this.startDate = startDate;
-  }
-
-  public Date getEndDate() {
-    return endDate;
-  }
-
-  public void setEndDate(Date endDate) {
-    this.endDate = endDate;
-  }
-
-  public Boolean getIsConfirmed() {
-    return isConfirmed;
-  }
-
-  public void setIsConfirmed(Boolean isConfirmed) {
-    this.isConfirmed = isConfirmed;
-  }
-
-  public Integer getInterviewScoreLower() {
-    return interviewScoreLower;
-  }
-
-  public void setInterviewScoreLower(Integer interviewScoreLower) {
-    this.interviewScoreLower = interviewScoreLower;
-  }
-
-  public Trainer getTrainer() {
-    return trainer;
-  }
-
-  public void setTrainer(Trainer trainer) {
-    this.trainer = trainer;
-  }
-
-  public Integer getLocationId() {
-    return locationId;
-  }
-
-  public void setLocationId(Integer locationId) {
-    this.locationId = locationId;
-  }
-
-  public Curriculum getCurriculum() {
-    return curriculum;
-  }
-
-  public void setCurriculum(Curriculum curriculum) {
-    this.curriculum = curriculum;
+    //this.associates = associates;
   }
 
 //  public List<Associate> getAssociates() {
@@ -153,6 +126,6 @@ public class Batch {
         + ", trainer=" + trainer + ", locationId=" + locationId + ", curriculum=" + curriculum
         + ", associates=]";
   }
-	
+
 	
 }
