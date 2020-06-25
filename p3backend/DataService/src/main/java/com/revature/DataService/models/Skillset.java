@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,9 +45,9 @@ public class Skillset {
  @JoinColumn(name="skillset_id", referencedColumnName="trainer_skillset_id",insertable=false, updatable=false) //
  private Trainer trainer;
   
-  
-//  @ManyToMany(mappedBy = "skillsets")
-//  private List<Curriculum> curricula;
+  @JsonIgnoreProperties({"skillset"})
+  @OneToOne(mappedBy = "skillset")
+  private Curriculum curriculum;
   
   public Skillset() {
     super();
@@ -106,17 +107,12 @@ public void setSkills(List<Skills> skills) {
 	this.skills = skills;
 }
 
+public Curriculum getCurriculum() {
+	return curriculum;
+}
 
-  
-
-
-//public List<Curriculum> getCurricula() {
-//    return curricula;
-//  }
-//
-//  public void setCurricula(List<Curriculum> curricula) {
-//    this.curricula = curricula;
-//  }
-
-  
+public void setCurriculum(Curriculum curriculum) {
+	this.curriculum = curriculum;
+}
+ 
 }
