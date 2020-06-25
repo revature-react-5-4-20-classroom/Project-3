@@ -59,6 +59,11 @@ public class Batch {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Curriculum curriculum;
 	
+	@JsonIgnoreProperties({"batch"})
+	@OneToMany(mappedBy="batch", cascade = CascadeType.MERGE)
+	private List<Associate> associates;
+	
+	
 
 	public Integer getLocationId() {
 		return locationId;
