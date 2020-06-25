@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import com.revature.DataService.exceptions.TrainerNotFoundException;
+import com.revature.DataService.models.Skills;
+import com.revature.DataService.models.Skillset;
+import com.revature.DataService.models.SkillsetSkills;
 import com.revature.DataService.models.Trainer;
 import com.revature.DataService.services.TrainerService;
 
@@ -20,12 +23,12 @@ public class TrainerController {
 	@Autowired
 	TrainerService trainerService;
 	
-	  @GetMapping
+	  @GetMapping("/trainer")
 	  public List<Trainer> getAllTrainers() {
 	    return trainerService.getAll();
 	  } 
 	  
-	  @GetMapping("/{id}")
+	  @GetMapping("/trainer/{id}")
 	  public Trainer getTrainerById(@PathVariable Integer id) {
 	    try {
 	      return trainerService.getById(id);
@@ -34,26 +37,39 @@ public class TrainerController {
 	    }
 	  }
 	  //Commented out until Trainer skillset is defined/implemented
-	  /*
-	  @GetMapping("/eligible")
-	  public ArrayList<Trainer>getTrainerByEligibility(@RequestBody ArrayList<String>cSkills) {
-	    ArrayList<Trainer> eligibles = new ArrayList<Trainer>();
-	    for(Trainer t: getAllTrainers()) {
-	      if(skillsComparison(t.skills, cSkills))
-	        eligibles.add(t);
-	    }
-	    return eligibles;
-	  }
-	  @GetMapping("/ineligible")
-      public ArrayList<Trainer>getTrainerByIneligibility(@RequestBody ArrayList<String>cSkills) {
-        ArrayList<Trainer> ineligibles = new ArrayList<Trainer>();
-        for(Trainer t: getAllTrainers()) {
-          if(!skillsComparison(t.skills, cSkills))
-            ineligibles.add(t);
-        }
-        return ineligibles;
-      }
-	  */
+	  
+	   
+//	  @GetMapping("/trainer/eligible/{id}")
+//	  public boolean getTrainerByEligibility(@RequestBody ArrayList<Skills>cSkills, @PathVariable Integer id) {
+//	    Trainer trainer = trainerService.getById(id);
+//	    Skillset ss = trainer.getTrainerSkills();
+//	    List<SkillsetSkills> sss = ss.getSkillSetSkils();
+//	    List<Skills> trainerSkillList = sss.get(0).getSkills();
+//	      if(skillsComparison(trainerSkillList, cSkills)) {
+//	    	  return true;
+//	      } else {
+//	    	  return false;
+//	      }
+//	  }
+	  
+	  public boolean skillsComparison(List<Skills> tSkills, ArrayList<Skills> cSkills) {
+		    ArrayList<String> sharedSkills = new ArrayList<String>();
+		    for(Skills i : cSkills) {
+		      for (Skills x: tSkills) {
+		        if(x.getSkillName().equals(i.getSkillName()))
+		          sharedSkills.add(x.getSkillName());
+		      }
+		    }
+		    System.out.print("Shared Trainer Skills with Curriculum: ");
+		    for(String p : sharedSkills)
+		      System.out.print(p + " ");
+		    if(sharedSkills.size() / cSkills.size() > .8)
+		      return true;
+		    else
+		      return false;
+		  }
+	  
+	  
 	  /*
 	  @PostMapping
 	  public Trainer createTrainer(@RequestBody Trainer trainer) {
