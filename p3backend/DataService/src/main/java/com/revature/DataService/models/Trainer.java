@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,41 +37,54 @@ public class Trainer {
 //	@OneToOne(fetch= FetchType.EAGER)
 //	private Integer currentBatch;
 	
-//	@OneToMany
-//	@JoinTable(
-//		      name = "skillset_skills",
-//		      joinColumns = @JoinColumn(name = "trainer_skillset_id",referencedColumnName = "skillset_id"),
-//		      inverseJoinColumns = @JoinColumn(name = "skill_id",referencedColumnName = "skill_id"))
-//	private List<Skills> trainerSkills;
+	@Column(name="trainer_skillset_id")
+	private Integer trainerSkillsetId;
+	
+	@ManyToOne
+	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
+	private Skillset trainerSkills;
 	
 	
 	//I'm not certain how this who skills thing will work yet
 	//private skillset skills
 
-//	public List<Skills> getTrainerSkills() {
-//		return trainerSkills;
-//	}
-//
-//	public void setTrainerSkills(List<Skills> trainerSkills) {
-//		this.trainerSkills = trainerSkills;
-//	}
+	public Skillset getTrainerSkills() {
+		return trainerSkills;
+	}
+
+	public Trainer(Integer trainerId, String firstName, String lastName, String email, Integer trainerSkillsetId,
+			Skillset trainerSkills) {
+		super();
+		this.trainerId = trainerId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.trainerSkillsetId = trainerSkillsetId;
+		this.trainerSkills = trainerSkills;
+	}
+
+	public void setTrainerSkills(Skillset trainerSkills) {
+		this.trainerSkills = trainerSkills;
+	}
 
 public Trainer() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  public Trainer(Integer trainerId, String firstName, String lastName, String email,
-      Integer currentBatch) {
-    super();
-    this.trainerId = trainerId;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    //this.currentBatch = currentBatch;
-  }
+  
 
-  public Integer getTrainerId() {
+
+
+public Integer getTrainerSkillsetId() {
+	return trainerSkillsetId;
+}
+
+public void setTrainerSkillsetId(Integer trainerSkillsetId) {
+	this.trainerSkillsetId = trainerSkillsetId;
+}
+
+public Integer getTrainerId() {
     return trainerId;
   }
 
