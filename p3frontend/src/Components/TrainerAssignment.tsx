@@ -18,6 +18,9 @@ export class TrainerAssignmentComponent extends React.Component<any, IAssignment
       trainers: []
     }
   }
+  componentDidMount(){
+    this.getAllTrainers();
+  }
 
   assign = async(trainer:Trainer, batchId:number) =>{
       assignTrainer(trainer.trainerId, batchId);
@@ -36,7 +39,7 @@ export class TrainerAssignmentComponent extends React.Component<any, IAssignment
     }
   }
   
-  getAllTrainers = async (event: any) => {
+  getAllTrainers = async () => {
     let allTrainers : Trainer[] = await getAllTrainers();
 
     this.setState({

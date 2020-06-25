@@ -73,7 +73,7 @@ public class TrainerController {
 //	      } else {
 //	    	  return false;
 //	      }
-	  }
+//	  }
 	  
 	  public boolean skillsComparison(List<Skills> tSkills, ArrayList<Skills> cSkills) {
 		    ArrayList<String> sharedSkills = new ArrayList<String>();

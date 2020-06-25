@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +21,9 @@ public class Location {
 	
 	@Column(name="location_name")
 	private String locationName;
-
+	
+//	@OneToOne(mappedBy = "location")
+//	private Batch batch;
 
 	public Integer getLocationId() {
 		return locationId;
@@ -44,6 +47,16 @@ public class Location {
 	public void setLocationName(String locationName) {
 		this.locationName = locationName;
 	}
+
+
+//	public Batch getBatch() {
+//		return batch;
+//	}
+//
+//
+//	public void setBatch(Batch batch) {
+//		this.batch = batch;
+//	}
 
 
 	@Override

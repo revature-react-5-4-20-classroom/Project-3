@@ -10,13 +10,13 @@ import { prnt } from "../GeneralPurposeHelpers/Prnt";
 
 const doPrnt=true//prnt will work
 
-export class ViewAtAGlance extends React.Component<any,any>
+export class InProgress extends React.Component<any,any>
 {
 	constructor(props:any)
 	{
 		super(props)
 		this.state={
-		programType:'',
+		programType:'',//EasyDropdown will set this to its first item during component mount
 		workType:   '',
 		viewType:   '',
 		batchServerData:[	//holds the data fetched from the server. psudo data right now
@@ -65,7 +65,12 @@ export class ViewAtAGlance extends React.Component<any,any>
 	render()
 	{
 		return(<Container>
-				<h6>Story 1. "In Progress view" Batches at a glance</h6><br/>
+				<h6>Story 1. "In Progress"</h6><br/>
+				<p>Given that batches are currently in operation
+When I navigate to the 'In Progress' view
+And I optionally select Program Type (ROCP, CF, Standard, Spark) or Curricula or client
+Then I see current week, weeks remaining, number of active/inactive associates, trainer, location filtered by criteria
+And this data is shown as a table and a Calendar view</p><br/>
 				<Row>
 					<Col>
 						<b>program type</b>
