@@ -12,5 +12,5 @@ public interface ConsentRepository extends JpaRepository<Consent, Integer>{
 
 	
 	@Query("select c from Consent c where c.trainerId=:id") //HQL
-	  List<Consent> getConsentByTrainerId(Integer id);
+	List<Consent> getConsentByTrainerId(Integer id);
 }
