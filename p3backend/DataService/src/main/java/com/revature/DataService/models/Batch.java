@@ -21,14 +21,17 @@ import com.revature.DataService.models.Trainer;
 @Table(schema = "project3", name = "batch")
 public class Batch {
 
-	public Batch() {
-		super();
-		
-	}
-	
-	
-	public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum) {
+  public Batch() {
+    super();
+
+  }
+
+
+  
+
+  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
+      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum,
+      List<Associate> associates, Consent consent) {
     super();
     this.batchId = batchId;
     this.startDate = startDate;
@@ -38,48 +41,51 @@ public class Batch {
     this.trainer = trainer;
     this.location = location;
     this.curriculum = curriculum;
+    this.associates = associates;
+    this.consent = consent;
   }
 
 
   @Id
-	@Column(name="batch_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer batchId;
-	
-	@Column(name="start_date")
-	private Date startDate;
-	
-	@Column(name="end_date")
-	private Date endDate;
-	
-	@Column(name="isconfirmed")
-	private Boolean isConfirmed;
-	
-	@Column(name="interview_score_lower")
-	private Integer interviewScoreLower;
-	
-	@JoinColumn(name="trainer_id")
-	@OneToOne(fetch = FetchType.EAGER)
-	// May need a JsonIgnoreProperties later on
-	private Trainer trainer;
-	
-	
-	@OneToOne
-	@JoinColumn(name="location_id", referencedColumnName = "location_id")
-	private Location location;
-	
+  @Column(name = "batch_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer batchId;
 
-	
-	@JoinColumn(name="curriculum_id")
-	@OneToOne(fetch = FetchType.EAGER)
-	private Curriculum curriculum;
+  @Column(name = "start_date")
+  private Date startDate;
 
-	
-	@JsonIgnoreProperties({"batch"})
-	@OneToMany(mappedBy="batch", cascade = CascadeType.MERGE)
-	private List<Associate> associates;
-	
-	
+  @Column(name = "end_date")
+  private Date endDate;
+
+  @Column(name = "isconfirmed")
+  private Boolean isConfirmed;
+
+  @Column(name = "interview_score_lower")
+  private Integer interviewScoreLower;
+
+  @JoinColumn(name = "trainer_id")
+  @OneToOne(fetch = FetchType.EAGER)
+  // May need a JsonIgnoreProperties later on
+  private Trainer trainer;
+
+
+  @OneToOne
+  @JoinColumn(name = "location_id", referencedColumnName = "location_id")
+  private Location location;
+
+
+
+  @JoinColumn(name = "curriculum_id")
+  @OneToOne(fetch = FetchType.EAGER)
+  private Curriculum curriculum;
+
+
+  @JsonIgnoreProperties({"batch"})
+  @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
+  private List<Associate> associates;
+
+  @OneToOne(mappedBy = "batch")
+  private Consent consent;
 
 
 
@@ -164,21 +170,33 @@ public class Batch {
 
 
   public List<Associate> getAssociates() {
-	return associates;
-}
+    return associates;
+  }
 
 
-public void setAssociates(List<Associate> associates) {
-	this.associates = associates;
-}
+  public void setAssociates(List<Associate> associates) {
+    this.associates = associates;
+  }
 
 
-@Override
+
+  public Consent getConsent() {
+    return consent;
+  }
+
+
+  public void setConsent(Consent consent) {
+    this.consent = consent;
+  }
+
+
+  @Override
   public String toString() {
     return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
         + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
-        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum + "]";
+        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum
+        + ", associates=" + associates + ", consent=" + consent + "]";
   }
-		
-	
+
+
 }
