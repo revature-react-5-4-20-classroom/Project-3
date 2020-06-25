@@ -54,38 +54,3 @@ export async function getConsentByTrainerId(id: number) : Promise<any[]> {
 }
 
 
-export async function getBatchName(batchId:number ){
-    try{
-        const response =  await storeClient.get(`/batches/${batchId}`);
-        return response;
-    } catch (e){
-        console.log(e)
-    }
-}
-
-// Confirm/Unconfirm a batch
-export async function batchConfirm(bId : number, isConf : boolean) : Promise<Batch> {
-    try {
-        const dataTransfer =  {isConfirmed : isConf};
-        const response = await storeClient.patch(`/batches/${bId}`, dataTransfer);
-        const {
-            batchId, 
-            curriculum, 
-            startDate, 
-            endDate, 
-            isConfirmed, 
-            interviewScoreLower
-        } = response.data;
-        return new Batch(
-            batchId,
-            curriculum,
-            startDate,
-            endDate,
-            isConfirmed,
-            interviewScoreLower
-        );
-    } catch (e) {
-        console.log("Failed to update batch confirmation", e.message);
-        throw e;
-    }
-}
