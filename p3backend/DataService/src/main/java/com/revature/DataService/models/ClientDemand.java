@@ -37,6 +37,9 @@ public class ClientDemand
     @Column(name="client_id")
     public Integer clientId;
 
+    @Column(name="skillset_id")
+    public Integer skillsetId;
+    
     public Integer getClientDemandId()
     {
       return clientDemandId;

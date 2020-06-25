@@ -22,23 +22,31 @@ public class ClientDemandController
     
     //get all the clientDemand rows in that table
     @GetMapping("/clientDemand")
-    public List<ClientDemand> endpoint1() {
+    public List<ClientDemand> endpointAll1() {
       return clientDemandRepo.findAll();
     } 
     
-    //get a clientDemand by clientDemandId
+    //get all clientDemand by clientDemandId
     @CrossOrigin(origins = "*")
     @GetMapping("/clientDemand/{id}")
-    public ClientDemand endpoint2(@PathVariable Integer id)
+    public List<ClientDemand> endpointAll2(@PathVariable Integer id)
     {
       return clientDemandRepo.findByClientDemandId(id);
+    }
+    
+    //get all clientDemand by skillsetId
+    @CrossOrigin(origins = "*")
+    @GetMapping("/clientDemandSkillset/{id}")
+    public List<ClientDemand> endpointAll3(@PathVariable Integer id)
+    {
+      return clientDemandRepo.findBySkillsetId(id);
     }
     
     //post a new clientDemand. respond with what as posted. null on failure
     //the request json is converted to ClientDemand for us
     @CrossOrigin(origins = "*")
     @PostMapping("/clientDemand")
-    public ClientDemand endpoint3(@RequestBody ClientDemand post)
+    public ClientDemand endpointPost1(@RequestBody ClientDemand post)
     {
       //may need more stuff in the future. just going to stub this in for now
         
