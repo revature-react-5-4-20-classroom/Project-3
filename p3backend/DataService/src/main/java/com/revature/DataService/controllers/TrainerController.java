@@ -39,18 +39,18 @@ public class TrainerController {
 	  //Commented out until Trainer skillset is defined/implemented
 	  
 	   
-	  @GetMapping("/trainer/eligible/{id}")
-	  public boolean getTrainerByEligibility(@RequestBody ArrayList<Skills>cSkills, @PathVariable Integer id) {
-	    Trainer trainer = trainerService.getById(id);
-	    Skillset ss = trainer.getTrainerSkills();
-	    List<SkillsetSkills> sss = ss.getSkillSetSkils();
-	    List<Skills> trainerSkillList = sss.get(0).getSkills();
-	      if(skillsComparison(trainerSkillList, cSkills)) {
-	    	  return true;
-	      } else {
-	    	  return false;
-	      }
-	  }
+//	  @GetMapping("/trainer/eligible/{id}")
+//	  public boolean getTrainerByEligibility(@RequestBody ArrayList<Skills>cSkills, @PathVariable Integer id) {
+//	    Trainer trainer = trainerService.getById(id);
+//	    Skillset ss = trainer.getTrainerSkills();
+//	    List<SkillsetSkills> sss = ss.getSkillSetSkils();
+//	    List<Skills> trainerSkillList = sss.get(0).getSkills();
+//	      if(skillsComparison(trainerSkillList, cSkills)) {
+//	    	  return true;
+//	      } else {
+//	    	  return false;
+//	      }
+//	  }
 	  
 	  public boolean skillsComparison(List<Skills> tSkills, ArrayList<Skills> cSkills) {
 		    ArrayList<String> sharedSkills = new ArrayList<String>();
