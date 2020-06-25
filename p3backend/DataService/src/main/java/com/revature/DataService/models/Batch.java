@@ -27,8 +27,11 @@ public class Batch {
 	}
 	
 	
+
 	public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum) {
+      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum,
+      List<Associate> associates) {
+
     super();
     this.batchId = batchId;
     this.startDate = startDate;
@@ -38,7 +41,9 @@ public class Batch {
     this.trainer = trainer;
     //this.location = location;
     this.curriculum = curriculum;
+    this.associates = associates;
   }
+
 
 
   @Id
@@ -62,19 +67,19 @@ public class Batch {
 	@OneToOne(fetch = FetchType.EAGER)
 	// May need a JsonIgnoreProperties later on
 	private Trainer trainer;
+
 	
 
 
 	
+
 	@Column(name="location_id")
 	private Integer locationId;
 
-	
+  
 //	@OneToOne
 //	@JoinColumn(name="location_id", referencedColumnName = "location_id", insertable=false)
 //	private Location location;
-	
-
 
 	
 	@JoinColumn(name="curriculum_id")
@@ -86,8 +91,6 @@ public class Batch {
 	@OneToMany(mappedBy="batch", cascade = CascadeType.MERGE)
 	private List<Associate> associates;
 	
-	
-
 
 
   public Integer getBatchId() {
@@ -170,6 +173,7 @@ public class Batch {
   }
 
 
+
   public List<Associate> getAssociates() {
 	return associates;
 }
@@ -187,5 +191,4 @@ public void setAssociates(List<Associate> associates) {
 //        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum + "]";
 //  }
 		
-	
 }

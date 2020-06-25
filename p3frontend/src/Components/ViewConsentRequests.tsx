@@ -1,5 +1,5 @@
 import React from 'react';
-import {approveConsentRequest, denyConsentRequest, getConsentByTrainerId, getBatchName} from '../api/consent'
+import {approveConsentRequest, denyConsentRequest, getConsentByTrainerId} from '../api/consent'
 import { Consent } from '../models/Consent';
 import {  ListGroup, ListGroupItem, Button} from 'reactstrap';
 

@@ -51,13 +51,13 @@ public class Client {
 		this.name = name;
 	}
 
-	public Skillset getClientSkillset() {
-		return clientSkillset;
-	}
-
-	public void setClientSkillset(Skillset clientSkillset) {
-		this.clientSkillset = clientSkillset;
-	}
+//	public Skillset getClientSkillset() {
+//		return clientSkillset;
+//	}
+//
+//	public void setClientSkillset(Skillset clientSkillset) {
+//		this.clientSkillset = clientSkillset;
+//	}
 
 //	public ClientDemand getClientDemand() {
 //		return clientDemand;
