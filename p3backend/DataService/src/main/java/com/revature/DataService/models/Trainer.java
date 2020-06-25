@@ -37,6 +37,7 @@ public class Trainer implements Serializable {
 	@Column(name="email")
 	private String email;
 	
+
 //	@JoinColumn(name="current_batch")
 //	@OneToOne(fetch= FetchType.EAGER)
 //	private Integer currentBatch;
@@ -48,7 +49,7 @@ public class Trainer implements Serializable {
 	@OneToMany(mappedBy="trainer", cascade=CascadeType.MERGE)
 //	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
 	private List<Skillset> trainerSkills;
-	
+
 	
 	//I'm not certain how this who skills thing will work yet
 	//private skillset skills
@@ -60,6 +61,7 @@ public Trainer() {
     super();
     // TODO Auto-generated constructor stub
   }
+
 
   
 
@@ -91,8 +93,6 @@ public List<Skillset> getTrainerSkills() {
 public void setTrainerSkills(List<Skillset> trainerSkills) {
 	this.trainerSkills = trainerSkills;
 }
-
-
 
 
 
@@ -135,8 +135,6 @@ public Integer getTrainerId() {
   public void setEmail(String email) {
     this.email = email;
   }
-
-
 
 
 
