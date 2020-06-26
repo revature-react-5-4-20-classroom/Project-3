@@ -12,6 +12,7 @@ public interface ClientDemandRepo extends JpaRepository<ClientDemand, Integer>
   //we now have basic CRUD methods
   //we take our naming convention VERY seriously around here
   
+
   List<ClientDemand> findByClientDemandId(Integer clientDemandId);
   
   // I don't believe this is working
@@ -19,5 +20,5 @@ public interface ClientDemandRepo extends JpaRepository<ClientDemand, Integer>
   
   // Not working
 //  List<ClientDemand> findByClientDemandSkillSet(Skillset clientDemandSkillset);
-  
+
 }

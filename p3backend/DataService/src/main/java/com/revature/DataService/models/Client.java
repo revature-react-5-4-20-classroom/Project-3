@@ -27,15 +27,12 @@ public class Client {
 	private String name;
 	
 	// Multiplicity
-	// Note: should skillset/client be one to many?
-//	@OneToOne // Skillset should have mappedBy="client"
-//	@JsonIgnoreProperties({"client"})
-//	@Column(name="client_skillset_id")
-//	private Skillset clientSkillset;
+
 	
 	@JsonIgnoreProperties({"client"})
 	@OneToMany(mappedBy="client", cascade=CascadeType.MERGE)
 	private List<ClientDemand> clientDemand;
+
 
 	public Integer getClientId() {
 		return clientId;
@@ -78,7 +75,7 @@ public class Client {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+
 	
 	
 

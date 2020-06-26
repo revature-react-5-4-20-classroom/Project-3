@@ -38,6 +38,7 @@ public class ClientDemand
     @JoinColumn(name = "clientdemand_skillset_id")
     private Skillset clientDemandSkillset;
     
+
     @JsonIgnoreProperties({"clientDemand"})
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="client_id")
@@ -82,6 +83,7 @@ public class ClientDemand
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
 
 	@Override
 	public String toString() {

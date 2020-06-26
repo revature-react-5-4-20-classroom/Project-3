@@ -34,18 +34,22 @@ public class Batch {
   public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
       Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
       List<Associate> associates, Consent consent) {
+
     super();
     this.batchId = batchId;
     this.startDate = startDate;
     this.endDate = endDate;
     this.isConfirmed = isConfirmed;
     this.interviewScoreLower = interviewScoreLower;
+
     this.trainers = trainers;
     this.location = location;
     this.curriculum = curriculum;
     this.associates = associates;
     this.consent = consent;
+
   }
+
 
 
   @Id
@@ -168,6 +172,7 @@ public Location getLocation() {
   }
 
 
+
   public Curriculum getCurriculum() {
     return curriculum;
   }
@@ -176,6 +181,7 @@ public Location getLocation() {
   public void setCurriculum(Curriculum curriculum) {
     this.curriculum = curriculum;
   }
+
 
 
   public List<Associate> getAssociates() {
@@ -207,6 +213,7 @@ public String toString() {
 			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
 			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
 }
+
 
 
 

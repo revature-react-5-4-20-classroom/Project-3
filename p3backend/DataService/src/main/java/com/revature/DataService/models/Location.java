@@ -24,9 +24,11 @@ public class Location {
 	@Column(name="location_name")
 	private String locationName;
 	
+
 	@JsonIgnoreProperties({"location", "trainers", "curriculum", "associates", "consent"})
 	@OneToOne(mappedBy = "location")
 	private Batch batch;
+
 
 	public Integer getLocationId() {
 		return locationId;
@@ -52,14 +54,14 @@ public class Location {
 	}
 
 
-	public Batch getBatch() {
-		return batch;
-	}
-
-
-	public void setBatch(Batch batch) {
-		this.batch = batch;
-	}
+//	public Batch getBatch() {
+//		return batch;
+//	}
+//
+//
+//	public void setBatch(Batch batch) {
+//		this.batch = batch;
+//	}
 
 
 	@Override

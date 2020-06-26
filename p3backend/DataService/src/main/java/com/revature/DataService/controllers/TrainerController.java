@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import com.revature.DataService.exceptions.TrainerNotFoundException;
+import com.revature.DataService.models.Batch;
+import com.revature.DataService.models.Curriculum;
 import com.revature.DataService.models.Skills;
 import com.revature.DataService.models.Skillset;
 import com.revature.DataService.models.SkillsetSkills;
 import com.revature.DataService.models.Trainer;
+import com.revature.DataService.services.BatchService;
+import com.revature.DataService.services.CurriculumService;
 import com.revature.DataService.services.TrainerService;
 
 @RestController
@@ -22,6 +26,10 @@ public class TrainerController {
 
 	@Autowired
 	TrainerService trainerService;
+	@Autowired
+	BatchService batchService;
+	@Autowired
+	CurriculumService curriculumService;
 	
 	  @GetMapping("/trainer")
 	  public List<Trainer> getAllTrainers() {
@@ -39,8 +47,23 @@ public class TrainerController {
 	  //Commented out until Trainer skillset is defined/implemented
 	  
 	   
-//	  @GetMapping("/trainer/eligible/{id}")
-//	  public boolean getTrainerByEligibility(@RequestBody ArrayList<Skills>cSkills, @PathVariable Integer id) {
+//	  @GetMapping("/trainer/eligible/{batchId}")
+//	  public boolean getTrainerByEligibility(@RequestBody Trainer trainer, @PathVariable Integer batchId) {
+//
+//		  Batch selectedBatch = batchService.getById(batchId);
+//		  
+//		  Curriculum currentCurriculum = selectedBatch.getCurriculum();
+//		  currentCurriculum.
+//		 List<Skillset> trainerSkillSet = trainer.getTrainerSkills();
+//		 for(Skillset ss : trainerSkillSet) {
+//			 
+//			 List<Skills> trainerSkillsList = ss.getSkills();
+//			 if(skillsComparison(trainerSkillsList, cSkills)) {
+//				 return true;
+//			 }
+//			 
+//		 }
+		 
 //	    Trainer trainer = trainerService.getById(id);
 //	    Skillset ss = trainer.getTrainerSkills();
 //	    List<SkillsetSkills> sss = ss.getSkillSetSkils();

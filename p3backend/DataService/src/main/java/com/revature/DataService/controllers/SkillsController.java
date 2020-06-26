@@ -62,7 +62,7 @@ public class SkillsController {
 		try {
 			return skillsService.getbyId(id);
 		}catch(RuntimeException e){
-			e.printStackTrace();
+		
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			
 		}

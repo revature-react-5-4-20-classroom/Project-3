@@ -97,8 +97,10 @@ public Curriculum getCurriculum() {
 	return curriculum;
 }
 
+
 public void setCurriculum(Curriculum curriculum) {
 	this.curriculum = curriculum;
+
 }
 
 @Override
