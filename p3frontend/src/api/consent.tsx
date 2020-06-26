@@ -22,9 +22,7 @@ export async function getEligibility(trainer:Trainer, batchId:number): Promise<b
       return response;
 }
 
-export async function assignTrainer(trainerId : number, batchId : number){
-    const repsone = await storeClient.post('/trainerbatch', {trainerId:trainerId, batchId:batchId});
-}
+
 
 
 export async function getAllTrainers() : Promise<any[]>{
