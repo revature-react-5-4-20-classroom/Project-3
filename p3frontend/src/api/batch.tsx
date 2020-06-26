@@ -15,7 +15,7 @@ export async function getBatchById(batchId:number ){
 
 // Confirm/Unconfirm a batch // Assigm, unassign, or switch batch trainers
 // NEEDS TO BE UPDATED
-//does not want to co-opaerate at all
+//does not want to co-operate with me. complains about number of arguments to new Batch, but they are the same
 // export async function updateBatch(bId : number, isConf : boolean, trainId? : number){
 //     try {
 //         const dataTransfer =  {batchId: bId, isConfirmed: isConf, trainerId: trainId ? trainId : null};

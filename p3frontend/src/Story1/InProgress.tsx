@@ -9,15 +9,14 @@ import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
 import { axiosClient } from "../api/axios";
-import { cachedDataVersionTag } from "v8";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { Batch } from "../models/Batch";
 import { trainerGetName } from "../models/Trainer";
-import { associatesGetActive, associatesGetActiveTotal } from "../models/Associate";
-import { locationGetName, Location } from "../models/Location";
-import { checkIt } from "../GeneralPurposeHelpers/checkIt";
+import { associatesGetActiveTotal } from "../models/Associate";
+import { locationGetName } from "../models/Location";
+import { seeIt } from "../GeneralPurposeHelpers/seeIt";
 
-const doPrnt=false//prnt will work
+const doPrnt=true//prnt will work
 
 export class InProgress extends React.Component<any,any>
 {
@@ -27,8 +26,9 @@ export class InProgress extends React.Component<any,any>
 		this.state={
 		programType:'',		//EasyDropdown will set this to its first item during render
 		workType:   '',
-		viewType:   'Table',
-		error:		null,
+		viewType:   '',
+		sortAscend:	true,		//sorts by ascending or decending
+		error:		null,		//holds an axios error object that will be displayed
 		batchDisplayData:[],	//holds the batch data formatted for display
 		batchPsudoData:[		//psudo server data to look at right now
 			{
@@ -114,7 +114,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 				<thead>
 					<tr>
 						<th onClick={()=>this.sortBatches('id')}>id</th>
-						<th onClick={()=>this.sortBatches('name')}>name</th>
+						{/* <th onClick={()=>this.sortBatches('name')}>name</th> */}
 						<th onClick={()=>this.sortBatches('dateSortStart')}>Start Date</th>
 						<th onClick={()=>this.sortBatches('dateSortEnd')}>End Date</th>
 						<th onClick={()=>this.sortBatches('weekCurrent')}>Current Week</th>
@@ -133,7 +133,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 							return(
 							<tr>
 								<td>{batch.id}</td>
-								<td>{batch.name}</td>
+								{/* <td>{batch.name}</td> */}
 								<td>{batch.dateStartText}</td>
 								<td>{batch.dateEndText}</td>
 								<td>{batch.jsxWeekCurrent}</td>
@@ -168,7 +168,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 						</Col>
 						<Col>
 							<Row><Col sm={3}>id</Col><Col>{batch.id}</Col></Row>
-							<Row><Col sm={3}>name</Col><Col>{batch.name}</Col></Row>
+							{/* <Row><Col sm={3}>name</Col><Col>{batch.name}</Col></Row> */}
 							<Row><Col sm={3}>Week current</Col><Col>{batch.jsxWeekCurrent}</Col></Row>
 							<Row><Col sm={3}>Weeks remaining</Col><Col>{batch.jsxWeekRemaining}</Col></Row>
 							<Row><Col sm={3}>Skillset</Col><Col>{batch.skillset}</Col></Row>
@@ -190,24 +190,35 @@ And this data is shown as a table and a Calendar view</p><br/>
 	{
 		prnt(doPrnt,`ViewAtAGlance sortBatches() has been reached`)
 
-		this.state.batchDisplayData.sort((a:any,b:any)=>
+		if(this.state.sortAscend)
 		{
-			//return Math.sign(a[propertyAsKey]-b[propertyAsKey])
+			this.state.batchDisplayData.sort((a:any,b:any)=>
+			{
+				//compares numbers and strings. does not do date objects
+				if(a[propertyAsKey]<b[propertyAsKey]){return -1}
+				return 1
+			})
+		}
+		else
+		{
+			this.state.batchDisplayData.sort((a:any,b:any)=>
+			{
+				if(a[propertyAsKey]<b[propertyAsKey]){return 1}
+				return -1
+			})
+		}
 
-			//compares numbers and strings. does not do date objects
-			if(a[propertyAsKey]<b[propertyAsKey]){return -1}
-			return 1
+		//prnt(doPrnt,`this.state.batchDisplayData=`,this.state.batchDisplayData)
+
+		this.setState({//cause re-render as well
+			sortAscend:!this.state.sortAscend
 		})
-
-		prnt(doPrnt,`this.state.batchDisplayData=`,this.state.batchDisplayData)
-
-		this.setState({})//cause re-render
 	}
 
 	//returns an array of batches that haven been transformed for easy display
 	convertServerDataToDisplayData=(batchesFromServer:[])=>
 	{
-		return batchesFromServer.map((batch:Batch)=>
+		return batchesFromServer.map((batch:any)=>
 		{
 			let dateStart=new Date(batch.startDate)//convert strings to Date objects
 			let dateEnd=new Date(batch.endDate)
@@ -238,14 +249,14 @@ And this data is shown as a table and a Calendar view</p><br/>
 				dateSortStart:		dateStart.getTime(),//used to sort the dates
 				dateSortEnd:		dateEnd.getTime(),
 
-				jsxWeekCurrent:		weekC,
+				jsxWeekCurrent:		weekC,//these are trying to sort using jsx content. needs a re-think.
 				jsxWeekRemaining:	weekR,
 
-				skillset:			'not sure',//batch.skillset,
+				skillset:			batch.curriculum.curriculumSkillset.skillSetName,
 				associatesActive:	associatesGetActiveTotal(batch.associates,true),
 				associatesInactive:	associatesGetActiveTotal(batch.associates,false),
 				trainer:			trainerGetName(batch.trainers[0]),
-				location:			'not sure'//locationGetName(batch.location),
+				location:			locationGetName(batch.location),
 			}
 		})
 	}
