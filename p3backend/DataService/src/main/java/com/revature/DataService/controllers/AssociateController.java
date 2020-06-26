@@ -28,9 +28,9 @@ public class AssociateController {
 		return associateService.getAllAssociates();
 	}
 	
-	@PostMapping  
-	public void updateAssociateBatch (@RequestBody Integer associateId, @RequestBody Integer assignedBatchId) {
-		associateService.updateAssociateBatch(associateId, assignedBatchId);
-	}
+//	@PostMapping  
+//	public void updateAssociateBatch (@RequestBody Integer associateId, @RequestBody Integer assignedBatchId) {
+//		associateService.updateAssociateBatch(associateId, assignedBatchId);
+//	}
 	
 }
