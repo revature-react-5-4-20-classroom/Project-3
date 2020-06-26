@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,19 @@ public class SkillsController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			
 		}
+		
+	}
+	
+	@GetMapping("/{id}")
+	public Skills getById(@PathVariable Integer id) {
+		try {
+			return skillsService.getbyId(id);
+		}catch(RuntimeException e){
+		
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+			
+		}
+		
 		
 	}
 	

@@ -4,27 +4,30 @@ import java.time.LocalDate;
 
 public class ClientDemand {
 
-  private Integer id;
+  private Integer clientDemandId;
   private Integer quantity;
   private LocalDate deadline;
-  protected Integer getId() {
-    return id;
+  
+  public Integer getClientDemandId() {
+    return clientDemandId;
   }
-  protected void setId(Integer id) {
-    this.id = id;
+  public void setClientDemandId(Integer clientDemandId) {
+    this.clientDemandId = clientDemandId;
   }
-  protected Integer getQuantity() {
+  public Integer getQuantity() {
     return quantity;
   }
-  protected void setQuantity(Integer quantity) {
+  public void setQuantity(Integer quantity) {
     this.quantity = quantity;
   }
-  protected LocalDate getDeadline() {
+  public LocalDate getDeadline() {
     return deadline;
   }
-  protected void setDeadline(LocalDate deadline) {
+  public void setDeadline(LocalDate deadline) {
     this.deadline = deadline;
   }
+  
+
   
   
 }
