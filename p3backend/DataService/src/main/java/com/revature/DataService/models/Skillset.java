@@ -30,20 +30,19 @@ public class Skillset {
   private String skillSetName;
   
   // Skills to SkillSet
+  @JsonIgnoreProperties({"skillSets"})
   @ManyToMany(cascade=CascadeType.ALL)
   @JoinTable(name="skillsetskills",schema = "project3",joinColumns=@JoinColumn(name="skillset_id"),inverseJoinColumns=@JoinColumn(name="skill_id") )
-  @JsonIgnoreProperties({"skillSets"})
   private List<Skills> skills; 
 
   // SkillSet to Trainer
   @JsonIgnoreProperties({"trainerSkills"})
   @ManyToMany(cascade=CascadeType.ALL)
-  @JoinTable(name="trainerskills", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="skillset_id"))
+  @JoinTable(name="trainerskills", schema="project3",joinColumns=@JoinColumn(name="skillset_id"),inverseJoinColumns=@JoinColumn(name="trainer_id"))
   private List<Trainer> trainers;
   
   
-//	@JsonIgnoreProperties({"location"})
-//	@OneToOne(mappedBy = "location")
+
   // SkillSet to ClientDemand
   @JsonIgnoreProperties({"clientDemandSkillset"})
   @OneToOne(mappedBy = "clientDemandSkillset")
@@ -102,8 +101,11 @@ public void setCurriculum(Curriculum curriculum) {
 	this.curriculum = curriculum;
 }
 
-
-
+@Override
+public String toString() {
+	return "Skillset [skillSetId=" + skillSetId + ", skillSetName=" + skillSetName + ", skills=" + skills
+			+ ", trainers=" + trainers + ", clientDemand=" + clientDemand + ", curriculum=" + curriculum + "]";
+}
 
 public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, List<Trainer> trainers,
 		ClientDemand clientDemand, Curriculum curriculum) {
@@ -114,12 +116,6 @@ public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, Li
 	this.trainers = trainers;
 	this.clientDemand = clientDemand;
 	this.curriculum = curriculum;
-}
-
-@Override
-public String toString() {
-	return "Skillset [skillSetId=" + skillSetId + ", skillSetName=" + skillSetName + ", skills=" + skills
-			+ ", trainers=" + trainers + ", curriculum=" + curriculum + "]";
 }
 
 public Skillset() {

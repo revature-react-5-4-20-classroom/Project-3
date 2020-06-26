@@ -33,8 +33,8 @@ public class Client {
 //	@Column(name="client_skillset_id")
 //	private Skillset clientSkillset;
 	
-	@OneToMany(mappedBy="client", cascade=CascadeType.MERGE)
 	@JsonIgnoreProperties({"client"})
+	@OneToMany(mappedBy="client", cascade=CascadeType.MERGE)
 	private List<ClientDemand> clientDemand;
 
 	public Integer getClientId() {

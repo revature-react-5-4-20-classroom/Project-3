@@ -78,6 +78,7 @@ public class Batch {
 
 
   // Batch to curriculum
+  @JsonIgnoreProperties({"batch"})
   @JoinColumn(name = "curriculum_id")
   @OneToOne(fetch = FetchType.EAGER)
   private Curriculum curriculum;

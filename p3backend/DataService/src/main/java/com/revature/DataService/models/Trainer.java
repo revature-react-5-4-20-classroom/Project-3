@@ -1,6 +1,5 @@
 package com.revature.DataService.models;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(schema = "project3", name = "trainer")
-public class Trainer implements Serializable {
+public class Trainer {
 	
 	@Id
 	@Column(name="trainer_id")
@@ -43,9 +42,11 @@ public class Trainer implements Serializable {
 //	@OneToOne(fetch= FetchType.EAGER)
 //	private Integer currentBatch;
 	
-	@ManyToMany(mappedBy="trainers")
+	// Working here
+//	@JsonIgnoreProperties({ "skills" })
+//	@ManyToMany(mappedBy = "skills", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"trainers"})
-//	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
+	@ManyToMany(mappedBy="trainers", cascade = CascadeType.ALL)
 	private List<Skillset> trainerSkills;
 
 	@JsonIgnoreProperties({"trainer"})
@@ -134,6 +135,9 @@ public class Trainer implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	
 
 	
 
