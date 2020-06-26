@@ -31,15 +31,15 @@ public class BatchController {
       }
 	}
 	
-//	@PatchMapping("batches/{id}")
-//	public Batch updateBatchWithId(@RequestBody Batch batch, @PathVariable Integer id) {
-//	  batch.setBatchId(id);
-//	  try {
-//        return batchService.updateBatch(batch);
-//      } catch (Exception e) {
-//          throw new ResponseStatusException(HttpStatus.CONFLICT);
-//      }
-//	}
-//	
+	@PatchMapping("batches/{id}")
+	public Batch updateBatchWithId(@RequestBody Batch batch, @PathVariable Integer id) {
+	  batch.setBatchId(id);
+	  try {
+        return batchService.updateBatch(batch);
+      } catch (Exception e) {
+          throw new ResponseStatusException(HttpStatus.CONFLICT);
+      }
+	}
+	
 	
 }
