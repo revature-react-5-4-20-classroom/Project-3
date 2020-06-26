@@ -1,8 +1,9 @@
 import React from 'react';
 import { Trainer } from '../models/Trainer';
-import {getAllTrainers, getEligibility, createConsentRequest, assignTrainer} from '../api/consent'
+import {getAllTrainers, getEligibility, createConsentRequest} from '../api/consent'
 import { Form, FormGroup, Label, Col, Input, Button, Toast, ToastHeader, ToastBody, ListGroupItem, ListGroup } from 'reactstrap';
 import { Consent } from '../models/Consent';
+import { assignTrainer } from '../api/batch';
 
 interface IAssignmentComponentState { 
   trainers : Trainer[]
