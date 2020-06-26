@@ -38,22 +38,19 @@ public class Trainer {
 	private String email;
 	
 	
-//	@JoinColumn(name="current_batch")
-//	@OneToOne(fetch= FetchType.EAGER)
-//	private Integer currentBatch;
-	
-	// Working here
-//	@JsonIgnoreProperties({ "skills" })
-//	@ManyToMany(mappedBy = "skills", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({"trainers"})
+
+//	Trainer to trainerskills
+	@JsonIgnoreProperties({"trainers", "curriculum", "clientDemand"})
 	@ManyToMany(mappedBy="trainers", cascade = CascadeType.ALL)
 	private List<Skillset> trainerSkills;
 
-	@JsonIgnoreProperties({"trainer"})
+	// this prevents infinite display
+	@JsonIgnoreProperties({"trainer", "batch"})
 	@OneToOne(mappedBy = "trainer")
 	private Consent consent;
 	
-	@JsonIgnoreProperties({"batches"})
+	// This prevents infinite display. Need to cut down later when we want certain information
+	@JsonIgnoreProperties({"batches", "trainers", "curriculum", "consent"})
 	@ManyToMany(mappedBy="trainers")
 	private List<Batch> batches;
 

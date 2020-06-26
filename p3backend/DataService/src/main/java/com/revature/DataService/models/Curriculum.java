@@ -30,7 +30,7 @@ public class Curriculum {
 	private String name;
 
 	// Batch to curriculum
-	@JsonIgnoreProperties({ "curriculum" })
+	@JsonIgnoreProperties({ "curriculum", "batch" })
 	@OneToOne(mappedBy = "curriculum")
 	private Batch batch;
 

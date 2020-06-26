@@ -35,8 +35,8 @@ public class Skillset {
   @JoinTable(name="skillsetskills",schema = "project3",joinColumns=@JoinColumn(name="skillset_id"),inverseJoinColumns=@JoinColumn(name="skill_id") )
   private List<Skills> skills; 
 
-  // SkillSet to Trainer
-  @JsonIgnoreProperties({"trainerSkills"})
+  // SkillSet to Trainer currently only show the trainer id
+  @JsonIgnoreProperties({"trainerSkills", "firstName", "lastName", "email", "consent", "batches"})
   @ManyToMany(cascade=CascadeType.ALL)
   @JoinTable(name="trainerskills", schema="project3",joinColumns=@JoinColumn(name="skillset_id"),inverseJoinColumns=@JoinColumn(name="trainer_id"))
   private List<Trainer> trainers;
@@ -44,12 +44,12 @@ public class Skillset {
   
 
   // SkillSet to ClientDemand
-  @JsonIgnoreProperties({"clientDemandSkillset"})
+  @JsonIgnoreProperties({"clientDemandSkillset", "quantity", "deadline", "client_demand_id", "client"})
   @OneToOne(mappedBy = "clientDemandSkillset")
   private ClientDemand clientDemand;  
   
   // SkillSet to Curriculum
-  @JsonIgnoreProperties({"curriculumSkillset"})
+  @JsonIgnoreProperties({"curriculumSkillset", "batch", "location", "associates", "consent"})
   @OneToOne(mappedBy = "curriculumSkillset")
   private Curriculum curriculum;
 
