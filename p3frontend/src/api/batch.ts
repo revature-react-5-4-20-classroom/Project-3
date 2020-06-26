@@ -29,7 +29,7 @@ const buildABatch = (respData : any) : Batch => {
     );
 }
 
-export async function getAllBatches() : Promise<Batch[]>{
+export async function getAllBatches() : Promise<Batch[]> {
     try {
         const response = await storeClient.get('/batches');
         const respData = response.data

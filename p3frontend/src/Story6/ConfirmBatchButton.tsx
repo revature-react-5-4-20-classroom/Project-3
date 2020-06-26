@@ -18,7 +18,6 @@ export class ConfirmBatchButton extends React.Component<IConfirmBatchButtonProps
         }
         updateBatch(this.props.batch.batchId, confData)
             .then(batch => console.log(batch));
-            
     }
 
     render() {
