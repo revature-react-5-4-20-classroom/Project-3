@@ -35,22 +35,15 @@ public class BatchController {
       }
 	}
 	
-	//guess we're not doing this
-//	@PostMapping("/batches")
-//	public Batch addNewBatch(@RequestBody Batch batch)
-//	{
-//	  return batchService.serviceSave(batch);
-//	}
-	
-//	@PatchMapping("batches/{id}")
-//	public Batch updateBatchWithId(@RequestBody Batch batch, @PathVariable Integer id) {
-//	  batch.setBatchId(id);
-//	  try {
-//        return batchService.updateBatch(batch);
-//      } catch (Exception e) {
-//          throw new ResponseStatusException(HttpStatus.CONFLICT);
-//      }
-//	}
-//	
+
+	@PatchMapping("batches/{id}")
+	public Batch updateBatchWithId(@RequestBody Batch batch, @PathVariable Integer id) {
+	  batch.setBatchId(id);
+	  try {
+        return batchService.updateBatch(batch);
+      } catch (Exception e) {
+          throw new ResponseStatusException(HttpStatus.CONFLICT);
+      }
+	}
 	
 }

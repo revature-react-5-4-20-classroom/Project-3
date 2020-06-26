@@ -12,9 +12,13 @@ export async function getEligibility(trainer:Trainer, batchId:number): Promise<b
       return response;
 }
 
+<<<<<<< HEAD
 export async function assignTrainer(trainerId : number, batchId : number){
     const repsone = await axiosClient.post('/trainerbatch', {trainerId:trainerId, batchId:batchId});
 }
+=======
+
+>>>>>>> e48a0ceeb3b493a82f4496441a7bd15470b563e7
 
 
 export async function getAllTrainers() : Promise<any[]>{
