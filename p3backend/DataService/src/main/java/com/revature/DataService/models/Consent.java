@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,8 +26,9 @@ public class Consent {
   @Column(name = "consent_approved")
   private boolean isApproved;
 
+  // Working
   @JsonIgnoreProperties({"consent", "trainers"})
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "batch_id")
   private Batch batch;
 
