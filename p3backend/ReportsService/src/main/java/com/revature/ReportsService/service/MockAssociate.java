@@ -24,7 +24,7 @@ public class MockAssociate {
 		this.nextId = 7;
 	}
 
-	public List<Associate> getAll() {
+	public List<Associate> getAssociates() {
 		return this.mockAssociatesData;
 	}
 

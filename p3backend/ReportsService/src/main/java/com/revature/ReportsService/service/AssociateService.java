@@ -16,7 +16,7 @@ public class AssociateService {
 
 	public List<Associate> getAll() {
 //		return associateRepository.getAll();
-		return new MockAssociate().getAll();
+		return new MockAssociate().getAssociates();
 	}
 
 	public Associate getById(Integer id) {

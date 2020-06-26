@@ -27,12 +27,12 @@ public class BatchService {
 	  }
 	}
 	
-	public Batch updateBatch(Batch batch) throws Exception {
-	  Optional<Batch> existingBatch = batchRepository.findById(batch.getBatchId());
-	  if (existingBatch.isPresent()) {
-        return batchRepository.save(batch);
-      } else {
-        throw new Exception("batch failed to update");
-      }
-	}
+//	public Batch updateBatch(Batch batch) throws Exception {
+//	  Optional<Batch> existingBatch = batchRepository.findById(batch.getBatchId());
+//	  if (existingBatch.isPresent()) {
+//        return batchRepository.save(batch);
+//      } else {
+//        throw new Exception("batch failed to update");
+//      }
+//	}
 }
