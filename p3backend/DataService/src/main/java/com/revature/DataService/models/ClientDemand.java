@@ -31,7 +31,7 @@ public class ClientDemand
     private LocalDate deadline;
 
     // Batch to curriculum
-    @JsonIgnoreProperties({"clientDemand", "trainers", "curriculum"})
+    @JsonIgnoreProperties({"clientDemands", "trainers", "curriculum"})
     @ManyToOne
     @JoinColumn(name = "clientdemand_skillset_id")
     private Skillset clientDemandSkillset;
