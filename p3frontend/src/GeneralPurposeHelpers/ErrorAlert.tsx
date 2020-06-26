@@ -16,8 +16,16 @@ export function ErrorAlert(props:any)
 			{/* {JSON.stringify(props.error)} */}
 			{props.error.name}&nbsp;
 			{props.error.message}&nbsp;
-			{props.error.config.method}&nbsp;
-			{props.error.config.baseURL}{props.error.config.url}
+			{
+				props.error.config?
+					(<>
+						{props.error.config.method}&nbsp;
+						{props.error.config.baseURL}{props.error.config.url}
+					</>)
+				:
+					(<></>)
+			
+			}
 		</Alert>)
 	}
 

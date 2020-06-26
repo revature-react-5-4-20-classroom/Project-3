@@ -8,3 +8,14 @@ export class Location {
         this.name = name;
     }
 }
+
+/*
+    locationGetName(location)
+
+    returns the full name of the location.
+    no-location when location is null
+*/
+export function locationGetName(loc:Location)
+{
+    return loc?loc.name:'no-location'
+}

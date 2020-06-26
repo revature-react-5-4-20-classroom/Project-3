@@ -28,7 +28,7 @@ export class App extends React.Component<any, any> {
   {
     return (<Container>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-      <TestdateDifferenceWeeks/>
+      {/* <TestdateDifferenceWeeks/> */}
       <Router>
         <Navbar color='light' light expand='md'>
             <NavbarToggler onClick={this.toggleNavbar}/>

@@ -3,7 +3,7 @@ import { prnt } from "./Prnt"
 import { Table } from "reactstrap"
 import Calendar from 'react-calendar';
 
-const doPrnt=true
+const doPrnt=false
 
 export class TestdateDifferenceWeeks extends React.Component<any,any>
 {
@@ -12,10 +12,11 @@ export class TestdateDifferenceWeeks extends React.Component<any,any>
 		super(props)
 		this.state={
 			dates:[//display dates. see the week difference.
-				{i:0,start:new Date(2020,0,18),end:new Date(2020,0,14)},	
-				{i:1,start:new Date(2020,0,1),end:new Date(2020,0,4)},	
-				{i:2,start:new Date(2020,0,1),end:new Date(2020,0,8)},
-				{i:3,start:new Date(2020,5,19),end:new Date(Date.now())},
+				{i:4,start:new Date(2020,5,16),	end:new Date(2020,6,4)},
+				{i:3,start:new Date(2020,0,18),	end:new Date(2020,0,14)},	
+				{i:2,start:new Date(2020,0,1),	end:new Date(2020,0,4)},	
+				{i:1,start:new Date(2020,0,1),	end:new Date(2020,0,8)},
+				{i:0,start:new Date(2020,5,19),	end:new Date(Date.now())},
 			]
 		}
 	}
@@ -43,10 +44,10 @@ export class TestdateDifferenceWeeks extends React.Component<any,any>
 
 
 /*
-	dateDifferenceWeeks(dateObjectSooner,dateObjectLater)
+	{dateDifferenceWeeks(dateObjectSooner,dateObjectLater)}
 
 	returns:
-		jsx with the differentce in dates in weeks. this uses some rounding.
+		jsx with the difference in dates, in weeks. this uses some rounding.
 */
 export function dateDifferenceWeeks(dateStart:Date,dateEnd:Date)
 {
@@ -54,7 +55,7 @@ export function dateDifferenceWeeks(dateStart:Date,dateEnd:Date)
 
 	if(dateEnd.getTime()<dateStart.getTime())
 	{
-		return(<>Hasn't Happened yet</>)
+		return(<>End is before Start</>)
 	}
 
 	const msInADay=8.64e+7
@@ -63,16 +64,17 @@ export function dateDifferenceWeeks(dateStart:Date,dateEnd:Date)
 	let dayEnd=		Math.ceil(dateEnd.getTime()/msInADay)
 	prnt(doPrnt,`dayEnd-dayStart=${dayEnd-dayStart}`)
 
-	// let dayDiff=dayStart-dayEnd
+	let dayDiff=dayEnd-dayStart
+
 	// let a=Math.round(dateStart.getDay()/7)
 	// let b=Math.round(dateEnd.getDay()/7)
 
-	let weekStart=	Math.round(dayStart/7)
-	let weekEnd=	Math.round(dayEnd/7)
+	// let weekStart=	Math.floor(dayStart/7)
+	// let weekEnd=	Math.ceil(dayEnd/7)
 	//prnt(doPrnt,`weekEnd-weekStart=${weekEnd-weekStart}`)
 	//let dayDifference=(dateEnd.getTime()-dateStart.getTime())/
 	//let weekRoundDown=Math.floor(dayDifference/7)
 
-	return (<>{weekEnd-weekStart}</>)
+	return (<>{Math.round(dayDiff/7)}</>)
 	//return dayDiff
 }
