@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import com.revature.DataService.dtos.UpdateBatchDto;
 import com.revature.DataService.models.Batch;
 import com.revature.DataService.services.BatchService;
 
@@ -32,10 +33,11 @@ public class BatchController {
 	}
 	
 	@PatchMapping("batches/{id}")
-	public Batch updateBatchWithId(@RequestBody Batch batch, @PathVariable Integer id) {
-	  batch.setBatchId(id);
+	public Batch updateBatchWithId(@RequestBody UpdateBatchDto dto, @PathVariable Integer id) {
 	  try {
-        return batchService.updateBatch(batch);
+	    Batch oldBatch = batchService.getById(id);
+	    oldBatch.setIsConfirmed(dto.getIsConfirmed());
+        return batchService.updateBatch(oldBatch);
       } catch (Exception e) {
           throw new ResponseStatusException(HttpStatus.CONFLICT);
       }
