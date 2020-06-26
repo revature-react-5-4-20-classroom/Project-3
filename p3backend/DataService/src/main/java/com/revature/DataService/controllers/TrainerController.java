@@ -15,7 +15,7 @@ import com.revature.DataService.models.Batch;
 import com.revature.DataService.models.Curriculum;
 import com.revature.DataService.models.Skills;
 import com.revature.DataService.models.Skillset;
-import com.revature.DataService.models.SkillsetSkills;
+//import com.revature.DataService.models.SkillsetSkills;
 import com.revature.DataService.models.Trainer;
 import com.revature.DataService.services.BatchService;
 import com.revature.DataService.services.CurriculumService;
