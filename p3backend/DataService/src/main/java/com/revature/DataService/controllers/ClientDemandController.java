@@ -34,13 +34,13 @@ public class ClientDemandController
 //      //return clientDemandRepo.findByClientDemandId(id);
 //    }
     
-    //get all clientDemand by skillsetId
+//    //get all clientDemand by skillsetId
 //    @CrossOrigin(origins = "*")
 //    @GetMapping("/clientDemandSkillset/{id}")
 //    public List<ClientDemand> endpointAll3(@PathVariable Integer id)
-    {
-     // return clientDemandRepo.findBySkillsetId(id);
-    }
+//    {
+//     // return clientDemandRepo.findBySkillsetId(id);
+//    }
     
 //    //post a new clientDemand. respond with what as posted. null on failure
 //    //the request json is converted to ClientDemand for us
