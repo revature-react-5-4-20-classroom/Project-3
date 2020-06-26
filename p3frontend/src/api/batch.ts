@@ -33,7 +33,7 @@ export async function getAllBatches() : Promise<Batch[]>{
     try {
         const response = await storeClient.get('/batches');
         const respData = response.data
-        const allBatches = respData.map((b : any) => {
+        const allBatches : Batch[] = respData.map((b : any) => {
             return buildABatch(b);
         });
         return allBatches;
