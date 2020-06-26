@@ -35,9 +35,9 @@ public class ClientDemandController
 //    }
     
     //get all clientDemand by skillsetId
-    @CrossOrigin(origins = "*")
-    @GetMapping("/clientDemandSkillset/{id}")
-    public List<ClientDemand> endpointAll3(@PathVariable Integer id)
+//    @CrossOrigin(origins = "*")
+//    @GetMapping("/clientDemandSkillset/{id}")
+//    public List<ClientDemand> endpointAll3(@PathVariable Integer id)
     {
      // return clientDemandRepo.findBySkillsetId(id);
     }

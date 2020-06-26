@@ -20,9 +20,9 @@ public class AssociateService {
 		return associateRepository.findAll();
 	}
 	
-public void updateAssociateBatch(Integer associateId, Integer assignedBatchId) {
-	associateRepository.update(associateId, assignedBatchId);
-}
+	public void updateAssociateBatch(Integer associateId, Integer assignedBatchId) {
+		//associateRepository.update(associateId, assignedBatchId);
+	}
 	
 	
 }

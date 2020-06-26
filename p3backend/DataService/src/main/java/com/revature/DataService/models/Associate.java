@@ -17,13 +17,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(schema = "project3", name = "associate")
 public class Associate {
-
-	
-	public Associate() {
-		super();
-		
-	}
-	
 	
 	@Id
 	@Column(name= "associate_id")
@@ -45,13 +38,30 @@ public class Associate {
 	@Column(name="interview_score")
 	private double interviewScore;
 	
-
-	@JsonIgnoreProperties({"associate"})
 	@ManyToOne
 	@JoinColumn(name="assigned_batch_id")
+	@JsonIgnoreProperties({"associate", "trainers", "curriculum", "location", "consent"})
 	private Batch batch;
 
-	public Integer getAssociateId() {
+	public Associate() {
+		super();
+		
+	}
+	
+	public Associate(Integer associateId, String firstName, String lastName, String email,
+		boolean active, double interviewScore, Batch batch) {
+	    super();
+	    this.associateId = associateId;
+	    this.firstName = firstName;
+	    this.lastName = lastName;
+	    this.email = email;
+	    this.active = active;
+	    this.interviewScore = interviewScore;
+	    this.batch = batch;
+	  }
+
+	
+  public Integer getAssociateId() {
 		return associateId;
 	}
 
@@ -74,7 +84,6 @@ public class Associate {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 
 	public String getEmail() {
 		return email;
@@ -100,27 +109,15 @@ public class Associate {
 		this.interviewScore = interviewScore;
 	}
 
-  public Batch getBatch() {
-    return batch;
-  }
+	public Batch getBatch() {
+		return batch;
+	}
 
-  public void setBatch(Batch batch) {
-    this.batch = batch;
-  }
+	public void setBatch(Batch batch) {
+		this.batch = batch;
+	}
 
-  public Associate(Integer associateId, String firstName, String lastName, String email,
-      boolean active, double interviewScore, Batch batch) {
-    super();
-    this.associateId = associateId;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.active = active;
-    this.interviewScore = interviewScore;
-    this.batch = batch;
-  }
-
-  @Override
+@Override
   public String toString() {
     return "Associate [associateId=" + associateId + ", firstName=" + firstName + ", lastName="
         + lastName + ", email=" + email + ", active=" + active + ", interviewScore="
