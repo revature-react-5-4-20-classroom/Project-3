@@ -28,28 +28,21 @@ public class Batch {
 
   }
 
-
-  
-
-  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
-      List<Associate> associates, Consent consent) {
-
-    super();
-    this.batchId = batchId;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.isConfirmed = isConfirmed;
-    this.interviewScoreLower = interviewScoreLower;
-
-    this.trainers = trainers;
-    this.location = location;
-    this.curriculum = curriculum;
-    this.associates = associates;
-    this.consent = consent;
-
-  }
-
+public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
+		List<Trainer> trainers, Location location, Curriculum curriculum, List<Associate> associates,
+		List<Consent> consent) {
+	super();
+	this.batchId = batchId;
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.isConfirmed = isConfirmed;
+	this.interviewScoreLower = interviewScoreLower;
+	this.trainers = trainers;
+	this.location = location;
+	this.curriculum = curriculum;
+	this.associates = associates;
+	this.consent = consent;
+}
 
 
   @Id
@@ -74,17 +67,18 @@ public class Batch {
   @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
   private List<Trainer> trainers;
 
+
   // Batch to location
-  @JsonIgnoreProperties({"batch"})
-  @OneToOne
-  @JoinColumn(name = "location_id", referencedColumnName = "location_id")
+  @JsonIgnoreProperties({"batches"})
+  @ManyToOne
+  @JoinColumn(name = "location_id")
   private Location location;
 
 
   // Batch to curriculum
   @JsonIgnoreProperties({"batch", "curriculum", "trainers"})
+  @ManyToOne
   @JoinColumn(name = "curriculum_id")
-  @OneToOne(fetch = FetchType.EAGER)
   private Curriculum curriculum;
 
   // Batch to associates
@@ -92,10 +86,11 @@ public class Batch {
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
 
+  // WORKING
   // Batch to consent
   @JsonIgnoreProperties({"batch", "trainerSkills"})
-  @OneToOne(mappedBy = "batch")
-  private Consent consent;
+  @OneToMany(mappedBy = "batch")
+  private List<Consent> consent;
 
 
 
@@ -195,24 +190,18 @@ public Location getLocation() {
 
 
 
-  public Consent getConsent() {
-    return consent;
-  }
 
-
-  public void setConsent(Consent consent) {
-    this.consent = consent;
-  }
-
-
-
-
-@Override
-public String toString() {
-	return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate + ", isConfirmed="
-			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
-			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
+public List<Consent> getConsent() {
+	return consent;
 }
+
+
+
+
+public void setConsent(List<Consent> consent) {
+	this.consent = consent;
+}
+
 
 
 
