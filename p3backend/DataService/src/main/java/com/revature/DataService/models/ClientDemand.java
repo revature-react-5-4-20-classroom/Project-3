@@ -31,10 +31,8 @@ public class ClientDemand
     private LocalDate deadline;
 
 //    // Batch to curriculum
-//    @JoinColumn(name = "curriculum_id")
-//    @OneToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"clientDemand", "trainers", "curriculum"})
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "clientdemand_skillset_id")
     private Skillset clientDemandSkillset;
     
