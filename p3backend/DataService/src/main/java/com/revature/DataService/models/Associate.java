@@ -46,6 +46,7 @@ public class Associate {
 	private double interviewScore;
 	
 
+	// Associate to Batch
 	@JsonIgnoreProperties({"associate"})
 	@ManyToOne
 	@JoinColumn(name="assigned_batch_id")
