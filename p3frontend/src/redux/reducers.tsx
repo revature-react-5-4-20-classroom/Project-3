@@ -32,17 +32,6 @@ export const batchReducer = (state:IBatchState = initialBatchState, action:AnyAc
     } 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 export interface IState {
     batch: IBatchState,
     

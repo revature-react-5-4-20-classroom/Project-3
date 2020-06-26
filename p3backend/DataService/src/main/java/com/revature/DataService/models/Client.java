@@ -28,12 +28,12 @@ public class Client {
 	// Note: should skillset/client be one to many?
 	@OneToOne // Skillset should have mappedBy="client"
 	@JsonIgnoreProperties({"client"})
-	@Column(name="client_skillset_id")
+	//@Column(name="client_skillset_id")
 	private Skillset clientSkillset;
 	
-	@OneToMany(mappedBy="client", cascade=CascadeType.MERGE)
-	@JsonIgnoreProperties({"client"})
-	private ClientDemand clientDemand;
+//	@OneToMany(mappedBy="client", cascade=CascadeType.MERGE)
+//	@JsonIgnoreProperties({"client"})
+//	private ClientDemand clientDemand;
 
 	public Integer getClientId() {
 		return clientId;
@@ -51,21 +51,21 @@ public class Client {
 		this.name = name;
 	}
 
-	public Skillset getClientSkillset() {
-		return clientSkillset;
-	}
+//	public Skillset getClientSkillset() {
+//		return clientSkillset;
+//	}
+//
+//	public void setClientSkillset(Skillset clientSkillset) {
+//		this.clientSkillset = clientSkillset;
+//	}
 
-	public void setClientSkillset(Skillset clientSkillset) {
-		this.clientSkillset = clientSkillset;
-	}
-
-	public ClientDemand getClientDemand() {
-		return clientDemand;
-	}
-
-	public void setClientDemand(ClientDemand clientDemand) {
-		this.clientDemand = clientDemand;
-	}
+//	public ClientDemand getClientDemand() {
+//		return clientDemand;
+//	}
+//
+//	public void setClientDemand(ClientDemand clientDemand) {
+//		this.clientDemand = clientDemand;
+//	}
 	
 	
 

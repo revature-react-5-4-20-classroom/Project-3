@@ -11,9 +11,9 @@ public interface ClientDemandRepo extends JpaRepository<ClientDemand, Integer>
   //we now have basic CRUD methods
   //we take our naming convention VERY seriously around here
   
-  List<ClientDemand> findByClientDemandId(Integer clientDemandId);
-  
-  List<ClientDemand> findByClientId(Integer clientId);
-  
-  List<ClientDemand> findBySkillsetId(Integer skillsetId);
+//  List<ClientDemand> findByClientDemandId(Integer clientDemandId);
+//  
+//  List<ClientDemand> findByClientId(Integer clientId);
+//  
+//  List<ClientDemand> findBySkillsetId(Integer skillsetId);
 }

@@ -84,6 +84,7 @@ public void setTrainer(Trainer trainer) {
 }
 
 
+
 public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, Trainer trainer) {
 	super();
 	this.skillSetId = skillSetId;

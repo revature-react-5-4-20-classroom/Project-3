@@ -40,10 +40,10 @@ public class ClientDemand
     @Column(name="skillset_id")
     public Integer skillsetId;
     
-    @JsonIgnoreProperties({"clientDemand"})
-    @ManyToOne
-    @JoinColumn(name="client_id")
-    private Client client;
+//    @JsonIgnoreProperties({"clientDemand"})
+//    @ManyToOne
+//    @JoinColumn(name="client_id")
+//    private Client client;
     
     public Integer getClientDemandId()
     {
@@ -74,14 +74,14 @@ public class ClientDemand
     {
       this.deadline = deadline;
     }
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
+//
+//	public Client getClient() {
+//		return client;
+//	}
+//
+//	public void setClient(Client client) {
+//		this.client = client;
+//	}
 
 
     
