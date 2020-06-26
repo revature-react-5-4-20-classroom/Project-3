@@ -66,6 +66,18 @@ public class Client {
 		return "Client [clientId=" + clientId + ", name=" + name + ", clientDemand=" + clientDemand + "]";
 	}
 
+	public Client(Integer clientId, String name, List<ClientDemand> clientDemand) {
+		super();
+		this.clientId = clientId;
+		this.name = name;
+		this.clientDemand = clientDemand;
+	}
+
+	public Client() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	
 	
 	

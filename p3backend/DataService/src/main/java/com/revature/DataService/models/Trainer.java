@@ -48,6 +48,7 @@ public class Trainer implements Serializable {
 //	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
 	private List<Skillset> trainerSkills;
 
+	@JsonIgnoreProperties({"trainer"})
 	@OneToOne(mappedBy = "trainer")
 	private Consent consent;
 	

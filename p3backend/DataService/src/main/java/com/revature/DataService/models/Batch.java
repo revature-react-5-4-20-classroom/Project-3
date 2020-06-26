@@ -70,22 +70,24 @@ public class Batch {
   @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
   private List<Trainer> trainers;
 
+  // Batch to location
   @JsonIgnoreProperties({"batch"})
   @OneToOne
   @JoinColumn(name = "location_id", referencedColumnName = "location_id")
   private Location location;
 
 
-
+  // Batch to curriculum
   @JoinColumn(name = "curriculum_id")
   @OneToOne(fetch = FetchType.EAGER)
   private Curriculum curriculum;
 
-
+  // Batch to associates
   @JsonIgnoreProperties({"batch"})
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
 
+  // Batch to consent
   @JsonIgnoreProperties({"batch"})
   @OneToOne(mappedBy = "batch")
   private Consent consent;

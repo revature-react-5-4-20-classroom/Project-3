@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,10 +29,13 @@ public class Curriculum {
 	@Column(name = "name")
 	private String name;
 	
+//	  // Batch to curriculum
+//	  @JoinColumn(name = "curriculum_id")
+//	  @OneToOne(fetch = FetchType.EAGER)
 	@OneToOne
 	@JsonIgnoreProperties({"curriculum"})
-	@JoinColumn(name="curriculum_id")
-	private Skillset skillset;
+	@JoinColumn(name="curriculum_skillset_id")
+	private Skillset curriculumSkillset;
 
 	public Integer getCurriculumId() {
 		return curriculumId;
@@ -49,12 +53,32 @@ public class Curriculum {
 		this.name = name;
 	}
 
-	public Skillset getSkillset() {
-		return skillset;
+	public Skillset getCurriculumSkillset() {
+		return curriculumSkillset;
 	}
 
-	public void setSkillset(Skillset skillset) {
-		this.skillset = skillset;
+	public void setCurriculumSkillset(Skillset curriculumSkillset) {
+		this.curriculumSkillset = curriculumSkillset;
 	}
+
+	public Curriculum(Integer curriculumId, String name, Skillset curriculumSkillset) {
+		super();
+		this.curriculumId = curriculumId;
+		this.name = name;
+		this.curriculumSkillset = curriculumSkillset;
+	}
+
+	@Override
+	public String toString() {
+		return "Curriculum [curriculumId=" + curriculumId + ", name=" + name + ", curriculumSkillset="
+				+ curriculumSkillset + "]";
+	}
+
+	public Curriculum() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	
 }
