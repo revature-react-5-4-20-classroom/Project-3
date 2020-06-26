@@ -14,8 +14,17 @@ public class BatchService {
 	@Autowired
 	BatchRepository batchRepository;
 	
-	public List<Batch> getAll() {
-	  return batchRepository.findAll();
+	public List<Batch> getAll()
+	{
+	  try
+	  {
+	    return batchRepository.findAll();
+	  }
+	  catch(Exception e)
+	  {
+	     return null;
+	    //hrow new Exception("Issue getting all batches "+e.getMessage());
+	  }
 	}
 	
 	public Batch getById(Integer id) throws Exception {
@@ -26,6 +35,11 @@ public class BatchService {
 	    throw new Exception("batch not found");
 	  }
 	}
+	
+//	public Batch serviceSave(Batch b)
+//	{
+//	  return batchRepository.save(b);
+//	}
 	
 //	public Batch updateBatch(Batch batch) throws Exception {
 //	  Optional<Batch> existingBatch = batchRepository.findById(batch.getBatchId());

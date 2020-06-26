@@ -28,31 +28,20 @@ export class App extends React.Component<any, any> {
   {
     return (<Container>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-      {/* <TestdateDifferenceWeeks/> */}
+      <TestdateDifferenceWeeks/>
       <Router>
         <Navbar color='light' light expand='md'>
             <NavbarToggler onClick={this.toggleNavbar}/>
             <Nav className='mr-auto' tabs>
               <NavItem>
-                <NavLink
-                  to='/home'
-                  className='nav-link'
-                  activeClassName='active'
-                >
+                <NavLink to='/home' className='nav-link' activeClassName='active'>
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-
-                <NavLink
-                  to='/batches'
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  Batches
-                </NavLink>
+                <NavLink to='/batches' className='nav-link' activeClassName='active'>Batches</NavLink>
               </NavItem>
- 
+              <NavItem>
                 <NavLink to='/in-progress' className='nav-link' activeClassName='active'>In Progress</NavLink>
               </NavItem>
               <NavItem>

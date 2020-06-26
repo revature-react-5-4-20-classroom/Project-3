@@ -8,6 +8,9 @@ import { Row, Col, Table, Container } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
+import { axiosClient } from "../api/axios";
+import { cachedDataVersionTag } from "v8";
+import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 
 const doPrnt=true//prnt will work
 
@@ -17,36 +20,41 @@ export class InProgress extends React.Component<any,any>
 	{
 		super(props)
 		this.state={
-		programType:'',//EasyDropdown will set this to its first item during component mount
+		programType:'',		//EasyDropdown will set this to its first item during render
 		workType:   '',
-		viewType:   '',
-		batchServerData:[	//holds the data fetched from the server. psudo data right now
+		viewType:   'Table',
+		error:		null,
+		batchDisplayData:[],	//holds the batch data formatted for display
+		batchPsudoData:[		//psudo server data to look at right now
 			{
 				id:0,
-				dateStart:	new Date(2020,1,0),
-				dateEnd:	new Date(2020,1,0+7*2),
+				name:		'Project 3',
+				dateStart:	new Date(2020,5,24),
+				dateEnd:	new Date(2020,6,9),
 				weekCurrent:0,
 				weekRemaining:0,
-				skillset:'Java',
+				skillset:'Fullstack',
 				associatesActive:5,
 				associatesInactive:6,
-				trainer:'Adam',
-				location:'Reston VA',
+				trainer:'N/A',
+				location:'Living room',
 			},
 			{
 				id:1,
-				dateStart:	new Date(2020,4,19),
-				dateEnd:	new Date(2020,5,19+7*3),
+				name:		'2005 May11 Salesforce',
+				dateStart:	new Date(2020,5,1),
+				dateEnd:	new Date(2020,5,19),
 				weekCurrent:1,
 				weekRemaining:9,
 				skillset:'JS/React',
 				associatesActive:13,
 				associatesInactive:2,
 				trainer:'Andrew',
-				location:'Reston VA',
+				location:'UTA',
 			},
 			{
 				id:2,
+				name:		'2006 June29 CodeFirst',
 				dateStart:	new Date(2020,10,24),
 				dateEnd:	new Date(2020,10,25+7*4),
 				weekCurrent:1,
@@ -55,17 +63,16 @@ export class InProgress extends React.Component<any,any>
 				associatesActive:6,
 				associatesInactive:12,
 				trainer:'Martin',
-				location:'Washington DC',
+				location:'WVU',
 			},
-		],
-
-		batchDisplayData:[]	//holds the batch data formatted for display
+		]
 		}
 	}
 
 	render()
 	{
 		return(<Container>
+				<ErrorAlert error={this.state.error}/>
 				<h6>Story 1. "In Progress"</h6><br/>
 				<p>Given that batches are currently in operation
 When I navigate to the 'In Progress' view
@@ -85,12 +92,12 @@ And this data is shown as a table and a Calendar view</p><br/>
 
 					<Col>
 						<b>view type:</b>
-						<EasyDropdown onSelected={this.setViewType}     items={['Table','Calendar']} />
+						<EasyDropdown onSelected={this.setViewType}     items={['Calendar','Table']} />
 					</Col>
 				</Row>
 				<br/>
 				<br/>
-				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<Calendar/>	}
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():this.displayDataAsCalendar()}
 				
 		</Container>)
 	}
@@ -102,6 +109,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 				<thead>
 					<tr>
 						<th onClick={()=>this.sortBatches('id')}>id</th>
+						<th onClick={()=>this.sortBatches('name')}>name</th>
 						<th onClick={()=>this.sortBatches('dateSortStart')}>Start Date</th>
 						<th onClick={()=>this.sortBatches('dateSortEnd')}>End Date</th>
 						<th onClick={()=>this.sortBatches('weekCurrent')}>Current Week</th>
@@ -120,8 +128,9 @@ And this data is shown as a table and a Calendar view</p><br/>
 							return(
 							<tr>
 								<td>{batch.id}</td>
-								<td>{batch.dateStart}</td>
-								<td>{batch.dateEnd}</td>
+								<td>{batch.name}</td>
+								<td>{batch.dateStartText}</td>
+								<td>{batch.dateEndText}</td>
 								<td>{batch.weekCurrent}</td>
 								<td>{batch.weekRemaining}</td>
 								<td>{batch.skillset}</td>
@@ -134,6 +143,36 @@ And this data is shown as a table and a Calendar view</p><br/>
 					}
 				</tbody>
 			</Table>
+		)
+	}
+
+	displayDataAsCalendar=()=>
+	{
+		return(
+			this.state.batchDisplayData.map((batch:any)=>
+			{
+				//return(<Row>{batch.dateStart} {batch.dateEnd}</Row>)
+				return(<Row>
+					<Col sm={4}>
+						<Calendar value={[batch.dateStart,batch.dateEnd]}
+							defaultActiveStartDate= {new Date(Date.now())}
+							calendarType="US"
+							/>
+					
+					</Col>
+					<Col>
+						<Row><Col sm={3}>id</Col><Col>{batch.id}</Col></Row>
+						<Row><Col sm={3}>name</Col><Col>{batch.name}</Col></Row>
+						<Row><Col sm={3}>Week current</Col><Col>{batch.weekCurrent}</Col></Row>
+						<Row><Col sm={3}>Weeks remaining</Col><Col>{batch.weekRemaining}</Col></Row>
+						<Row><Col sm={3}>Skillset</Col><Col>{batch.skillset}</Col></Row>
+						<Row><Col sm={3}>Associates Active</Col><Col>{batch.associatesActive}</Col></Row>
+						<Row><Col sm={3}>Associates Inactive</Col><Col>{batch.associatesInactive}</Col></Row>
+						<Row><Col sm={3}>Trainer</Col><Col>{batch.trainer}</Col></Row>
+						<Row><Col sm={3}>Location</Col><Col>{batch.location}</Col></Row>
+					</Col>
+				</Row>)
+			})
 		)
 	}
 
@@ -158,16 +197,22 @@ And this data is shown as a table and a Calendar view</p><br/>
 	}
 
 	//returns an array of batches that are made pretty for displaying
-	convertToDisplayData=(arrayOfBatches:[])=>
+	convertServerDataToDisplayData=(arrayOfBatches:[])=>
 	{
 		return arrayOfBatches.map((batch:any)=>
 		{
 			return{
 				id:					batch.id,
-				dateStart:			batch.dateStart.toDateString(),
-				dateEnd:			batch.dateEnd.toDateString(),
+				name:				batch.name,
+				dateStart:			batch.dateStart,
+				dateEnd:			batch.dateEnd,
+
+				dateStartText:		batch.dateStart.toDateString(),//used to display the date
+				dateEndText:		batch.dateEnd.toDateString(),
+
 				dateSortStart:		batch.dateStart.getTime(),//used to sort the dates
 				dateSortEnd:		batch.dateEnd.getTime(),
+
 				weekCurrent:		dateDifferenceWeeks(batch.dateStart,new Date(Date.now())),
 				weekRemaining:		dateDifferenceWeeks(batch.dateStart,batch.dateEnd),
 				skillset:			batch.skillset,
@@ -179,52 +224,52 @@ And this data is shown as a table and a Calendar view</p><br/>
 		})
 	}
 
-	/*
-		GET
-		requestBody
-		{
-			programType:  'ROCP'
-			workType:     'Curricula'
-		}
-
-		responseBody
-		[
-			{
-				batchName:			'The Mavericks',
-				currentWeek:		0,
-				weeksRemaining:		10,
-				activeAssociates:	16,
-				inactiveAssociates:	4,
-				trainer:			'Adam',
-				location:			'Reston'
-			}
-		]
-	*/
-	fetchTheBatchData=()=>
+	fetchTheBatchData=async()=>
 	{
-		//fetch the batch data
-
-		//then convert it to look pretty
 		this.setState({
-			batchDisplayData:this.convertToDisplayData(this.state.batchServerData)
+			batchDisplayData:this.convertServerDataToDisplayData(this.state.batchPsudoData)
 		})
+
+		// prnt(doPrnt,`fetchTheBatchData() has been reached`)
+
+		// try
+		// {
+		// 	let response=await axiosClient.get('/batches')
+
+		// 	prnt(doPrnt,`response=`,response)
+
+		// 	if(response.status!==200)
+		// 	{
+		// 		this.setState({error:response})
+		// 	}
+		// 	else
+		// 	{
+		// 		this.setState({
+		// 			batchDisplayData:this.convertServerDataToDisplayData(response.data)
+		// 		})
+		// 	}
+		// }
+		// catch(e)
+		// {
+		// 	this.setState({error:e})
+		// }
 	}
 
-	setProgramType=(pt:string)=>
+	setProgramType=(value:string)=>
 	{
-		this.fetchTheBatchData()
-		this.setState({programType:pt})
+		//this.fetchTheBatchData()
+		this.setState({programType:value})
 	}
 
-	setWorkType=(wt:string)=>
+	setWorkType=(value:string)=>
 	{
-		this.fetchTheBatchData()
-		this.setState({workType:wt})
+		//this.fetchTheBatchData()
+		this.setState({workType:value})
 	}
 
-	setViewType=(vt:string)=>
+	setViewType=(value:string)=>
 	{
-		this.setState({viewType:vt})
+		this.setState({viewType:value})
 	}
 
 	componentDidMount()

@@ -28,25 +28,22 @@ public class Batch {
 
   }
 
-
-  
-
   public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
       Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
       List<Associate> associates, Consent consent) {
 
     super();
-    this.batchId = batchId;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.isConfirmed = isConfirmed;
+    this.batchId =          batchId;
+    this.startDate =        startDate;
+    this.endDate =          endDate;
+    this.isConfirmed =      isConfirmed;
     this.interviewScoreLower = interviewScoreLower;
 
-    this.trainers = trainers;
-    this.location = location;
-    this.curriculum = curriculum;
-    this.associates = associates;
-    this.consent = consent;
+    this.trainers =         trainers;
+    this.location =         location;
+    this.curriculum =       curriculum;
+    this.associates =       associates;
+    this.consent =          consent;
 
   }
 

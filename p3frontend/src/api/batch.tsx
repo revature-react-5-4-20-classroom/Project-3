@@ -1,9 +1,11 @@
-import { storeClient } from './consent';
+
 import { Batch } from '../models/Batch';
+import { axiosClient } from './axios';
+
 
 export async function getBatchById(batchId:number ){
     try{
-        const response =  await storeClient.get(`/batches/${batchId}`);
+        const response =  await axiosClient.get(`/batches/${batchId}`);
         return response;
     } catch (e){
         console.log(e)
@@ -15,7 +17,7 @@ export async function getBatchById(batchId:number ){
 export async function updateBatch(bId : number, isConf : boolean, trainId? : number) : Promise<Batch> {
     try {
         const dataTransfer =  {batchId: bId, isConfirmed: isConf, trainerId: trainId ? trainId : null};
-        const response = await storeClient.patch(`/batches/${bId}`, dataTransfer);
+        const response = await axiosClient.patch(`/batches/${bId}`, dataTransfer);
         const {
             batchId, 
             startDate, 
