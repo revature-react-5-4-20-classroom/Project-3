@@ -65,7 +65,7 @@ public class Batch {
   @Column(name = "interview_score_lower")
   private Integer interviewScoreLower;
 
-  @JsonIgnoreProperties({"batches"})
+  @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
   @ManyToMany(cascade=CascadeType.MERGE)
   @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
   private List<Trainer> trainers;
@@ -78,7 +78,7 @@ public class Batch {
 
 
   // Batch to curriculum
-  @JsonIgnoreProperties({"batch", "curriculum"})
+  @JsonIgnoreProperties({"batch", "curriculum", "trainers"})
   @JoinColumn(name = "curriculum_id")
   @OneToOne(fetch = FetchType.EAGER)
   private Curriculum curriculum;
@@ -89,7 +89,7 @@ public class Batch {
   private List<Associate> associates;
 
   // Batch to consent
-  @JsonIgnoreProperties({"batch"})
+  @JsonIgnoreProperties({"batch", "trainerSkills"})
   @OneToOne(mappedBy = "batch")
   private Consent consent;
 

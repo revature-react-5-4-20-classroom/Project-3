@@ -33,7 +33,7 @@ public class ClientDemand
 //    // Batch to curriculum
 //    @JoinColumn(name = "curriculum_id")
 //    @OneToOne(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties({"clientDemand"})
+    @JsonIgnoreProperties({"clientDemand", "trainers", "curriculum"})
     @OneToOne
     @JoinColumn(name = "clientdemand_skillset_id")
     private Skillset clientDemandSkillset;
