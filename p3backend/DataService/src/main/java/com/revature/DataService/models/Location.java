@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(schema="project3",name="location")
 public class Location {
@@ -22,8 +24,11 @@ public class Location {
 	@Column(name="location_name")
 	private String locationName;
 	
+
+	@JsonIgnoreProperties({"location", "trainers", "curriculum", "associates", "consent"})
 	@OneToOne(mappedBy = "location")
 	private Batch batch;
+
 
 	public Integer getLocationId() {
 		return locationId;
@@ -49,14 +54,14 @@ public class Location {
 	}
 
 
-	public Batch getBatch() {
-		return batch;
-	}
-
-
-	public void setBatch(Batch batch) {
-		this.batch = batch;
-	}
+//	public Batch getBatch() {
+//		return batch;
+//	}
+//
+//
+//	public void setBatch(Batch batch) {
+//		this.batch = batch;
+//	}
 
 
 	@Override

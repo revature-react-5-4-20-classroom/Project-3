@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -21,65 +23,79 @@ import com.revature.DataService.models.Trainer;
 @Table(schema = "project3", name = "batch")
 public class Batch {
 
-	public Batch() {
-		super();
-		
-	}
-	
-	
-	public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, Trainer trainer, Location location, Curriculum curriculum) {
+  public Batch() {
+    super();
+
+  }
+
+
+  
+
+  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
+      Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
+      List<Associate> associates, Consent consent) {
+
     super();
     this.batchId = batchId;
     this.startDate = startDate;
     this.endDate = endDate;
     this.isConfirmed = isConfirmed;
     this.interviewScoreLower = interviewScoreLower;
-    this.trainer = trainer;
+
+    this.trainers = trainers;
     this.location = location;
     this.curriculum = curriculum;
+    this.associates = associates;
+    this.consent = consent;
+
   }
 
 
+
   @Id
-	@Column(name="batch_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer batchId;
-	
-	@Column(name="start_date")
-	private Date startDate;
-	
-	@Column(name="end_date")
-	private Date endDate;
-	
-	@Column(name="isconfirmed")
-	private Boolean isConfirmed;
-	
-	@Column(name="interview_score_lower")
-	private Integer interviewScoreLower;
-	
-	@JoinColumn(name="trainer_id")
-	@OneToOne(fetch = FetchType.EAGER)
-	// May need a JsonIgnoreProperties later on
-	private Trainer trainer;
+  @Column(name = "batch_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer batchId;
 
-	
-	
-	@OneToOne
-	@JoinColumn(name="location_id", referencedColumnName = "location_id")
-	private Location location;
+  @Column(name = "start_date")
+  private Date startDate;
 
-	
-	@JoinColumn(name="curriculum_id")
-	@OneToOne(fetch = FetchType.EAGER)
-	private Curriculum curriculum;
+  @Column(name = "end_date")
+  private Date endDate;
 
-	
-	@JsonIgnoreProperties({"batch"})
-	@OneToMany(mappedBy="batch", cascade = CascadeType.MERGE)
-	private List<Associate> associates;
-	
-	
+  @Column(name = "isconfirmed")
+  private Boolean isConfirmed;
+
+  @Column(name = "interview_score_lower")
+  private Integer interviewScoreLower;
+
+  @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
+  @ManyToMany(cascade=CascadeType.MERGE)
+  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
+  private List<Trainer> trainers;
+
+  // Batch to location
+  @JsonIgnoreProperties({"batch"})
+  @OneToOne
+  @JoinColumn(name = "location_id", referencedColumnName = "location_id")
+  private Location location;
+
+
+  // Batch to curriculum
+  @JsonIgnoreProperties({"batch", "curriculum", "trainers"})
+  @JoinColumn(name = "curriculum_id")
+  @OneToOne(fetch = FetchType.EAGER)
+  private Curriculum curriculum;
+
+  // Batch to associates
+  @JsonIgnoreProperties({"batch"})
+  @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
+  private List<Associate> associates;
+
+  // Batch to consent
+  @JsonIgnoreProperties({"batch", "trainerSkills"})
+  @OneToOne(mappedBy = "batch")
+  private Consent consent;
 
 
 
@@ -132,18 +148,21 @@ public class Batch {
     this.interviewScoreLower = interviewScoreLower;
   }
 
-
-  public Trainer getTrainer() {
-    return trainer;
-  }
-
-
-  public void setTrainer(Trainer trainer) {
-    this.trainer = trainer;
-  }
+  public List<Trainer> getTrainers() {
+	return trainers;
+}
 
 
-  public Location getLocation() {
+
+
+public void setTrainers(List<Trainer> trainers) {
+	this.trainers = trainers;
+}
+
+
+
+
+public Location getLocation() {
     return location;
   }
 
@@ -151,6 +170,7 @@ public class Batch {
   public void setLocation(Location location) {
     this.location = location;
   }
+
 
 
   public Curriculum getCurriculum() {
@@ -163,22 +183,38 @@ public class Batch {
   }
 
 
+
   public List<Associate> getAssociates() {
-	return associates;
-}
+    return associates;
+  }
 
 
-public void setAssociates(List<Associate> associates) {
-	this.associates = associates;
-}
+  public void setAssociates(List<Associate> associates) {
+    this.associates = associates;
+  }
+
+
+
+  public Consent getConsent() {
+    return consent;
+  }
+
+
+  public void setConsent(Consent consent) {
+    this.consent = consent;
+  }
+
+
 
 
 @Override
-  public String toString() {
-    return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
-        + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
-        + ", trainer=" + trainer + ", location=" + location + ", curriculum=" + curriculum + "]";
-  }
-		
-	
+public String toString() {
+	return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate + ", isConfirmed="
+			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
+			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
+}
+
+
+
+
 }

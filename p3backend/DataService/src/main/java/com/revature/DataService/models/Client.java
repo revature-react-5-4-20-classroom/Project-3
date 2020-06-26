@@ -1,5 +1,7 @@
 package com.revature.DataService.models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,15 +27,12 @@ public class Client {
 	private String name;
 	
 	// Multiplicity
-	// Note: should skillset/client be one to many?
-//	@OneToOne // Skillset should have mappedBy="client"
-//	@JsonIgnoreProperties({"client"})
-//	@Column(name="client_skillset_id")
-//	private Skillset clientSkillset;
+
 	
-	@OneToMany(mappedBy="client", cascade=CascadeType.MERGE)
 	@JsonIgnoreProperties({"client"})
-	private ClientDemand clientDemand;
+	@OneToMany(mappedBy="client", cascade=CascadeType.MERGE)
+	private List<ClientDemand> clientDemand;
+
 
 	public Integer getClientId() {
 		return clientId;
@@ -51,21 +50,32 @@ public class Client {
 		this.name = name;
 	}
 
-//	public Skillset getClientSkillset() {
-//		return clientSkillset;
-//	}
-//
-//	public void setClientSkillset(Skillset clientSkillset) {
-//		this.clientSkillset = clientSkillset;
-//	}
-
-	public ClientDemand getClientDemand() {
+	public List<ClientDemand> getClientDemand() {
 		return clientDemand;
 	}
 
-	public void setClientDemand(ClientDemand clientDemand) {
+	public void setClientDemand(List<ClientDemand> clientDemand) {
 		this.clientDemand = clientDemand;
 	}
+
+	@Override
+	public String toString() {
+		return "Client [clientId=" + clientId + ", name=" + name + ", clientDemand=" + clientDemand + "]";
+	}
+
+	public Client(Integer clientId, String name, List<ClientDemand> clientDemand) {
+		super();
+		this.clientId = clientId;
+		this.name = name;
+		this.clientDemand = clientDemand;
+	}
+
+	public Client() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	
 	
 
