@@ -112,14 +112,6 @@ public void setTrainers(List<Trainer> trainers) {
 
 
 
-public List<ClientDemand> getClientDemand() {
-	return clientDemands;
-}
-
-public void setClientDemand(List<ClientDemand> clientDemands) {
-	this.clientDemands = clientDemands;
-}
-
 public List<ClientDemand> getClientDemands() {
 	return clientDemands;
 }
