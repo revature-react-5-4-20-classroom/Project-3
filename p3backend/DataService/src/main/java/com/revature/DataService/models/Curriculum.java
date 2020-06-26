@@ -30,12 +30,12 @@ public class Curriculum {
 	private String name;
 
 	// Batch to curriculum
-	@JsonIgnoreProperties({ "curriculum", "batch" })
+	@JsonIgnoreProperties({ "curriculum", "trainers", "location", "associates", "consent" })
 	@OneToOne(mappedBy = "curriculum")
 	private Batch batch;
 
 	@OneToOne
-	@JsonIgnoreProperties({ "curriculum" })
+	@JsonIgnoreProperties({ "curriculum", "clientDemand" })
 	@JoinColumn(name = "curriculum_skillset_id")
 	private Skillset curriculumSkillset;
 

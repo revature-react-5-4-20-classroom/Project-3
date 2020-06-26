@@ -25,7 +25,7 @@ public class Skills {
 	@Column(name = "skill_name")
 	private String skillName;
 
-	@JsonIgnoreProperties({ "skills" })
+	@JsonIgnoreProperties({ "skills", "trainers", "curriculum", "clientDemand" })
 	@ManyToMany(mappedBy = "skills", cascade = CascadeType.ALL)
 	private List<Skillset> skillSets;
 

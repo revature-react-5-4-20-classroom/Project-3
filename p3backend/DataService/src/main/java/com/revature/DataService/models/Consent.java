@@ -24,12 +24,12 @@ public class Consent {
   @Column(name = "consent_approved")
   private boolean isApproved;
 
-  @JsonIgnoreProperties({"consent"})
+  @JsonIgnoreProperties({"consent", "trainers"})
   @OneToOne
   @JoinColumn(name = "batch_id")
   private Batch batch;
 
-  @JsonIgnoreProperties({"consent"})
+  @JsonIgnoreProperties({"consent", "batches"})
   @OneToOne
   @JoinColumn(name = "trainerId")
   private Trainer trainer;

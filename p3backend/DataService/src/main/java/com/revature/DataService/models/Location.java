@@ -24,7 +24,7 @@ public class Location {
 	@Column(name="location_name")
 	private String locationName;
 	
-	@JsonIgnoreProperties({"location"})
+	@JsonIgnoreProperties({"location", "trainers", "curriculum", "associates", "consent"})
 	@OneToOne(mappedBy = "location")
 	private Batch batch;
 
