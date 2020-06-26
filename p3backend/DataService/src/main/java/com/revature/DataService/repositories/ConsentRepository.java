@@ -12,6 +12,6 @@ import com.revature.DataService.models.Consent;
 public interface ConsentRepository extends JpaRepository<Consent, Integer>{
 
 	
-	@Query("select c from Consent c where c.trainerId=:id") //HQL
+	@Query("select c from Consent c where c.trainer.trainerId=:id") //HQL
 	List<Consent> getConsentByTrainerId(Integer id);
 }

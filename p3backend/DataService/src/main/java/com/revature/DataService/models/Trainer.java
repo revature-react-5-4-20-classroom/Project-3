@@ -1,6 +1,5 @@
 package com.revature.DataService.models;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(schema = "project3", name = "trainer")
-public class Trainer implements Serializable {
+public class Trainer {
 	
 	@Id
 	@Column(name="trainer_id")
@@ -37,126 +37,106 @@ public class Trainer implements Serializable {
 	@Column(name="email")
 	private String email;
 	
+	
 
-//	@JoinColumn(name="current_batch")
-//	@OneToOne(fetch= FetchType.EAGER)
-//	private Integer currentBatch;
-	
-	@Column(name="trainer_skillset_id")
-	private Integer trainerSkillsetId;
-	
-	@JsonIgnoreProperties({"trainer"})
-	@OneToMany(mappedBy="trainer", cascade=CascadeType.MERGE)
-//	@JoinColumn(name="trainer_skillset_id", referencedColumnName="skillset_id",insertable=false, updatable=false)
+//	Trainer to trainerskills
+	@JsonIgnoreProperties({"trainers", "curriculum", "clientDemand"})
+	@ManyToMany(mappedBy="trainers", cascade = CascadeType.ALL)
 	private List<Skillset> trainerSkills;
 
+	// this prevents infinite display
+	@JsonIgnoreProperties({"trainer", "batch"})
+	@OneToOne(mappedBy = "trainer")
+	private Consent consent;
 	
-	//I'm not certain how this who skills thing will work yet
-	//private skillset skills
+	// This prevents infinite display. Need to cut down later when we want certain information
+	@JsonIgnoreProperties({"batches", "trainers", "curriculum", "consent"})
+	@ManyToMany(mappedBy="trainers")
+	private List<Batch> batches;
 
+	public Integer getTrainerId() {
+		return trainerId;
+	}
 
+	public void setTrainerId(Integer trainerId) {
+		this.trainerId = trainerId;
+	}
 
+	public String getFirstName() {
+		return firstName;
+	}
 
-public Trainer() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
+	public String getLastName() {
+		return lastName;
+	}
 
-  
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-public Trainer(Integer trainerId, String firstName, String lastName, String email, Integer trainerSkillsetId,
-			List<Skillset> trainerSkills) {
+	public List<Skillset> getTrainerSkills() {
+		return trainerSkills;
+	}
+
+	public void setTrainerSkills(List<Skillset> trainerSkills) {
+		this.trainerSkills = trainerSkills;
+	}
+
+	public Consent getConsent() {
+		return consent;
+	}
+
+	public void setConsent(Consent consent) {
+		this.consent = consent;
+	}
+
+	public List<Batch> getBatches() {
+		return batches;
+	}
+
+	public void setBatches(List<Batch> batches) {
+		this.batches = batches;
+	}
+
+	@Override
+	public String toString() {
+		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", trainerSkills=" + trainerSkills + ", consent=" + consent + ", batches=" + batches + "]";
+	}
+
+	public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
+			Consent consent, List<Batch> batches) {
 		super();
 		this.trainerId = trainerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.trainerSkillsetId = trainerSkillsetId;
 		this.trainerSkills = trainerSkills;
+		this.consent = consent;
+		this.batches = batches;
 	}
 
+	public Trainer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	
+	
 
-
-
-public List<Skillset> getTrainerSkills() {
-	return trainerSkills;
-}
-
-
-
-
-
-public void setTrainerSkills(List<Skillset> trainerSkills) {
-	this.trainerSkills = trainerSkills;
-}
-
-
-
-public Integer getTrainerSkillsetId() {
-	return trainerSkillsetId;
-}
-
-public void setTrainerSkillsetId(Integer trainerSkillsetId) {
-	this.trainerSkillsetId = trainerSkillsetId;
-}
-
-public Integer getTrainerId() {
-    return trainerId;
-  }
-
-  public void setTrainerId(Integer trainerId) {
-    this.trainerId = trainerId;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-
-
-@Override
-public String toString() {
-	return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-			+ email + ", trainerSkillsetId=" + trainerSkillsetId + ", trainerSkills=" + trainerSkills + "]";
-}
-
-//  public Integer getCurrentBatch() {
-//    return currentBatch;
-//  }
-//
-//  public void setCurrentBatch(Integer currentBatch) {
-//    this.currentBatch = currentBatch;
-//  }
-
-//  @Override
-//  public String toString() {
-//    return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName
-//        + ", email=" + email + ", currentBatch=" + currentBatch + "]";
-//  }
+	
 
 	
 }
