@@ -11,7 +11,6 @@ public class Batch {
 	private Boolean isConfirmed;
 	private Integer interviewScoreLower;
 	private Integer locationId;
-	private Integer trainerId;
 
 	public Batch(Integer batchId, String curriculumId, LocalDate startDate, LocalDate endDate, Boolean isConfirmed,
 			Integer interviewScoreLower, Integer locationId, Integer trainerId) {
@@ -23,7 +22,6 @@ public class Batch {
 		this.isConfirmed = isConfirmed;
 		this.interviewScoreLower = interviewScoreLower;
 		this.locationId = locationId;
-		this.trainerId = trainerId;
 	}
 
 	public Integer getBatchId() {
@@ -82,12 +80,6 @@ public class Batch {
 		this.locationId = locationId;
 	}
 
-	public Integer getTrainerId() {
-		return trainerId;
-	}
 
-	public void setTrainerId(Integer trainerId) {
-		this.trainerId = trainerId;
-	}
 
 }

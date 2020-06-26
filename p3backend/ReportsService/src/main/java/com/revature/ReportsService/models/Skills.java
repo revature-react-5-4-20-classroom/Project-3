@@ -5,6 +5,12 @@ public class Skills {
   private Integer skillId;
   private String skillName;
   
+  public Skills(Integer skillId, String skillName) {
+    super();
+    this.skillId = skillId;
+    this.skillName = skillName;
+  }
+  
   public Integer getSkillId() {
     return skillId;
   }
