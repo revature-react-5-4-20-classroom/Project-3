@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +31,11 @@ public class TrainerController {
 	@Autowired
 	CurriculumService curriculumService;
 	
-		@CrossOrigin(origins = "*")
 	  @GetMapping("/trainer")
 	  public List<Trainer> getAllTrainers() {
 	    return trainerService.getAll();
 	  } 
 	  
-	  @CrossOrigin(origins = "*")
 	  @GetMapping("/trainer/{id}")
 	  public Trainer getTrainerById(@PathVariable Integer id) {
 	    try {
@@ -49,39 +46,36 @@ public class TrainerController {
 	  }
 	  //Commented out until Trainer skillset is defined/implemented
 	  
-	  @CrossOrigin(origins = "*")
-	  @GetMapping("/trainer/eligible/{batchId}")
-	  public boolean getTrainerByEligibility(@RequestBody Trainer trainer, @PathVariable Integer batchId) {
-		  Batch selectedBatch;
-		  try {
-			  selectedBatch = batchService.getById(batchId);
-		  } catch(Exception e) {
-			  System.out.println(e);
-		  } finally {
-			  selectedBatch = null;
-		  }
+	   
+//	  @GetMapping("/trainer/eligible/{batchId}")
+//	  public boolean getTrainerByEligibility(@RequestBody Trainer trainer, @PathVariable Integer batchId) {
+//
+//		  Batch selectedBatch = batchService.getById(batchId);
+//		  
+//		  Curriculum currentCurriculum = selectedBatch.getCurriculum();
+//		  currentCurriculum.
+//		 List<Skillset> trainerSkillSet = trainer.getTrainerSkills();
+//		 for(Skillset ss : trainerSkillSet) {
+//			 
+//			 List<Skills> trainerSkillsList = ss.getSkills();
+//			 if(skillsComparison(trainerSkillsList, cSkills)) {
+//				 return true;
+//			 }
+//			 
+//		 }
 		 
-		  
-		 Curriculum currentCurriculum = selectedBatch.getCurriculum();
-		 Skillset curriculumSkillset = currentCurriculum.getCurriculumSkillset();
-		 List<Skills> curriculumSkills = curriculumSkillset.getSkills();
-		 
-		 List<Skillset> trainerSkillSet = trainer.getTrainerSkills();
-		 for(Skillset ss : trainerSkillSet) {
-			 
-			 List<Skills> trainerSkillsList = ss.getSkills();
-			 if(skillsComparison(trainerSkillsList, curriculumSkills)) {
-				 return true;
-			 }
-			 
-		 }
-		 return false;
-		 
-	    
+//	    Trainer trainer = trainerService.getById(id);
+//	    Skillset ss = trainer.getTrainerSkills();
+//	    List<SkillsetSkills> sss = ss.getSkillSetSkils();
+//	    List<Skills> trainerSkillList = sss.get(0).getSkills();
+//	      if(skillsComparison(trainerSkillList, cSkills)) {
+//	    	  return true;
+//	      } else {
+//	    	  return false;
+//	      }
+//	  }
 	  
-	  }
-	  
-	  public boolean skillsComparison(List<Skills> tSkills, List<Skills> cSkills) {
+	  public boolean skillsComparison(List<Skills> tSkills, ArrayList<Skills> cSkills) {
 		    ArrayList<String> sharedSkills = new ArrayList<String>();
 		    for(Skills i : cSkills) {
 		      for (Skills x: tSkills) {

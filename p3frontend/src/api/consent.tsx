@@ -1,10 +1,20 @@
+import axios, { AxiosResponse } from 'axios';
 import {Consent} from '../models/Consent'
 import { Trainer } from '../models/Trainer';
-import { axiosClient } from './axios';
+
+
+export const storeClient = axios.create({
+    baseURL : 'http://localhost:1235', // Use this to test on your local machine, leave commented out.
+    // baseURL : ' http://3.21.185.168:8585', // The server was using this port instead for some reason
+    //baseURL : 'http://18.216.197.108:8080',
+    //if you don't have the following line, your login won't work
+    withCredentials: false, // we should probably change this later
+});
+
 
 export async function getEligibility(trainer:Trainer, batchId:number): Promise<boolean>{
 
-    const response : boolean = await axiosClient.get(`/trainer/eligible/${batchId}`,{
+    const response : boolean = await storeClient.get(`/trainer/eligible/${batchId}`,{
         params: {
           trainer: trainer,
         }
@@ -12,16 +22,17 @@ export async function getEligibility(trainer:Trainer, batchId:number): Promise<b
       return response;
 }
 
+export async function assignTrainer(trainerId : number, batchId : number){
+    const repsone = await storeClient.post('/trainerbatch', {trainerId:trainerId, batchId:batchId});
+}
 
 
-
-export async function getAllTrainers() : Promise<Trainer[]>{
+export async function getAllTrainers() : Promise<any[]>{
     try{
-        const response =  await axiosClient.get('/trainer');
+        const response =  await storeClient.get('/trainer');
         return response.data.map((trainerObj: any) => {
-            const {trainerId, firstName, lastName, email,  trainerSkills, consent, batch  } = trainerObj;
-            
-            return new Trainer(trainerId,firstName, lastName, email,  trainerSkills, consent, batch, false);
+            const {trainerId, firstName, lastName, email, trainerSkillSetId, trainerSkills  } = trainerObj;
+            return new Trainer(trainerId,firstName, lastName, email, trainerSkillSetId, trainerSkills);
          })
     } catch (e){
         console.log(e)
@@ -30,7 +41,7 @@ export async function getAllTrainers() : Promise<Trainer[]>{
 }
 export async function createConsentRequest(trainerId:number, isApproved:null,batchId:number ){
     try{
-        const response =  await storeClient.post('/consent', {trainerId:trainerId,batchId:batchId,isApproved:isApproved});
+        const response =  await storeClient.post('/consent', {trainerId:trainerId, isApproved:isApproved, batchId:batchId});
         return response;
     } catch (e){
         console.log(e)
@@ -39,7 +50,7 @@ export async function createConsentRequest(trainerId:number, isApproved:null,bat
 
 export async function approveConsentRequest(consent:Consent ){
     try{
-        const response =  await axiosClient.patch('/consent', {consent:consent});
+        const response =  await storeClient.patch('/consent', {consent:consent});
         //return response;
     } catch (e){
         console.log(e)
@@ -48,7 +59,7 @@ export async function approveConsentRequest(consent:Consent ){
 
 export async function denyConsentRequest(consent:Consent ) {
     try{
-        const response =  await axiosClient.patch('/consent', {consent:consent});
+        const response =  await storeClient.patch('/consent', {consent:consent});
         //return response;
     } catch (e){
         console.log(e)
@@ -57,7 +68,7 @@ export async function denyConsentRequest(consent:Consent ) {
 
 export async function getConsentByTrainerId(id: number) : Promise<any[]> {
     try {
-        const response = await axiosClient.get(`/consent/${id}`);
+        const response = await storeClient.get(`/consent/${id}`);
         return response.data.map((itemObj: any) => {
            const {consentId, trainerId, isApproved, batchId  } = itemObj;
            return new Consent(consentId, trainerId, isApproved, batchId);
@@ -72,7 +83,7 @@ export async function getConsentByTrainerId(id: number) : Promise<any[]> {
 
 export async function getBatchName(batchId:number ){
     try{
-        const response =  await axiosClient.get(`/batches/${batchId}`);
+        const response =  await storeClient.get(`/batches/${batchId}`);
         return response;
     } catch (e){
         console.log(e)

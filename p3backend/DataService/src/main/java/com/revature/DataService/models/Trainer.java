@@ -44,10 +44,10 @@ public class Trainer {
 	@ManyToMany(mappedBy="trainers", cascade = CascadeType.ALL)
 	private List<Skillset> trainerSkills;
 
-//	// this prevents infinite display
-//	@JsonIgnoreProperties({"trainer", "batch"})
-//	@OneToOne(mappedBy = "trainer")
-//	private Consent consent;
+	// this prevents infinite display
+	@JsonIgnoreProperties({"trainer", "batch"})
+	@OneToOne(mappedBy = "trainer")
+	private Consent consent;
 	
 	// This prevents infinite display. Need to cut down later when we want certain information
 	@JsonIgnoreProperties({"batches", "trainers", "curriculum", "consent"})
@@ -94,13 +94,13 @@ public class Trainer {
 		this.trainerSkills = trainerSkills;
 	}
 
-//	public Consent getConsent() {
-//		return consent;
-//	}
-//
-//	public void setConsent(Consent consent) {
-//		this.consent = consent;
-//	}
+	public Consent getConsent() {
+		return consent;
+	}
+
+	public void setConsent(Consent consent) {
+		this.consent = consent;
+	}
 
 	public List<Batch> getBatches() {
 		return batches;
@@ -110,11 +110,11 @@ public class Trainer {
 		this.batches = batches;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-//				+ email + ", trainerSkills=" + trainerSkills + ", consent=" + consent + ", batches=" + batches + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", trainerSkills=" + trainerSkills + ", consent=" + consent + ", batches=" + batches + "]";
+	}
 
 	public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
 			Consent consent, List<Batch> batches) {
@@ -124,7 +124,7 @@ public class Trainer {
 		this.lastName = lastName;
 		this.email = email;
 		this.trainerSkills = trainerSkills;
-		//this.consent = consent;
+		this.consent = consent;
 		this.batches = batches;
 	}
 

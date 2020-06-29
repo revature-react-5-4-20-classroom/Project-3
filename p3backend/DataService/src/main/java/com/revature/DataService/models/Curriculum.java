@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,8 +35,8 @@ public class Curriculum {
 	@OneToMany(mappedBy = "curriculum")
 	private List<Batch> batch;
 
-	// Working
-	@ManyToOne
+	// Do we need to change this? Curriculum to Skillset
+	@OneToOne
 	@JsonIgnoreProperties({ "curriculum", "clientDemand" })
 	@JoinColumn(name = "curriculum_skillset_id")
 	private Skillset curriculumSkillset;

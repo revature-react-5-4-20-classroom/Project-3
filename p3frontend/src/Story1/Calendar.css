@@ -1,5 +1,5 @@
 .react-calendar {
-  width: 300px;             /*<- I alter this sometimes*/
+  width: 350px; /*disabled so the calendar width is 100% of the container its in*/
   max-width:    100%;
   background: white;
   border:       1px solid #a0a096;
