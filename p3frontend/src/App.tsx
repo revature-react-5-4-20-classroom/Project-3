@@ -34,25 +34,18 @@ export class App extends React.Component<any, any> {
             <NavbarToggler onClick={this.toggleNavbar}/>
             <Nav className='mr-auto' tabs>
               <NavItem>
-                <NavLink
-                  to='/home'
-                  className='nav-link'
-                  activeClassName='active'
-                >
+                <NavLink to='/home' className='nav-link' activeClassName='active'>
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-
-                <NavLink
-                  to='/batches'
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  Batches
-                </NavLink>
+                <NavLink to='/batches' className='nav-link' activeClassName='active'>Batches</NavLink>
               </NavItem>
- 
+<<<<<<< HEAD
+                <NavItem>
+=======
+              <NavItem>
+>>>>>>> bf33ff1f264bb3747d5f603a02ea87c4eb323785
                 <NavLink to='/in-progress' className='nav-link' activeClassName='active'>In Progress</NavLink>
               </NavItem>
               <NavItem>

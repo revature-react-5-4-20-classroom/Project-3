@@ -28,29 +28,21 @@ public class Batch {
 
   }
 
-
-  
-
-  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
-      List<Associate> associates, Consent consent) {
-
-    super();
-    this.batchId = batchId;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.isConfirmed = isConfirmed;
-    this.interviewScoreLower = interviewScoreLower;
-
-    this.trainers = trainers;
-    this.location = location;
-    this.curriculum = curriculum;
-    this.associates = associates;
-    this.consent = consent;
-
-  }
-
-
+public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
+		List<Trainer> trainers, Location location, Curriculum curriculum, List<Associate> associates,
+		List<Consent> consent) {
+	super();
+	this.batchId = batchId;
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.isConfirmed = isConfirmed;
+	this.interviewScoreLower = interviewScoreLower;
+	this.trainers = trainers;
+	this.location = location;
+	this.curriculum = curriculum;
+	this.associates = associates;
+	//this.consent = consent;
+}
 
   @Id
   @Column(name = "batch_id")
@@ -93,10 +85,11 @@ public class Batch {
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
 
-  // Batch to consent
-  @JsonIgnoreProperties({"batch", "trainerSkills"})
-  @OneToOne(mappedBy = "batch")
-  private Consent consent;
+//  // WORKING
+//  // Batch to consent
+//  @JsonIgnoreProperties({"batch", "trainerSkills"})
+//  @OneToMany(mappedBy = "batch")
+//  private List<Consent> consent;
 
 
 
@@ -196,24 +189,18 @@ public Location getLocation() {
 
 
 
-  public Consent getConsent() {
-    return consent;
-  }
 
+//public List<Consent> getConsent() {
+//	return consent;
+//}
+//
+//
+//
+//
+//public void setConsent(List<Consent> consent) {
+//	this.consent = consent;
+//}
 
-  public void setConsent(Consent consent) {
-    this.consent = consent;
-  }
-
-
-
-
-@Override
-public String toString() {
-	return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate + ", isConfirmed="
-			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
-			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
-}
 
 
 

@@ -22,7 +22,29 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(schema = "project3",name = "skillset")
 public class Skillset {
   
-  @Id
+	
+	
+
+
+
+public Skillset() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, List<Trainer> trainers,
+			List<ClientDemand> clientDemands, List<Curriculum> curricula) {
+		super();
+		this.skillSetId = skillSetId;
+		this.skillSetName = skillSetName;
+		this.skills = skills;
+		this.trainers = trainers;
+		this.clientDemands = clientDemands;
+		this.curricula = curricula;
+	}
+
+
+@Id
   @Column(name = "skillset_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer skillSetId;
@@ -50,10 +72,11 @@ public class Skillset {
   private List<ClientDemand> clientDemands;  
   
   
+
   // SkillSet to Curriculum
   @JsonIgnoreProperties({"curriculumSkillset", "batch", "location", "associates", "consent"})
-  @OneToOne(mappedBy = "curriculumSkillset")
-  private Curriculum curriculum;
+  @OneToMany(mappedBy = "curriculumSkillset")
+  private List<Curriculum> curricula;
 
 public Integer getSkillSetId() {
 	return skillSetId;
@@ -88,47 +111,30 @@ public void setTrainers(List<Trainer> trainers) {
 }
 
 
-public Curriculum getCurriculum() {
-	return curriculum;
+
+public List<ClientDemand> getClientDemands() {
+	return clientDemands;
 }
 
-
-public void setCurriculum(Curriculum curriculum) {
-	this.curriculum = curriculum;
-
+public void setClientDemands(List<ClientDemand> clientDemands) {
+	this.clientDemands = clientDemands;
 }
 
+public List<Curriculum> getCurricula() {
+	return curricula;
+}
 
+public void setCurricula(List<Curriculum> curricula) {
+	this.curricula = curricula;
+}
 
 @Override
 public String toString() {
 	return "Skillset [skillSetId=" + skillSetId + ", skillSetName=" + skillSetName + ", skills=" + skills
-			+ ", trainers=" + trainers + ", clientDemands=" + clientDemands + ", curriculum=" + curriculum + "]";
+			+ ", trainers=" + trainers + ", clientDemands=" + clientDemands + ", curricula=" + curricula + "]";
 }
 
-public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, List<Trainer> trainers,
-		List<ClientDemand> clientDemand, Curriculum curriculum) {
-	super();
-	this.skillSetId = skillSetId;
-	this.skillSetName = skillSetName;
-	this.skills = skills;
-	this.trainers = trainers;
-	this.clientDemands = clientDemand;
-	this.curriculum = curriculum;
-}
 
-public List<ClientDemand> getClientDemand() {
-	return clientDemands;
-}
-
-public void setClientDemand(List<ClientDemand> clientDemands) {
-	this.clientDemands = clientDemands;
-}
-
-public Skillset() {
-	super();
-	// TODO Auto-generated constructor stub
-}
 
 
 
