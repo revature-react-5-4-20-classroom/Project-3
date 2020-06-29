@@ -29,11 +29,11 @@ const buildABatch = (respData : any) : Batch => {
     );
 }
 
-export async function getAllBatches() : Promise<Batch[]>{
+export async function getAllBatches() : Promise<Batch[]> {
     try {
         const response = await storeClient.get('/batches');
         const respData = response.data
-        const allBatches = respData.map((b : any) => {
+        const allBatches : Batch[] = respData.map((b : any) => {
             return buildABatch(b);
         });
         return allBatches;
@@ -58,7 +58,7 @@ export async function getBatchById(bId : number) : Promise<Batch> {
 // Confirm/Unconfirm a batch 
 export async function updateBatch(bId : number, isConf : boolean) : Promise<Batch> {
     try {
-        const dataTransfer =  {batchId: bId, isConfirmed: isConf};
+        const dataTransfer =  {isConfirmed: isConf};
         const response = await storeClient.patch(`/batches/${bId}`, dataTransfer);
         const respData = response.data;
         const theBatch = buildABatch(respData);
