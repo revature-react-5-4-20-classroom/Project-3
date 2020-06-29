@@ -1,5 +1,6 @@
 package com.revature.DataService.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,9 @@ public class BatchService {
       } else {
         throw new Exception("batch failed to update");
       }
+	}
+	
+	public List<Batch> getByInProgress(Date d) {
+		return batchRepository.findByInProgress(d);
 	}
 }
