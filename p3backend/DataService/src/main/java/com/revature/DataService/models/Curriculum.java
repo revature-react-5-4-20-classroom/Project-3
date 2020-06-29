@@ -38,7 +38,7 @@ public class Curriculum {
 
 	// Working
 	@ManyToOne
-	@JsonIgnoreProperties({ "curriculum", "clientDemand" })
+	@JsonIgnoreProperties({ "curriculum", "clientDemand","curricula" })
 	@JoinColumn(name = "curriculum_skillset_id")
 	private Skillset curriculumSkillset;
 
