@@ -85,8 +85,11 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
 
-//  // WORKING
-//  // Batch to consent
+
+  // WORKING
+  // Batch to consent
+  // Getting rid of this at Nick's request
+
 //  @JsonIgnoreProperties({"batch", "trainerSkills"})
 //  @OneToMany(mappedBy = "batch")
 //  private List<Consent> consent;
