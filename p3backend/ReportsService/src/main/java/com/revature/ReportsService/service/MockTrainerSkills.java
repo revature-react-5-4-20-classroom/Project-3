@@ -1,9 +1,11 @@
 package com.revature.ReportsService.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.revature.ReportsService.models.Associate;
 import com.revature.ReportsService.models.TrainerSkills;
 
 @Service
@@ -13,6 +15,7 @@ public class MockTrainerSkills {
 
 	public MockTrainerSkills() {
 		super();
+		trainerSkills = new ArrayList<TrainerSkills>();
 		trainerSkills.add(new TrainerSkills(0, 0));
 		trainerSkills.add(new TrainerSkills(1, 0));
 		trainerSkills.add(new TrainerSkills(1, 1));

@@ -1,9 +1,11 @@
 package com.revature.ReportsService.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.revature.ReportsService.models.Associate;
 import com.revature.ReportsService.models.TrainerBatch;
 
 @Service
@@ -13,6 +15,7 @@ public class MockTrainerBatch {
 
 	public MockTrainerBatch() {
 		super();
+		trainerBatch = new ArrayList<TrainerBatch>();
 		trainerBatch.add(new TrainerBatch(0, 1));
 		trainerBatch.add(new TrainerBatch(1, 1));
 		trainerBatch.add(new TrainerBatch(0, 2));
