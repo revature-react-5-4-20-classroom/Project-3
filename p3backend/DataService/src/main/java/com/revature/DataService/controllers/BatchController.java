@@ -1,5 +1,8 @@
 package com.revature.DataService.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,9 +24,11 @@ public class BatchController {
 	@Autowired
 	BatchService batchService;
 	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/batches")
-	public List<Batch> getAllBatches() {
-	  return batchService.getAll();
+	public List<Batch> getAllBatches()
+	{
+	   return batchService.getAll();
 	}
 	
 	@GetMapping("/batches/{id}")
@@ -34,6 +40,7 @@ public class BatchController {
       }
 	}
 	
+
 	@PatchMapping("batches/{id}")
 	public Batch updateBatchWithId(@RequestBody UpdateBatchDto dto, @PathVariable Integer id) {
 	  try {
@@ -45,5 +52,17 @@ public class BatchController {
       }
 	}
 	
+
+	@GetMapping("/batches/date/{date}")
+	public List<Batch> getInProgressBatches(@PathVariable String date) {
+		try {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			Date d = df.parse(date);
+			return batchService.getByInProgress(d);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+		}
+	}
 	
+
 }
