@@ -5,26 +5,26 @@ import java.time.LocalDate;
 public class Batch {
 
 	private Integer batchId;
-	private String curriculumId;
+	private Integer curriculumId;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private Boolean isConfirmed;
 	private Integer interviewScoreLower;
 	private Integer locationId;
 
-	public Batch(Integer batchId, String curriculumId, LocalDate startDate, LocalDate endDate, Boolean isConfirmed,
-			Integer interviewScoreLower, Integer locationId, Integer trainerId) {
-		super();
-		this.batchId = batchId;
-		this.curriculumId = curriculumId;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.isConfirmed = isConfirmed;
-		this.interviewScoreLower = interviewScoreLower;
-		this.locationId = locationId;
-	}
+	public Batch(Integer batchId, Integer curriculumId, LocalDate startDate, LocalDate endDate,
+      Boolean isConfirmed, Integer interviewScoreLower, Integer locationId) {
+    super();
+    this.batchId = batchId;
+    this.curriculumId = curriculumId;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.isConfirmed = isConfirmed;
+    this.interviewScoreLower = interviewScoreLower;
+    this.locationId = locationId;
+  }
 
-	public Integer getBatchId() {
+  public Integer getBatchId() {
 		return batchId;
 	}
 

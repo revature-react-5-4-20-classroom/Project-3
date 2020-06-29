@@ -34,7 +34,7 @@ public class DataGeneratorService {
 //          interviewScoreForBatch+=10;
 //
 //      }
-  }
+//  }
   
   
   

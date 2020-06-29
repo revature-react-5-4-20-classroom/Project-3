@@ -17,11 +17,11 @@ public class MockBatch {
 
 	public MockBatch() {
 		super();
-//        this.batches = new ArrayList<Batch>();
-//        this.batches.add(new Batch(1, 2, LocalDate.parse("2020-08-01"), 1, 1));
-//        this.batches.add(new Batch(2, 3, LocalDate.parse("2020-08-01"), 2, 2));
-//        this.batches.add(new Batch(3, 5, LocalDate.parse("2020-08-01"), 3, 3));
-//        this.nextId = 4;
+        this.batches = new ArrayList<Batch>();
+        this.batches.add(new Batch(1, 3, LocalDate.parse("2020-08-01"), LocalDate.parse("2020-11-01"), false, 70, 1));
+        this.batches.add(new Batch(2, 2, LocalDate.parse("2020-08-01"), LocalDate.parse("2020-11-01"), true, 80, 2));
+        this.batches.add(new Batch(3, 1, LocalDate.parse("2020-08-01"), LocalDate.parse("2020-11-01"), false, 90, 3));
+        this.nextId = 4;
 	}
 
 	public List<Batch> getBatches() {
