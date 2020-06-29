@@ -1,9 +1,11 @@
 package com.revature.ReportsService.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.revature.ReportsService.models.Curriculum;
 import com.revature.ReportsService.models.Skillset;
 
 @Service
@@ -15,6 +17,10 @@ private List<Skillset> skillsets;
 	public MockSkillset() {
 		super();
 		//insert fake data here
+		this.skillsets = new ArrayList<Skillset>();
+		this.skillsets.add(new Skillset(1,"java"));
+		this.skillsets.add(new Skillset(2,"react"));
+		this.skillsets.add(new Skillset(3,"big data"));
 	}
 
 
