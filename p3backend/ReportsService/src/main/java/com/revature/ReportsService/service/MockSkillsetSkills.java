@@ -11,6 +11,11 @@ public class MockSkillsetSkills {
   
   public MockSkillsetSkills() {
     super();
+    skillsetSkills.add(new SkillsetSkills(0, 0));
+    skillsetSkills.add(new SkillsetSkills(0, 1));
+    skillsetSkills.add(new SkillsetSkills(1, 1));
+    skillsetSkills.add(new SkillsetSkills(1, 3));
+    skillsetSkills.add(new SkillsetSkills(2, 2));
   }
   
   public List<SkillsetSkills> getSkillsetSkills() {

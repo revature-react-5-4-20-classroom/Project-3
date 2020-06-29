@@ -14,7 +14,11 @@ public class MockTrainer {
 	
 	public MockTrainer() {
 		super();
-		//insert fake data here
+		trainers.add(new Trainer(0, "f", "l", "e.m"));
+		trainers.add(new Trainer(1, "i", "a", "a.i"));
+		trainers.add(new Trainer(2, "r", "s", "l.e"));
+		trainers.add(new Trainer(3, "s", "t", "m.a"));
+		trainers.add(new Trainer(4, "t", "n", "i.l"));
 	}
 
 
