@@ -8,6 +8,7 @@ import { Row, Col, Table, Container } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
+import { TimelineComponent } from "./Timeline";
 
 const doPrnt=true//prnt will work
 
@@ -90,7 +91,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 				</Row>
 				<br/>
 				<br/>
-				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<Calendar/>	}
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	}
 				
 		</Container>)
 	}
