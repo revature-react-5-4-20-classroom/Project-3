@@ -18,6 +18,7 @@ import { seeIt } from "../GeneralPurposeHelpers/seeIt";
 import { connect } from 'react-redux';
 import { allTheActionMappers, batchClickActionMapper } from "../redux/action-mapper";
 import { IState, allTheMapStateToProps } from "../redux/reducers";
+import {pseudoDataResponse}  from "../PseudoData/convertJsonToObjects";
 
 const doPrnt=true//prnt will work
 
@@ -33,47 +34,6 @@ export class InProgress extends React.Component<any,any>
 		sortAscend:	true,		//sorts by ascending or decending
 		error:		null,		//holds an axios error object that will be displayed
 		batchDisplayData:[],	//holds the batch data formatted for display
-		batchPsudoData:[		//psudo server data to look at right now
-			{
-				id:0,
-				name:		'Project 3',
-				dateStart:	new Date(2020,5,24),
-				dateEnd:	new Date(2020,6,9),
-				weekCurrent:0,
-				weekRemaining:0,
-				skillset:'Fullstack',
-				associatesActive:5,
-				associatesInactive:6,
-				trainer:'N/A',
-				location:'Living room',
-			},
-			{
-				id:1,
-				name:		'2005 May11 Salesforce',
-				dateStart:	new Date(2020,5,1),
-				dateEnd:	new Date(2020,5,19),
-				weekCurrent:1,
-				weekRemaining:9,
-				skillset:'JS/React',
-				associatesActive:13,
-				associatesInactive:2,
-				trainer:'Andrew',
-				location:'UTA',
-			},
-			{
-				id:2,
-				name:		'2006 June29 CodeFirst',
-				dateStart:	new Date(2020,10,24),
-				dateEnd:	new Date(2020,10,25+7*4),
-				weekCurrent:1,
-				weekRemaining:9,
-				skillset:'C#',
-				associatesActive:6,
-				associatesInactive:12,
-				trainer:'Martin',
-				location:'WVU',
-			},
-		]
 		}
 	}
 
@@ -87,15 +47,6 @@ When I navigate to the 'In Progress' view
 And I optionally select Program Type (ROCP, CF, Standard, Spark) or Curricula or client
 Then I see current week, weeks remaining, number of active/inactive associates, trainer, location filtered by criteria
 And this data is shown as a table and a Calendar view</p><br/>
-				<Button onClick={()=>{
-
-					let oneBatch=this.state.batchDataFromServer[0]
-
-					prnt(doPrnt,`Selected batch[0] oneBatch.batchId=`,oneBatch.batchId)
-
-					this.props.batchClickActionMapper(oneBatch)
-				}}>Select Batch [0]</Button>
-
 				<Row>
 					<Col>
 						<b>program type</b>
@@ -162,7 +113,15 @@ And this data is shown as a table and a Calendar view</p><br/>
 								<td>{batch.skillset}</td>
 								<td>{batch.associatesActive}</td>
 								<td>{batch.associatesInactive}</td>
-								<td>{batch.trainer}</td>
+								<td>
+								{
+									batch.trainers.map((trainer:any)=>
+									{
+										return(<>{trainer.firstName}<br/></>)
+									})
+								
+								}
+								</td>
 								<td>{batch.location}</td>
 							</tr>)
 						})
@@ -283,7 +242,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 				skillset:			batch.curriculum.curriculumSkillset.skillSetName,
 				associatesActive:	associatesGetActiveTotal(batch.associates,true),
 				associatesInactive:	associatesGetActiveTotal(batch.associates,false),
-				trainer:			trainerGetName(batch.trainers[0]),
+				trainers:			batch.trainers,
 				location:			locationGetName(batch.location),
 			}
 		})
@@ -291,34 +250,33 @@ And this data is shown as a table and a Calendar view</p><br/>
 
 	fetchTheBatchData=async()=>
 	{
-		// this.setState({
-		// 	batchDisplayData:this.convertServerDataToDisplayData(this.state.batchPsudoData)
-		// })
+		this.setState({
+			batchDisplayData:this.convertServerDataToDisplayData(pseudoDataResponse.data)
+		})
 
-		prnt(doPrnt,`fetchTheBatchData() has been reached`)
+		// prnt(doPrnt,`fetchTheBatchData() has been reached`)
 
-		try
-		{
-			let response=await axiosClient.get('/batches')
+		// try
+		// {
+		// 	let response=await axiosClient.get('/batches')
 
-			prnt(doPrnt,`response=`,response)
+		// 	prnt(doPrnt,`response=`,response)
 
-			if(response.status!==200)
-			{
-				this.setState({error:response})
-			}
-			else
-			{
-				this.setState({
-					batchDisplayData:this.convertServerDataToDisplayData(response.data),
-					batchDataFromServer:response.data
-				})
-			}
-		}
-		catch(e)
-		{
-			this.setState({error:e})
-		}
+		// 	if(response.status!==200)
+		// 	{
+		// 		this.setState({error:response})
+		// 	}
+		// 	else
+		// 	{
+		// 		this.setState({
+		// 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
+		// 		})
+		// 	}
+		// }
+		// catch(e)
+		// {
+		// 	this.setState({error:e})
+		// }
 	}
 
 	setProgramType=(value:string)=>
