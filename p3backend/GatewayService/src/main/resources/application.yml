@@ -10,3 +10,6 @@ zuul:
     eureka:
       path: /**
       url: http://ec2-3-236-121-83.compute-1.amazonaws.com:8761/
+    data:
+      path: /associates
+      service-id: dataservice
