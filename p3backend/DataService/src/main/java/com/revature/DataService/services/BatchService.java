@@ -27,12 +27,30 @@ public class BatchService {
 	  }
 	}
 	
-//	public Batch updateBatch(Batch batch) throws Exception {
-//	  Optional<Batch> existingBatch = batchRepository.findById(batch.getBatchId());
-//	  if (existingBatch.isPresent()) {
-//        return batchRepository.save(batch);
-//      } else {
-//        throw new Exception("batch failed to update");
-//      }
-//	}
+	public Batch updateBatch(Batch batch) throws Exception {
+	  Optional<Batch> existingBatch = batchRepository.findById(batch.getBatchId());
+	  if (existingBatch.isPresent()) {
+        return batchRepository.save(batch);
+      } else {
+        throw new Exception("batch failed to update");
+      }
+	}
+	
+	public List<Batch> getByInProgress(Date d) {
+		return batchRepository.findByInProgress(d);
+	}
+
+public List<Batch> getBatchByCurricula(Integer id){
+		
+		List<Batch> existingBatch=batchRepository.getBatchByCurriculaJ(id);
+		return existingBatch;
+		
+	}
+	
+	public List<Batch> getBatchByClientId(Integer id){
+		
+		List<Batch> existingBatch=batchRepository.getBatchByClient(id);
+		return existingBatch;
+		
+	}	
 }

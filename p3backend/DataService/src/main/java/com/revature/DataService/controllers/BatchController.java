@@ -42,4 +42,39 @@ public class BatchController {
 //	}
 //	
 	
+
+	@GetMapping("/batches/date/{date}")
+	public List<Batch> getInProgressBatches(@PathVariable String date) {
+		try {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			Date d = df.parse(date);
+			return batchService.getByInProgress(d);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+		}
+	}
+	@GetMapping("/batches/curricula/{id}")  //get batches by curricula id
+	public List<Batch> getBatchesByCurricula(@PathVariable Integer id){
+		
+		try {
+			return batchService.getBatchByCurricula(id);
+			
+		}catch(RuntimeException e) {
+			  throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
+	@GetMapping("/batches/clients/{id}")
+	public List<Batch> getBatchesByClients(@PathVariable Integer id){
+		try {
+			return batchService.getBatchByClientId(id);
+			
+		}catch(RuntimeException e) {
+			  throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
+
 }
