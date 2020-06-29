@@ -2,7 +2,7 @@ import { Trainer } from "./Trainer";
 import { Curriculum } from "./Curriculum";
 import { Associate } from "./Associate";
 import { Consent } from "./Consent";
-// NEEDS TO BE UPDATED
+
 export class Batch{
     batchId:number;
     startDate:string;
