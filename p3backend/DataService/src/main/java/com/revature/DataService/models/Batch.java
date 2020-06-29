@@ -44,7 +44,6 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
 	//this.consent = consent;
 }
 
-
   @Id
   @Column(name = "batch_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
