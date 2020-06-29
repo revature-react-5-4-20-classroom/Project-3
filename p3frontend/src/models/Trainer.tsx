@@ -1,12 +1,16 @@
 import {TrainerSkills} from '../models/TrainerSkills';
+import {ConsentTrainerClassHelper} from '../models/ConsentTrainerClassHelper';
+import {Batch} from '../models/Batch';
 
 export class Trainer{
     trainerId:number;
     firstName: string;
     lastName:string;
     email:string;
-    trainerSkillSetId:number;
     trainerSkills:TrainerSkills;
+    consent:ConsentTrainerClassHelper;
+    batch:Batch[];
+    isEligible: boolean
 
 
 
@@ -15,15 +19,19 @@ export class Trainer{
        firstName:string,
        lastName: string,
        email:string,
-       trainerSkillSetId:number,
-       trainerSkills:TrainerSkills
+       trainerSkills:TrainerSkills,
+       consent:ConsentTrainerClassHelper,
+       batch:Batch[],
+       isEligible:boolean
     ) 
     {
         this.trainerId = trainerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email= email;
-        this.trainerSkillSetId = trainerSkillSetId;
         this.trainerSkills = trainerSkills;
+        this.consent = consent;
+        this.batch = batch;
+        this.isEligible = isEligible;
     }
 }

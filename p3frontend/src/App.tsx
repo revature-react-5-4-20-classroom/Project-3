@@ -52,7 +52,7 @@ export class App extends React.Component<any, any> {
                   Batches
                 </NavLink>
               </NavItem>
- 
+                <NavItem>
                 <NavLink to='/in-progress' className='nav-link' activeClassName='active'>In Progress</NavLink>
               </NavItem>
               <NavItem>

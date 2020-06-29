@@ -27,12 +27,13 @@ export async function assignTrainer(trainerId : number, batchId : number){
 }
 
 
-export async function getAllTrainers() : Promise<any[]>{
+export async function getAllTrainers() : Promise<Trainer[]>{
     try{
         const response =  await storeClient.get('/trainer');
         return response.data.map((trainerObj: any) => {
-            const {trainerId, firstName, lastName, email, trainerSkillSetId, trainerSkills  } = trainerObj;
-            return new Trainer(trainerId,firstName, lastName, email, trainerSkillSetId, trainerSkills);
+            const {trainerId, firstName, lastName, email,  trainerSkills, consent, batch  } = trainerObj;
+            
+            return new Trainer(trainerId,firstName, lastName, email,  trainerSkills, consent, batch, false);
          })
     } catch (e){
         console.log(e)
@@ -41,7 +42,7 @@ export async function getAllTrainers() : Promise<any[]>{
 }
 export async function createConsentRequest(trainerId:number, isApproved:null,batchId:number ){
     try{
-        const response =  await storeClient.post('/consent', {trainerId:trainerId, isApproved:isApproved, batchId:batchId});
+        const response =  await storeClient.post('/consent', {trainerId:trainerId,batchId:batchId,isApproved:isApproved});
         return response;
     } catch (e){
         console.log(e)
