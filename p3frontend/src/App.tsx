@@ -32,12 +32,12 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        <link
+        <ColumnChartTest />
+        {/* <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
-        />
-        {/* <ColumnChartTest /> */}
-        <Router>
+        /> */}
+        {/* <Router>
           <Navbar color='light' light expand='md'>
             <NavbarToggler onClick={this.toggleNavbar} />
             <Nav className='mr-auto' tabs>
@@ -116,7 +116,7 @@ export class App extends React.Component<any, any> {
           <Route path='/consent'>
             <ViewConsentRequests />
           </Route>
-        </Router>
+        </Router> */}
       </Container>
     );
   }
