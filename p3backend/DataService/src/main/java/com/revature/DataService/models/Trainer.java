@@ -45,9 +45,10 @@ public class Trainer {
 	private List<Skillset> trainerSkills;
 
 	// this prevents infinite display
-	@JsonIgnoreProperties({"trainer", "batch"})
-	@OneToOne(mappedBy = "trainer")
-	private Consent consent;
+	// Getting rid of this at Nick's request
+//	@JsonIgnoreProperties({"trainer", "batch"})
+//	@OneToMany(mappedBy = "trainer")
+//	private List<Consent> consents;
 	
 	// This prevents infinite display. Need to cut down later when we want certain information
 	@JsonIgnoreProperties({"batches", "trainers", "curriculum", "consent"})
@@ -94,13 +95,6 @@ public class Trainer {
 		this.trainerSkills = trainerSkills;
 	}
 
-	public Consent getConsent() {
-		return consent;
-	}
-
-	public void setConsent(Consent consent) {
-		this.consent = consent;
-	}
 
 	public List<Batch> getBatches() {
 		return batches;
@@ -110,27 +104,35 @@ public class Trainer {
 		this.batches = batches;
 	}
 
-	@Override
-	public String toString() {
-		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", trainerSkills=" + trainerSkills + ", consent=" + consent + ", batches=" + batches + "]";
-	}
-
 	public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
-			Consent consent, List<Batch> batches) {
+			List<Consent> consents, List<Batch> batches) {
 		super();
 		this.trainerId = trainerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.trainerSkills = trainerSkills;
-		this.consent = consent;
+		//this.consents = consents;
 		this.batches = batches;
 	}
 
 	public Trainer() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+//	public List<Consent> getConsent() {
+//		return consents;
+//	}
+//
+//	public void setConsent(List<Consent> consent) {
+//		this.consents = consent;
+//	}
+
+	@Override
+	public String toString() {
+		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", trainerSkills=" + trainerSkills + ", batches=" + batches + "]";
 	}
 
 	

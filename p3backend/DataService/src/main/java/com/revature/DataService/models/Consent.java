@@ -27,15 +27,19 @@ public class Consent {
   private boolean isApproved;
 
   // Working
-  @JsonIgnoreProperties({"consent", "trainers"})
-  @ManyToOne
-  @JoinColumn(name = "batch_id")
-  private Batch batch;
+  // Changing at Nick's request
+//  @JsonIgnoreProperties({"consent", "trainers"})
+//  @ManyToOne
+//  @JoinColumn(name = "batch_id")
+  @Column(name = "batch_id")
+  private Integer batchId;
 
-  @JsonIgnoreProperties({"consent", "batches"})
-  @OneToOne
-  @JoinColumn(name = "trainerId")
-  private Trainer trainer;
+  	// Changing at Nick's request
+//  @JsonIgnoreProperties({"consent", "batches"})
+//  @ManyToOne
+//  @JoinColumn(name = "trainerId")
+  @Column(name="trainer_id")
+  private Integer trainerId;
 
   public Consent() {
     super();
@@ -50,23 +54,6 @@ public class Consent {
     this.consentId = consentId;
   }
 
-
-  public Batch getBatch() {
-    return batch;
-  }
-
-  public void setBatch(Batch batch) {
-    this.batch = batch;
-  }
-
-  public Trainer getTrainer() {
-    return trainer;
-  }
-
-  public void setTrainer(Trainer trainer) {
-    this.trainer = trainer;
-  }
-
   public boolean isApproved() {
     return isApproved;
   }
@@ -75,19 +62,36 @@ public class Consent {
     this.isApproved = isApproved;
   }
 
-  public Consent(Integer consentId, boolean isApproved, Batch batch, Trainer trainer) {
+  public Consent(Integer consentId, boolean isApproved, Integer batchid, Integer trainerId) {
     super();
     this.consentId = consentId;
     this.isApproved = isApproved;
-    this.batch = batch;
-    this.trainer = trainer;
+    this.batchId = batchId;
+    this.trainerId = trainerId;
   }
 
-  @Override
-  public String toString() {
-    return "Consent [consentId=" + consentId + ", isApproved=" + isApproved + ", batch=" + batch
-        + ", trainer=" + trainer + "]";
-  }
+public Integer getBatchId() {
+	return batchId;
+}
+
+public void setBatchId(Integer batchId) {
+	this.batchId = batchId;
+}
+
+public Integer getTrainer_id() {
+	return trainerId;
+}
+
+public void setTrainer_id(Integer trainerId) {
+	this.trainerId = trainerId;
+}
+
+@Override
+public String toString() {
+	return "Consent [consentId=" + consentId + ", isApproved=" + isApproved + ", batchId=" + batchId + ", trainerId="
+			+ trainerId + "]";
+}
+
 
   
 
