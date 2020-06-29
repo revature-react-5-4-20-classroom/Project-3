@@ -1,27 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
-<<<<<<< HEAD
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
-import { ViewAtAGlance } from './Story1/ViewAtAGlance';
-=======
 
 import { BrowserRouter as Router, Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
 import { InProgress } from './Story1/InProgress';
->>>>>>> development
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
 import AssociateSelectionTable from './Components/AssociateSelectionTable';
 import AssociateBatchTable from './Components/AssociateBatchTable';
 
 
-<<<<<<< HEAD
-export class App extends React.Component<any,any>
-{
-  
-  toggleNavbar=()=>
-  {
-      const[isOpen,setIsOpen]=useState(false)
-      setIsOpen(!isOpen)
-=======
 import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
 import { ViewConsentRequests } from './Components/ViewConsentRequests';
 import { OverviewClientDemand } from './Story2/OverviewClientDemand';
@@ -33,7 +19,6 @@ import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceW
 export class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
->>>>>>> development
   }
 
   toggleNavbar = () => {
@@ -106,18 +91,17 @@ export class App extends React.Component<any, any> {
           <ViewConsentRequests />
         </Route>
       </Router>
-<<<<<<< HEAD
+
       
         <div className= "left"><AssociateSelectionTable /></div>
         <div className= "right"><AssociateBatchTable /></div>
       
 
-    </Container>
-    )
-=======
+    
+
     </Container>)
 
->>>>>>> development
+
   }
 }
 

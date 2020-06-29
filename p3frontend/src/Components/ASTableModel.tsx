@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Button } from "reactstrap";
-import Associate from "../models/Associate";
+import {Associate} from "../models/Associate";
 import { getAllAssociates } from "../api/Associate";
 import { toast } from "react-toastify";
 
@@ -15,6 +15,7 @@ interface IASTableModelState {
   
   associates: Associate[];
   eligibleAssociates: Associate[];
+  tableData: String[];
   associatesLoaded: boolean;
 
 }
@@ -31,57 +32,29 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
 
      associates: [],
      eligibleAssociates: [],
-     associatesLoaded: false,
+     tableData: [],
+     associatesLoaded: false
      
     }
 
   }
 
-  fetchAssociates = async () => {
+     async componentDidMount(){
+    
+    const associateArray: Associate[] = await getAllAssociates();
+    const eligibleAssociateArray=associateArray.filter(function(a) {return a.interviewScore >= 70 && a.batch === null });
 
-
-
-    try {
-
-
-
+    const tableDataArray: string[]=  eligibleAssociateArray.map((a) => {
+        return (` ${a.firstName},  ${a.lastName},   ${a.interviewScore} `);
+    })
       this.setState({
 
-
-
-        associates: await getAllAssociates(),
-
-
-
-        associatesLoaded: true,
-
-        
-        eligibleAssociates: (this.state.associates).filter(function(a) {return a.interviewScore >= 70 && a.assignedBatchId === null; }),
-   
-
-      });
-
-
-
-      } catch (e) {
-
-
-
-          toast(e.message, {type:"error"});
-
-
-
-      }
-
-
-
-  };
-
-  componentDidMount = async () => {
-    
-    await this.fetchAssociates();
-   
- };
+      associates: associateArray,
+      eligibleAssociates: eligibleAssociateArray,
+      tableData: tableDataArray,
+      associatesLoaded: true,
+      })
+    };
   
 
    updateAssignedBatchId = (obj : any, currentBatchId : number) => {
@@ -94,27 +67,11 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
 
       <Table striped className="associate-table">
 
-        <thead>
-
-          <tr>
-
-            <th>Associate ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Active?</th>
-            <th>Technical Score</th>
-            <th>Assigned Batch ID</th>
-            <th>Add?</th>
-          </tr>
-
-        </thead>
-
         <tbody>
 
           {/* Generate one row per object with a cell for each value on the object */}
 
-          {this.state.eligibleAssociates.map((obj: any, index: number) => {
+          {this.state.tableData.map((obj: any, index: number) => {
 
               return (
 

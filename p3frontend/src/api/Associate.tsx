@@ -1,6 +1,8 @@
 import axios from 'axios';
-import Associate from '../models/Associate'
+import  {Associate} from '../models/Associate'
+import  {Batch} from '../models/Batch'
 import FailedRequestException from '../exceptions/FailedRequestException';
+import { getBatchById } from './batch';
 
 const associate = axios.create({
 
@@ -19,9 +21,9 @@ try {
 
   return response.data.map((a : Associate) => {
 
-    let {associateId, firstName, lastName, email, active, interviewScore, assignedBatchId} = a;
+    let {associateId, firstName, lastName, email, active, interviewScore, batch} = a;
 
-    return new Associate (associateId, firstName, lastName, email, active, interviewScore, assignedBatchId);
+    return new Associate (associateId, firstName, lastName, email, active, interviewScore, batch);
   
   });} catch (e)  {
     throw new FailedRequestException('The request has failed.');
