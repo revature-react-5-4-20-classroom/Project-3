@@ -1,5 +1,8 @@
 package com.revature.DataService.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +42,17 @@ public class BatchController {
       } catch (Exception e) {
           throw new ResponseStatusException(HttpStatus.CONFLICT);
       }
+	}
+	
+	@GetMapping("/batches/date/{date}")
+	public List<Batch> getInProgressBatches(@PathVariable String date) {
+		try {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			Date d = df.parse(date);
+			return batchService.getByInProgress(d);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+		}
 	}
 	
 	
