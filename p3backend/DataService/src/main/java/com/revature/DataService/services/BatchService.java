@@ -49,4 +49,18 @@ public class BatchService {
 	public List<Batch> getByInProgress(Date d) {
 		return batchRepository.findByInProgress(d);
 	}
+
+public List<Batch> getBatchByCurricula(Integer id){
+		
+		List<Batch> existingBatch=batchRepository.getBatchByCurriculaJ(id);
+		return existingBatch;
+		
+	}
+	
+	public List<Batch> getBatchByClientId(Integer id){
+		
+		List<Batch> existingBatch=batchRepository.getBatchByClient(id);
+		return existingBatch;
+		
+	}	
 }

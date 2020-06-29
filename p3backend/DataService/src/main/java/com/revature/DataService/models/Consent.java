@@ -26,6 +26,7 @@ public class Consent {
   @Column(name = "consent_approved")
   private boolean isApproved;
 
+
   // Working
   // Changing at Nick's request
 //  @JsonIgnoreProperties({"consent", "trainers"})
@@ -39,6 +40,7 @@ public class Consent {
 //  @ManyToOne
 //  @JoinColumn(name = "trainerId")
   @Column(name="trainer_id")
+
   private Integer trainerId;
 
   public Consent() {
@@ -53,14 +55,19 @@ public class Consent {
   public void setConsentId(Integer consentId) {
     this.consentId = consentId;
   }
+  
+  
+
 
   public boolean isApproved() {
+
     return isApproved;
   }
 
   public void setApproved(boolean isApproved) {
     this.isApproved = isApproved;
   }
+
 
   public Consent(Integer consentId, boolean isApproved, Integer batchid, Integer trainerId) {
     super();
@@ -91,6 +98,7 @@ public String toString() {
 	return "Consent [consentId=" + consentId + ", isApproved=" + isApproved + ", batchId=" + batchId + ", trainerId="
 			+ trainerId + "]";
 }
+
 
 
   

@@ -49,6 +49,7 @@ public class Trainer {
 //	@JsonIgnoreProperties({"trainer", "batch"})
 //	@OneToMany(mappedBy = "trainer")
 //	private List<Consent> consents;
+
 	
 	// This prevents infinite display. Need to cut down later when we want certain information
 	@JsonIgnoreProperties({"batches", "trainers", "curriculum", "consent"})
@@ -96,6 +97,7 @@ public class Trainer {
 	}
 
 
+
 	public List<Batch> getBatches() {
 		return batches;
 	}
@@ -103,6 +105,7 @@ public class Trainer {
 	public void setBatches(List<Batch> batches) {
 		this.batches = batches;
 	}
+
 
 	public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
 			List<Consent> consents, List<Batch> batches) {
