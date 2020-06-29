@@ -1,26 +1,42 @@
+import { Trainer } from "./Trainer";
+import { Curriculum } from "./Curriculum";
+import { Associate } from "./Associate";
+import { Consent } from "./Consent";
+
 export class Batch{
     batchId:number;
-    curriculum: string;
     startDate:string;
     endDate:string;
     isConfirmed:boolean;
-    interview_score_lower:number;
-
+    interviewScoreLower:number;
+    trainers : Trainer[];
+    location : Location;
+    curriculum : Curriculum;
+    associates : Associate[];
+    consent : Consent[];
 
     constructor(
        batchId:number,
-       curriculum:string,
        startDate:string,
        endDate: string,
        isConfirmed:boolean,
-       interview_score_lower:number
+       interviewScoreLower:number,
+       trainers : Trainer[],
+       location : Location,
+       curriculum : Curriculum,
+       associates : Associate[],
+       consent : Consent[]
     ) 
     {
         this.batchId = batchId;
-        this.curriculum = curriculum;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isConfirmed= isConfirmed;
-        this.interview_score_lower = interview_score_lower;
+        this.interviewScoreLower = interviewScoreLower;
+        this.trainers = trainers;
+        this.location = location;
+        this.curriculum = curriculum;
+        this.associates = associates;
+        this.consent = consent;
     }
 }

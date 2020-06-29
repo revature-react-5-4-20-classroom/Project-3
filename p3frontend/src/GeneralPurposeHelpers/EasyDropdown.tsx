@@ -37,8 +37,7 @@ export class EasyDropdown extends React.Component<any,any>
 
 	render()
 	{
-		return(
-			<UncontrolledDropdown>
+		return(<UncontrolledDropdown>
 				<DropdownToggle caret>{this.state.selectedItem}</DropdownToggle>
 				<DropdownMenu>
 
@@ -53,7 +52,6 @@ export class EasyDropdown extends React.Component<any,any>
 						})
 					}
 				</DropdownMenu>
-			</UncontrolledDropdown>
-		)
+			</UncontrolledDropdown>)
 	}
 }

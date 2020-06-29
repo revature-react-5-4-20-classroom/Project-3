@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AssociateRepository extends JpaRepository<Associate, Integer> {
 
+
 	@Query(value="select * from associates", nativeQuery=true)
 	public List<Associate> findAll();
 	
