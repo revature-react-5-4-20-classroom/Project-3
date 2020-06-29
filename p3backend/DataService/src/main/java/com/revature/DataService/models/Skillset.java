@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -45,8 +46,9 @@ public class Skillset {
 
   // SkillSet to ClientDemand
   @JsonIgnoreProperties({"clientDemandSkillset", "quantity", "deadline", "client_demand_id", "client"})
-  @OneToOne(mappedBy = "clientDemandSkillset")
-  private ClientDemand clientDemand;  
+  @OneToMany(mappedBy = "clientDemandSkillset")
+  private List<ClientDemand> clientDemands;  
+  
   
   // SkillSet to Curriculum
   @JsonIgnoreProperties({"curriculumSkillset", "batch", "location", "associates", "consent"})
@@ -85,13 +87,6 @@ public void setTrainers(List<Trainer> trainers) {
 	this.trainers = trainers;
 }
 
-public ClientDemand getClientDemand() {
-	return clientDemand;
-}
-
-public void setClientDemand(ClientDemand clientDemand) {
-	this.clientDemand = clientDemand;
-}
 
 public Curriculum getCurriculum() {
 	return curriculum;
@@ -103,21 +98,31 @@ public void setCurriculum(Curriculum curriculum) {
 
 }
 
+
+
 @Override
 public String toString() {
 	return "Skillset [skillSetId=" + skillSetId + ", skillSetName=" + skillSetName + ", skills=" + skills
-			+ ", trainers=" + trainers + ", clientDemand=" + clientDemand + ", curriculum=" + curriculum + "]";
+			+ ", trainers=" + trainers + ", clientDemands=" + clientDemands + ", curriculum=" + curriculum + "]";
 }
 
 public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, List<Trainer> trainers,
-		ClientDemand clientDemand, Curriculum curriculum) {
+		List<ClientDemand> clientDemand, Curriculum curriculum) {
 	super();
 	this.skillSetId = skillSetId;
 	this.skillSetName = skillSetName;
 	this.skills = skills;
 	this.trainers = trainers;
-	this.clientDemand = clientDemand;
+	this.clientDemands = clientDemand;
 	this.curriculum = curriculum;
+}
+
+public List<ClientDemand> getClientDemand() {
+	return clientDemands;
+}
+
+public void setClientDemand(List<ClientDemand> clientDemands) {
+	this.clientDemands = clientDemands;
 }
 
 public Skillset() {

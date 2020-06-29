@@ -1,10 +1,13 @@
 package com.revature.DataService.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,9 +28,10 @@ public class Location {
 	private String locationName;
 	
 
+	// Location to Batches
 	@JsonIgnoreProperties({"location", "trainers", "curriculum", "associates", "consent"})
-	@OneToOne(mappedBy = "location")
-	private Batch batch;
+	@OneToMany(mappedBy = "location")
+	private List<Batch> batches;
 
 
 	public Integer getLocationId() {
@@ -54,21 +58,30 @@ public class Location {
 	}
 
 
-//	public Batch getBatch() {
-//		return batch;
-//	}
-//
-//
-//	public void setBatch(Batch batch) {
-//		this.batch = batch;
-//	}
+	public List<Batch> getBatches() {
+		return batches;
+	}
+
+
+	public void setBatches(List<Batch> batches) {
+		this.batches = batches;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Location [locationId=" + locationId + ", locationName=" + locationName + "]";
+		return "Location [locationId=" + locationId + ", locationName=" + locationName + ", batches=" + batches + "]";
 	}
-	
+
+
+	public Location(Integer locationId, String locationName, List<Batch> batches) {
+		super();
+		this.locationId = locationId;
+		this.locationName = locationName;
+		this.batches = batches;
+	}
+
+
 	
 	
 	

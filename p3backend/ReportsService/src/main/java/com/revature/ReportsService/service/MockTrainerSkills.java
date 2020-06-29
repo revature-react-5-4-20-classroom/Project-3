@@ -13,6 +13,11 @@ public class MockTrainerSkills {
 
 	public MockTrainerSkills() {
 		super();
+		trainerSkills.add(new TrainerSkills(0, 0));
+		trainerSkills.add(new TrainerSkills(1, 0));
+		trainerSkills.add(new TrainerSkills(1, 1));
+		trainerSkills.add(new TrainerSkills(2, 3));
+		trainerSkills.add(new TrainerSkills(3, 2));
 	}
 
 	public List<TrainerSkills> getTrainerSkillsAll() {

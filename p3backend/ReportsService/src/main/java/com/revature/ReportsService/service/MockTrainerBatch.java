@@ -13,6 +13,11 @@ public class MockTrainerBatch {
 
 	public MockTrainerBatch() {
 		super();
+		trainerBatch.add(new TrainerBatch(0, 1));
+		trainerBatch.add(new TrainerBatch(1, 1));
+		trainerBatch.add(new TrainerBatch(0, 2));
+		trainerBatch.add(new TrainerBatch(2, 3));
+		trainerBatch.add(new TrainerBatch(3, 1));
 	}
 
 	public List<TrainerBatch> getTrainerBatchAll() {

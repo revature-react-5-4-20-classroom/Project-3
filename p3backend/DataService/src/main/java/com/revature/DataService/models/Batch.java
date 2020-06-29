@@ -74,17 +74,18 @@ public class Batch {
   @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
   private List<Trainer> trainers;
 
+
   // Batch to location
-  @JsonIgnoreProperties({"batch"})
-  @OneToOne
-  @JoinColumn(name = "location_id", referencedColumnName = "location_id")
+  @JsonIgnoreProperties({"batches"})
+  @ManyToOne
+  @JoinColumn(name = "location_id")
   private Location location;
 
 
   // Batch to curriculum
   @JsonIgnoreProperties({"batch", "curriculum", "trainers"})
+  @ManyToOne
   @JoinColumn(name = "curriculum_id")
-  @OneToOne(fetch = FetchType.EAGER)
   private Curriculum curriculum;
 
   // Batch to associates
