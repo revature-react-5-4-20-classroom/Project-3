@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.left {
+  float: left;
+}
+
+.associate-table {
+  margin: 0px;
+  padding: 0px;
+}

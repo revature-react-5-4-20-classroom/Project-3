@@ -1,10 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import Associate from '../models/Associate'
-
-import FailedUpdateException from '../exceptions/FailedUpdateException';
 import FailedRequestException from '../exceptions/FailedRequestException';
-
-
 
 const associate = axios.create({
 
@@ -16,7 +12,7 @@ const associate = axios.create({
   
   });
 
-export async function getAllAssociates () : Promise <Associate[]> {
+export async function getAllAssociates() : Promise <Associate[]> {
 try {
   
   let response = await associate.get('/associates');

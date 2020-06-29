@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem, Container } from "reactstrap";
+import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem } from "reactstrap";
 
 /*
 	<EasyDropdown items={["Curricula", "client"]} onSelected={(wt:string)=>this.setState({workType:wt})}/>

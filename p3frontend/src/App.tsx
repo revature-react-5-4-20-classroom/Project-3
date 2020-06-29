@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import { ViewAtAGlance } from './Story1/ViewAtAGlance';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+import AssociateSelectionTable from './Components/AssociateSelectionTable';
+import AssociateBatchTable from './Components/AssociateBatchTable';
+
 
 export class App extends React.Component<any,any>
 {
-  constructor(props:any)
-  {
-    super(props)
-  }
-
+  
   toggleNavbar=()=>
   {
       const[isOpen,setIsOpen]=useState(false)
@@ -40,7 +39,13 @@ export class App extends React.Component<any,any>
           <ViewAtAGlance/>
         </Route>
       </Router>
-    </Container>)
+      
+        <div className= "left"><AssociateSelectionTable /></div>
+        <div className= "right"><AssociateBatchTable /></div>
+      
+
+    </Container>
+    )
   }
 }
 
