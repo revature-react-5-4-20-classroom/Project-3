@@ -26,7 +26,7 @@ public class Consent {
   @Column(name = "consent_approved")
   private boolean isApproved;
 
-  // Working
+// Working
 //  @JsonIgnoreProperties({"consent", "trainers"})
 //  @ManyToOne
 //  @JoinColumn(name = "batch_id")
