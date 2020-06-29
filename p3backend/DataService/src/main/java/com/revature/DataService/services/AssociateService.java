@@ -18,11 +18,11 @@ public class AssociateService {
 	
 
 	
-public void updateAssociateBatch(Integer associateId, Integer assignedBatchId) {
-	associateRepository.update(associateId, assignedBatchId);
-}
+///*public void updateAssociateBatch(Integer associateId, Integer assignedBatchId) {
+//	associateRepository.update(associateId, assignedBatchId);
+//}
 
-	public List<Associate> getAllAssociates()  {
+	public List<Associate> getAll()  {
 		
 		return associateRepository.findAll();
 	}

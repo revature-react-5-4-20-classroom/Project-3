@@ -34,18 +34,18 @@ public class AssociateController {
 	
 
 
-	@GetMapping
-	public List<Associate> getAssociates() {
+	@GetMapping 
+	public List<Associate> getAssociate() {
 
 		
-		return associateService.getAllAssociates();
+		return associateService.getAll();
 	}
 	
 
-	@PostMapping("/associates")  
-	public void updateAssociateBatch (@RequestBody Integer associateId, @RequestBody Integer assignedBatchId) {
-		associateService.updateAssociateBatch(associateId, assignedBatchId);
-	}
+	//@PatchMapping("/associates")  
+	//public void updateAssociateBatch (@RequestBody Integer associateId, @RequestBody Integer assignedBatchId) {
+		//associateService.updateAssociateBatch(associateId, assignedBatchId);
+	//}
 
 	
 }
