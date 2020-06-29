@@ -32,60 +32,91 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        {/* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/> */}
-        <ColumnChartTest />
-        {/* <Router>
-        <Navbar color='light' light expand='md'>
-            <NavbarToggler onClick={this.toggleNavbar}/>
+        <link
+          rel='stylesheet'
+          href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
+        />
+        {/* <ColumnChartTest /> */}
+        <Router>
+          <Navbar color='light' light expand='md'>
+            <NavbarToggler onClick={this.toggleNavbar} />
             <Nav className='mr-auto' tabs>
               <NavItem>
-                <NavLink to='/home' className='nav-link' activeClassName='active'>
+                <NavLink
+                  to='/home'
+                  className='nav-link'
+                  activeClassName='active'
+                >
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to='/batches' className='nav-link' activeClassName='active'>Batches</NavLink>
-              </NavItem>
-<<<<<<< HEAD
-                <NavItem>
-=======
-              <NavItem>
->>>>>>> bf33ff1f264bb3747d5f603a02ea87c4eb323785
-                <NavLink to='/in-progress' className='nav-link' activeClassName='active'>In Progress</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to='/overview' className='nav-link' activeClassName='active'>Overview</NavLink>
+                <NavLink
+                  to='/batches'
+                  className='nav-link'
+                  activeClassName='active'
+                >
+                  Batches
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to='/overview-training' className='nav-link' activeClassName='active'>Training Overview</NavLink>
+                <NavLink
+                  to='/in-progress'
+                  className='nav-link'
+                  activeClassName='active'
+                >
+                  In Progress
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to='/assign-trainer' className='nav-link' activeClassName='active'>Assign Trainers</NavLink>
+                <NavLink
+                  to='/overview'
+                  className='nav-link'
+                  activeClassName='active'
+                >
+                  Overview
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  to='/overview-training'
+                  className='nav-link'
+                  activeClassName='active'
+                >
+                  Training Overview
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  to='/assign-trainer'
+                  className='nav-link'
+                  activeClassName='active'
+                >
+                  Assign Trainers
+                </NavLink>
               </NavItem>
             </Nav>
-        </Navbar>
-        <Route path='/home'>
-          Home page
-        </Route>
-        <Route path='/in-progress'>
-          <InProgress/>
-        </Route>
-        <Route path='/overview'>
-          <OverviewClientDemand/>
-        </Route>
-        <Route path='/overview-training'>
-          <OverviewTraining/>
-        </Route>
-        <Route path='/assign-trainer'>
-          <AssignTrainer/>
-        </Route>
-        <Route path='/trainers'>
-          <TrainerAssignmentComponent />
-        </Route>
-        <Route path='/consent'>
-          <ViewConsentRequests />
-        </Route>
-      </Router> */}
+          </Navbar>
+          <Route path='/home'>Home page</Route>
+          <Route path='/in-progress'>
+            <InProgress />
+          </Route>
+          <Route path='/overview'>
+            <OverviewClientDemand />
+          </Route>
+          <Route path='/overview-training'>
+            <OverviewTraining />
+          </Route>
+          <Route path='/assign-trainer'>
+            <AssignTrainer />
+          </Route>
+          <Route path='/trainers'>
+            <TrainerAssignmentComponent />
+          </Route>
+          <Route path='/consent'>
+            <ViewConsentRequests />
+          </Route>
+        </Router>
       </Container>
     );
   }
