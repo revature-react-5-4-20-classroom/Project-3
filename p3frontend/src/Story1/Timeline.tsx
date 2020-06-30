@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 // }
 
 interface TimelineComponentState {
-    batches: Batch [],
+    batches:  any,
     groups : any,
     items : any,
 }
@@ -29,7 +29,7 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
     constructor(props:any){
         super(props)
         this.state = {
-            batches: [],
+            batches: null,
             groups :null,
             items : null
         }
@@ -66,7 +66,7 @@ let batches=await getAllBatches();
         let mappedGroups: any[] = [];
         let mappedItems: any[] = [];
 
-        this.state.batches.map( async (batch:Batch, index:number) => {
+        this.state.batches && this.state.batches.map( async (batch:Batch, index:number) => {
             let group = {
                 id: batch.batchId,
                 title: `Batch ID: ${batch.batchId}`
@@ -89,9 +89,9 @@ let batches=await getAllBatches();
             }
             mappedGroups.push(group);
             mappedItems.push(item)
-             this.setGroupsAndItems(mappedGroups,mappedItems)
         })
-    }
+        this.setGroupsAndItems(mappedGroups,mappedItems)
+    } 
 
     
 
