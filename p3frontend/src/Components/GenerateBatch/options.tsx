@@ -2,11 +2,9 @@ import React from "react";
 import { Container, Input, Label, Button, InputGroup } from "reactstrap";
 //new Date().toISOString().substring(0, 10),
 export class Options extends React.Component<any, any> {
-  constructor(props:any){
-    super(props)
-    this.state={
-      
-    }
+  constructor(props: any) {
+    super(props);
+    this.state = {};
   }
   bindInputChangeToState = (changeEvent: any) => {
     //@ts-ignore
@@ -20,12 +18,13 @@ export class Options extends React.Component<any, any> {
       <Container style={{ backgroundColor: "#474c55" }}>
         <h4>Options</h4>
         <InputGroup>
-          <Label>something:</Label>
+          <Label>something: </Label>
           <Input></Input>
           <Button>Submit</Button>
         </InputGroup>
+        <br />
         <InputGroup>
-          <Label>Start Date:</Label>
+          <Label>Start Date: </Label>
           <Input
             type="date"
             name="startDate"
@@ -33,8 +32,9 @@ export class Options extends React.Component<any, any> {
             onChange={this.bindInputChangeToState}
           ></Input>
         </InputGroup>
+        <br />
         <InputGroup>
-          <Label>End Date:</Label>
+          <Label>End Date: </Label>
           <Input
             type="date"
             name="endDate"
@@ -42,6 +42,12 @@ export class Options extends React.Component<any, any> {
             onChange={this.bindInputChangeToState}
           ></Input>
         </InputGroup>
+        <br />
+        <InputGroup>
+          <Label>No of Associates: </Label>
+          <Input type="number"></Input>
+        </InputGroup>
+        <br />
         <Button onClick={this.generateBatch}> Generate Batches</Button>
       </Container>
     );

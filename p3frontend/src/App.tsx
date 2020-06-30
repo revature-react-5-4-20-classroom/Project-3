@@ -11,6 +11,7 @@ import { OverviewClientDemand } from './Story2/OverviewClientDemand';
 import { OverviewTraining } from './Story3/OverviewTraining';
 import { AssignTrainer } from './Story4/AssignTrainer';
 import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
+import { BatchPage } from './Components/GenerateBatch/BatchPage';
 
 
 export class App extends React.Component<any, any> {
@@ -68,6 +69,9 @@ export class App extends React.Component<any, any> {
         </Navbar>
         <Route path='/home'>
           Home page
+        </Route>
+        <Route path='/batches'>
+          <BatchPage/>
         </Route>
         <Route path='/in-progress'>
           <InProgress/>
