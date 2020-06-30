@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 import { BrowserRouter as Router, Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
-import { InProgress } from './Story1/InProgress';
+import { InProgress, ReduxInProgress } from './Story1/InProgress';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
 
 import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
@@ -11,6 +11,8 @@ import { OverviewClientDemand } from './Story2/OverviewClientDemand';
 import { OverviewTraining } from './Story3/OverviewTraining';
 import { AssignTrainer } from './Story4/AssignTrainer';
 import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 
 export class App extends React.Component<any, any> {
@@ -55,27 +57,32 @@ export class App extends React.Component<any, any> {
               </NavItem>
             </Nav>
         </Navbar>
-        <Route path='/home'>
-          Home page
-        </Route>
-        <Route path='/in-progress'>
-          <InProgress/>
-        </Route>
-        <Route path='/overview'>
-          <OverviewClientDemand/>
-        </Route>
-        <Route path='/overview-training'>
-          <OverviewTraining/>
-        </Route>
-        <Route path='/assign-trainer'>
-          <AssignTrainer/>
-        </Route>
-        <Route path='/trainers'>
-          <TrainerAssignmentComponent />
-        </Route>
-        <Route path='/consent'>
-          <ViewConsentRequests />
-        </Route>
+        <Switch>
+          <Provider store={store}>
+            <Route path='/home'>
+              Home page
+            </Route>
+            <Route path='/in-progress'>
+              <ReduxInProgress/>
+            </Route>
+            <Route path='/overview'>
+              <OverviewClientDemand/>
+            </Route>
+            <Route path='/overview-training'>
+              <OverviewTraining/>
+            </Route>
+            <Route path='/assign-trainer'>
+              <AssignTrainer/>
+              <TrainerAssignmentComponent/>
+            </Route>
+            <Route path='/trainers'>
+              <TrainerAssignmentComponent />
+            </Route>
+            <Route path='/consent'>
+              <ViewConsentRequests />
+            </Route>
+           </Provider>
+          </Switch>
       </Router>
     </Container>)
 

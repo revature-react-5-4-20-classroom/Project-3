@@ -34,7 +34,7 @@ export async function getAllTrainers() : Promise<Trainer[]>{
 }
 export async function createConsentRequest(trainerId:number, isApproved:null,batchId:number ){
     try{
-        const response =  await storeClient.post('/consent', {trainerId:trainerId,batchId:batchId,isApproved:isApproved});
+        const response =  await axiosClient.post('/consent', {trainerId:trainerId,batchId:batchId,isApproved:isApproved});
         return response;
     } catch (e){
         console.log(e)
