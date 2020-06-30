@@ -32,11 +32,11 @@ public class Batch {
 		this.batchId = batchId;
 	}
 
-	public String getCurriculumId() {
+	public Integer getCurriculumId() {
 		return curriculumId;
 	}
 
-	public void setCurriculumId(String curriculumId) {
+	public void setCurriculumId(Integer curriculumId) {
 		this.curriculumId = curriculumId;
 	}
 

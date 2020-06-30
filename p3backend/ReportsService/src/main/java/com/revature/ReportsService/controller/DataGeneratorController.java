@@ -4,7 +4,6 @@ package com.revature.ReportsService.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.revature.ReportsService.DataGetterFeign;
 
 @RestController
@@ -23,4 +22,6 @@ public class DataGeneratorController {
 		return "hello frontend";
 	}
 	
+
 }
+

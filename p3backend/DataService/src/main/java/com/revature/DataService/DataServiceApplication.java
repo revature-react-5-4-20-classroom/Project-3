@@ -38,5 +38,15 @@ public class DataServiceApplication {
 			}
 		};
 	}
+	
+	@Bean
+    public WebMvcConfigurer configureContent() {
+      return new WebMvcConfigurer() {
+        @Override
+        public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+          configurer.ignoreAcceptHeader(true).defaultContentType(MediaType.APPLICATION_JSON);
+        }
+      };
+	}
 
 }
