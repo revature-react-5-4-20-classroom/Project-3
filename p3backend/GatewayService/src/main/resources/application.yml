@@ -11,8 +11,8 @@ zuul:
       path: /eureka/**
       url: http://localhost:8761/
     data:
-      path: /associates
+      path: /data/**
       service-id: dataservice
     reports:
-      path: /hello
+      path: /reports/**
       service-id: reportsservice
