@@ -24,6 +24,17 @@ public class DataServiceApplication {
           configurer.ignoreAcceptHeader(true).defaultContentType(MediaType.APPLICATION_JSON);
         }
       };
+	  
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedMethods("GET","POST","PUT","PATCH","DELETE","OPTIONS")
+				.allowedHeaders("*");
+				
+			}
+		};
 	}
 
 }
