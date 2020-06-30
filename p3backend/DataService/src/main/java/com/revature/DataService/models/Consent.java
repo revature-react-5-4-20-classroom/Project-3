@@ -93,7 +93,7 @@ public void setTrainer_id(Integer trainerId) {
 	this.trainerId = trainerId;
 }
 
-<<<<<<< HEAD
+
 public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
 	super();
 	this.consentId = consentId;
@@ -114,8 +114,6 @@ public void setIsApprovedColumn(boolean isApprovedColumn) {
 
 
 
-=======
->>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
 @Override
 public String toString() {
 	return "Consent [consentId=" + consentId + ", isApproved=" + isApprovedColumn + ", batchId=" + batchId + ", trainerId="
