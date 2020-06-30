@@ -31,72 +31,45 @@ export class ColumnChartTest extends React.Component<any, any> {
   };
 
   drawChart = () => {
-    var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['2014', 1000, 400, 200],
-      ['2015', 1170, 460, 250],
-      ['2016', 660, 1120, 300],
-      ['2017', 1030, 540, 350],
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Demand and Supply');
+    data.addColumn('number', 'Total');
+    data.addColumn('number', 'Java/React');
+    data.addColumn('number', 'Salesforce');
+    data.addColumn('number', 'Data');
+    data.addColumn('number', 'Ai');
+    data.addRows([
+      ['Client Demand', 64, 23, 21, 16, 4],
+      ['Current', 19, 4, 6, 8, 1],
+      ['1 Month', 31, 10, 12, 6, 3],
+      ['3 Months', 50, 20, 15, 10, 5],
     ]);
 
     var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1, 2]);
+    view.setRows([0, 1, 2, 3]);
 
     var options: any = {
-      // width: 900,
-      // height: 500,
-      chart: {
-        title: 'Supply vs. Demand',
+      orientation: 'horizontal',
+      width: 900,
+      column: 0,
+      height: 500,
+      hAxis: {
+        direction: 1,
       },
       vAxes: {
-        // Adds titles to each axis.
-        0: { title: 'adfadf' },
-        1: { title: 'apparent magnitude' },
+        0: { title: 'Amount of Associates' },
+      },
+      hAxes: {
+        0: { title: 'Demand and Supply' },
       },
     };
+
     var chart = new google.visualization.BarChart(this.myRef.current);
     chart.draw(view, options);
     this.setState({
       shouldUpdate: true,
     });
   };
-
-  // for making basic column chart
-  // drawChart = () => {
-  //   var data = google.visualization.arrayToDataTable([
-  //     ['Element', 'Density', { role: 'style' }],
-  //     ['Copper', 8.94, '#b87333'],
-  //     ['Silver', 10.49, 'silver'],
-  //     ['Gold', 19.3, 'gold'],
-  //     ['Platinum', 21.45, 'color: #e5e4e2'],
-  //   ]);
-
-  //   var view = new google.visualization.DataView(data);
-  //   view.setColumns([
-  //     0,
-  //     1,
-  //     {
-  //       calc: 'stringify',
-  //       sourceColumn: 1,
-  //       type: 'string',
-  //       role: 'annotation',
-  //     },
-  //     2,
-  //   ]);
-
-  //   var options: any = {
-  //     title: 'Density of Precious Metals, in g/cm^3',
-  //     width: 600,
-  //     height: 400,
-  //     bar: { groupWidth: '95%' },
-  //     legend: { position: 'none' },
-  //   };
-  //   var chart = new google.visualization.ColumnChart(this.myRef.current);
-  //   chart.draw(view, options);
-  //   this.setState({
-  //     shouldUpdate: true,
-  //   });
-  // };
 
   render() {
     return (
