@@ -10,6 +10,9 @@ import { Skill } from '../models/Skill';
 import { Location } from '../models/Location';
 import { Curriculum } from '../models/Curriculum';
 import { Associate } from '../models/Associate';
+import { allTheMapStateToProps } from '../redux/reducers';
+import { allTheActionMappers } from '../redux/action-mapper';
+import { connect } from 'react-redux';
 
 
 // interface TimelineComponentProps {
@@ -84,6 +87,8 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
         })
     }
 
+    
+
     render() {
         return (
             <div>
@@ -92,3 +97,5 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
         )
     }
 }
+
+export const TimelineRedux = connect(allTheMapStateToProps, allTheActionMappers)(TimelineComponent)
