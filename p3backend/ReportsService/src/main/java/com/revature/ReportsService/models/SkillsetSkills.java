@@ -4,7 +4,13 @@ public class SkillsetSkills {
 
    private Integer skillsetId;
    private Integer skillId;
-   
+
+  public SkillsetSkills(Integer skillsetId, Integer skillId) {
+    super();
+    this.skillsetId = skillsetId;
+    this.skillId = skillId;
+  }
+  
   public Integer getSkillsetId() {
     return skillsetId;
   }
