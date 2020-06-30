@@ -28,8 +28,6 @@ interface TimelineComponentState {
     items : any,
 
     prevent:any
-   
-
     isOpen : boolean,
 
 }
@@ -42,9 +40,8 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
             groups :null,
             items : null,
 
-            prevent:false
-
-            isOpen : false,
+            prevent:false,
+ isOpen : false,
 
         }
     }
@@ -105,25 +102,24 @@ let batches=await getAllBatches();
                 // bgColor : 'rgba(225, 166, 244, 0.6)',
                 itemProps:{
 
-                    onContextMenu:(event:any)=>{
-                    console.log(event.target.id);
-                    timer= setTimeout(()=>{
-                          if(!alreadyClicked){
-                              alert("dfdfdsf");
-                             }
+            //         onContextMenu:(event:any)=>{
+            //         console.log(event.target.id);
+            //         timer= setTimeout(()=>{
+            //               if(!alreadyClicked){
+            //                   alert("dfdfdsf");
+            //                  }
 
-                             alreadyClicked=false;
+            //                  alreadyClicked=false;
                           
                          
-                     },100);
+            //          },100);
                 
                 
-                },
-                     onDoubleClick:() => {   
-                          alreadyClicked=true; alert("sdfsfdsfdsfd");
+            //     },
+                     
                         
-               },
-                    }
+            //    },
+                    
 
                     onDoubleClick: () => {this.displayBatchInfo(batch)},
                 }
