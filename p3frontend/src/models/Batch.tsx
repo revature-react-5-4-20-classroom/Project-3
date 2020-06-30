@@ -9,7 +9,7 @@ export class Batch{
     endDate:string;
     isConfirmed:boolean;
     interviewScoreLower:number;
-    trainers : Trainer[];
+    trainers: Trainer[];
     location : Location;
     curriculum : Curriculum;
     associates : Associate[];
@@ -21,7 +21,7 @@ export class Batch{
        endDate: string,
        isConfirmed:boolean,
        interviewScoreLower:number,
-       trainers : Trainer[],
+       trainers: Trainer[],
        location : Location,
        curriculum : Curriculum,
        associates : Associate[],
