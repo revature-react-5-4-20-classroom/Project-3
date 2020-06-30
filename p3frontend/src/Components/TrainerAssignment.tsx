@@ -1,14 +1,7 @@
 import React from 'react';
 import { Trainer } from '../models/Trainer';
-<<<<<<< HEAD
-
 import {getAllTrainers, getEligibility, createConsentRequest} from '../api/consent'
 import { Form, FormGroup, Label, Col, Input, Button, Toast, ToastHeader, ToastBody, ListGroupItem, ListGroup, Row } from 'reactstrap';
-
-=======
-import {getAllTrainers, getEligibility, createConsentRequest} from '../api/consent'
-import { Form, FormGroup, Label, Col, Input, Button, Toast, ToastHeader, ToastBody, ListGroupItem, ListGroup, Row } from 'reactstrap';
->>>>>>> bb60357103cea1e0a9c0044f611b3cb0480af129
 import { Consent } from '../models/Consent';
 import { assignTrainer } from '../api/batch';
 
