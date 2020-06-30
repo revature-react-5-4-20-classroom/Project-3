@@ -13,7 +13,7 @@ export class Batch{
     location : Location;
     curriculum : Curriculum;
     associates : Associate[];
-    consent : Consent[];
+    programType : string;
 
     constructor(
        batchId:number,
@@ -25,7 +25,7 @@ export class Batch{
        location : Location,
        curriculum : Curriculum,
        associates : Associate[],
-       consent : Consent[]
+       programType : string
     ) 
     {
         this.batchId = batchId;
@@ -37,6 +37,6 @@ export class Batch{
         this.location = location;
         this.curriculum = curriculum;
         this.associates = associates;
-        this.consent = consent;
+        this.programType = programType;
     }
 }
