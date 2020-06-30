@@ -26,8 +26,7 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
     constructor(props:any){
         super(props)
         this.state = {
-            batches: [new Batch(1,'4/4/2020','6/10/2020',false,78,[new Trainer(1,"Adam","King","ak@gmail.com",1,new TrainerSkills(1,"Java",[new Skill(1,"Java")]))],new Location(1,"New York"),new Curriculum(1,'Java'),[],[]),
-                        new Batch(2,'5/4/2020','7/10/2020',false,78,[new Trainer(2,"Andrew","C","aC@gmail.com",1,new TrainerSkills(2,"JavaScript",[new Skill(1,"JavaScript")]))],new Location(2,"California"),new Curriculum(2,'JavaScript'),[],[]) ],
+            batches: [],
             groups :[],
             items : []
         }
@@ -53,16 +52,15 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
             items : items,
         })
     }
-    componentDidMount() {
-        //this.setBatches();
+    async componentDidMount() {
+        await this.setBatches();
         let mappedGroups: any[] = [];
         let mappedItems: any[] = [];
 
-        this.state.batches.map((batch:Batch, index:number) => {
-            console.log(batch)
+        this.state.batches.map( async (batch:Batch, index:number) => {
             let group = {
                 id: batch.batchId,
-                title: batch.curriculum.name
+                title: `Batch ID: ${batch.batchId}`
             }
             let item = {
                 id: batch.batchId,
@@ -70,6 +68,9 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
                 title: batch.curriculum.name,
                 start_time: new Date(batch.startDate),
                 end_time: new Date(batch.endDate),
+                canMove: false,
+                canResize: false,
+                canChangeGroup: false,
                 // color: 'rgb(158, 14, 206)',
                 // selectedBgColor: 'rgba(225, 166, 244, 1)',
                 // bgColor : 'rgba(225, 166, 244, 0.6)',
@@ -79,14 +80,14 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
             }
             mappedGroups.push(group);
             mappedItems.push(item)
-            this.setGroupsAndItems(mappedGroups,mappedItems)
+            await this.setGroupsAndItems(mappedGroups,mappedItems)
         })
     }
 
     render() {
         return (
             <div>
-                <Timeline  groups={this.state.groups} items={this.state.items} defaultTimeStart={moment().add(-6,'month')} defaultTimeEnd={moment().add(6,'month')}></Timeline>
+                <Timeline  groups={this.state.groups} items={this.state.items} defaultTimeStart={moment().add(-6,'days')} defaultTimeEnd={moment().add(6,'days')}></Timeline>
             </div>
         )
     }
