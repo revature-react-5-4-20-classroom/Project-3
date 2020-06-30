@@ -12,8 +12,6 @@ export class Trainer{
     batch:Batch[];
     isEligible: boolean
 
-
-
     constructor(
        trainerId:number,
        firstName:string,
@@ -34,4 +32,16 @@ export class Trainer{
         this.batch = batch;
         this.isEligible = isEligible;
     }
+}
+
+/*
+    trainerGetName(trainerObject)
+
+    returns:
+        the full name of the trainer using the first and last name.
+        'no-trainer' if trainerObject is null
+*/
+export function trainerGetName(t:Trainer)
+{
+    return t?t.firstName+' '+t.lastName:'no-trainer'
 }

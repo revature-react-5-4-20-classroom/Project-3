@@ -15,8 +15,17 @@ public class BatchService {
 	@Autowired
 	BatchRepository batchRepository;
 	
-	public List<Batch> getAll() {
-	  return batchRepository.findAll();
+	public List<Batch> getAll()
+	{
+	  try
+	  {
+	    return batchRepository.findAll();
+	  }
+	  catch(Exception e)
+	  {
+	     return null;
+	    //hrow new Exception("Issue getting all batches "+e.getMessage());
+	  }
 	}
 	
 	public Batch getById(Integer id) throws Exception {
@@ -40,4 +49,18 @@ public class BatchService {
 	public List<Batch> getByInProgress(Date d) {
 		return batchRepository.findByInProgress(d);
 	}
+
+public List<Batch> getBatchByCurricula(Integer id){
+		
+		List<Batch> existingBatch=batchRepository.getBatchByCurriculaJ(id);
+		return existingBatch;
+		
+	}
+	
+	public List<Batch> getBatchByClientId(Integer id){
+		
+		List<Batch> existingBatch=batchRepository.getBatchByClient(id);
+		return existingBatch;
+		
+	}	
 }

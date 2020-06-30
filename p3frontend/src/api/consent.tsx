@@ -1,20 +1,18 @@
-import axios, { AxiosResponse } from 'axios';
 import {Consent} from '../models/Consent'
 import { Trainer } from '../models/Trainer';
-
-
-export const storeClient = axios.create({
-    baseURL : 'http://localhost:1235', // Use this to test on your local machine, leave commented out.
-    // baseURL : ' http://3.21.185.168:8585', // The server was using this port instead for some reason
-    //baseURL : 'http://18.216.197.108:8080',
-    //if you don't have the following line, your login won't work
-    withCredentials: false, // we should probably change this later
-});
-
+import { axiosClient } from './axios';
 
 export async function getEligibility(trainerId:number, batchId:number): Promise<boolean>{
 
+<<<<<<< HEAD
     const response : boolean = await storeClient.get(`/trainer/eligible/${batchId}/trainerid/${trainerId}`)
+=======
+    const response : boolean = await axiosClient.get(`/trainer/eligible/${batchId}`,{
+        params: {
+          trainer: trainer,
+        }
+      })
+>>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
       return response;
 }
 
@@ -23,7 +21,7 @@ export async function getEligibility(trainerId:number, batchId:number): Promise<
 
 export async function getAllTrainers() : Promise<Trainer[]>{
     try{
-        const response =  await storeClient.get('/trainer');
+        const response =  await axiosClient.get('/trainer');
         return response.data.map((trainerObj: any) => {
             const {trainerId, firstName, lastName, email,  trainerSkills, consent, batch  } = trainerObj;
             
@@ -45,6 +43,7 @@ export async function createConsentRequest(trainerId:number, isApproved:null,bat
 
 export async function approveConsentRequest(consent:Consent ){
     try{
+<<<<<<< HEAD
         await storeClient.patch('/consent', {
             consentId: consent.consentId,
             batchId: consent.batchId,
@@ -52,6 +51,10 @@ export async function approveConsentRequest(consent:Consent ){
             isApprovedColumn:consent.isApproved
         });
         
+=======
+        const response =  await axiosClient.patch('/consent', {consent:consent});
+        //return response;
+>>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
     } catch (e){
         console.log(e)
     }
@@ -59,6 +62,7 @@ export async function approveConsentRequest(consent:Consent ){
 
 export async function denyConsentRequest(consent:Consent ) {
     try{
+<<<<<<< HEAD
         await storeClient.patch('/consent', {
             consentId: consent.consentId,
             batchId: consent.batchId,
@@ -66,6 +70,10 @@ export async function denyConsentRequest(consent:Consent ) {
             isApprovedColumn:consent.isApproved
         });
         
+=======
+        const response =  await axiosClient.patch('/consent', {consent:consent});
+        //return response;
+>>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
     } catch (e){
         console.log(e)
     }
@@ -73,7 +81,7 @@ export async function denyConsentRequest(consent:Consent ) {
 
 export async function getConsentByTrainerId(id: number) : Promise<any[]> {
     try {
-        const response = await storeClient.get(`/consent/${id}`);
+        const response = await axiosClient.get(`/consent/${id}`);
         return response.data.map((itemObj: any) => {
            const {consentId, trainerId, isApproved, batchId  } = itemObj;
            return new Consent(consentId, trainerId, isApproved, batchId);
@@ -88,7 +96,7 @@ export async function getConsentByTrainerId(id: number) : Promise<any[]> {
 
 export async function getBatchName(batchId:number ){
     try{
-        const response =  await storeClient.get(`/batches/${batchId}`);
+        const response =  await axiosClient.get(`/batches/${batchId}`);
         return response;
     } catch (e){
         console.log(e)
