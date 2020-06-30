@@ -122,28 +122,12 @@ public class Trainer {
 	}
 
 
-<<<<<<< HEAD
-	
-=======
-	public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
-			List<Consent> consents, List<Batch> batches) {
-		super();
-		this.trainerId = trainerId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.trainerSkills = trainerSkills;
-		//this.consents = consents;
-		this.batches = batches;
-	}
 
->>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
 	public Trainer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-<<<<<<< HEAD
 public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
 		List<Batch> batches, boolean isEligible) {
 	super();
@@ -155,7 +139,7 @@ public Trainer(Integer trainerId, String firstName, String lastName, String emai
 	this.batches = batches;
 	this.isEligible = isEligible;
 }
-=======
+
 //	public List<Consent> getConsent() {
 //		return consents;
 //	}
@@ -168,13 +152,7 @@ public Trainer(Integer trainerId, String firstName, String lastName, String emai
 	public String toString() {
 		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", trainerSkills=" + trainerSkills + ", batches=" + batches + "]";
-	}
->>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
-
-	
-	
-
-	
+	}	
 
 	
 }
