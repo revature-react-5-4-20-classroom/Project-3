@@ -203,24 +203,24 @@ public void setProgramType(String programType) {
 
 
 
-  public Consent getConsent() {
-    return consent;
-  }
-
-
-  public void setConsent(Consent consent) {
-    this.consent = consent;
-  }
-
-
-
-
-@Override
-public String toString() {
-	return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate + ", isConfirmed="
-			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
-			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
-}
+//  public Consent getConsent() {
+//    return consent;
+//  }
+//
+//
+//  public void setConsent(Consent consent) {
+//    this.consent = consent;
+//  }
+//
+//
+//
+//
+//@Override
+//public String toString() {
+//	return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate + ", isConfirmed="
+//			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
+//			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
+//}
 
 
 
