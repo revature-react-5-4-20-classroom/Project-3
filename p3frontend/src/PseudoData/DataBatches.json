@@ -1,0 +1,1949 @@
+{
+    "data": [
+        {
+            "batchId": 6,
+            "startDate": "2020-05-11",
+            "endDate": "2020-07-17",
+            "isConfirmed": true,
+            "interviewScoreLower": 80,
+            "trainers": [
+				{
+					"trainerId":0,
+					"firstName":"Adam",
+					"lastName":"King",
+					"email":"e-mail"
+				},
+				{
+					"trainerId":1,
+					"firstName":"Andrew",
+					"lastName":"Cronston",
+					"email":"e-mail"
+				},
+				{
+					"trainerId":2,
+					"firstName":"James",
+					"lastName":"Johnson",
+					"email":"e-mail"
+				}
+			],
+            "location": {
+                "locationId": 9,
+                "locationName": "Reston"
+            },
+            "curriculum": {
+                "curriculumId": 2,
+                "name": "Full Stack Java with Microservices",
+                "curriculumSkillset": {
+                    "skillSetId": 3,
+                    "skillSetName": "Full Stack Java with Microservices",
+                    "skills": [
+                        {
+                            "skillId": 1,
+                            "skillName": "Java"
+                        },
+                        {
+                            "skillId": 6,
+                            "skillName": "SQL"
+                        },
+                        {
+                            "skillId": 8,
+                            "skillName": "Spring"
+                        },
+                        {
+                            "skillId": 9,
+                            "skillName": "Maven"
+                        },
+                        {
+                            "skillId": 11,
+                            "skillName": "Microservices"
+                        },
+                        {
+                            "skillId": 12,
+                            "skillName": "Hibernate"
+                        },
+                        {
+                            "skillId": 13,
+                            "skillName": "REST"
+                        }
+                    ],
+                    "trainers": [
+                        {
+                            "trainerId": 3
+                        }
+                    ],
+                    "clientDemands": [],
+                    "curricula": [
+                        {
+                            "curriculumId": 2,
+                            "name": "Full Stack Java with Microservices"
+                        }
+                    ]
+                }
+            },
+            "associates": [
+                {
+                    "associateId": 7,
+                    "firstName": "Cherida",
+                    "lastName": "Thing",
+                    "email": "cthing0@jimdo.com",
+                    "active": true,
+                    "interviewScore": 73.25
+                },
+                {
+                    "associateId": 22,
+                    "firstName": "Clevie",
+                    "lastName": "Baysting",
+                    "email": "cbaystingf@tmall.com",
+                    "active": true,
+                    "interviewScore": 87.25
+                },
+                {
+                    "associateId": 220,
+                    "firstName": "Birch",
+                    "lastName": "Pipping",
+                    "email": "bpipping5x@bing.com",
+                    "active": true,
+                    "interviewScore": 3.5
+                },
+                {
+                    "associateId": 247,
+                    "firstName": "Rowney",
+                    "lastName": "Dobing",
+                    "email": "rdobing6o@noaa.gov",
+                    "active": true,
+                    "interviewScore": 73.75
+                },
+                {
+                    "associateId": 333,
+                    "firstName": "Norman",
+                    "lastName": "Ganning",
+                    "email": "nganning92@marriott.com",
+                    "active": true,
+                    "interviewScore": 76.25
+                },
+                {
+                    "associateId": 443,
+                    "firstName": "Liz",
+                    "lastName": "Aveling",
+                    "email": "lavelingc4@europa.eu",
+                    "active": true,
+                    "interviewScore": 36.5
+                },
+                {
+                    "associateId": 589,
+                    "firstName": "Deeanne",
+                    "lastName": "Slimming",
+                    "email": "dslimmingg6@google.com.au",
+                    "active": true,
+                    "interviewScore": 7
+                },
+                {
+                    "associateId": 755,
+                    "firstName": "Archambault",
+                    "lastName": "Dulling",
+                    "email": "adullingks@tuttocitta.it",
+                    "active": true,
+                    "interviewScore": 68
+                },
+                {
+                    "associateId": 986,
+                    "firstName": "Grant",
+                    "lastName": "Balling",
+                    "email": "gballingr7@reuters.com",
+                    "active": true,
+                    "interviewScore": 40.75
+                },
+                {
+                    "associateId": 31,
+                    "firstName": "Reiko",
+                    "lastName": "Jopling",
+                    "email": "rjoplingo@tuttocitta.it",
+                    "active": true,
+                    "interviewScore": 81.5
+                },
+                {
+                    "associateId": 33,
+                    "firstName": "Carlos",
+                    "lastName": "Mayling",
+                    "email": "cmaylingq@people.com.cn",
+                    "active": true,
+                    "interviewScore": 47.5
+                },
+                {
+                    "associateId": 132,
+                    "firstName": "Kirbie",
+                    "lastName": "Goodding",
+                    "email": "kgoodding3h@simplemachines.org",
+                    "active": true,
+                    "interviewScore": 32.75
+                },
+                {
+                    "associateId": 163,
+                    "firstName": "Rosabella",
+                    "lastName": "Coling",
+                    "email": "rcoling4c@usa.gov",
+                    "active": true,
+                    "interviewScore": 48
+                },
+                {
+                    "associateId": 298,
+                    "firstName": "Ellissa",
+                    "lastName": "Geerling",
+                    "email": "egeerling83@aol.com",
+                    "active": true,
+                    "interviewScore": 96
+                },
+                {
+                    "associateId": 402,
+                    "firstName": "Karoly",
+                    "lastName": "Baysting",
+                    "email": "kbaystingaz@artisteer.com",
+                    "active": true,
+                    "interviewScore": 23.25
+                },
+                {
+                    "associateId": 602,
+                    "firstName": "Gaylor",
+                    "lastName": "Skilling",
+                    "email": "gskillinggj@globo.com",
+                    "active": true,
+                    "interviewScore": 24.5
+                },
+                {
+                    "associateId": 858,
+                    "firstName": "Woodman",
+                    "lastName": "Golding",
+                    "email": "wgoldingnn@indiatimes.com",
+                    "active": true,
+                    "interviewScore": 86.5
+                }
+            ],
+            "consent": [
+                {
+                    "consentId": 3,
+                    "trainer": {
+                        "trainerId": 3,
+                        "firstName": "John",
+                        "lastName": "Fakename",
+                        "email": "fakename@revature.com",
+                        "trainerSkills": [
+                            {
+                                "skillSetId": 3,
+                                "skillSetName": "Full Stack Java with Microservices",
+                                "skills": [
+                                    {
+                                        "skillId": 1,
+                                        "skillName": "Java"
+                                    },
+                                    {
+                                        "skillId": 6,
+                                        "skillName": "SQL"
+                                    },
+                                    {
+                                        "skillId": 8,
+                                        "skillName": "Spring"
+                                    },
+                                    {
+                                        "skillId": 9,
+                                        "skillName": "Maven"
+                                    },
+                                    {
+                                        "skillId": 11,
+                                        "skillName": "Microservices"
+                                    },
+                                    {
+                                        "skillId": 12,
+                                        "skillName": "Hibernate"
+                                    },
+                                    {
+                                        "skillId": 13,
+                                        "skillName": "REST"
+                                    }
+                                ],
+                                "clientDemands": [],
+                                "curricula": [
+                                    {
+                                        "curriculumId": 2,
+                                        "name": "Full Stack Java with Microservices"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "approved": false
+                }
+            ]
+        },
+        {
+            "batchId": 8,
+            "startDate": "2020-05-11",
+            "endDate": "2020-07-17",
+            "isConfirmed": true,
+            "interviewScoreLower": 90,
+            "trainers": [],
+            "location": {
+                "locationId": 9,
+                "locationName": "Reston"
+            },
+            "curriculum": {
+                "curriculumId": 3,
+                "name": "Salesforce",
+                "curriculumSkillset": {
+                    "skillSetId": 4,
+                    "skillSetName": "Salesforce",
+                    "skills": [
+                        {
+                            "skillId": 16,
+                            "skillName": "Salesforce"
+                        }
+                    ],
+                    "trainers": [
+                        {
+                            "trainerId": 4
+                        }
+                    ],
+                    "clientDemands": [],
+                    "curricula": [
+                        {
+                            "curriculumId": 3,
+                            "name": "Salesforce"
+                        }
+                    ]
+                }
+            },
+            "associates": [
+                {
+                    "associateId": 5,
+                    "firstName": "Julia",
+                    "lastName": "Fakename",
+                    "email": "someone@gmail.com",
+                    "active": true,
+                    "interviewScore": 95
+                },
+                {
+                    "associateId": 3,
+                    "firstName": "Jimothy",
+                    "lastName": "Bupkins",
+                    "email": "jbupkins@jim.bup",
+                    "active": true,
+                    "interviewScore": 70
+                },
+                {
+                    "associateId": 265,
+                    "firstName": "Abelard",
+                    "lastName": "Heakins",
+                    "email": "aheakins76@oakley.com",
+                    "active": true,
+                    "interviewScore": 91.5
+                },
+                {
+                    "associateId": 339,
+                    "firstName": "Rodrick",
+                    "lastName": "Potkins",
+                    "email": "rpotkins98@merriam-webster.com",
+                    "active": true,
+                    "interviewScore": 82.5
+                }
+            ],
+            "consent": [
+                {
+                    "consentId": 4,
+                    "trainer": {
+                        "trainerId": 4,
+                        "firstName": "Jim",
+                        "lastName": "Fakename",
+                        "email": "fakename2@revature.com",
+                        "trainerSkills": [
+                            {
+                                "skillSetId": 4,
+                                "skillSetName": "Salesforce",
+                                "skills": [
+                                    {
+                                        "skillId": 16,
+                                        "skillName": "Salesforce"
+                                    }
+                                ],
+                                "clientDemands": [],
+                                "curricula": [
+                                    {
+                                        "curriculumId": 3,
+                                        "name": "Salesforce"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "approved": true
+                }
+            ]
+        },
+        {
+            "batchId": 9,
+            "startDate": "2020-06-08",
+            "endDate": "2020-08-31",
+            "isConfirmed": true,
+            "interviewScoreLower": 70,
+            "trainers": [],
+            "location": {
+                "locationId": 9,
+                "locationName": "Reston"
+            },
+            "curriculum": {
+                "curriculumId": 4,
+                "name": "Node Cloud Developer",
+                "curriculumSkillset": {
+                    "skillSetId": 5,
+                    "skillSetName": "Node Cloud Development",
+                    "skills": [
+                        {
+                            "skillId": 3,
+                            "skillName": "JavaScript"
+                        },
+                        {
+                            "skillId": 7,
+                            "skillName": "TypeScript"
+                        },
+                        {
+                            "skillId": 19,
+                            "skillName": "Node"
+                        },
+                        {
+                            "skillId": 20,
+                            "skillName": "Cloud Technologies"
+                        }
+                    ],
+                    "trainers": [],
+                    "clientDemands": [],
+                    "curricula": [
+                        {
+                            "curriculumId": 4,
+                            "name": "Node Cloud Developer"
+                        }
+                    ]
+                }
+            },
+            "associates": [
+                {
+                    "associateId": 6,
+                    "firstName": "Brett",
+                    "lastName": "Rotge",
+                    "email": "brotge1@oaic.gov.au",
+                    "active": true,
+                    "interviewScore": 45.25
+                },
+                {
+                    "associateId": 8,
+                    "firstName": "Brett",
+                    "lastName": "Rotge",
+                    "email": "brotge1@oaic.gov.au",
+                    "active": true,
+                    "interviewScore": 45.25
+                },
+                {
+                    "associateId": 27,
+                    "firstName": "Fanny",
+                    "lastName": "Rignold",
+                    "email": "frignoldk@mac.com",
+                    "active": true,
+                    "interviewScore": 22.75
+                },
+                {
+                    "associateId": 48,
+                    "firstName": "Hashim",
+                    "lastName": "Raymont",
+                    "email": "hraymont15@who.int",
+                    "active": true,
+                    "interviewScore": 75.75
+                },
+                {
+                    "associateId": 114,
+                    "firstName": "Minerva",
+                    "lastName": "Raylton",
+                    "email": "mraylton2z@blogs.com",
+                    "active": true,
+                    "interviewScore": 58.5
+                },
+                {
+                    "associateId": 118,
+                    "firstName": "Niki",
+                    "lastName": "Roskrug",
+                    "email": "nroskrug33@google.pl",
+                    "active": true,
+                    "interviewScore": 0
+                },
+                {
+                    "associateId": 217,
+                    "firstName": "Preston",
+                    "lastName": "Renzullo",
+                    "email": "prenzullo5u@webnode.com",
+                    "active": true,
+                    "interviewScore": 40.25
+                },
+                {
+                    "associateId": 228,
+                    "firstName": "Faye",
+                    "lastName": "Raggitt",
+                    "email": "fraggitt65@wordpress.com",
+                    "active": true,
+                    "interviewScore": 52.75
+                },
+                {
+                    "associateId": 251,
+                    "firstName": "Mikey",
+                    "lastName": "Roscow",
+                    "email": "mroscow6s@nytimes.com",
+                    "active": true,
+                    "interviewScore": 11.25
+                },
+                {
+                    "associateId": 306,
+                    "firstName": "Keith",
+                    "lastName": "Reen",
+                    "email": "kreen8b@msn.com",
+                    "active": true,
+                    "interviewScore": 89.5
+                },
+                {
+                    "associateId": 344,
+                    "firstName": "Dallas",
+                    "lastName": "Rawstron",
+                    "email": "drawstron9d@privacy.gov.au",
+                    "active": true,
+                    "interviewScore": 53
+                },
+                {
+                    "associateId": 409,
+                    "firstName": "Dru",
+                    "lastName": "Roome",
+                    "email": "droomeb6@npr.org",
+                    "active": true,
+                    "interviewScore": 17.5
+                },
+                {
+                    "associateId": 426,
+                    "firstName": "Bron",
+                    "lastName": "Risen",
+                    "email": "brisenbn@pcworld.com",
+                    "active": true,
+                    "interviewScore": 49.75
+                },
+                {
+                    "associateId": 437,
+                    "firstName": "Umeko",
+                    "lastName": "Robertazzi",
+                    "email": "urobertazziby@symantec.com",
+                    "active": true,
+                    "interviewScore": 16.5
+                },
+                {
+                    "associateId": 449,
+                    "firstName": "Jae",
+                    "lastName": "Roalfe",
+                    "email": "jroalfeca@slate.com",
+                    "active": true,
+                    "interviewScore": 91.75
+                },
+                {
+                    "associateId": 522,
+                    "firstName": "Kori",
+                    "lastName": "Ragsdall",
+                    "email": "kragsdalleb@columbia.edu",
+                    "active": true,
+                    "interviewScore": 69.5
+                },
+                {
+                    "associateId": 523,
+                    "firstName": "Danna",
+                    "lastName": "Rowsell",
+                    "email": "drowsellec@cnn.com",
+                    "active": true,
+                    "interviewScore": 81.25
+                },
+                {
+                    "associateId": 651,
+                    "firstName": "Egon",
+                    "lastName": "Roskell",
+                    "email": "eroskellhw@wufoo.com",
+                    "active": true,
+                    "interviewScore": 98
+                },
+                {
+                    "associateId": 665,
+                    "firstName": "Catlaina",
+                    "lastName": "Rittmeyer",
+                    "email": "crittmeyeria@uiuc.edu",
+                    "active": true,
+                    "interviewScore": 63.25
+                },
+                {
+                    "associateId": 693,
+                    "firstName": "Allissa",
+                    "lastName": "Roget",
+                    "email": "arogetj2@cnn.com",
+                    "active": true,
+                    "interviewScore": 56.25
+                },
+                {
+                    "associateId": 725,
+                    "firstName": "Kirbee",
+                    "lastName": "Regglar",
+                    "email": "kregglarjy@xing.com",
+                    "active": true,
+                    "interviewScore": 7
+                },
+                {
+                    "associateId": 814,
+                    "firstName": "Pierrette",
+                    "lastName": "Rosenshine",
+                    "email": "prosenshinemf@jalbum.net",
+                    "active": true,
+                    "interviewScore": 40
+                },
+                {
+                    "associateId": 925,
+                    "firstName": "Domenico",
+                    "lastName": "Rimington",
+                    "email": "drimingtonpi@facebook.com",
+                    "active": true,
+                    "interviewScore": 12
+                },
+                {
+                    "associateId": 66,
+                    "firstName": "Giuditta",
+                    "lastName": "Rosettini",
+                    "email": "grosettini1n@tumblr.com",
+                    "active": true,
+                    "interviewScore": 7.5
+                },
+                {
+                    "associateId": 83,
+                    "firstName": "Sonny",
+                    "lastName": "Roydon",
+                    "email": "sroydon24@yandex.ru",
+                    "active": true,
+                    "interviewScore": 43.75
+                },
+                {
+                    "associateId": 86,
+                    "firstName": "Bibbye",
+                    "lastName": "Rookeby",
+                    "email": "brookeby27@fda.gov",
+                    "active": true,
+                    "interviewScore": 47.75
+                },
+                {
+                    "associateId": 88,
+                    "firstName": "Osborne",
+                    "lastName": "Redborn",
+                    "email": "oredborn29@soundcloud.com",
+                    "active": true,
+                    "interviewScore": 33.75
+                },
+                {
+                    "associateId": 98,
+                    "firstName": "Regine",
+                    "lastName": "Renahan",
+                    "email": "rrenahan2j@4shared.com",
+                    "active": true,
+                    "interviewScore": 36.5
+                },
+                {
+                    "associateId": 131,
+                    "firstName": "Laureen",
+                    "lastName": "Rutland",
+                    "email": "lrutland3g@i2i.jp",
+                    "active": true,
+                    "interviewScore": 33.25
+                },
+                {
+                    "associateId": 139,
+                    "firstName": "Tilly",
+                    "lastName": "Ritchie",
+                    "email": "tritchie3o@is.gd",
+                    "active": true,
+                    "interviewScore": 55.75
+                },
+                {
+                    "associateId": 171,
+                    "firstName": "Conny",
+                    "lastName": "Rapps",
+                    "email": "crapps4k@meetup.com",
+                    "active": true,
+                    "interviewScore": 68.5
+                },
+                {
+                    "associateId": 187,
+                    "firstName": "Anet",
+                    "lastName": "Reade",
+                    "email": "areade50@vinaora.com",
+                    "active": true,
+                    "interviewScore": 99
+                },
+                {
+                    "associateId": 194,
+                    "firstName": "Meggie",
+                    "lastName": "Rohlf",
+                    "email": "mrohlf57@canalblog.com",
+                    "active": true,
+                    "interviewScore": 5.75
+                },
+                {
+                    "associateId": 199,
+                    "firstName": "Adham",
+                    "lastName": "Raywood",
+                    "email": "araywood5c@tinypic.com",
+                    "active": true,
+                    "interviewScore": 92.75
+                },
+                {
+                    "associateId": 292,
+                    "firstName": "Chadwick",
+                    "lastName": "Ranshaw",
+                    "email": "cranshaw7x@msn.com",
+                    "active": true,
+                    "interviewScore": 96
+                },
+                {
+                    "associateId": 353,
+                    "firstName": "Kasper",
+                    "lastName": "Rayer",
+                    "email": "krayer9m@about.com",
+                    "active": true,
+                    "interviewScore": 31.75
+                },
+                {
+                    "associateId": 358,
+                    "firstName": "Dominique",
+                    "lastName": "Rorke",
+                    "email": "drorke9r@rediff.com",
+                    "active": true,
+                    "interviewScore": 80.25
+                },
+                {
+                    "associateId": 362,
+                    "firstName": "Silvano",
+                    "lastName": "Ronisch",
+                    "email": "sronisch9v@pagesperso-orange.fr",
+                    "active": true,
+                    "interviewScore": 20.25
+                },
+                {
+                    "associateId": 376,
+                    "firstName": "Franciskus",
+                    "lastName": "Remington",
+                    "email": "fremingtona9@ebay.co.uk",
+                    "active": true,
+                    "interviewScore": 97.5
+                },
+                {
+                    "associateId": 388,
+                    "firstName": "Zackariah",
+                    "lastName": "Rex",
+                    "email": "zrexal@vimeo.com",
+                    "active": true,
+                    "interviewScore": 60.25
+                },
+                {
+                    "associateId": 527,
+                    "firstName": "Angeline",
+                    "lastName": "Riddick",
+                    "email": "ariddickeg@dailymail.co.uk",
+                    "active": true,
+                    "interviewScore": 56
+                },
+                {
+                    "associateId": 557,
+                    "firstName": "Harriett",
+                    "lastName": "Ribbon",
+                    "email": "hribbonfa@cbc.ca",
+                    "active": true,
+                    "interviewScore": 55.75
+                },
+                {
+                    "associateId": 588,
+                    "firstName": "Crissy",
+                    "lastName": "Rosencrantz",
+                    "email": "crosencrantzg5@sphinn.com",
+                    "active": true,
+                    "interviewScore": 52
+                },
+                {
+                    "associateId": 740,
+                    "firstName": "Thorn",
+                    "lastName": "Ruddom",
+                    "email": "truddomkd@odnoklassniki.ru",
+                    "active": true,
+                    "interviewScore": 42
+                },
+                {
+                    "associateId": 741,
+                    "firstName": "Jemima",
+                    "lastName": "Reschke",
+                    "email": "jreschkeke@nationalgeographic.com",
+                    "active": true,
+                    "interviewScore": 9.5
+                },
+                {
+                    "associateId": 750,
+                    "firstName": "Rosalie",
+                    "lastName": "Ruppeli",
+                    "email": "rruppelikn@sfgate.com",
+                    "active": true,
+                    "interviewScore": 54.25
+                },
+                {
+                    "associateId": 766,
+                    "firstName": "Yettie",
+                    "lastName": "Robbey",
+                    "email": "yrobbeyl3@fc2.com",
+                    "active": true,
+                    "interviewScore": 84
+                },
+                {
+                    "associateId": 780,
+                    "firstName": "Rahel",
+                    "lastName": "Regis",
+                    "email": "rregislh@digg.com",
+                    "active": true,
+                    "interviewScore": 10
+                },
+                {
+                    "associateId": 783,
+                    "firstName": "Dorothy",
+                    "lastName": "Rickertsen",
+                    "email": "drickertsenlk@lycos.com",
+                    "active": true,
+                    "interviewScore": 33.75
+                },
+                {
+                    "associateId": 793,
+                    "firstName": "Nerty",
+                    "lastName": "Reagan",
+                    "email": "nreaganlu@spotify.com",
+                    "active": true,
+                    "interviewScore": 18.25
+                },
+                {
+                    "associateId": 795,
+                    "firstName": "Rod",
+                    "lastName": "Romao",
+                    "email": "rromaolw@surveymonkey.com",
+                    "active": true,
+                    "interviewScore": 42
+                },
+                {
+                    "associateId": 826,
+                    "firstName": "Ferne",
+                    "lastName": "Ridewood",
+                    "email": "fridewoodmr@netlog.com",
+                    "active": true,
+                    "interviewScore": 74
+                },
+                {
+                    "associateId": 832,
+                    "firstName": "Lauree",
+                    "lastName": "Roeby",
+                    "email": "lroebymx@va.gov",
+                    "active": true,
+                    "interviewScore": 50.5
+                },
+                {
+                    "associateId": 855,
+                    "firstName": "Shandeigh",
+                    "lastName": "Rignall",
+                    "email": "srignallnk@theatlantic.com",
+                    "active": true,
+                    "interviewScore": 5.25
+                },
+                {
+                    "associateId": 872,
+                    "firstName": "Ruthann",
+                    "lastName": "Rewcastle",
+                    "email": "rrewcastleo1@sfgate.com",
+                    "active": true,
+                    "interviewScore": 32
+                },
+                {
+                    "associateId": 882,
+                    "firstName": "Jan",
+                    "lastName": "Rankmore",
+                    "email": "jrankmoreob@unc.edu",
+                    "active": true,
+                    "interviewScore": 7.25
+                },
+                {
+                    "associateId": 955,
+                    "firstName": "Nerty",
+                    "lastName": "Rove",
+                    "email": "nroveqc@printfriendly.com",
+                    "active": true,
+                    "interviewScore": 12.5
+                },
+                {
+                    "associateId": 983,
+                    "firstName": "Daphna",
+                    "lastName": "Randall",
+                    "email": "drandallr4@slideshare.net",
+                    "active": true,
+                    "interviewScore": 28.5
+                }
+            ],
+            "consent": []
+        },
+        {
+            "batchId": 15,
+            "startDate": "2020-05-13",
+            "endDate": "2020-07-22",
+            "isConfirmed": true,
+            "interviewScoreLower": 80,
+            "trainers": [],
+            "location": {
+                "locationId": 10,
+                "locationName": "Arlington"
+            },
+            "curriculum": {
+                "curriculumId": 2,
+                "name": "Full Stack Java with Microservices",
+                "curriculumSkillset": {
+                    "skillSetId": 3,
+                    "skillSetName": "Full Stack Java with Microservices",
+                    "skills": [
+                        {
+                            "skillId": 1,
+                            "skillName": "Java"
+                        },
+                        {
+                            "skillId": 6,
+                            "skillName": "SQL"
+                        },
+                        {
+                            "skillId": 8,
+                            "skillName": "Spring"
+                        },
+                        {
+                            "skillId": 9,
+                            "skillName": "Maven"
+                        },
+                        {
+                            "skillId": 11,
+                            "skillName": "Microservices"
+                        },
+                        {
+                            "skillId": 12,
+                            "skillName": "Hibernate"
+                        },
+                        {
+                            "skillId": 13,
+                            "skillName": "REST"
+                        }
+                    ],
+                    "trainers": [
+                        {
+                            "trainerId": 3
+                        }
+                    ],
+                    "clientDemands": [],
+                    "curricula": [
+                        {
+                            "curriculumId": 2,
+                            "name": "Full Stack Java with Microservices"
+                        }
+                    ]
+                }
+            },
+            "associates": [
+                {
+                    "associateId": 11,
+                    "firstName": "Hannis",
+                    "lastName": "Corthes",
+                    "email": "hcorthes4@printfriendly.com",
+                    "active": true,
+                    "interviewScore": 40.75
+                },
+                {
+                    "associateId": 13,
+                    "firstName": "Warner",
+                    "lastName": "Portriss",
+                    "email": "wportriss6@1und1.de",
+                    "active": true,
+                    "interviewScore": 51.75
+                },
+                {
+                    "associateId": 52,
+                    "firstName": "Sibley",
+                    "lastName": "Thorington",
+                    "email": "sthorington19@baidu.com",
+                    "active": true,
+                    "interviewScore": 75.25
+                },
+                {
+                    "associateId": 87,
+                    "firstName": "Dillon",
+                    "lastName": "Gorrick",
+                    "email": "dgorrick28@e-recht24.de",
+                    "active": true,
+                    "interviewScore": 66
+                },
+                {
+                    "associateId": 128,
+                    "firstName": "Shellysheldon",
+                    "lastName": "Torrans",
+                    "email": "storrans3d@bluehost.com",
+                    "active": true,
+                    "interviewScore": 19.75
+                },
+                {
+                    "associateId": 153,
+                    "firstName": "Corey",
+                    "lastName": "Cornil",
+                    "email": "ccornil42@tripod.com",
+                    "active": true,
+                    "interviewScore": 16.75
+                },
+                {
+                    "associateId": 158,
+                    "firstName": "Nalani",
+                    "lastName": "Saylor",
+                    "email": "nsaylor47@ihg.com",
+                    "active": true,
+                    "interviewScore": 3.5
+                },
+                {
+                    "associateId": 178,
+                    "firstName": "Meyer",
+                    "lastName": "Duckworth",
+                    "email": "mduckworth4r@symantec.com",
+                    "active": true,
+                    "interviewScore": 21.25
+                },
+                {
+                    "associateId": 200,
+                    "firstName": "De witt",
+                    "lastName": "Hanmore",
+                    "email": "dhanmore5d@cyberchimps.com",
+                    "active": true,
+                    "interviewScore": 5.75
+                },
+                {
+                    "associateId": 203,
+                    "firstName": "Thurston",
+                    "lastName": "Corwood",
+                    "email": "tcorwood5g@tamu.edu",
+                    "active": true,
+                    "interviewScore": 29
+                },
+                {
+                    "associateId": 216,
+                    "firstName": "Beau",
+                    "lastName": "Beardsworth",
+                    "email": "bbeardsworth5t@digg.com",
+                    "active": true,
+                    "interviewScore": 7.25
+                },
+                {
+                    "associateId": 221,
+                    "firstName": "Alicia",
+                    "lastName": "Borland",
+                    "email": "aborland5y@zimbio.com",
+                    "active": true,
+                    "interviewScore": 86
+                },
+                {
+                    "associateId": 323,
+                    "firstName": "Ayn",
+                    "lastName": "Cristofori",
+                    "email": "acristofori8s@jiathis.com",
+                    "active": true,
+                    "interviewScore": 22.5
+                },
+                {
+                    "associateId": 361,
+                    "firstName": "Gaspard",
+                    "lastName": "Darnborough",
+                    "email": "gdarnborough9u@surveymonkey.com",
+                    "active": true,
+                    "interviewScore": 33.5
+                },
+                {
+                    "associateId": 371,
+                    "firstName": "Sergei",
+                    "lastName": "Stidworthy",
+                    "email": "sstidworthya4@topsy.com",
+                    "active": true,
+                    "interviewScore": 81
+                },
+                {
+                    "associateId": 394,
+                    "firstName": "Meyer",
+                    "lastName": "Foxworthy",
+                    "email": "mfoxworthyar@github.com",
+                    "active": true,
+                    "interviewScore": 66.25
+                },
+                {
+                    "associateId": 400,
+                    "firstName": "Teodorico",
+                    "lastName": "Danford",
+                    "email": "tdanfordax@netscape.com",
+                    "active": true,
+                    "interviewScore": 22
+                },
+                {
+                    "associateId": 459,
+                    "firstName": "Minetta",
+                    "lastName": "Korb",
+                    "email": "mkorbck@list-manage.com",
+                    "active": true,
+                    "interviewScore": 11.25
+                },
+                {
+                    "associateId": 466,
+                    "firstName": "Maritsa",
+                    "lastName": "Eymor",
+                    "email": "meymorcr@baidu.com",
+                    "active": true,
+                    "interviewScore": 79.75
+                },
+                {
+                    "associateId": 476,
+                    "firstName": "Hedvig",
+                    "lastName": "Thorington",
+                    "email": "hthoringtond1@youtu.be",
+                    "active": true,
+                    "interviewScore": 63
+                },
+                {
+                    "associateId": 512,
+                    "firstName": "Lou",
+                    "lastName": "Shorto",
+                    "email": "lshortoe1@walmart.com",
+                    "active": true,
+                    "interviewScore": 26.25
+                },
+                {
+                    "associateId": 549,
+                    "firstName": "Jaimie",
+                    "lastName": "Smorfit",
+                    "email": "jsmorfitf2@dedecms.com",
+                    "active": true,
+                    "interviewScore": 58.25
+                },
+                {
+                    "associateId": 555,
+                    "firstName": "Lotta",
+                    "lastName": "Mickleborough",
+                    "email": "lmickleboroughf8@unicef.org",
+                    "active": true,
+                    "interviewScore": 58
+                },
+                {
+                    "associateId": 586,
+                    "firstName": "Carmina",
+                    "lastName": "Horsburgh",
+                    "email": "chorsburghg3@google.co.uk",
+                    "active": true,
+                    "interviewScore": 24.25
+                },
+                {
+                    "associateId": 590,
+                    "firstName": "Cesya",
+                    "lastName": "Imore",
+                    "email": "cimoreg7@smh.com.au",
+                    "active": true,
+                    "interviewScore": 38.5
+                },
+                {
+                    "associateId": 637,
+                    "firstName": "Ellery",
+                    "lastName": "Taborre",
+                    "email": "etaborrehi@dot.gov",
+                    "active": true,
+                    "interviewScore": 15.5
+                },
+                {
+                    "associateId": 647,
+                    "firstName": "Jocelyne",
+                    "lastName": "Pinhorn",
+                    "email": "jpinhornhs@youtube.com",
+                    "active": true,
+                    "interviewScore": 30.75
+                },
+                {
+                    "associateId": 701,
+                    "firstName": "Curr",
+                    "lastName": "Formilli",
+                    "email": "cformillija@ustream.tv",
+                    "active": true,
+                    "interviewScore": 91.5
+                },
+                {
+                    "associateId": 734,
+                    "firstName": "Meir",
+                    "lastName": "Smidmoor",
+                    "email": "msmidmoork7@quantcast.com",
+                    "active": true,
+                    "interviewScore": 54
+                },
+                {
+                    "associateId": 753,
+                    "firstName": "Creigh",
+                    "lastName": "Walworth",
+                    "email": "cwalworthkq@cbc.ca",
+                    "active": true,
+                    "interviewScore": 14.25
+                },
+                {
+                    "associateId": 761,
+                    "firstName": "Radcliffe",
+                    "lastName": "Morin",
+                    "email": "rmorinky@netscape.com",
+                    "active": true,
+                    "interviewScore": 53.25
+                },
+                {
+                    "associateId": 765,
+                    "firstName": "Jere",
+                    "lastName": "Pinor",
+                    "email": "jpinorl2@etsy.com",
+                    "active": true,
+                    "interviewScore": 95.5
+                },
+                {
+                    "associateId": 777,
+                    "firstName": "Maddie",
+                    "lastName": "Santorini",
+                    "email": "msantorinile@friendfeed.com",
+                    "active": true,
+                    "interviewScore": 54.5
+                },
+                {
+                    "associateId": 816,
+                    "firstName": "Kerry",
+                    "lastName": "Morfey",
+                    "email": "kmorfeymh@yale.edu",
+                    "active": true,
+                    "interviewScore": 8.5
+                },
+                {
+                    "associateId": 817,
+                    "firstName": "Vincenz",
+                    "lastName": "Morstatt",
+                    "email": "vmorstattmi@smh.com.au",
+                    "active": true,
+                    "interviewScore": 18.75
+                },
+                {
+                    "associateId": 824,
+                    "firstName": "Enrika",
+                    "lastName": "Sikora",
+                    "email": "esikoramp@aol.com",
+                    "active": true,
+                    "interviewScore": 32.25
+                },
+                {
+                    "associateId": 830,
+                    "firstName": "Ina",
+                    "lastName": "Northrop",
+                    "email": "inorthropmv@ameblo.jp",
+                    "active": true,
+                    "interviewScore": 99.5
+                },
+                {
+                    "associateId": 841,
+                    "firstName": "Wendel",
+                    "lastName": "Horder",
+                    "email": "whordern6@ihg.com",
+                    "active": true,
+                    "interviewScore": 37.5
+                },
+                {
+                    "associateId": 848,
+                    "firstName": "Mart",
+                    "lastName": "Shillingford",
+                    "email": "mshillingfordnd@yale.edu",
+                    "active": true,
+                    "interviewScore": 97.25
+                },
+                {
+                    "associateId": 934,
+                    "firstName": "Zacharias",
+                    "lastName": "Cordero",
+                    "email": "zcorderopr@patch.com",
+                    "active": true,
+                    "interviewScore": 97.25
+                },
+                {
+                    "associateId": 957,
+                    "firstName": "Viola",
+                    "lastName": "Moorfield",
+                    "email": "vmoorfieldqe@weibo.com",
+                    "active": true,
+                    "interviewScore": 14.75
+                },
+                {
+                    "associateId": 980,
+                    "firstName": "Brandise",
+                    "lastName": "Pridmore",
+                    "email": "bpridmorer1@mlb.com",
+                    "active": true,
+                    "interviewScore": 66.75
+                },
+                {
+                    "associateId": 278,
+                    "firstName": "Claybourne",
+                    "lastName": "Worman",
+                    "email": "cworman7j@state.gov",
+                    "active": true,
+                    "interviewScore": 69.25
+                },
+                {
+                    "associateId": 299,
+                    "firstName": "Bride",
+                    "lastName": "Molesworth",
+                    "email": "bmolesworth84@desdev.cn",
+                    "active": true,
+                    "interviewScore": 36
+                },
+                {
+                    "associateId": 597,
+                    "firstName": "Nonnah",
+                    "lastName": "Storrock",
+                    "email": "nstorrockge@dyndns.org",
+                    "active": true,
+                    "interviewScore": 55.75
+                },
+                {
+                    "associateId": 852,
+                    "firstName": "Cordula",
+                    "lastName": "Unworth",
+                    "email": "cunworthnh@paginegialle.it",
+                    "active": true,
+                    "interviewScore": 46.25
+                },
+                {
+                    "associateId": 1000,
+                    "firstName": "Gabby",
+                    "lastName": "Morit",
+                    "email": "gmoritrl@t.co",
+                    "active": true,
+                    "interviewScore": 27.25
+                }
+            ],
+            "consent": []
+        },
+        {
+            "batchId": 16,
+            "startDate": "2020-05-27",
+            "endDate": "2020-08-05",
+            "isConfirmed": true,
+            "interviewScoreLower": 70,
+            "trainers": [],
+            "location": {
+                "locationId": 11,
+                "locationName": "Tampa"
+            },
+            "curriculum": {
+                "curriculumId": 3,
+                "name": "Salesforce",
+                "curriculumSkillset": {
+                    "skillSetId": 4,
+                    "skillSetName": "Salesforce",
+                    "skills": [
+                        {
+                            "skillId": 16,
+                            "skillName": "Salesforce"
+                        }
+                    ],
+                    "trainers": [
+                        {
+                            "trainerId": 4
+                        }
+                    ],
+                    "clientDemands": [],
+                    "curricula": [
+                        {
+                            "curriculumId": 3,
+                            "name": "Salesforce"
+                        }
+                    ]
+                }
+            },
+            "associates": [
+                {
+                    "associateId": 16,
+                    "firstName": "Algernon",
+                    "lastName": "Hopkynson",
+                    "email": "ahopkynson9@de.vu",
+                    "active": true,
+                    "interviewScore": 55.25
+                },
+                {
+                    "associateId": 81,
+                    "firstName": "Tait",
+                    "lastName": "Clayson",
+                    "email": "tclayson22@nasa.gov",
+                    "active": true,
+                    "interviewScore": 96.5
+                },
+                {
+                    "associateId": 42,
+                    "firstName": "Rici",
+                    "lastName": "Sang",
+                    "email": "rsangz@theguardian.com",
+                    "active": true,
+                    "interviewScore": 74
+                },
+                {
+                    "associateId": 329,
+                    "firstName": "Vania",
+                    "lastName": "Chung",
+                    "email": "vchung8y@sciencedaily.com",
+                    "active": true,
+                    "interviewScore": 33
+                },
+                {
+                    "associateId": 218,
+                    "firstName": "Bette",
+                    "lastName": "Josefsson",
+                    "email": "bjosefsson5v@reverbnation.com",
+                    "active": true,
+                    "interviewScore": 23.5
+                },
+                {
+                    "associateId": 275,
+                    "firstName": "Jobyna",
+                    "lastName": "Hutchinson",
+                    "email": "jhutchinson7g@chicagotribune.com",
+                    "active": true,
+                    "interviewScore": 38
+                },
+                {
+                    "associateId": 318,
+                    "firstName": "Brit",
+                    "lastName": "Williamson",
+                    "email": "bwilliamson8n@nih.gov",
+                    "active": true,
+                    "interviewScore": 89.25
+                },
+                {
+                    "associateId": 418,
+                    "firstName": "Aubine",
+                    "lastName": "Mosson",
+                    "email": "amossonbf@redcross.org",
+                    "active": true,
+                    "interviewScore": 19
+                },
+                {
+                    "associateId": 470,
+                    "firstName": "Bunni",
+                    "lastName": "Malkinson",
+                    "email": "bmalkinsoncv@a8.net",
+                    "active": true,
+                    "interviewScore": 50
+                },
+                {
+                    "associateId": 477,
+                    "firstName": "Leilah",
+                    "lastName": "Tonkinson",
+                    "email": "ltonkinsond2@photobucket.com",
+                    "active": true,
+                    "interviewScore": 12
+                },
+                {
+                    "associateId": 490,
+                    "firstName": "Gage",
+                    "lastName": "Drewson",
+                    "email": "gdrewsondf@sogou.com",
+                    "active": true,
+                    "interviewScore": 87.5
+                },
+                {
+                    "associateId": 503,
+                    "firstName": "Courtnay",
+                    "lastName": "Mallinson",
+                    "email": "cmallinsonds@hostgator.com",
+                    "active": true,
+                    "interviewScore": 49.75
+                },
+                {
+                    "associateId": 561,
+                    "firstName": "Craig",
+                    "lastName": "Isaacson",
+                    "email": "cisaacsonfe@com.com",
+                    "active": true,
+                    "interviewScore": 94.25
+                },
+                {
+                    "associateId": 571,
+                    "firstName": "Kit",
+                    "lastName": "Anderson",
+                    "email": "kandersonfo@miibeian.gov.cn",
+                    "active": true,
+                    "interviewScore": 74.25
+                },
+                {
+                    "associateId": 627,
+                    "firstName": "Norah",
+                    "lastName": "Olsson",
+                    "email": "nolssonh8@unblog.fr",
+                    "active": true,
+                    "interviewScore": 33.25
+                },
+                {
+                    "associateId": 635,
+                    "firstName": "Tilly",
+                    "lastName": "Thomsson",
+                    "email": "tthomssonhg@delicious.com",
+                    "active": true,
+                    "interviewScore": 7.5
+                },
+                {
+                    "associateId": 662,
+                    "firstName": "Gottfried",
+                    "lastName": "Scotson",
+                    "email": "gscotsoni7@nydailynews.com",
+                    "active": true,
+                    "interviewScore": 98.25
+                },
+                {
+                    "associateId": 680,
+                    "firstName": "Trenton",
+                    "lastName": "Sinson",
+                    "email": "tsinsonip@gizmodo.com",
+                    "active": true,
+                    "interviewScore": 20.25
+                },
+                {
+                    "associateId": 697,
+                    "firstName": "Robenia",
+                    "lastName": "Enderson",
+                    "email": "rendersonj6@scientificamerican.com",
+                    "active": true,
+                    "interviewScore": 74.25
+                },
+                {
+                    "associateId": 715,
+                    "firstName": "Delainey",
+                    "lastName": "Matheson",
+                    "email": "dmathesonjo@walmart.com",
+                    "active": true,
+                    "interviewScore": 89.75
+                },
+                {
+                    "associateId": 801,
+                    "firstName": "Ira",
+                    "lastName": "Acheson",
+                    "email": "iachesonm2@histats.com",
+                    "active": true,
+                    "interviewScore": 10.25
+                },
+                {
+                    "associateId": 838,
+                    "firstName": "Lynda",
+                    "lastName": "Ephson",
+                    "email": "lephsonn3@artisteer.com",
+                    "active": true,
+                    "interviewScore": 71
+                },
+                {
+                    "associateId": 985,
+                    "firstName": "Irene",
+                    "lastName": "Basson",
+                    "email": "ibassonr6@intel.com",
+                    "active": true,
+                    "interviewScore": 36.5
+                }
+            ],
+            "consent": []
+        },
+        {
+            "batchId": 17,
+            "startDate": "2020-06-17",
+            "endDate": "2020-08-26",
+            "isConfirmed": false,
+            "interviewScoreLower": 70,
+            "trainers": [],
+            "location": {
+                "locationId": 12,
+                "locationName": "New York City"
+            },
+            "curriculum": {
+                "curriculumId": 4,
+                "name": "Node Cloud Developer",
+                "curriculumSkillset": {
+                    "skillSetId": 5,
+                    "skillSetName": "Node Cloud Development",
+                    "skills": [
+                        {
+                            "skillId": 3,
+                            "skillName": "JavaScript"
+                        },
+                        {
+                            "skillId": 7,
+                            "skillName": "TypeScript"
+                        },
+                        {
+                            "skillId": 19,
+                            "skillName": "Node"
+                        },
+                        {
+                            "skillId": 20,
+                            "skillName": "Cloud Technologies"
+                        }
+                    ],
+                    "trainers": [],
+                    "clientDemands": [],
+                    "curricula": [
+                        {
+                            "curriculumId": 4,
+                            "name": "Node Cloud Developer"
+                        }
+                    ]
+                }
+            },
+            "associates": [],
+            "consent": []
+        },
+        {
+            "batchId": 18,
+            "startDate": "2020-04-29",
+            "endDate": "2020-07-08",
+            "isConfirmed": true,
+            "interviewScoreLower": 90,
+            "trainers": [],
+            "location": {
+                "locationId": 13,
+                "locationName": "Morgantown"
+            },
+            "curriculum": {
+                "curriculumId": 1,
+                "name": "React/Java",
+                "curriculumSkillset": {
+                    "skillSetId": 2,
+                    "skillSetName": "React/Java",
+                    "skills": [
+                        {
+                            "skillId": 1,
+                            "skillName": "Java"
+                        },
+                        {
+                            "skillId": 2,
+                            "skillName": "React"
+                        }
+                    ],
+                    "trainers": [
+                        {
+                            "trainerId": 1
+                        },
+                        {
+                            "trainerId": 2
+                        },
+                        {
+                            "trainerId": 1
+                        },
+                        {
+                            "trainerId": 2
+                        },
+                        {
+                            "trainerId": 2
+                        },
+                        {
+                            "trainerId": 2
+                        }
+                    ],
+                    "clientDemands": [
+                        {
+                            "clientDemandId": 2
+                        }
+                    ],
+                    "curricula": [
+                        {
+                            "curriculumId": 1,
+                            "name": "React/Java"
+                        }
+                    ]
+                }
+            },
+            "associates": [
+                {
+                    "associateId": 524,
+                    "firstName": "Caprice",
+                    "lastName": "Wyles",
+                    "email": "cwylesed@fema.gov",
+                    "active": true,
+                    "interviewScore": 87.75
+                },
+                {
+                    "associateId": 559,
+                    "firstName": "Gloria",
+                    "lastName": "Beccles",
+                    "email": "gbecclesfc@smugmug.com",
+                    "active": true,
+                    "interviewScore": 93.25
+                },
+                {
+                    "associateId": 973,
+                    "firstName": "Will",
+                    "lastName": "Swales",
+                    "email": "wswalesqu@jiathis.com",
+                    "active": true,
+                    "interviewScore": 78.75
+                }
+            ],
+            "consent": []
+        },
+        {
+            "batchId": 19,
+            "startDate": "2020-06-10",
+            "endDate": "2020-08-19",
+            "isConfirmed": false,
+            "interviewScoreLower": 80,
+            "trainers": [],
+            "location": {
+                "locationId": 11,
+                "locationName": "Tampa"
+            },
+            "curriculum": {
+                "curriculumId": 4,
+                "name": "Node Cloud Developer",
+                "curriculumSkillset": {
+                    "skillSetId": 5,
+                    "skillSetName": "Node Cloud Development",
+                    "skills": [
+                        {
+                            "skillId": 3,
+                            "skillName": "JavaScript"
+                        },
+                        {
+                            "skillId": 7,
+                            "skillName": "TypeScript"
+                        },
+                        {
+                            "skillId": 19,
+                            "skillName": "Node"
+                        },
+                        {
+                            "skillId": 20,
+                            "skillName": "Cloud Technologies"
+                        }
+                    ],
+                    "trainers": [],
+                    "clientDemands": [],
+                    "curricula": [
+                        {
+                            "curriculumId": 4,
+                            "name": "Node Cloud Developer"
+                        }
+                    ]
+                }
+            },
+            "associates": [],
+            "consent": []
+        },
+        {
+            "batchId": 2,
+            "startDate": "2020-05-04",
+            "endDate": "2020-07-10",
+            "isConfirmed": true,
+            "interviewScoreLower": 80,
+            "trainers": [
+                {
+                    "trainerId": 2,
+                    "firstName": "Andrew",
+                    "lastName": "Crenwelge",
+                    "email": "andrew.crenwelge@revature.com"
+                },
+                {
+                    "trainerId": 2,
+                    "firstName": "Andrew",
+                    "lastName": "Crenwelge",
+                    "email": "andrew.crenwelge@revature.com"
+                },
+                {
+                    "trainerId": 2,
+                    "firstName": "Andrew",
+                    "lastName": "Crenwelge",
+                    "email": "andrew.crenwelge@revature.com"
+                },
+                {
+                    "trainerId": 2,
+                    "firstName": "Andrew",
+                    "lastName": "Crenwelge",
+                    "email": "andrew.crenwelge@revature.com"
+                }
+            ],
+            "location": {
+                "locationId": 9,
+                "locationName": "Reston"
+            },
+            "curriculum": {
+                "curriculumId": 1,
+                "name": "React/Java",
+                "curriculumSkillset": {
+                    "skillSetId": 2,
+                    "skillSetName": "React/Java",
+                    "skills": [
+                        {
+                            "skillId": 1,
+                            "skillName": "Java"
+                        },
+                        {
+                            "skillId": 2,
+                            "skillName": "React"
+                        }
+                    ],
+                    "trainers": [
+                        {
+                            "trainerId": 1
+                        },
+                        {
+                            "trainerId": 2
+                        },
+                        {
+                            "trainerId": 1
+                        },
+                        {
+                            "trainerId": 2
+                        },
+                        {
+                            "trainerId": 2
+                        },
+                        {
+                            "trainerId": 2
+                        }
+                    ],
+                    "clientDemands": [
+                        {
+                            "clientDemandId": 2
+                        }
+                    ],
+                    "curricula": [
+                        {
+                            "curriculumId": 1,
+                            "name": "React/Java"
+                        }
+                    ]
+                }
+            },
+            "associates": [
+                {
+                    "associateId": 2,
+                    "firstName": "Dan",
+                    "lastName": "Brown",
+                    "email": "danbrown@revature.com",
+                    "active": true,
+                    "interviewScore": 100
+                },
+                {
+                    "associateId": 1,
+                    "firstName": "Liam",
+                    "lastName": "Allard",
+                    "email": "lallard13@gmail.com",
+                    "active": true,
+                    "interviewScore": 83
+                }
+            ],
+            "consent": [
+                {
+                    "consentId": 1,
+                    "trainer": {
+                        "trainerId": 1,
+                        "firstName": "Adam",
+                        "lastName": "King",
+                        "email": "adam.king@revature.com",
+                        "trainerSkills": [
+                            {
+                                "skillSetId": 2,
+                                "skillSetName": "React/Java",
+                                "skills": [
+                                    {
+                                        "skillId": 1,
+                                        "skillName": "Java"
+                                    },
+                                    {
+                                        "skillId": 2,
+                                        "skillName": "React"
+                                    }
+                                ],
+                                "clientDemands": [
+                                    {
+                                        "clientDemandId": 2
+                                    }
+                                ],
+                                "curricula": [
+                                    {
+                                        "curriculumId": 1,
+                                        "name": "React/Java"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "approved": true
+                },
+                {
+                    "consentId": 2,
+                    "trainer": {
+                        "trainerId": 2,
+                        "firstName": "Andrew",
+                        "lastName": "Crenwelge",
+                        "email": "andrew.crenwelge@revature.com",
+                        "trainerSkills": [
+                            {
+                                "skillSetId": 2,
+                                "skillSetName": "React/Java",
+                                "skills": [
+                                    {
+                                        "skillId": 1,
+                                        "skillName": "Java"
+                                    },
+                                    {
+                                        "skillId": 2,
+                                        "skillName": "React"
+                                    }
+                                ],
+                                "clientDemands": [
+                                    {
+                                        "clientDemandId": 2
+                                    }
+                                ],
+                                "curricula": [
+                                    {
+                                        "curriculumId": 1,
+                                        "name": "React/Java"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "approved": true
+                }
+            ]
+        }
+    ],
+    "status": 200,
+    "statusText": "",
+    "headers": {
+        "content-type": "application/json"
+    },
+    "config": {
+        "url": "/batches",
+        "method": "get",
+        "headers": {
+            "Accept": "application/json, text/plain, */*"
+        },
+        "baseURL": "http://localhost:1235",
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "withCredentials": false,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1
+    },
+    "request": {}
+}

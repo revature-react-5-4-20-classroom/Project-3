@@ -23,17 +23,6 @@ Then I can assign the Trainer to the batch
 But if no Trainers are available with the corresponding skillset
 And I have consent from the Trainer
 Then I can override the system</p><br/>
-				
-			<Row>
-				<Col>
-					<p>View trainers maybe. view batches maybe. This page might get deleted</p>
-				</Col>
-			</Row>
-			<Row>
-				<Col>
-					<p>Assign trainers</p>
-				</Col>
-			</Row>
 		</Container>)
 	}
 }

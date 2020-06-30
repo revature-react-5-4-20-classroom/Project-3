@@ -5,6 +5,12 @@ public class Client {
   private Integer clientId;
   private String name;
   
+  public Client(Integer clientId, String name) {
+    super();
+    this.clientId = clientId;
+    this.name = name;
+  }
+  
   public Integer getClientId() {
     return clientId;
   }
