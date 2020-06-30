@@ -1,7 +1,7 @@
 import React from 'react'
 import Timeline from 'react-calendar-timeline'
 import moment from 'moment';
-import 'react-calendar-timeline/lib/Timeline.css'
+import './Timeline.css'
 import { Batch } from '../models/Batch';
 import { getAllBatches } from '../api/batch';
 import { Trainer } from '../models/Trainer';
@@ -26,7 +26,12 @@ interface TimelineComponentState {
     batches:  any,
     groups : any,
     items : any,
+
+    prevent:any
+   
+
     isOpen : boolean,
+
 }
 
 export class TimelineComponent extends React.Component<any,TimelineComponentState> {
@@ -36,7 +41,11 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
             batches: null,
             groups :null,
             items : null,
+
+            prevent:false
+
             isOpen : false,
+
         }
     }
     
@@ -52,6 +61,7 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
    
 
     setBatches  = async () => {
+      
 
 let batches=await getAllBatches();
 
@@ -67,31 +77,61 @@ let batches=await getAllBatches();
         })
     }
     async componentDidMount() {
+        let timer:any;
+        let alreadyClicked=false;
         await this.setBatches();
         let mappedGroups: any[] = [];
         let mappedItems: any[] = [];
 
-        this.state.batches && this.state.batches.map( async (batch:Batch, index:number) => {
+        this.state.batches && this.state.batches.map(  (batch:Batch, index:number) => {
             let group = {
                 id: batch.batchId,
-                title: `Batch ID: ${batch.batchId}`
+                title: ` ${batch.location.locationName}`,
+                
             }
             let item = {
                 id: batch.batchId,
                 group: batch.batchId,
-                title: batch.curriculum.name,
+                title:`${batch.curriculum.name}` ,
                 start_time: new Date(batch.startDate),
                 end_time: new Date(batch.endDate),
                 canMove: false,
                 canResize: false,
                 canChangeGroup: false,
-                // color: 'rgb(158, 14, 206)',
+                color: 'rgb(0, 14, 206)',
+                // onItemClick:()=>{alert("sdf")},
+            //    onClick:()=>{alert("sfds")},
                 // selectedBgColor: 'rgba(225, 166, 244, 1)',
                 // bgColor : 'rgba(225, 166, 244, 0.6)',
                 itemProps:{
+
+                    onContextMenu:(event:any)=>{
+                    console.log(event.target.id);
+                    timer= setTimeout(()=>{
+                          if(!alreadyClicked){
+                              alert("dfdfdsf");
+                             }
+
+                             alreadyClicked=false;
+                          
+                         
+                     },100);
+                
+                
+                },
+                     onDoubleClick:() => {   
+                          alreadyClicked=true; alert("sdfsfdsfdsfd");
+                        
+               },
+                    }
+
                     onDoubleClick: () => {this.displayBatchInfo(batch)},
                 }
+
             }
+
+
+
             mappedGroups.push(group);
             mappedItems.push(item)
         })
@@ -115,8 +155,12 @@ let batches=await getAllBatches();
         if(this.state.items){
         return (
             <div>
+
+              
+
                 <Timeline  groups={this.state.groups} items={this.state.items}  defaultTimeStart={moment().add(-1,'year')} defaultTimeEnd={moment().add(1,'year')}></Timeline>
                 {this.state.isOpen ? <TimelineModal isOpen={this.state.isOpen} toggle={this.setIsOpen} batch={store.getState().batch.batch}/> : <></>}
+
             </div>
         )}else{
             return(
