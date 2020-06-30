@@ -1,8 +1,8 @@
 import React from "react";
 import { Table, Button } from "reactstrap";
-import Associate from "../models/Associate";
+import {Associate} from "../models/Associate";
 import { getAllAssociates } from "../api/Associate";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 
 interface IABTableModelProps {
 
@@ -16,6 +16,7 @@ interface IABTableModelState {
     associates: Associate[];
     eligibleAssociates: Associate[];
     associatesLoaded: boolean;
+    tableData: string[];
     
   
   }
@@ -33,99 +34,65 @@ interface IABTableModelState {
         associates: [],
         eligibleAssociates: [],
         associatesLoaded: false,
-        
+        tableData: [],
        }
     }
 
+    async componentDidMount(){
     
-      fetchAssociates = async () => {
+    const associateArray: Associate[] = await getAllAssociates();
+    const eligibleAssociateArray=associateArray.filter(function(a) {return a.interviewScore >= 70 && a.batch === null });
 
-        try {
-    
-          this.setState({
-    
-            associates: await getAllAssociates(),
-    
-            associatesLoaded: true,
-    
-            eligibleAssociates : (this.state.associates).filter(function(a) {return a.assignedBatchId === 64; }),
-    
-          });
-    
-          } catch (e) {
-               toast(e.message, {type:"error"});
-    
-          }
-    
-      }
+    const tableDataArray: string[]=  eligibleAssociateArray.map((a) => {
+        return (` ${a.firstName},  ${a.lastName},   ${a.interviewScore} `);
+    })
+      this.setState({
 
-      
-      
-    
-       componentDidMount = async () => {
-    
-         await this.fetchAssociates();
-        
-      };
+      associates: associateArray,
+      eligibleAssociates: eligibleAssociateArray,
+      tableData: tableDataArray,
+      associatesLoaded: true,
+      })
+    };
+  
 
-     removeAssociateFromBatch = (obj : Associate) => {
+   removeAssociateFromBatch= (obj : any, currentBatchId : number) => {
+        obj.batchBatchId = null;
+   }
 
-          obj.assignedBatchId = 0;
+  render() {
 
-     }
-  
-    render() {
-  
-      return (
-  
-        <Table striped className="associate-table">
-  
-          <thead>
-  
-            <tr>
-  
-            <th>Associate ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Active?</th>
-            <th>Technical Score</th>
-            <th>Assigned Batch ID</th>
-            <th>Remove?</th>
-  
-            </tr>
-  
-          </thead>
-  
-          <tbody>
-  
-            {/* Generate one row per object with a cell for each value on the object */}
+    return (
 
-            
-  
-            {this.state.eligibleAssociates.map((obj: any, index: number) => {
+      <Table striped className="associate-table">
+
+        <tbody>
+
+          {/* Generate one row per object with a cell for each value on the object */}
+
+          {this.state.tableData.map((obj: any, index: number) => {
 
               return (
 
-                  <tr key={index}>
+                <tr key={index}>
 
-                      {Object.values(obj).map((value: any, index: number) => {
+                    {Object.values(obj).map((value: any, index: number) => {
 
-                          return  <td key={index}>{value}</td> 
-                      })}
-                     <td><Button onclick={this.removeAssociateFromBatch(obj)}>Remove</Button></td>;
-                  </tr>
-  
-              );
-  
-            })}
-  
-          </tbody>
-  
-        </Table>
-  
-      );
-  
-    }
-  
+                        return  <td key={index}>{value}</td> 
+                    })}
+                    <td><Button onclick={this.removeAssociateFromBatch(obj, this.props.currentBatchId)}>Add</Button></td>;
+              </tr>
+
+            );
+
+          })}
+
+        </tbody>
+
+      </Table>
+
+    );
+
   }
+
+}

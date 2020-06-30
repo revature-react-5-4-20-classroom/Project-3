@@ -1,18 +1,10 @@
 import React from "react";
 import { Container, Row, Col} from "reactstrap";
-import { getAllAssociates } from "../api/Associate";
-import { toast } from "react-toastify";
 import ASTableModel from "./ASTableModel";
-import {Associate} from "../models/Associate";
-
-
 
 interface IAssociateSelectionTableState {
 
- 
-
-  
-  currentBatchId: number;
+ currentBatchId: number;
 
 }
 
@@ -24,25 +16,15 @@ export default class AssociateSelectionTable extends React.Component<any, IAssoc
 
     this.state = {
 
-      
-
-      
-      currentBatchId: 64,
+          currentBatchId: 64,
 
     };
 
   }
 
-  
-
- 
- 
-
-  render() {
+    render() {
 
     return (
-
-
 
       <Container>
 

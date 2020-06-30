@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import ABTableModel from "./ABTableModel";
-import Associate from "../models/Associate";
+import {Associate} from "../models/Associate";
 
 interface IAssociateBatchTableState {
 

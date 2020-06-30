@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Button } from "reactstrap";
 import {Associate} from "../models/Associate";
 import { getAllAssociates } from "../api/Associate";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 
 interface IASTableModelProps {
 
