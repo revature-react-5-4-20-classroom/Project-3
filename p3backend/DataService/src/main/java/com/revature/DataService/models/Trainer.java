@@ -37,6 +37,9 @@ public class Trainer {
 	@Column(name="email")
 	private String email;
 	
+	@Column(name="is_eligible")
+	private boolean isEligible;
+	
 	
 
 //	Trainer to trainerskills
@@ -55,6 +58,18 @@ public class Trainer {
 	@JsonIgnoreProperties({"batches", "trainers", "curriculum", "consent","associates"})
 	@ManyToMany(mappedBy="trainers", cascade = CascadeType.ALL)
 	private List<Batch> batches;
+	
+	
+	
+	
+
+	public boolean getIsEligible() {
+		return isEligible;
+	}
+
+	public void setIsEligible(boolean isEligible) {
+		this.isEligible = isEligible;
+	}
 
 	public Integer getTrainerId() {
 		return trainerId;
@@ -107,22 +122,23 @@ public class Trainer {
 	}
 
 
-	public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
-			List<Consent> consents, List<Batch> batches) {
-		super();
-		this.trainerId = trainerId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.trainerSkills = trainerSkills;
-		//this.consents = consents;
-		this.batches = batches;
-	}
 
 	public Trainer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
+		List<Batch> batches, boolean isEligible) {
+	super();
+	this.trainerId = trainerId;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.email = email;
+	this.trainerSkills = trainerSkills;
+	this.batches = batches;
+	this.isEligible = isEligible;
+}
 
 //	public List<Consent> getConsent() {
 //		return consents;
@@ -136,12 +152,7 @@ public class Trainer {
 	public String toString() {
 		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", trainerSkills=" + trainerSkills + ", batches=" + batches + "]";
-	}
-
-	
-	
-
-	
+	}	
 
 	
 }

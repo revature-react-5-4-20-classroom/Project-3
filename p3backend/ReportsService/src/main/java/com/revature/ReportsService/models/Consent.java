@@ -7,6 +7,14 @@ public class Consent {
   private Integer batchId;
   private Boolean consentApproved;
   
+  public Consent(Integer consentId, Integer trainerId, Integer batchId, Boolean consentApproved) {
+    super();
+    this.consentId = consentId;
+    this.trainerId = trainerId;
+    this.batchId = batchId;
+    this.consentApproved = consentApproved;
+  }
+  
   public Integer getConsentId() {
     return consentId;
   }

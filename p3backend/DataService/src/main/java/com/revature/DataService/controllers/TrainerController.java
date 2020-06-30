@@ -50,37 +50,39 @@ public class TrainerController {
 	  //Commented out until Trainer skillset is defined/implemented
 	  
 	  @CrossOrigin(origins = "*")
-	  @GetMapping("/trainer/eligible/{batchId}")
-	  public boolean getTrainerByEligibility(@RequestBody Trainer trainer, @PathVariable Integer batchId) {
+	  @GetMapping("/trainer/eligible/{batchId}/trainerid/{trainerId}")
+	  public boolean getTrainerByEligibility( @PathVariable Integer batchId, @PathVariable Integer trainerId) {
 		  Batch selectedBatch;
 		  try {
+			  Trainer trainer =trainerService.getById(trainerId);
+			  System.out.println(trainer);
 			  selectedBatch = batchService.getById(batchId);
+			  System.out.println(selectedBatch);
+			  Curriculum currentCurriculum = selectedBatch.getCurriculum();
+			  Skillset curriculumSkillset = currentCurriculum.getCurriculumSkillset();
+			  List<Skills> curriculumSkills = curriculumSkillset.getSkills();
+			  List<Skillset> trainerSkillSet = trainer.getTrainerSkills();
+			  
+
+				 for(Skillset ss : trainerSkillSet) {
+					 
+					 List<Skills> trainerSkillsList = ss.getSkills();
+					 if(skillsComparison(trainerSkillsList, curriculumSkills)) {
+						
+						 return true;
+					 }
+				 }
+				 System.out.println("Returning false");
+				 return false;
 		  } catch(Exception e) {
 			  System.out.println(e);
-		  } finally {
-			  selectedBatch = null;
-		  }
-		 
+			  throw new Error(e);
+		  } 
+		
 		  
-		 Curriculum currentCurriculum = selectedBatch.getCurriculum();
-		 Skillset curriculumSkillset = currentCurriculum.getCurriculumSkillset();
-		 List<Skills> curriculumSkills = curriculumSkillset.getSkills();
-		 
-		 List<Skillset> trainerSkillSet = trainer.getTrainerSkills();
-		 for(Skillset ss : trainerSkillSet) {
-			 
-			 List<Skills> trainerSkillsList = ss.getSkills();
-			 if(skillsComparison(trainerSkillsList, curriculumSkills)) {
-				 return true;
-			 }
-			 
-		 }
-		 return false;
-		 
-	    
-	  
+		
+		
 	  }
-	  
 	  public boolean skillsComparison(List<Skills> tSkills, List<Skills> cSkills) {
 		    ArrayList<String> sharedSkills = new ArrayList<String>();
 		    for(Skills i : cSkills) {
