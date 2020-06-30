@@ -17,3 +17,10 @@ export const batchClickActionMapper = (batchClicked:Batch) =>{
     }
 }
 
+/*
+    All the action mappers can go here and be 
+    used when needed anywhere in the project
+*/
+export const allTheActionMappers={
+    batchClickActionMapper,
+}

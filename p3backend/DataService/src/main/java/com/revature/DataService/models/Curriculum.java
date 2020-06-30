@@ -35,9 +35,9 @@ public class Curriculum {
 	@OneToMany(mappedBy = "curriculum")
 	private List<Batch> batch;
 
-	// Do we need to change this? Curriculum to Skillset
-	@OneToOne
-	@JsonIgnoreProperties({ "curriculum", "clientDemand" })
+	// Working
+	@ManyToOne
+	@JsonIgnoreProperties({ "curriculum", "clientDemand","curricula" })
 	@JoinColumn(name = "curriculum_skillset_id")
 	private Skillset curriculumSkillset;
 
