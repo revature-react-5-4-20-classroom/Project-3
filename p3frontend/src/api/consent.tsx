@@ -2,11 +2,10 @@ import {Consent} from '../models/Consent'
 import { Trainer } from '../models/Trainer';
 import { axiosClient } from './axios';
 
-export async function getEligibility(trainer:Trainer, batchId:number): Promise<boolean>{
-
+export async function getEligibility(trainerId:number, batchId:number): Promise<boolean>{
     const response : boolean = await axiosClient.get(`/trainer/eligible/${batchId}`,{
         params: {
-          trainer: trainer,
+          trainer: trainerId,
         }
       })
       return response;
@@ -39,8 +38,18 @@ export async function createConsentRequest(trainerId:number, isApproved:null,bat
 
 export async function approveConsentRequest(consent:Consent ){
     try{
-        const response =  await axiosClient.patch('/consent', {consent:consent});
+
+        await axiosClient.patch('/consent', {
+            consentId: consent.consentId,
+            batchId: consent.batchId,
+            trainerId: consent.trainerId,
+            isApprovedColumn:consent.isApproved
+        });
+        
+
+        //const response =  await axiosClient.patch('/consent', {consent:consent});
         //return response;
+
     } catch (e){
         console.log(e)
     }
@@ -48,8 +57,18 @@ export async function approveConsentRequest(consent:Consent ){
 
 export async function denyConsentRequest(consent:Consent ) {
     try{
-        const response =  await axiosClient.patch('/consent', {consent:consent});
+
+        await axiosClient.patch('/consent', {
+            consentId: consent.consentId,
+            batchId: consent.batchId,
+            trainerId: consent.trainerId,
+            isApprovedColumn:consent.isApproved
+        });
+        
+
+        //const response =  await axiosClient.patch('/consent', {consent:consent});
         //return response;
+
     } catch (e){
         console.log(e)
     }

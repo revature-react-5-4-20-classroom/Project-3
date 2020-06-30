@@ -24,7 +24,7 @@ public class Consent {
   private Integer consentId;
 
   @Column(name = "consent_approved")
-  private boolean isApproved;
+  private boolean isApprovedColumn;
 
 
   // Working
@@ -93,9 +93,30 @@ public void setTrainer_id(Integer trainerId) {
 	this.trainerId = trainerId;
 }
 
+
+public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
+	super();
+	this.consentId = consentId;
+	this.isApprovedColumn = isApproved;
+	this.batchId = batchId;
+	this.trainerId = trainerId;
+}
+
+
+
+  public boolean getIsApprovedColumn() {
+	return isApprovedColumn;
+}
+
+public void setIsApprovedColumn(boolean isApprovedColumn) {
+	this.isApprovedColumn = isApprovedColumn;
+}
+
+
+
 @Override
 public String toString() {
-	return "Consent [consentId=" + consentId + ", isApproved=" + isApproved + ", batchId=" + batchId + ", trainerId="
+	return "Consent [consentId=" + consentId + ", isApproved=" + isApprovedColumn + ", batchId=" + batchId + ", trainerId="
 			+ trainerId + "]";
 }
 
