@@ -1,13 +1,23 @@
 import React from "react";
-import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem, Container } from "reactstrap";
+import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem, Container, UncontrolledTooltip } from "reactstrap";
+import { EasyTooltip } from "./EasyTooltip";
 
 /*
-	<EasyDropdown items={["Curricula", "client"]} onSelected={(wt:string)=>this.setState({workType:wt})}/>
+	<EasyDropdown 
+		items={["Curricula", "client"]} 
+		onSelected={(item:string)=>this.setState({parentVar:item})}
+		hoverText="Displayed when hovered"
+		/>
 
 	this dropdown menu works on items where each item is a string
+	hoverText is optional
 
-	onSelected(item:string) is called when the dropdown is chaneged
+	When an item is selected the following function is called.
+	This may be used to set the state of the parent component.
+	item is a string in this case when using EasyDropdown
+	onSelected(item:string)
 */
+
 export class EasyDropdown extends React.Component<any,any>
 {
 	constructor(props:any)
@@ -16,6 +26,10 @@ export class EasyDropdown extends React.Component<any,any>
 		this.state={
 			selectedItem:"not set yet",
 			items:[],
+
+			//need a unique id for tooltip to reference this dropdown
+			//I'm not super happy with this but I don't know the best way to find a textual unique id
+			id:'needsToBeText'+Math.floor(Math.random()*100000) 
 		}
 	}
 	
@@ -37,8 +51,9 @@ export class EasyDropdown extends React.Component<any,any>
 
 	render()
 	{
-		return(<UncontrolledDropdown>
-				<DropdownToggle caret>{this.state.selectedItem}</DropdownToggle>
+		return(<>
+			<UncontrolledDropdown>
+				<DropdownToggle caret id={this.state.id}>{this.state.selectedItem}</DropdownToggle>
 				<DropdownMenu>
 
 					{
@@ -52,6 +67,8 @@ export class EasyDropdown extends React.Component<any,any>
 						})
 					}
 				</DropdownMenu>
-			</UncontrolledDropdown>)
+			</UncontrolledDropdown>
+			<EasyTooltip target={this.state.id} displayText={this.props.hoverText}/>
+			</>)
 	}
 }

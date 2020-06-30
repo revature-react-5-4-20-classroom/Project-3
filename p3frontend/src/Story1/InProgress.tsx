@@ -50,17 +50,26 @@ And this data is shown as a table and a Calendar view</p><br/>
 				<Row>
 					<Col>
 						<b>program type</b>
-						<EasyDropdown onSelected={this.setProgramType}  items={['CF','ROCP',  'Standard', 'Spark']}/>
+						<EasyDropdown 
+							onSelected={this.setProgramType}  
+							hoverText="I am not sure what the program type is for at this time. Please bear with me" 
+							items={['CF','ROCP',  'Standard', 'Spark']}/>
 					</Col>
 
 					<Col>
 						<b>work type</b>
-						<EasyDropdown onSelected={this.setWorkType}     items={['Curricula', 'Client']} />
+						<EasyDropdown 
+							onSelected={this.setWorkType}  
+							hoverText="I am not sure what the work type is for at this time. Please bear with me"  
+							items={['Curricula', 'Client']} />
 					</Col>
 
 					<Col>
 						<b>view type:</b>
-						<EasyDropdown onSelected={this.setViewType}     items={['Table','Calendar']} />
+						<EasyDropdown 
+							onSelected={this.setViewType}  
+							hoverText="Please enjoy viewing the batches in a table or calendar"   
+							items={['Table','Calendar']} />
 					</Col>
 				</Row>
 				<br/>

@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route, Switch, BrowserRouter, NavLink } from '
 import { InProgress, ReduxInProgress } from './Story1/InProgress';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
 
-import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
-import { ViewConsentRequests } from './Components/ViewConsentRequests';
+import { TrainerAssignmentComponent } from './Story4/TrainerAssignment';
+import { ViewConsentRequests } from './GeneralPurposeComponents/ViewConsentRequests';
 import { OverviewClientDemand } from './Story2/OverviewClientDemand';
 import { OverviewTraining } from './Story3/OverviewTraining';
 import { AssignTrainer } from './Story4/AssignTrainer';
@@ -55,6 +55,9 @@ export class App extends React.Component<any, any> {
               <NavItem>
                 <NavLink to='/assign-trainer' className='nav-link' activeClassName='active'>Assign Trainers</NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink to='/consent' className='nav-link' activeClassName='active'>Consent</NavLink>
+              </NavItem>
             </Nav>
         </Navbar>
         <Switch>
@@ -74,9 +77,6 @@ export class App extends React.Component<any, any> {
             <Route path='/assign-trainer'>
               <AssignTrainer/>
               <TrainerAssignmentComponent/>
-            </Route>
-            <Route path='/trainers'>
-              <TrainerAssignmentComponent />
             </Route>
             <Route path='/consent'>
               <ViewConsentRequests />

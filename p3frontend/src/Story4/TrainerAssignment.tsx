@@ -60,6 +60,7 @@ export class TrainerAssignmentComponent extends React.Component<any, IAssignment
   render() {
     return (
       <>
+      <h6>Trainer Assignment</h6>
       <ListGroup>
               {  this.state.trainers.map( (trainer: Trainer, i) => {
                   //trying to use the same item display everywhere
