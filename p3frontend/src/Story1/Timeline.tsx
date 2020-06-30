@@ -129,9 +129,13 @@ toggle=()=>{
                      
                         
             //    },
+
+            onContextMenu:(event:any)=>{
+                this.displayBatchInfo(batch)
+            },
                     
 
-                    onDoubleClick: () => {this.displayBatchInfo(batch)},
+                    onDoubleClick: () => {alert("hello")},
                 }
 
             }
