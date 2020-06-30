@@ -6,16 +6,16 @@ import { getAllAssociates } from "../api/Associate";
 
 interface IASTableModelProps {
 
-  currentBatchId: number;
+//   currentBatchId: number;
 
 }
 
 interface IASTableModelState {
 
-  
+  currentBatchId: number;
   associates: Associate[];
   eligibleAssociates: Associate[];
-
+  associatesInBatch: Associate[];
   associatesLoaded: boolean;
 
 }
@@ -29,10 +29,10 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
     super(props);
 
     this.state = {
-
-     associates: [],//everybody that comes from the backend
-     eligibleAssociates: [],//interview score >70 and no assigned batch yet
-     
+     currentBatchId : 9,
+     associates: [], //everybody that comes from the backend
+     eligibleAssociates: [], //interview score >70 and no assigned batch yet
+     associatesInBatch: [], //associates chosen for the current batch
      associatesLoaded: false
      
     }
@@ -42,50 +42,82 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
      async componentDidMount(){
     
     const associateArray: Associate[] = await getAllAssociates();
-    const eligibleAssociateArray=associateArray.filter(function(a) {return a.interviewScore >= 70 && a.batch === null });
+    //console.log(`ComponentDidMount ${JSON.stringify(associateArray)}`);
+    const eligibleAssociateArray=associateArray.filter(function(a)
+                {return a.interviewScore >= 70 && a.batch === null });
+    const associatesInBatch=associateArray.filter ((a) => {
+      if (a.batch === null)
+      return false;
+      
+                return a.interviewScore >= 70 && a.batch.batchId === this.state.currentBatchId });            
 
     
       this.setState({
 
       associates: associateArray,
       eligibleAssociates: eligibleAssociateArray,
-      
-      
+      associatesInBatch: associatesInBatch,
       associatesLoaded: true,
       })
     };
   
 
-   updateAssignedBatchId = (obj : any, currentBatchId : number) => {
-        //obj.batch.batchId = currentBatchId;
+   associateAdd = (obj : Associate, i: number) => {
+        this.state.associatesInBatch.push(obj);
+        this.state.eligibleAssociates.splice(i, 1);
+        this.setState({});
    }
 
+   associateRemove = (obj: Associate, i : number) => {
+        this.state.associatesInBatch.splice(i, 1);
+        this.state.eligibleAssociates.push(obj);
+        this.setState({});
+
+
+ }
+
+
+   
   render() {
+
+ 
     return (
       <Container>
         <Row>
           <Col >
             <h4>All Available Associates</h4>
-              <Table striped className="associate-table">
-              <tbody>
-          
-          {
-          this.state.eligibleAssociates.map((obj: any, index: number) => {
-              return (
-                <tr key={index}>
-                    
-                    <td>{obj.firstName}, {obj.lastName}, {obj.interviewScore}</td>
-                    <td><Button onclick={this.updateAssignedBatchId(obj, this.props.currentBatchId)}>Add</Button></td>
-              </tr>
-            );
-          })}
-            </tbody>
-          </Table>
-      </Col>
-    </Row>
-   </Container> 
+             {this.displayTable(this.state.eligibleAssociates, "No eligible associates left.", "Add", this.associateAdd)}
+          </Col>
+          <Col>
+            <h4>Batch Associates</h4>
+            {this.displayTable(this.state.associatesInBatch, "No associates currently assigned to this batch.", "Remove", this.associateRemove)}
+          </Col>
+        </Row>
+      </Container> 
     );
 
   }
 
+  displayTable =  (array : Associate[], message: String, displayText : String, itemClick : any) => {
+    if(array.length == 0) {
+        return ( <>{message}</>   )
+    }
+return(
+    <Table striped className="associate-table">
+      <tbody>
+      {
+        array.map((obj: any, index: number) => {
+          return (
+        <tr key={index}>
+          <td>{obj.firstName}, {obj.lastName}, {obj.interviewScore}</td>
+           <td><Button onClick={()=> itemClick (obj, index)}>
+             {displayText}
+            </Button></td> 
+        </tr>
+          );
+        })
+      }
+      </tbody>
+    </Table>
+)}
 }

@@ -4,8 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
 import { InProgress, ReduxInProgress } from './Story1/InProgress';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
-import AssociateSelectionTable from './Components/AssociateSelectionTable';
-import AssociateBatchTable from './Components/AssociateBatchTable';
+
 
 
 import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
@@ -89,10 +88,8 @@ export class App extends React.Component<any, any> {
           </Switch>
       </Router>
 
-      <div className= "left"><ASTableModel currentBatchId={64}/></div>
-        {/* <div className= "left"><AssociateSelectionTable /></div> */}
-        {/* <div className= "right"><AssociateBatchTable /></div> */}
-      
+      <div className= "left"><ASTableModel /></div>
+        
 
         </Container>)
 
