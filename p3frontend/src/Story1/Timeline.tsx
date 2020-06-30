@@ -18,12 +18,12 @@ import { TimelineModal } from './TimelineModal';
 import { store } from '../redux/store';
 
 
-// interface TimelineComponentProps {
-//     batches : Batch[];
-// }
+interface TimelineComponentProps {
+    batches : Batch[];
+}
 
 interface TimelineComponentState {
-    batches:  any,
+    //batches:  any,
     groups : any,
     items : any,
 
@@ -36,7 +36,7 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
     constructor(props:any){
         super(props)
         this.state = {
-            batches: null,
+            //batches: null,
             groups :null,
             items : null,
 
@@ -57,15 +57,15 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
 
    
 
-    setBatches  = async () => {
+//     setBatches  = async () => {
       
 
-let batches=await getAllBatches();
+// let batches=await getAllBatches();
 
-        this.setState({
-            batches  : batches
-        })
-    }
+//         this.setState({
+//             batches  : batches
+//         })
+//     }
 
     setGroupsAndItems = (groups:any[],items:any[]) => {
         this.setState({
@@ -76,11 +76,11 @@ let batches=await getAllBatches();
     async componentDidMount() {
         let timer:any;
         let alreadyClicked=false;
-        await this.setBatches();
+        //await this.setBatches();
         let mappedGroups: any[] = [];
         let mappedItems: any[] = [];
 
-        this.state.batches && this.state.batches.map(  (batch:Batch, index:number) => {
+        this.props.batches && this.props.batches.map(  (batch:Batch, index:number) => {
             let group = {
                 id: batch.batchId,
                 title: ` ${batch.location.locationName}`,

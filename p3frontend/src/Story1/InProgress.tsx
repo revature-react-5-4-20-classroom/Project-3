@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import { allTheActionMappers, batchClickActionMapper } from "../redux/action-mapper";
 import { IState, allTheMapStateToProps } from "../redux/reducers";
 import {pseudoDataResponse}  from "../PseudoData/convertJsonToObjects";
+import { getAllBatches } from "../api/batch";
 
 const doPrnt=true//prnt will work
 
@@ -35,6 +36,7 @@ export class InProgress extends React.Component<any,any>
 		sortAscend:	true,		//sorts by ascending or decending
 		error:		null,		//holds an axios error object that will be displayed
 		batchDisplayData:[],	//holds the batch data formatted for display
+		batches: [], // batch data to be passed as a prop
 		}
 	}
 
@@ -67,7 +69,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 				<br/>
 				<br/>
 				{/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
-				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux />	}
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux batches={this.state.batches}/>	}
 				{/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
 		</Container>)
 	}
@@ -198,7 +200,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 	}
 
 	//returns an array of batches that haven been transformed for easy display
-	convertServerDataToDisplayData=(batchesFromServer:[])=>
+	convertServerDataToDisplayData=(batchesFromServer:Batch[])=>
 	{
 		return batchesFromServer.map((batch:any)=>
 		{
@@ -252,9 +254,9 @@ And this data is shown as a table and a Calendar view</p><br/>
 
 	fetchTheBatchData=async()=>
 	{
-		this.setState({
-			batchDisplayData:this.convertServerDataToDisplayData(pseudoDataResponse.data)
-		})
+		// this.setState({
+		// 	batchDisplayData:this.convertServerDataToDisplayData(pseudoDataResponse.data)
+		// })
 
 		// prnt(doPrnt,`fetchTheBatchData() has been reached`)
 
@@ -279,6 +281,15 @@ And this data is shown as a table and a Calendar view</p><br/>
 		// {
 		// 	this.setState({error:e})
 		// }
+		try {
+			let batchData = await getAllBatches();
+			this.setState({
+				batches: batchData,
+				batchDisplayData: this.convertServerDataToDisplayData(batchData),
+			});
+		} catch(e) {
+			this.setState({error:e});
+		}
 	}
 
 	setProgramType=(value:string)=>
