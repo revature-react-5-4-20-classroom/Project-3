@@ -107,6 +107,7 @@ export class ColumnChartTest extends React.Component<any, any> {
   doSomething = () => {
     this.setState({
       current: 1 - this.state.current,
+      shouldUpdate: true,
     });
     this.init();
   };
@@ -124,7 +125,7 @@ export class ColumnChartTest extends React.Component<any, any> {
   }
 }
 
-// Method to create a chart/table
+// Method to create a SINGLE chart/table
 // drawChart = () => {
 //   // Creating a data obj for our table
 //   var data = new google.visualization.DataTable();

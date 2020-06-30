@@ -34,8 +34,8 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        <ColumnChartTest />
-        {/* <link
+        {/* <ColumnChartTest /> */}
+        <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         />
@@ -123,7 +123,7 @@ export class App extends React.Component<any, any> {
               </Route>
             </Provider>
           </Switch>
-        </Router> */}
+        </Router>
       </Container>
     );
   }
