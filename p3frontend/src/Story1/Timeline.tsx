@@ -21,8 +21,8 @@ import { connect } from 'react-redux';
 
 interface TimelineComponentState {
     batches: Batch [],
-    groups : any[],
-    items : any[],
+    groups : any,
+    items : any,
 }
 
 export class TimelineComponent extends React.Component<any,TimelineComponentState> {
@@ -30,8 +30,8 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
         super(props)
         this.state = {
             batches: [],
-            groups :[],
-            items : []
+            groups :null,
+            items : null
         }
     }
     
@@ -43,9 +43,15 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
     //     </div>
     // }
 
+
+   
+
     setBatches  = async () => {
+
+let batches=await getAllBatches();
+
         this.setState({
-            batches  : await getAllBatches()
+            batches  : batches
         })
     }
 
@@ -83,18 +89,25 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
             }
             mappedGroups.push(group);
             mappedItems.push(item)
-            await this.setGroupsAndItems(mappedGroups,mappedItems)
+             this.setGroupsAndItems(mappedGroups,mappedItems)
         })
     }
 
     
 
     render() {
+
+
+        if(this.state.items){
         return (
             <div>
-                <Timeline  groups={this.state.groups} items={this.state.items} defaultTimeStart={moment().add(-6,'days')} defaultTimeEnd={moment().add(6,'days')}></Timeline>
+                <Timeline  groups={this.state.groups} items={this.state.items} defaultTimeStart={moment().add(-1,'year')} defaultTimeEnd={moment().add(1,'year')}></Timeline>
             </div>
-        )
+        )}else{
+            return(
+                <p>sdfdf</p>
+            )
+        }
     }
 }
 

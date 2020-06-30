@@ -66,8 +66,9 @@ And this data is shown as a table and a Calendar view</p><br/>
 				</Row>
 				<br/>
 				<br/>
-				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	}
-				
+				{/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent />	}
+				{/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
 		</Container>)
 	}
 
