@@ -6,7 +6,14 @@ public class Trainer {
   private String firstName;
   private String lastName;
   private String email;
-  private Integer trainerSkillsetId;
+  
+  public Trainer(Integer trainerId, String firstName, String lastName, String email) {
+    super();
+    this.trainerId = trainerId;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+  }
   
   public Integer getTrainerId() {
     return trainerId;
@@ -33,12 +40,7 @@ public class Trainer {
   public void setEmail(String email) {
     this.email = email;
   }
-  public Integer getTrainerSkillsetId() {
-    return trainerSkillsetId;
-  }
-  public void setTrainerSkillsetId(Integer trainerSkillsetId) {
-    this.trainerSkillsetId = trainerSkillsetId;
-  }
+
   
   
   
