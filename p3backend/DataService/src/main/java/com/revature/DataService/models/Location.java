@@ -74,12 +74,12 @@ public class Location {
   public void setBatches(List<Batch> batches) {
     this.batches = batches;
   }
-//
-//  @Override
-//  public String toString() {
-//    return "Location [locationId=" + locationId + ", locationName=" + locationName + ", batches="
-//        + batches + "]";
-//  }
+
+  @Override
+  public String toString() {
+    return "Location [locationId=" + locationId + ", locationName=" + locationName + ", batches="
+        + batches + "]";
+  }
 
 
 
