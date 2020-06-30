@@ -13,7 +13,7 @@ import { Associate } from '../models/Associate';
 import { allTheMapStateToProps } from '../redux/reducers';
 import { allTheActionMappers } from '../redux/action-mapper';
 import { connect } from 'react-redux';
-import { Modal } from 'reactstrap';
+import { Modal, Toast, Button } from 'reactstrap';
 import { TimelineModal } from './TimelineModal';
 import { store } from '../redux/store';
 
@@ -29,6 +29,7 @@ interface TimelineComponentState {
 
     prevent:any
     isOpen : boolean,
+    toggle:any
 
 }
 
@@ -41,7 +42,8 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
             items : null,
 
             prevent:false,
- isOpen : false,
+           isOpen :false,
+         toggle:false
 
         }
     }
@@ -66,6 +68,14 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
 //             batches  : batches
 //         })
 //     }
+
+
+toggle=()=>{
+    let toggle=!this.state.toggle;
+    this.setState({
+        toggle:toggle
+    })
+}
 
     setGroupsAndItems = (groups:any[],items:any[]) => {
         this.setState({
@@ -151,8 +161,15 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
         if(this.state.items){
         return (
             <div>
+                 <Button color="primary" onClick={this.toggle}>Click me</Button>
+               <br />  
+<Toast isOpen={this.state.toggle}>
 
-              
+Double click to edit or right click to view information
+
+</Toast>
+<br /> 
+                          
 
                 <Timeline  groups={this.state.groups} items={this.state.items}  defaultTimeStart={moment().add(-1,'year')} defaultTimeEnd={moment().add(1,'year')}></Timeline>
                 {this.state.isOpen ? <TimelineModal isOpen={this.state.isOpen} toggle={this.setIsOpen} batch={store.getState().batch.batch}/> : <></>}
