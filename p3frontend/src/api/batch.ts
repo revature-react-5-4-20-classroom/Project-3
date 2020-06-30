@@ -47,7 +47,7 @@ export async function getBatchById(bId : number) : Promise<Batch> {
     try{
         const response = await storeClient.get(`/batches/${bId}`);
         const respData = response.data;
-        const theBatch = buildABatch(respData);
+        const theBatch : Batch = buildABatch(respData);
         return theBatch;
     } catch (e){
         console.log(`Failed to retrieve batch #${bId} : ${e.message}`);
@@ -61,7 +61,7 @@ export async function updateBatch(bId : number, isConf : boolean) : Promise<Batc
         const dataTransfer =  {isConfirmed: isConf};
         const response = await storeClient.patch(`/batches/${bId}`, dataTransfer);
         const respData = response.data;
-        const theBatch = buildABatch(respData);
+        const theBatch : Batch = buildABatch(respData);
         return theBatch;
     } catch (e) {
         console.log("Failed to update batch", e.message);
