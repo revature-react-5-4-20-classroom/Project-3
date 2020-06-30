@@ -16,10 +16,10 @@ export class BatchPage extends React.Component<any, any> {
             </Container>
           </Row>
           <Row>
-            <Col md={3}>
+            <Col md={4}>
               <Options></Options>
             </Col>
-            <Col md={9}>
+            <Col md={8}>
               <Row>
                 <Col md={6}>
                   <AssociateList></AssociateList>
