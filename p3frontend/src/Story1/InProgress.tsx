@@ -8,7 +8,7 @@ import { Row, Col, Table, Container, Button } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
-import { TimelineComponent } from "./Timeline";
+import { TimelineComponent, TimelineRedux } from "./Timeline";
 import { axiosClient } from "../api/axios";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { Batch } from "../models/Batch";
@@ -67,7 +67,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 				<br/>
 				<br/>
 				{/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
-				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent />	}
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux />	}
 				{/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
 		</Container>)
 	}

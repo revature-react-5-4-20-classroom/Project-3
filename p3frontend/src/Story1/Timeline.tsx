@@ -13,6 +13,9 @@ import { Associate } from '../models/Associate';
 import { allTheMapStateToProps } from '../redux/reducers';
 import { allTheActionMappers } from '../redux/action-mapper';
 import { connect } from 'react-redux';
+import { Modal } from 'reactstrap';
+import { TimelineModal } from './TimelineModal';
+import { store } from '../redux/store';
 
 
 // interface TimelineComponentProps {
@@ -23,6 +26,7 @@ interface TimelineComponentState {
     batches:  any,
     groups : any,
     items : any,
+    isOpen : boolean,
 }
 
 export class TimelineComponent extends React.Component<any,TimelineComponentState> {
@@ -31,7 +35,8 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
         this.state = {
             batches: null,
             groups :null,
-            items : null
+            items : null,
+            isOpen : false,
         }
     }
     
@@ -84,7 +89,7 @@ let batches=await getAllBatches();
                 // selectedBgColor: 'rgba(225, 166, 244, 1)',
                 // bgColor : 'rgba(225, 166, 244, 0.6)',
                 itemProps:{
-                    onDoubleClick: () => { alert('hello')},
+                    onDoubleClick: () => {this.displayBatchInfo(batch)},
                 }
             }
             mappedGroups.push(group);
@@ -93,7 +98,16 @@ let batches=await getAllBatches();
         this.setGroupsAndItems(mappedGroups,mappedItems)
     } 
 
-    
+    setIsOpen = () => {
+        this.setState({
+            isOpen : !this.state.isOpen,
+        })
+    }
+
+    displayBatchInfo = (batch:Batch) => {
+        this.props.batchClickActionMapper(batch);
+        this.setIsOpen();
+    }
 
     render() {
 
@@ -101,11 +115,12 @@ let batches=await getAllBatches();
         if(this.state.items){
         return (
             <div>
-                <Timeline  groups={this.state.groups} items={this.state.items} defaultTimeStart={moment().add(-1,'year')} defaultTimeEnd={moment().add(1,'year')}></Timeline>
+                <Timeline  groups={this.state.groups} items={this.state.items}  defaultTimeStart={moment().add(-1,'year')} defaultTimeEnd={moment().add(1,'year')}></Timeline>
+                {this.state.isOpen ? <TimelineModal isOpen={this.state.isOpen} toggle={this.setIsOpen} batch={store.getState().batch.batch}/> : <></>}
             </div>
         )}else{
             return(
-                <p>sdfdf</p>
+                <p>Loading...</p>
             )
         }
     }
