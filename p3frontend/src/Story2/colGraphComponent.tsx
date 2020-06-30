@@ -11,6 +11,7 @@ export class ColumnChartTest extends React.Component<any, any> {
     this.state = {
       shouldUpdate: false,
       current: 0,
+      shouldRunInit: false,
     };
   }
 
@@ -18,14 +19,23 @@ export class ColumnChartTest extends React.Component<any, any> {
     this.loadGoogle();
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps: any, nextState: any) {
     if (this.state.shouldUpdate) {
       this.setState({
         shouldUpdate: false,
       });
       return true;
     } else {
-      return false;
+      return nextProps != this.props || this.state != nextProps.state;
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.state.shouldRunInit){
+      this.init();
+      this.setState({
+        shouldRunInit: false,
+      });
     }
   }
 
@@ -107,8 +117,9 @@ export class ColumnChartTest extends React.Component<any, any> {
   doSomething = () => {
     this.setState({
       current: 1 - this.state.current,
+      shouldRunInit: true,
+      shouldUpdate: true,
     });
-    this.init();
   };
 
   render() {
