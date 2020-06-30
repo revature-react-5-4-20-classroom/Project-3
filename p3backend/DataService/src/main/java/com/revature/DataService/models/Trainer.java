@@ -45,11 +45,9 @@ public class Trainer {
 	private List<Skillset> trainerSkills;
 
 	// this prevents infinite display
-	// Getting rid of this at Nick's request
-//	@JsonIgnoreProperties({"trainer", "batch"})
-//	@OneToMany(mappedBy = "trainer")
-//	private List<Consent> consents;
-
+	@JsonIgnoreProperties({"trainer", "batch"})
+	@OneToOne(mappedBy = "trainer")
+	private Consent consent;
 	
 	// This prevents infinite display. Need to cut down later when we want certain information
 	@JsonIgnoreProperties({"batches", "trainers", "curriculum", "consent"})
@@ -96,7 +94,6 @@ public class Trainer {
 		this.trainerSkills = trainerSkills;
 	}
 
-<<<<<<< HEAD
 	public Consent getConsent() {
 		return consent;
 	}
@@ -104,9 +101,6 @@ public class Trainer {
 	public void setConsent(Consent consent) {
 		this.consent = consent;
 	}
-=======
-
->>>>>>> bb60357103cea1e0a9c0044f611b3cb0480af129
 
 	public List<Batch> getBatches() {
 		return batches;
@@ -116,48 +110,27 @@ public class Trainer {
 		this.batches = batches;
 	}
 
-<<<<<<< HEAD
 	@Override
 	public String toString() {
 		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", trainerSkills=" + trainerSkills + ", consent=" + consent + ", batches=" + batches + "]";
 	}
-=======
->>>>>>> bb60357103cea1e0a9c0044f611b3cb0480af129
 
 	public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
-			List<Consent> consents, List<Batch> batches) {
+			Consent consent, List<Batch> batches) {
 		super();
 		this.trainerId = trainerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.trainerSkills = trainerSkills;
-<<<<<<< HEAD
 		this.consent = consent;
-=======
-		//this.consents = consents;
->>>>>>> bb60357103cea1e0a9c0044f611b3cb0480af129
 		this.batches = batches;
 	}
 
 	public Trainer() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-//	public List<Consent> getConsent() {
-//		return consents;
-//	}
-//
-//	public void setConsent(List<Consent> consent) {
-//		this.consents = consent;
-//	}
-
-	@Override
-	public String toString() {
-		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", trainerSkills=" + trainerSkills + ", batches=" + batches + "]";
 	}
 
 	

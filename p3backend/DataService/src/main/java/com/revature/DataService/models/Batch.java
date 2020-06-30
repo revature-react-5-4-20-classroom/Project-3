@@ -74,18 +74,17 @@ public class Batch {
   @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
   private List<Trainer> trainers;
 
-
   // Batch to location
-  @JsonIgnoreProperties({"batches"})
-  @ManyToOne
-  @JoinColumn(name = "location_id")
+  @JsonIgnoreProperties({"batch"})
+  @OneToOne
+  @JoinColumn(name = "location_id", referencedColumnName = "location_id")
   private Location location;
 
 
   // Batch to curriculum
   @JsonIgnoreProperties({"batch", "curriculum", "trainers"})
-  @ManyToOne
   @JoinColumn(name = "curriculum_id")
+  @OneToOne(fetch = FetchType.EAGER)
   private Curriculum curriculum;
 
   // Batch to associates
@@ -93,14 +92,10 @@ public class Batch {
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
 
-
-  // WORKING
   // Batch to consent
-  // Getting rid of this at Nick's request
-
-//  @JsonIgnoreProperties({"batch", "trainerSkills"})
-//  @OneToMany(mappedBy = "batch")
-//  private List<Consent> consent;
+  @JsonIgnoreProperties({"batch", "trainerSkills"})
+  @OneToOne(mappedBy = "batch")
+  private Consent consent;
 
 
 
