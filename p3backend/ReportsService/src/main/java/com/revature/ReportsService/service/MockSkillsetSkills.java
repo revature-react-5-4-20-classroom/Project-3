@@ -1,7 +1,10 @@
 package com.revature.ReportsService.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+
+import com.revature.ReportsService.models.Associate;
 import com.revature.ReportsService.models.SkillsetSkills;
 
 @Service
@@ -11,6 +14,7 @@ public class MockSkillsetSkills {
   
   public MockSkillsetSkills() {
     super();
+    skillsetSkills = new ArrayList<SkillsetSkills>();
     skillsetSkills.add(new SkillsetSkills(0, 0));
     skillsetSkills.add(new SkillsetSkills(0, 1));
     skillsetSkills.add(new SkillsetSkills(1, 1));
