@@ -55,27 +55,9 @@ public class Consent {
   public void setConsentId(Integer consentId) {
     this.consentId = consentId;
   }
-  
-  
 
 
-  public boolean isApproved() {
 
-    return isApproved;
-  }
-
-  public void setApproved(boolean isApproved) {
-    this.isApproved = isApproved;
-  }
-
-
-  public Consent(Integer consentId, boolean isApproved, Integer batchid, Integer trainerId) {
-    super();
-    this.consentId = consentId;
-    this.isApproved = isApproved;
-    this.batchId = batchId;
-    this.trainerId = trainerId;
-  }
 
 public Integer getBatchId() {
 	return batchId;

@@ -9,4 +9,10 @@ zuul:
   routes:    
     eureka:
       path: /eureka/**
-      url: http://ec2-that-is-given-to-us
+      url: http://ec2-3-236-121-83.compute-1.amazonaws.com:8761/
+    data:
+      path: /data/**
+      service-id: dataservice
+    reports:
+      path: /reports/**
+      service-id: reportsservice
