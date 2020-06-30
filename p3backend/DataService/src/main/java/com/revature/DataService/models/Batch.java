@@ -28,31 +28,24 @@ public class Batch {
 
   }
 
-
-  
-
-  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
-      Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
-      List<Associate> associates, Consent consent) {
-
-    super();
-    this.batchId = batchId;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.isConfirmed = isConfirmed;
-    this.interviewScoreLower = interviewScoreLower;
-
-    this.trainers = trainers;
-    this.location = location;
-    this.curriculum = curriculum;
-    this.associates = associates;
-    this.consent = consent;
-
-  }
+  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
+		String programType, List<Trainer> trainers, Location location, Curriculum curriculum,
+		List<Associate> associates) {
+	super();
+	this.batchId = batchId;
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.isConfirmed = isConfirmed;
+	this.interviewScoreLower = interviewScoreLower;
+	this.programType = programType;
+	this.trainers = trainers;
+	this.location = location;
+	this.curriculum = curriculum;
+	this.associates = associates;
+}
 
 
-
-  @Id
+@Id
   @Column(name = "batch_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer batchId;
@@ -68,24 +61,26 @@ public class Batch {
 
   @Column(name = "interview_score_lower")
   private Integer interviewScoreLower;
+  
+  @Column(name = "program_type")
+  private String programType;
 
   @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
   @ManyToMany(cascade=CascadeType.MERGE)
   @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
   private List<Trainer> trainers;
 
-
   // Batch to location
-  @JsonIgnoreProperties({"batches"})
-  @ManyToOne
-  @JoinColumn(name = "location_id")
+  @JsonIgnoreProperties({"batch"})
+  @OneToOne
+  @JoinColumn(name = "location_id", referencedColumnName = "location_id")
   private Location location;
 
 
   // Batch to curriculum
   @JsonIgnoreProperties({"batch", "curriculum", "trainers"})
-  @ManyToOne
   @JoinColumn(name = "curriculum_id")
+  @OneToOne(fetch = FetchType.EAGER)
   private Curriculum curriculum;
 
   // Batch to associates
@@ -94,10 +89,12 @@ public class Batch {
   private List<Associate> associates;
 
   // Batch to consent
-  @JsonIgnoreProperties({"batch", "trainerSkills"})
-  @OneToOne(mappedBy = "batch")
-  private Consent consent;
+  // Getting rid of this at Nick's request
 
+//  @JsonIgnoreProperties({"batch", "trainerSkills"})
+//  @OneToMany(mappedBy = "batch")
+//  private List<Consent> consent;
+ 
 
 
   public Integer getBatchId() {
@@ -194,26 +191,36 @@ public Location getLocation() {
     this.associates = associates;
   }
 
-
-
-  public Consent getConsent() {
-    return consent;
-  }
-
-
-  public void setConsent(Consent consent) {
-    this.consent = consent;
-  }
-
-
-
-
-@Override
-public String toString() {
-	return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate + ", isConfirmed="
-			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
-			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
+public String getProgramType() {
+	return programType;
 }
+
+public void setProgramType(String programType) {
+	this.programType = programType;
+}
+  
+  
+
+
+
+//  public Consent getConsent() {
+//    return consent;
+//  }
+//
+//
+//  public void setConsent(Consent consent) {
+//    this.consent = consent;
+//  }
+//
+//
+//
+//
+//@Override
+//public String toString() {
+//	return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate + ", isConfirmed="
+//			+ isConfirmed + ", interviewScoreLower=" + interviewScoreLower + ", trainers=" + trainers + ", location="
+//			+ location + ", curriculum=" + curriculum + ", associates=" + associates + ", consent=" + consent + "]";
+//}
 
 
 

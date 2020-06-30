@@ -186,7 +186,6 @@ And this data is shown as a table and a Calendar view</p><br/>
 			programType:  'ROCP'
 			workType:     'Curricula'
 		}
-
 		responseBody
 		[
 			{

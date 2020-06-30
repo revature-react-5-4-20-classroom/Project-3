@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,10 +31,9 @@ public class Curriculum {
 
 	// Batch to curriculum
 	@JsonIgnoreProperties({ "curriculum", "trainers", "location", "associates", "consent" })
-	@OneToMany(mappedBy = "curriculum")
-	private List<Batch> batch;
+	@OneToOne(mappedBy = "curriculum")
+	private Batch batch;
 
-	// Do we need to change this? Curriculum to Skillset
 	@OneToOne
 	@JsonIgnoreProperties({ "curriculum", "clientDemand" })
 	@JoinColumn(name = "curriculum_skillset_id")
@@ -65,11 +63,11 @@ public class Curriculum {
 		this.curriculumSkillset = curriculumSkillset;
 	}
 
-	public List<Batch> getBatch() {
+	public Batch getBatch() {
 		return batch;
 	}
 
-	public void setBatch(List<Batch> batch) {
+	public void setBatch(Batch batch) {
 		this.batch = batch;
 	}
 
@@ -79,7 +77,7 @@ public class Curriculum {
 				+ ", curriculumSkillset=" + curriculumSkillset + "]";
 	}
 
-	public Curriculum(Integer curriculumId, String name, List<Batch> batch, Skillset curriculumSkillset) {
+	public Curriculum(Integer curriculumId, String name, Batch batch, Skillset curriculumSkillset) {
 		super();
 		this.curriculumId = curriculumId;
 		this.name = name;
@@ -91,8 +89,6 @@ public class Curriculum {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 
 

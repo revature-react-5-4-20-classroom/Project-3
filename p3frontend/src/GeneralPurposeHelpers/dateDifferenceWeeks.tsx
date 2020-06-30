@@ -43,11 +43,19 @@ export class TestdateDifferenceWeeks extends React.Component<any,any>
 /*
 	dateDifferenceWeeks(dateObjectSooner,dateObjectLater)
 
-	returns the differentce in dates in weeks. this uses some rounding.
+	returns:
+		number. the difference in dates, in weeks. this uses some rounding.
+		-1 when dateObjectLater comes before dateObjectSooner.
 */
 export function dateDifferenceWeeks(dateSooner:Date,dateLater:Date):number
 {
 	prnt(doPrnt,`dateDifferenceWeeks() has been reached`)
+
+	if(dateEnd.getTime()<dateStart.getTime())
+	{
+		return -1//End is before Start
+	}
+
 	const msInADay=8.64e+7
 
 	let dayStart=	Math.floor(dateSooner.getTime()/msInADay)
@@ -64,6 +72,6 @@ export function dateDifferenceWeeks(dateSooner:Date,dateLater:Date):number
 	//let dayDifference=(dateLater.getTime()-dateSooner.getTime())/
 	//let weekRoundDown=Math.floor(dayDifference/7)
 
-	return weekEnd-weekStart
+	return Math.round(dayDiff/7)
 	//return dayDiff
 }
