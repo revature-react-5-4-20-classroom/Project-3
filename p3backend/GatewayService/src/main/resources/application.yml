@@ -5,6 +5,11 @@ spring:
   application:    
     name: gatewayservice
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://ec2-3-236-121-83.compute-1.amazonaws.com:8761/eureka
+
 zuul:
   routes:    
     eureka:
