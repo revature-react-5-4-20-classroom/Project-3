@@ -47,7 +47,7 @@ public class Associate {
 	
 
 	// Associate to Batch
-	@JsonIgnoreProperties({"associate"})
+	@JsonIgnoreProperties({"associate","associates","trainers","consent","clientDemands","curriculum"})
 	@ManyToOne
 	@JoinColumn(name="assigned_batch_id")
 	private Batch batch;

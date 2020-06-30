@@ -81,7 +81,8 @@ export class TrainerAssignmentComponent extends React.Component<
   getAllTrainers = async () => {
     let allTrainers: Trainer[] = await getAllTrainers();
     allTrainers.forEach(async (trainer) => {
-      let isEligible: boolean = await getEligibility(trainer, 1);
+      let trainerId = trainer.trainerId;
+      let isEligible: boolean = await getEligibility(trainerId, 2);
       trainer.isEligible = isEligible;
     });
 

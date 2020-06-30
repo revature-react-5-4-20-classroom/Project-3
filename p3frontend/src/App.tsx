@@ -8,7 +8,7 @@ import {
   BrowserRouter,
   NavLink,
 } from 'react-router-dom';
-import { InProgress } from './Story1/InProgress';
+import { InProgress, ReduxInProgress } from './Story1/InProgress';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
 
 import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
@@ -18,6 +18,8 @@ import { OverviewTraining } from './Story3/OverviewTraining';
 import { AssignTrainer } from './Story4/AssignTrainer';
 import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
 import { ColumnChartTest } from './Story2/colGraphComponent';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -36,8 +38,8 @@ export class App extends React.Component<any, any> {
         {/* <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
-        /> */}
-        {/* <Router>
+        />
+        <Router>
           <Navbar color='light' light expand='md'>
             <NavbarToggler onClick={this.toggleNavbar} />
             <Nav className='mr-auto' tabs>
@@ -97,25 +99,30 @@ export class App extends React.Component<any, any> {
               </NavItem>
             </Nav>
           </Navbar>
-          <Route path='/home'>Home page</Route>
-          <Route path='/in-progress'>
-            <InProgress />
-          </Route>
-          <Route path='/overview'>
-            <OverviewClientDemand />
-          </Route>
-          <Route path='/overview-training'>
-            <OverviewTraining />
-          </Route>
-          <Route path='/assign-trainer'>
-            <AssignTrainer />
-          </Route>
-          <Route path='/trainers'>
-            <TrainerAssignmentComponent />
-          </Route>
-          <Route path='/consent'>
-            <ViewConsentRequests />
-          </Route>
+          <Switch>
+            <Provider store={store}>
+              <Route path='/home'>Home page</Route>
+              <Route path='/in-progress'>
+                <ReduxInProgress />
+              </Route>
+              <Route path='/overview'>
+                <OverviewClientDemand />
+              </Route>
+              <Route path='/overview-training'>
+                <OverviewTraining />
+              </Route>
+              <Route path='/assign-trainer'>
+                <AssignTrainer />
+                <TrainerAssignmentComponent />
+              </Route>
+              <Route path='/trainers'>
+                <TrainerAssignmentComponent />
+              </Route>
+              <Route path='/consent'>
+                <ViewConsentRequests />
+              </Route>
+            </Provider>
+          </Switch>
         </Router> */}
       </Container>
     );
