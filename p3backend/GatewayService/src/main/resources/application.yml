@@ -13,3 +13,6 @@ zuul:
     data:
       path: /associates
       service-id: dataservice
+    reports:
+      path: /hello
+      service-id: reportsservice
