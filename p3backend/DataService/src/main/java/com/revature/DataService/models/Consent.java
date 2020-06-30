@@ -24,7 +24,7 @@ public class Consent {
   private Integer consentId;
 
   @Column(name = "consent_approved")
-  private boolean isApproved;
+  private boolean isApprovedColumn;
 
 // Working
 //  @JsonIgnoreProperties({"consent", "trainers"})
@@ -74,22 +74,26 @@ public void setTrainerId(Integer trainerId) {
 public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
 	super();
 	this.consentId = consentId;
-	this.isApproved = isApproved;
+	this.isApprovedColumn = isApproved;
 	this.batchId = batchId;
 	this.trainerId = trainerId;
 }
 
-public boolean isApproved() {
-    return isApproved;
-  }
 
-  public void setApproved(boolean isApproved) {
-    this.isApproved = isApproved;
-  }
+
+  public boolean getIsApprovedColumn() {
+	return isApprovedColumn;
+}
+
+public void setIsApprovedColumn(boolean isApprovedColumn) {
+	this.isApprovedColumn = isApprovedColumn;
+}
+
+
 
 @Override
 public String toString() {
-	return "Consent [consentId=" + consentId + ", isApproved=" + isApproved + ", batchId=" + batchId + ", trainerId="
+	return "Consent [consentId=" + consentId + ", isApproved=" + isApprovedColumn + ", batchId=" + batchId + ", trainerId="
 			+ trainerId + "]";
 }
 

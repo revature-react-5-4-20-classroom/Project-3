@@ -1,12 +1,9 @@
 import React from 'react';
 import { Trainer } from '../models/Trainer';
-<<<<<<< HEAD
-import {getAllTrainers, getEligibility, createConsentRequest, assignTrainer} from '../api/consent'
-import { Form, FormGroup, Label, Col, Input, Button, Toast, ToastHeader, ToastBody, ListGroupItem, ListGroup, Row } from 'reactstrap';
-=======
+
 import {getAllTrainers, getEligibility, createConsentRequest} from '../api/consent'
-import { Form, FormGroup, Label, Col, Input, Button, Toast, ToastHeader, ToastBody, ListGroupItem, ListGroup } from 'reactstrap';
->>>>>>> bf33ff1f264bb3747d5f603a02ea87c4eb323785
+import { Form, FormGroup, Label, Col, Input, Button, Toast, ToastHeader, ToastBody, ListGroupItem, ListGroup, Row } from 'reactstrap';
+
 import { Consent } from '../models/Consent';
 import { assignTrainer } from '../api/batch';
 
@@ -52,7 +49,8 @@ export class TrainerAssignmentComponent extends React.Component<any, IAssignment
   getAllTrainers = async () => {
     let allTrainers : Trainer[] = await getAllTrainers();
     allTrainers.forEach(async (trainer)=>{
-      let isEligible: boolean = await getEligibility(trainer, 1)
+      let trainerId = trainer.trainerId;
+      let isEligible: boolean = await getEligibility(trainerId, 2)
       trainer.isEligible = isEligible;
     } );
     

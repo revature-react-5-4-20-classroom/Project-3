@@ -15,8 +15,9 @@ import com.revature.DataService.models.Consent;
 import com.revature.DataService.services.ConsentService;
 
 
-
+@CrossOrigin(origins = "*")
 @RestController
+
 public class ConsentController {
 
 	
@@ -34,11 +35,24 @@ public class ConsentController {
 	    public List<Consent> getAllReviews(@PathVariable Integer trainerId){   
 	        return consentService.getConsentByTrainerId(trainerId);
 		}
-		
+//		
 		@CrossOrigin(origins="*")
 		@PatchMapping("/consent")
 		public Consent updateConsentApproval(@RequestBody Consent consent) {
-			return consentService.update(consent);
+			System.out.println(consent);
+			System.out.println("patch endpoint hit");
+			Consent consentToReturn;
+			try {
+				consentToReturn =  consentService.update(consent);
+				System.out.println(consentToReturn);
+				return consentToReturn;
+			} catch(RuntimeException e) {
+				System.out.println(e);
+				throw new RuntimeException(e);
+				
+			}
+			
+			
 		}
 		
 		@CrossOrigin(origins="*")
