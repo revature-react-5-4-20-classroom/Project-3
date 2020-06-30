@@ -1,5 +1,7 @@
 package com.revature.ReportsService.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.ReportsService.models.ClientDemand;
@@ -15,7 +17,11 @@ public class MockClientDemand {
 	}
 
 	public List<ClientDemand> getClientDemands() {
-		return clientDemand;
+		this.clientDemand = new ArrayList<ClientDemand>();
+		this.clientDemand.add(new ClientDemand(1,10,LocalDate.parse("2018-12-27"),1,1));
+		this.clientDemand.add(new ClientDemand(2,10,LocalDate.parse("2018-12-27"),1,1));
+		this.clientDemand.add(new ClientDemand(3,10,LocalDate.parse("2018-12-27"),1,1));
+		return this.clientDemand;
 	}
 
 	public ClientDemand getClientDemandById(Integer id) {
