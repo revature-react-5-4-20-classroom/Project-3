@@ -30,21 +30,13 @@ public class ConsentController {
 		public List<Consent> getAllConsents() {
 			return consentService.getAll();
 		}
-<<<<<<< HEAD
+
 		@CrossOrigin(origins="*")
 		@GetMapping("/consent/{trainerId}")
 	    public List<Consent> getAllReviews(@PathVariable Integer trainerId){   
 	        return consentService.getConsentByTrainerId(trainerId);
 		}
-//		
-=======
-//		@CrossOrigin(origins="*")
-//		@GetMapping("/consent/{trainerId}")
-//	    public List<Consent> getAllReviews(@PathVariable Integer trainerId){   
-//	        return consentService.getConsentByTrainerId(trainerId);
-//		}
-		
->>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
+
 		@CrossOrigin(origins="*")
 		@PatchMapping("/consent")
 		public Consent updateConsentApproval(@RequestBody Consent consent) {

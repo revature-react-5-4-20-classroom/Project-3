@@ -3,16 +3,11 @@ import { Trainer } from '../models/Trainer';
 import { axiosClient } from './axios';
 
 export async function getEligibility(trainerId:number, batchId:number): Promise<boolean>{
-
-<<<<<<< HEAD
-    const response : boolean = await storeClient.get(`/trainer/eligible/${batchId}/trainerid/${trainerId}`)
-=======
     const response : boolean = await axiosClient.get(`/trainer/eligible/${batchId}`,{
         params: {
-          trainer: trainer,
+          trainer: trainerId,
         }
       })
->>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
       return response;
 }
 
@@ -34,7 +29,7 @@ export async function getAllTrainers() : Promise<Trainer[]>{
 }
 export async function createConsentRequest(trainerId:number, isApproved:null,batchId:number ){
     try{
-        const response =  await storeClient.post('/consent', {trainerId:trainerId,batchId:batchId,isApproved:isApproved});
+        const response =  await axiosClient.post('/consent', {trainerId:trainerId,batchId:batchId,isApproved:isApproved});
         return response;
     } catch (e){
         console.log(e)
@@ -43,18 +38,18 @@ export async function createConsentRequest(trainerId:number, isApproved:null,bat
 
 export async function approveConsentRequest(consent:Consent ){
     try{
-<<<<<<< HEAD
-        await storeClient.patch('/consent', {
+
+        await axiosClient.patch('/consent', {
             consentId: consent.consentId,
             batchId: consent.batchId,
             trainerId: consent.trainerId,
             isApprovedColumn:consent.isApproved
         });
         
-=======
-        const response =  await axiosClient.patch('/consent', {consent:consent});
+
+        //const response =  await axiosClient.patch('/consent', {consent:consent});
         //return response;
->>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
+
     } catch (e){
         console.log(e)
     }
@@ -62,18 +57,18 @@ export async function approveConsentRequest(consent:Consent ){
 
 export async function denyConsentRequest(consent:Consent ) {
     try{
-<<<<<<< HEAD
-        await storeClient.patch('/consent', {
+
+        await axiosClient.patch('/consent', {
             consentId: consent.consentId,
             batchId: consent.batchId,
             trainerId: consent.trainerId,
             isApprovedColumn:consent.isApproved
         });
         
-=======
-        const response =  await axiosClient.patch('/consent', {consent:consent});
+
+        //const response =  await axiosClient.patch('/consent', {consent:consent});
         //return response;
->>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
+
     } catch (e){
         console.log(e)
     }
