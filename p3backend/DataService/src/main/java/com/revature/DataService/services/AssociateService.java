@@ -1,6 +1,8 @@
 package com.revature.DataService.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,17 @@ public class AssociateService {
 	
 
 	
-///*public void updateAssociateBatch(Integer associateId, Integer assignedBatchId) {
-//	associateRepository.update(associateId, assignedBatchId);
-//}
+
+	public Associate getById(Integer id) throws Exception {
+		Optional<Associate> associate = associateRepository.findById(id);
+		if(associate.isPresent()) {
+			return associate.get();
+		} else {
+			throw new Exception("associate not found");
+		}
+	}
+	
+
 
 	public List<Associate> getAll()  {
 		

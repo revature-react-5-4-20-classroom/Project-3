@@ -1,8 +1,8 @@
 import React from "react";
-import { Table, Button } from "reactstrap";
+import { Table, Button, Container, Row, Col } from "reactstrap";
 import {Associate} from "../models/Associate";
 import { getAllAssociates } from "../api/Associate";
-//import { toast } from "react-toastify";
+
 
 interface IASTableModelProps {
 
@@ -15,7 +15,7 @@ interface IASTableModelState {
   
   associates: Associate[];
   eligibleAssociates: Associate[];
-  tableData: String[];
+
   associatesLoaded: boolean;
 
 }
@@ -30,9 +30,9 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
 
     this.state = {
 
-     associates: [],
-     eligibleAssociates: [],
-     tableData: [],
+     associates: [],//everybody that comes from the backend
+     eligibleAssociates: [],//interview score >70 and no assigned batch yet
+     
      associatesLoaded: false
      
     }
@@ -44,54 +44,46 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
     const associateArray: Associate[] = await getAllAssociates();
     const eligibleAssociateArray=associateArray.filter(function(a) {return a.interviewScore >= 70 && a.batch === null });
 
-    const tableDataArray: string[]=  eligibleAssociateArray.map((a) => {
-        return (` ${a.firstName},  ${a.lastName},   ${a.interviewScore} `);
-    })
+    
       this.setState({
 
       associates: associateArray,
       eligibleAssociates: eligibleAssociateArray,
-      tableData: tableDataArray,
+      
+      
       associatesLoaded: true,
       })
     };
   
 
    updateAssignedBatchId = (obj : any, currentBatchId : number) => {
-        obj.assignedBatchId = currentBatchId;
+        //obj.batch.batchId = currentBatchId;
    }
 
   render() {
-
     return (
-
-      <Table striped className="associate-table">
-
-        <tbody>
-
-          {/* Generate one row per object with a cell for each value on the object */}
-
-          {this.state.tableData.map((obj: any, index: number) => {
-
+      <Container>
+        <Row>
+          <Col >
+            <h4>All Available Associates</h4>
+              <Table striped className="associate-table">
+              <tbody>
+          
+          {
+          this.state.eligibleAssociates.map((obj: any, index: number) => {
               return (
-
                 <tr key={index}>
-
-                    {Object.values(obj).map((value: any, index: number) => {
-
-                        return  <td key={index}>{value}</td> 
-                    })}
-                    <td><Button onclick={this.updateAssignedBatchId(obj, this.props.currentBatchId)}>Add</Button></td>;
+                    
+                    <td>{obj.firstName}, {obj.lastName}, {obj.interviewScore}</td>
+                    <td><Button onclick={this.updateAssignedBatchId(obj, this.props.currentBatchId)}>Add</Button></td>
               </tr>
-
             );
-
           })}
-
-        </tbody>
-
-      </Table>
-
+            </tbody>
+          </Table>
+      </Col>
+    </Row>
+   </Container> 
     );
 
   }

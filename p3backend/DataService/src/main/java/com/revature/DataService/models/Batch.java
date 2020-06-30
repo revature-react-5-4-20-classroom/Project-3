@@ -28,24 +28,24 @@ public class Batch {
 
   }
 
-public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
-		List<Trainer> trainers, Location location, Curriculum curriculum, List<Associate> associates,
-		List<Consent> consent) {
+  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
+		String programType, List<Trainer> trainers, Location location, Curriculum curriculum,
+		List<Associate> associates) {
 	super();
 	this.batchId = batchId;
 	this.startDate = startDate;
 	this.endDate = endDate;
 	this.isConfirmed = isConfirmed;
 	this.interviewScoreLower = interviewScoreLower;
+	this.programType = programType;
 	this.trainers = trainers;
 	this.location = location;
 	this.curriculum = curriculum;
 	this.associates = associates;
-	this.consent = consent;
 }
 
 
-  @Id
+@Id
   @Column(name = "batch_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer batchId;
@@ -61,6 +61,9 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
 
   @Column(name = "interview_score_lower")
   private Integer interviewScoreLower;
+  
+  @Column(name = "program_type")
+  private String programType;
 
   @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
   @ManyToMany(cascade=CascadeType.MERGE)
@@ -86,12 +89,15 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
 
+
   // WORKING
   // Batch to consent
-  @JsonIgnoreProperties({"batch", "trainerSkills"})
-  @OneToMany(mappedBy = "batch")
-  private List<Consent> consent;
+  // Getting rid of this at Nick's request
 
+//  @JsonIgnoreProperties({"batch", "trainerSkills"})
+//  @OneToMany(mappedBy = "batch")
+//  private List<Consent> consent;
+ 
 
 
   public Integer getBatchId() {
@@ -188,19 +194,29 @@ public Location getLocation() {
     this.associates = associates;
   }
 
-
-
-
-public List<Consent> getConsent() {
-	return consent;
+public String getProgramType() {
+	return programType;
 }
 
-
-
-
-public void setConsent(List<Consent> consent) {
-	this.consent = consent;
+public void setProgramType(String programType) {
+	this.programType = programType;
 }
+  
+  
+
+
+
+
+//public List<Consent> getConsent() {
+//	return consent;
+//}
+//
+//
+//
+//
+//public void setConsent(List<Consent> consent) {
+//	this.consent = consent;
+//}
 
 
 

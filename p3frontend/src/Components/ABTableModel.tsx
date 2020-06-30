@@ -57,7 +57,7 @@ interface IABTableModelState {
   
 
    removeAssociateFromBatch= (obj : any, currentBatchId : number) => {
-        obj.batchBatchId = null;
+        //obj.batch.batchId = null;
    }
 
   render() {
