@@ -60,7 +60,7 @@ export async function getBatchById(bId : number) : Promise<Batch> {
 // Confirm/Unconfirm a batch 
 export async function updateBatch(bId : number, isConf : boolean) : Promise<Batch> {
     try {
-        const dataTransfer =  {batchId: bId, isConfirmed: isConf};
+        const dataTransfer =  {isConfirmed: isConf};
         const response = await axiosClient.patch(`/batches/${bId}`, dataTransfer);
         const respData = response.data;
         const theBatch : Batch = buildABatch(respData);
