@@ -24,7 +24,6 @@ public class BatchController {
 	@Autowired
 	BatchService batchService;
 	
-	@CrossOrigin(origins = "*")
 	@GetMapping("/batches")
 	public List<Batch> getAllBatches()
 	{
@@ -40,15 +39,16 @@ public class BatchController {
       }
 	}
 	
-
-	@PatchMapping("batches/{id}")
+	@PatchMapping("/batches/{id}")
 	public Batch updateBatchWithId(@RequestBody UpdateBatchDto dto, @PathVariable Integer id) {
 	  try {
 	    Batch oldBatch = batchService.getById(id);
+	    System.out.println("batch found");
 	    oldBatch.setIsConfirmed(dto.getIsConfirmed());
-        return batchService.updateBatch(oldBatch);
+        Batch newBatch = batchService.updateBatch(oldBatch);
+        return newBatch;
       } catch (Exception e) {
-          throw new ResponseStatusException(HttpStatus.CONFLICT);
+          throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
       }
 	}
 	
@@ -60,7 +60,7 @@ public class BatchController {
 			Date d = df.parse(date);
 			return batchService.getByInProgress(d);
 		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 	}
 	@GetMapping("/batches/curricula/{id}")  //get batches by curricula id
