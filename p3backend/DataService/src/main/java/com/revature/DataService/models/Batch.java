@@ -28,23 +28,24 @@ public class Batch {
 
   }
 
-public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
-		List<Trainer> trainers, Location location, Curriculum curriculum, List<Associate> associates,
-		List<Consent> consent) {
+  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
+		String programType, List<Trainer> trainers, Location location, Curriculum curriculum,
+		List<Associate> associates) {
 	super();
 	this.batchId = batchId;
 	this.startDate = startDate;
 	this.endDate = endDate;
 	this.isConfirmed = isConfirmed;
 	this.interviewScoreLower = interviewScoreLower;
+	this.programType = programType;
 	this.trainers = trainers;
 	this.location = location;
 	this.curriculum = curriculum;
 	this.associates = associates;
-	//this.consent = consent;
 }
 
-  @Id
+
+@Id
   @Column(name = "batch_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer batchId;
@@ -60,6 +61,9 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
 
   @Column(name = "interview_score_lower")
   private Integer interviewScoreLower;
+  
+  @Column(name = "program_type")
+  private String programType;
 
   @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
   @ManyToMany(cascade=CascadeType.MERGE)
@@ -93,7 +97,7 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
 //  @JsonIgnoreProperties({"batch", "trainerSkills"})
 //  @OneToMany(mappedBy = "batch")
 //  private List<Consent> consent;
-
+ 
 
 
   public Integer getBatchId() {
@@ -189,6 +193,16 @@ public Location getLocation() {
   public void setAssociates(List<Associate> associates) {
     this.associates = associates;
   }
+
+public String getProgramType() {
+	return programType;
+}
+
+public void setProgramType(String programType) {
+	this.programType = programType;
+}
+  
+  
 
 
 
