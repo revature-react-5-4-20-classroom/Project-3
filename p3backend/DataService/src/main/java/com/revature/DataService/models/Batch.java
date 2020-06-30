@@ -65,10 +65,9 @@ public class Batch {
   private Integer interviewScoreLower;
 
   @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
-  @ManyToMany(cascade = CascadeType.MERGE)
-  @JoinTable(name = "trainerbatch", schema = "project3",
-      joinColumns = @JoinColumn(name = "trainer_id"),
-      inverseJoinColumns = @JoinColumn(name = "batch_id"))
+
+  @ManyToMany(cascade=CascadeType.MERGE)
+  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="batch_id"),inverseJoinColumns=@JoinColumn(name="trainer_id"))
   private List<Trainer> trainers;
 
 
