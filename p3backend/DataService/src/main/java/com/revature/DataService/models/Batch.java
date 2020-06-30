@@ -28,21 +28,23 @@ public class Batch {
 
   }
 
-public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
-		List<Trainer> trainers, Location location, Curriculum curriculum, List<Associate> associates,
-		List<Consent> consent) {
-	super();
-	this.batchId = batchId;
-	this.startDate = startDate;
-	this.endDate = endDate;
-	this.isConfirmed = isConfirmed;
-	this.interviewScoreLower = interviewScoreLower;
-	this.trainers = trainers;
-	this.location = location;
-	this.curriculum = curriculum;
-	this.associates = associates;
-	//this.consent = consent;
-}
+  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
+      Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
+      List<Associate> associates, String programType) {
+    super();
+    this.batchId = batchId;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.isConfirmed = isConfirmed;
+    this.interviewScoreLower = interviewScoreLower;
+    this.trainers = trainers;
+    this.location = location;
+    this.curriculum = curriculum;
+    this.associates = associates;
+    this.programType = programType;
+  }
+
+
 
   @Id
   @Column(name = "batch_id")
@@ -84,7 +86,9 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
   @JsonIgnoreProperties({"batch"})
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
-
+  
+  @Column(name="program_type")
+  private String programType;
 
   // WORKING
   // Batch to consent
@@ -190,8 +194,24 @@ public Location getLocation() {
     this.associates = associates;
   }
 
+  public String getProgramType() {
+    return programType;
+  }
+
+  public void setProgramType(String programType) {
+    this.programType = programType;
+  }
+
+  @Override
+  public String toString() {
+    return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
+        + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
+        + ", trainers=" + trainers + ", location=" + location + ", curriculum=" + curriculum
+        + ", associates=" + associates + ", programType=" + programType + "]";
+  }
 
 
+  
 
 //public List<Consent> getConsent() {
 //	return consent;
@@ -205,7 +225,7 @@ public Location getLocation() {
 //}
 
 
-
+  
 
 
 }
