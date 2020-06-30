@@ -17,9 +17,8 @@ import { OverviewClientDemand } from './Story2/OverviewClientDemand';
 import { OverviewTraining } from './Story3/OverviewTraining';
 import { AssignTrainer } from './Story4/AssignTrainer';
 import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
-import { ColumnChartTest } from './Story2/colGraphComponent';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { BatchPage } from './Components/GenerateBatch/BatchPage';
+
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -98,34 +97,34 @@ export class App extends React.Component<any, any> {
                 </NavLink>
               </NavItem>
             </Nav>
-          </Navbar>
-          <Switch>
-            <Provider store={store}>
-              <Route path='/home'>Home page</Route>
-              <Route path='/in-progress'>
-                <ReduxInProgress />
-              </Route>
-              <Route path='/overview'>
-                <OverviewClientDemand />
-              </Route>
-              <Route path='/overview-training'>
-                <OverviewTraining />
-              </Route>
-              <Route path='/assign-trainer'>
-                <AssignTrainer />
-                <TrainerAssignmentComponent />
-              </Route>
-              <Route path='/trainers'>
-                <TrainerAssignmentComponent />
-              </Route>
-              <Route path='/consent'>
-                <ViewConsentRequests />
-              </Route>
-            </Provider>
-          </Switch>
-        </Router>
-      </Container>
-    );
+        </Navbar>
+        <Route path='/home'>
+          Home page
+        </Route>
+        <Route path='/batches'>
+          <BatchPage/>
+        </Route>
+        <Route path='/in-progress'>
+          <InProgress/>
+        </Route>
+        <Route path='/overview'>
+          <OverviewClientDemand/>
+        </Route>
+        <Route path='/overview-training'>
+          <OverviewTraining/>
+        </Route>
+        <Route path='/assign-trainer'>
+          <AssignTrainer/>
+        </Route>
+        <Route path='/trainers'>
+          <TrainerAssignmentComponent />
+        </Route>
+        <Route path='/consent'>
+          <ViewConsentRequests />
+        </Route>
+      </Router>
+    </Container>)
+
   }
 }
 
