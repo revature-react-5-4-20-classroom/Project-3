@@ -21,36 +21,36 @@ public class AopControllers {
 
 	Logger logger=LoggerFactory.getLogger(AopControllers.class);
 	
-@Before(value="within(com.revature.DataService..*)")
-public void logBefore(JoinPoint jp) {
-
-	logger.info(" Method "+jp.toShortString()+" called on "+jp.getTarget()+" args: "+Arrays.toString(jp.getArgs()));
-	
-	
-	
-}
-
-@AfterReturning(value="within(com.revature.DataService..*)", returning="result")
-public void after(JoinPoint jp, Object result) {
-	
-	
-	logger.info(" method "+jp.toShortString());
-//	if(result!=null) {
-//		logger.info(" method "+jp.toShortString()+"returned "+result.toString());
-//	}else {
-//		logger.info(" method "+jp.toShortString()+" returned "+" it returns null");
-//	}
-	
-}
-
-@AfterThrowing(value="within(com.revature.DataService..*)", throwing="error")
-public void afterThrow(JoinPoint jp,Throwable error) {
-	
-	logger.error(" method "+jp.toShortString()+" error "+error.getMessage());
-
-	
-	
-}
+//@Before(value="within(com.revature.DataService..*)")
+//public void logBefore(JoinPoint jp) {
+//
+////	logger.info(" Method "+jp.toShortString()+" called on "+jp.getTarget()+" args: "+Arrays.toString(jp.getArgs()));
+//	
+//	
+//	
+//}
+//
+//@AfterReturning(value="within(com.revature.DataService..*)", returning="result")
+//public void after(JoinPoint jp, Object result) {
+//	
+//	
+//	logger.info(" method "+jp.toShortString());
+////	if(result!=null) {
+////		logger.info(" method "+jp.toShortString()+"returned "+result.toString());
+////	}else {
+////		logger.info(" method "+jp.toShortString()+" returned "+" it returns null");
+////	}
+//	
+//}
+//
+//@AfterThrowing(value="within(com.revature.DataService..*)", throwing="error")
+//public void afterThrow(JoinPoint jp,Throwable error) {
+//	
+//	logger.error(" method "+jp.toShortString()+" error "+error.getMessage());
+//
+//	
+//	
+//}
 
 
 

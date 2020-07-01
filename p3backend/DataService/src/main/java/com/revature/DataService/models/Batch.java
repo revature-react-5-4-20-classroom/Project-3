@@ -41,7 +41,7 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
 	this.location = location;
 	this.curriculum = curriculum;
 	this.associates = associates;
-	//this.consent = consent;
+	this.consent = consent;
 }
 
   @Id
@@ -90,9 +90,9 @@ public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
   // Batch to consent
   // Getting rid of this at Nick's request
 
-//  @JsonIgnoreProperties({"batch", "trainerSkills"})
-//  @OneToMany(mappedBy = "batch")
-//  private List<Consent> consent;
+  @JsonIgnoreProperties({"batch", "trainerSkills"})
+  @OneToMany(mappedBy = "batch")
+  private List<Consent> consent;
 
 
 
@@ -193,16 +193,16 @@ public Location getLocation() {
 
 
 
-//public List<Consent> getConsent() {
-//	return consent;
-//}
-//
-//
-//
-//
-//public void setConsent(List<Consent> consent) {
-//	this.consent = consent;
-//}
+public List<Consent> getConsent() {
+	return consent;
+}
+
+
+
+
+public void setConsent(List<Consent> consent) {
+	this.consent = consent;
+}
 
 
 

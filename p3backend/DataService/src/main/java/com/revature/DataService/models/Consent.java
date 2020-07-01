@@ -24,24 +24,23 @@ public class Consent {
   private Integer consentId;
 
   @Column(name = "consent_approved")
-  private boolean isApprovedColumn;
+  private String isApprovedColumn;
 
 
   // Working
   // Changing at Nick's request
-//  @JsonIgnoreProperties({"consent", "trainers"})
-//  @ManyToOne
-//  @JoinColumn(name = "batch_id")
+  @JsonIgnoreProperties({"consent", "trainers"})
+  @ManyToOne
+  @JoinColumn(name = "batch_id")
   @Column(name = "batch_id")
-  private Integer batchId;
+  private Batch batch;
 
   	// Changing at Nick's request
-//  @JsonIgnoreProperties({"consent", "batches"})
-//  @ManyToOne
-//  @JoinColumn(name = "trainerId")
+  @JsonIgnoreProperties({"consent", "batches"})
+  @ManyToOne
+  @JoinColumn(name = "trainerId")
   @Column(name="trainer_id")
-
-  private Integer trainerId;
+  private Trainer trainer;
 
   public Consent() {
     super();
@@ -55,72 +54,50 @@ public class Consent {
   public void setConsentId(Integer consentId) {
     this.consentId = consentId;
   }
-  
-  
 
-
-  public boolean isApproved() {
-
-    return isApproved;
-  }
-
-  public void setApproved(boolean isApproved) {
-    this.isApproved = isApproved;
-  }
-
-
-  public Consent(Integer consentId, boolean isApproved, Integer batchid, Integer trainerId) {
-    super();
-    this.consentId = consentId;
-    this.isApproved = isApproved;
-    this.batchId = batchId;
-    this.trainerId = trainerId;
-  }
-
-public Integer getBatchId() {
-	return batchId;
-}
-
-public void setBatchId(Integer batchId) {
-	this.batchId = batchId;
-}
-
-public Integer getTrainer_id() {
-	return trainerId;
-}
-
-public void setTrainer_id(Integer trainerId) {
-	this.trainerId = trainerId;
-}
-
-<<<<<<< HEAD
-public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
-	super();
-	this.consentId = consentId;
-	this.isApprovedColumn = isApproved;
-	this.batchId = batchId;
-	this.trainerId = trainerId;
-}
-
-
-
-  public boolean getIsApprovedColumn() {
+public String getIsApprovedColumn() {
 	return isApprovedColumn;
 }
 
-public void setIsApprovedColumn(boolean isApprovedColumn) {
+public void setIsApprovedColumn(String isApprovedColumn) {
 	this.isApprovedColumn = isApprovedColumn;
 }
 
+public Batch getBatch() {
+	return batch;
+}
 
+public void setBatch(Batch batch) {
+	this.batch = batch;
+}
 
-=======
->>>>>>> 2045e8691e7168fa0d0f1a9b1cf33261cbfe18ec
+public Trainer getTrainer() {
+	return trainer;
+}
+
+public void setTrainer(Trainer trainer) {
+	this.trainer = trainer;
+}
+
+public Consent(Integer consentId, String isApprovedColumn, Batch batch, Trainer trainer) {
+	super();
+	this.consentId = consentId;
+	this.isApprovedColumn = isApprovedColumn;
+	this.batch = batch;
+	this.trainer = trainer;
+}
+
 @Override
 public String toString() {
-	return "Consent [consentId=" + consentId + ", isApproved=" + isApprovedColumn + ", batchId=" + batchId + ", trainerId="
-			+ trainerId + "]";
+	return "Consent [consentId=" + consentId + ", isApprovedColumn=" + isApprovedColumn + ", batch=" + batch
+			+ ", trainer=" + trainer + "]";
 }
+  
+ 
+
+
+
+
 
 
 

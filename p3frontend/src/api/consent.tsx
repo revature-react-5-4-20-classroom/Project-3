@@ -2,17 +2,14 @@ import {Consent} from '../models/Consent'
 import { Trainer } from '../models/Trainer';
 import { axiosClient } from './axios';
 
-export async function getEligibility(trainerId:number, batchId:number): Promise<boolean>{
-    const response : boolean = await axiosClient.get(`/trainer/eligible/${batchId}`,{
-        params: {
-          trainer: trainerId,
-        }
-      })
-      return response;
+export async function getAllEligibleTrainers( batchId:number): Promise<Trainer[]>{
+    const response  = await axiosClient.get(`/trainer/eligible/${batchId}`);
+    return response.data.map((trainerObj: any) => {
+        const {trainerId, firstName, lastName, email,  trainerSkills, consent, batch  } = trainerObj;
+        
+        return new Trainer(trainerId,firstName, lastName, email,  trainerSkills, consent, batch, true);
+     })
 }
-
-
-
 
 export async function getAllTrainers() : Promise<Trainer[]>{
     try{
@@ -29,7 +26,20 @@ export async function getAllTrainers() : Promise<Trainer[]>{
 }
 export async function createConsentRequest(trainerId:number, isApproved:null,batchId:number ){
     try{
-        const response =  await axiosClient.post('/consent', {trainerId:trainerId,batchId:batchId,isApproved:isApproved});
+        console.log(trainerId);
+        const response =  await axiosClient.post('/consent', {trainerId:trainerId,batchId:batchId,isApprovedColumn:isApproved});
+        console.log(response);
+        return response;
+    } catch (e){
+        console.log(e)
+    }
+}
+
+export async function createTrainerBatch(trainerId:number,batchId:number ){
+    try{
+        console.log(trainerId);
+        const response =  await axiosClient.post('/trainerbatch', {trainerId:trainerId,batchId:batchId});
+        console.log(response);
         return response;
     } catch (e){
         console.log(e)
@@ -39,17 +49,15 @@ export async function createConsentRequest(trainerId:number, isApproved:null,bat
 export async function approveConsentRequest(consent:Consent ){
     try{
 
+        
         await axiosClient.patch('/consent', {
             consentId: consent.consentId,
-            batchId: consent.batchId,
-            trainerId: consent.trainerId,
+            batchId: consent.batch.batchId,
+            trainerId: consent.trainer.trainerId,
             isApprovedColumn:consent.isApproved
         });
-        
 
-        //const response =  await axiosClient.patch('/consent', {consent:consent});
-        //return response;
-
+        await createTrainerBatch(consent.trainer.trainerId, consent.batch.batchId);
     } catch (e){
         console.log(e)
     }
@@ -60,15 +68,10 @@ export async function denyConsentRequest(consent:Consent ) {
 
         await axiosClient.patch('/consent', {
             consentId: consent.consentId,
-            batchId: consent.batchId,
-            trainerId: consent.trainerId,
+            batchId: consent.batch.batchId,
+            trainerId: consent.trainer.trainerId,
             isApprovedColumn:consent.isApproved
         });
-        
-
-        //const response =  await axiosClient.patch('/consent', {consent:consent});
-        //return response;
-
     } catch (e){
         console.log(e)
     }

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Trainer } from '../models/Trainer';
-import {getAllTrainers, getEligibility, createConsentRequest} from '../api/consent'
+import {getAllTrainers, getAllEligibleTrainers, createConsentRequest} from '../api/consent'
 import { Form, FormGroup, Label, Col, Input, Button, Toast, ToastHeader, ToastBody, ListGroupItem, ListGroup, Row } from 'reactstrap';
 import { Consent } from '../models/Consent';
 import { assignTrainer } from '../api/batch';
 
 interface IAssignmentComponentState { 
   trainers : Trainer[]
+  eligibleTrainers: Trainer[];
+
 }
 
 export class TrainerAssignmentComponent extends React.Component<any, IAssignmentComponentState> {
@@ -16,29 +18,32 @@ export class TrainerAssignmentComponent extends React.Component<any, IAssignment
   constructor(props: any) {
     super(props);
     this.state = {
-      trainers: []
+      trainers: [],
+      eligibleTrainers: []
     }
   }
   componentDidMount(){
      this.getAllTrainers();
+     this.getAllEligibleTrainers(20);
+     this.assignEligibility();
     
   }
 
-  assign = async(trainer:Trainer, batchId:number) =>{
-      await assignTrainer(trainer.trainerId, batchId);
+  assign = async(trainerId:number, batchId:number) =>{
+      await assignTrainer(trainerId, 20);
   }
-  request = async(trainer:Trainer, batchId:number)=>{
+  request = async(trainerId:number, batchId:number)=>{
       
-      await createConsentRequest(trainer.trainerId, null, batchId);
+      await createConsentRequest(trainerId, null, 20);
   }
 
   getButton = (trainer:Trainer, i:number) =>{
     
     let jsxElement =(<><h4>test</h4></>);
     if(trainer.isEligible){
-      jsxElement =  (<Button color="primary" id={i.toString()} onClick={()=>this.assign(trainer, 1)}>Assign</Button>)
+      jsxElement =  (<Button color="primary" id={i.toString()} onClick={()=>this.assign(this.state.trainers[0].trainerId, 20)}>Assign</Button>)
     }else{
-      jsxElement = (<Button color="primary" id={i.toString()} onClick={()=>this.request(this.state.trainers[1], 1)}>Request Consent</Button>)
+      jsxElement = (<Button color="primary" id={i.toString()} onClick={()=>this.request(this.state.trainers[0].trainerId, 20)}>Request Consent</Button>)
     }
     console.log(jsxElement)
     return jsxElement;
@@ -46,16 +51,29 @@ export class TrainerAssignmentComponent extends React.Component<any, IAssignment
   
   getAllTrainers = async () => {
     let allTrainers : Trainer[] = await getAllTrainers();
-    allTrainers.forEach(async (trainer)=>{
-      let trainerId = trainer.trainerId;
-      let isEligible: boolean = await getEligibility(trainerId, 2)
-      trainer.isEligible = isEligible;
-    } );
-    
     console.log(allTrainers);
     this.setState({
       trainers:allTrainers
     })
+  }
+  getAllEligibleTrainers = async(batchId:number) => {
+    let trainers : Trainer[] = await getAllEligibleTrainers(batchId);
+    this.setState({
+      eligibleTrainers:trainers
+    })
+  }
+
+  assignEligibility = () =>{
+    let allTrainers = this.state.trainers;
+    let allEligible = this.state.eligibleTrainers;
+    allTrainers.forEach(trainer =>{
+      if(allEligible.includes(trainer)){
+        trainer.isEligible = true;
+      } else{
+        trainer.isEligible = false;
+      }
+    })
+    
   }
 
   render() {

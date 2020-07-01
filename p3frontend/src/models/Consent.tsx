@@ -1,14 +1,18 @@
+import {Trainer} from '../models/Trainer';
+import {Batch} from '../models/Batch';
+
 export class Consent{
     consentId : number;
-    trainerId: number;
+    trainer: Trainer;
     isApproved: boolean|null;
-    batchId: number
+    batch: Batch
+    
 
 
-    constructor(consentId:number, trainerId:number, isApproved:boolean|null, batchId:number){
+    constructor(consentId:number, trainer:Trainer, isApproved:boolean|null, batch:Batch){
         this.consentId = consentId;
-        this.trainerId = trainerId;
+        this.trainer = trainer;
         this.isApproved  = isApproved;
-        this.batchId = batchId;
+        this.batch = batch;
     }
 }
