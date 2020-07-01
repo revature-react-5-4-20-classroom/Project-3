@@ -45,6 +45,7 @@ export class ViewConsentRequests extends React.Component<any,IViewConsentRequest
     render(){
         return(
             <>
+            <h6>View Consent Requests</h6>
                     <ListGroup>
                             {this.state.consentRequests.map((consent: Consent, i) => {
                                 

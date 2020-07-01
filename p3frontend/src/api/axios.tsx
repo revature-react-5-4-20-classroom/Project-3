@@ -5,4 +5,4 @@ export const axiosClient = axios.create({
   baseURL: 'http://3.236.121.83:8212/data',
   //if you don't have the following line, your login won't work
   withCredentials: false, // we should probably change this later
-});
+})

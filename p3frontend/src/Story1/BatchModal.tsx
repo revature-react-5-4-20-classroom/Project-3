@@ -8,87 +8,80 @@ import {
   NavItem,
   Nav,
   Navbar,
+  Row,
+  Col,
+  NavbarToggler,
+  ButtonGroup,
+  Container,
 } from "reactstrap";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import TrainersModal from "./TrainersModal";
 import AssociatesModal from "./AssociatesModal";
 import "../../src/index.css";
+import ASTableModel from "./ASTableModel";
 
-class BatchModal extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
+/*
+  <BatchModal currentBatch={aBatchObject}/>
+
+  The modal will look like a View button.
+  when that button is clicked the modal will pop up
+*/
+class BatchModal extends React.Component<any, any> 
+{
+  constructor(props: any)
+  {
+    super(props)
     this.state = {
-      modal: true,
-      backendData: pseudoDataResponse.data.filter((aBatch: any) => {
-        return aBatch.batchId === this.props.currentBatchId;
-      }),
-      showTrainers: false,
-    };
+      showThis: false,
+      showTrainers: false, //T to show trainers. F to show associates
+    }
   }
-  // async componentDidMount() {
-  //   await this.loadData();
-  // }
 
-  // loadData() {
-  //   let currentBatch = pseudoDataResponse.data.filter((aBatch: any) => {
-  //     return aBatch.batchId === this.props.currentBatchId;
-  //   });
-  //   this.setState({
-  //     backendData: currentBatch,
-  //   });
-  // }
+  render() 
+  {
+    const toggle = () => {this.setState({showThis: !this.state.showThis})}
 
-  render() {
-    let selectedBatch = this.state.backendData[0];
-    const { buttonLabel, className } = this.props;
-    console.log("this is pseudo data", selectedBatch);
-    const toggle = () =>
-      this.setState({
-        modal: !this.state.modal,
-      });
-
-    const changeModalViewToTrainer = () => {
-      this.setState({
-        showTrainers: true,
-      });
-    };
-    const changeModalViewToAssociate = () => {
-      this.setState({
-        showTrainers: false,
-      });
-    };
-
-    return (
-      <div>
-        <Button color="danger" onClick={toggle}>
-          {buttonLabel}
-        </Button>
+    return (<>
+        <Button onClick={toggle}>View</Button>
         <Modal
-          isOpen={this.state.modal}
-          toggle={toggle}
+          isOpen={this.state.showThis}
           contentClassName="modalStyle"
-        >
-          <ModalHeader toggle={toggle}>Selected Batch</ModalHeader>
+          size="lg">
+          <ModalHeader toggle={toggle}>Batch {this.props.currentBatch.batchId}</ModalHeader>
           <ModalBody>
-            <div>
-              <b>Start Date:</b> {selectedBatch.startDate}
-            </div>
-            <div>
-              <b>End Date: </b>
-              {selectedBatch.endDate}
-            </div>
-            <div>
-              <b>Curriculum Name:</b> {selectedBatch.curriculum.name}
-            </div>
-            <div>
-              <b>Batch Number:</b> {selectedBatch.batchId}
-            </div>
+            <Row>
+              <Col><b>Start Date:</b></Col> 
+              <Col>{this.props.currentBatch.startDate}</Col>
+            </Row>
+            <Row>
+              <Col><b>End Date: </b></Col>
+              <Col>{this.props.currentBatch.endDate}</Col>
+            </Row>
+            <Row>
+              <Col><b>Curriculum Name:</b></Col>
+              <Col>{this.props.currentBatch.curriculum?this.props.currentBatch.curriculum.name:"no-curriculum"}</Col>
+            </Row>
+            <br/>
+            <Row>
+              <Col>
+                <Button 
+                  color=  {this.state.showTrainers?"secondary":"primary"}
+                  onClick={() => {this.setState({showTrainers: false})}}
+                >Associates</Button>
+              </Col>
+              <Col>
+                <Button
+                  color=  {this.state.showTrainers?"primary":"secondary"}
+                  onClick={() => {this.setState({showTrainers: true})}}
+                >Trainers</Button>
+              </Col>
+            </Row>
+            <hr/>
           </ModalBody>
-          <br></br>
-          <br></br>
-          <br></br>
-          <ModalFooter>
-            <Navbar>
+            
+            {/* 
+            <ModalFooter>
+            <Navbar color='light' light expand='md'>
               <Nav onClick={changeModalViewToTrainer}>
                 <NavItem
                   activeClassName="active"
@@ -102,21 +95,18 @@ class BatchModal extends React.Component<any, any> {
                   Associates
                 </NavItem>
               </Nav>
-            </Navbar>
-            {/* <Button color="primary" onClick={changeModalView}>
-              Toggle Trainers/Associates
-            </Button> */}
-          </ModalFooter>
+            </Navbar> 
+          </ModalFooter>*/}
+
           <ModalBody>
             {this.state.showTrainers ? (
-              <TrainersModal></TrainersModal>
+              <TrainersModal/>
             ) : (
-              <AssociatesModal> </AssociatesModal>
+              <ASTableModel currentBatch={this.props.currentBatch}/>
             )}
           </ModalBody>
         </Modal>
-      </div>
-    );
+      </>)
   }
 }
 

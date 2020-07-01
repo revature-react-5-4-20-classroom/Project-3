@@ -1,5 +1,16 @@
 th{
-	color:blue;
+	/* color:blue; */
+	color:#f26925;
+}
+
+.shadow{
+	
+	box-shadow:2px 5px 5px black;
+}
+
+table{
+				/*offsetx offsety radius color*/
+	box-shadow:2px 5px 5px black;
 }
 
 th:hover{
