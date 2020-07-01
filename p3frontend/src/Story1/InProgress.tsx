@@ -1,9 +1,9 @@
 import React from "react";
 //npm install react-calendar
 //npm i @types/react-calendar
-import Calendar from 'react-calendar';
-import './Calendar.css';
-import './Table.css';
+import Calendar from "react-calendar";
+import "./Calendar.css";
+import "./Table.css";
 import { Row, Col, Table, Container, Button } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
@@ -16,8 +16,11 @@ import { trainerGetName } from "../models/Trainer";
 import { associatesGetActiveTotal } from "../models/Associate";
 import { locationGetName } from "../models/Location";
 import { seeIt } from "../GeneralPurposeHelpers/seeIt";
-import { connect } from 'react-redux';
-import { allTheActionMappers, batchClickActionMapper } from "../redux/action-mapper";
+import { connect } from "react-redux";
+import {
+  allTheActionMappers,
+  batchClickActionMapper,
+} from "../redux/action-mapper";
 import { IState, allTheMapStateToProps } from "../redux/reducers";
 import {pseudoDataResponse}  from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
@@ -437,4 +440,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 }
 
 //Create a redux version of InProgress
-export const ReduxInProgress = connect(allTheMapStateToProps, allTheActionMappers)(InProgress);
+export const ReduxInProgress = connect(
+  allTheMapStateToProps,
+  allTheActionMappers
+)(InProgress);
