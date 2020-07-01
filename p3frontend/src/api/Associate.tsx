@@ -24,15 +24,11 @@ try {
 
 export async function updateAssociate(obj: Associate)  {
 try  {
-  const oReq = new XMLHttpRequest();
-  oReq.open("PATCH", "http://localhost:1235/associates");
   
-  oReq.send(JSON.stringify(obj));
-  
-  
-
- 
-  } catch (e) {
-    throw new FailedUpdateException (`The update has failed`);
-}
+        const response = await axiosClient.patch('/associates', obj);
+        
+    } catch (e) {
+        console.log('failed to assign associate to new batch', e.message);
+        throw e;
+   } 
 }
