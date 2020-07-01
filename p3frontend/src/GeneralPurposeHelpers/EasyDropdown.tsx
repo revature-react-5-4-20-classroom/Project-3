@@ -1,6 +1,6 @@
 import React from "react";
-import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem, Container, UncontrolledTooltip } from "reactstrap";
 import { EasyTooltip } from "./EasyTooltip";
+import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem } from "reactstrap";
 
 /*
 	<EasyDropdown 

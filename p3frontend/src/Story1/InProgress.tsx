@@ -30,20 +30,21 @@ export class InProgress extends React.Component<any,any>
 	{
 		super(props)
 		this.state={
-		programType:'',		//EasyDropdown will set this to its first item during render
-		workType:   '',
-		viewType:   '',
-		sortAscend:	true,		//sorts by ascending or decending
-		error:		null,		//holds an axios error object that will be displayed
+		programType:	'',		//EasyDropdown will set this to its first item during render
+		workType:   	'',
+		viewType:   	'',
+		sortAscend:		true,	//sorts by ascending or decending
+		error:			null,	//holds an axios error object that will be displayed
+		errorMessage:	'',		//holds an error message for other special cases
 		batchDisplayData:[],	//holds the batch data formatted for display
-		batches: [], // batch data to be passed as a prop
+		batches: [], 			// batch data to be passed as a prop
 		}
 	}
 
 	render()
 	{
 		return(<Container>
-				<ErrorAlert error={this.state.error}/>
+				<ErrorAlert message={this.state.errorMessage} error={this.state.error}/>
 				<h6>Story 1. "In Progress"</h6><br/>
 				<p>Given that batches are currently in operation
 When I navigate to the 'In Progress' view
@@ -75,6 +76,9 @@ And this data is shown as a table and a Calendar view</p><br/>
 							items={['Table','Calendar']} />
 					</Col>
 				</Row>
+				<br/>
+				<br/>
+				<>Total batches in that are in the system: <b>{this.state.batches.length}</b></>
 				<br/>
 				<br/>
 				{/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
@@ -263,39 +267,22 @@ And this data is shown as a table and a Calendar view</p><br/>
 
 	fetchTheBatchData=async()=>
 	{
-		// this.setState({
-		// 	batchDisplayData:this.convertServerDataToDisplayData(pseudoDataResponse.data)
-		// })
-
-		// prnt(doPrnt,`fetchTheBatchData() has been reached`)
-
-		// try
-		// {
-		// 	let response=await axiosClient.get('/batches')
-
-		// 	prnt(doPrnt,`response=`,response)
-
-		// 	if(response.status!==200)
-		// 	{
-		// 		this.setState({error:response})
-		// 	}
-		// 	else
-		// 	{
-		// 		this.setState({
-		// 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
-		// 		})
-		// 	}
-		// }
-		// catch(e)
-		// {
-		// 	this.setState({error:e})
-		// }
-		try {
+		try 
+		{
 			let batchData = await getAllBatches();
-			this.setState({
-				batches: batchData,
-				batchDisplayData: this.convertServerDataToDisplayData(batchData),
-			});
+			//let batchData=pseudoDataResponse.data
+
+			if(batchData==null)
+			{
+				this.setState({errorMessage:"ERROR. There wasn't a data property in the server response"})
+			}
+			else
+			{
+				this.setState({
+					batches: batchData,
+					batchDisplayData: this.convertServerDataToDisplayData(batchData),
+				});
+			}
 		} catch(e) {
 			this.setState({error:e});
 		}
