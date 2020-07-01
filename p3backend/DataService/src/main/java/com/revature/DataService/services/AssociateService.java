@@ -27,6 +27,10 @@ public class AssociateService {
 		return associateRepository.findAll();
 	}
 	
+	public List<Associate> getAllActive() {
+	  return associateRepository.findAllWhere();
+	}
+	
 
 	public void updateAssociate(Associate a) {
 		
