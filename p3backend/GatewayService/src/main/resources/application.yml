@@ -22,7 +22,7 @@ zuul:
   routes:    
     eureka:
       path: /eureka/**
-      url: http://ec2-3-235-74-191.compute-1.amazonaws.com:2330/
+      url: http://ec2-3-235-74-191.compute-1.amazonaws.com:2329/
     data:
       path: /data/**
       service-id: dataservice
