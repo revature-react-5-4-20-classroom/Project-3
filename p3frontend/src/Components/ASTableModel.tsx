@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Button, Container, Row, Col } from "reactstrap";
 import {Associate} from "../models/Associate";
-import { getAllAssociates } from "../api/Associate";
+import { getAllAssociates, updateAssociate } from "../api/Associate";
 
 
 interface IASTableModelProps {
@@ -62,15 +62,20 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
     };
   
 
-   associateAdd = (obj : Associate, i: number) => {
+    associateAdd = async (obj : Associate, i: number) => {
         this.state.associatesInBatch.push(obj);
         this.state.eligibleAssociates.splice(i, 1);
+        obj.batch.batchId = this.state.currentBatchId;
+        await updateAssociate(obj);
         this.setState({});
+
    }
 
-   associateRemove = (obj: Associate, i : number) => {
+   associateRemove = async (obj: Associate, i : number) => {
         this.state.associatesInBatch.splice(i, 1);
         this.state.eligibleAssociates.push(obj);
+        // obj.batch_batchId = {}; 
+        await updateAssociate(obj);
         this.setState({});
 
 
@@ -99,7 +104,7 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
   }
 
   displayTable =  (array : Associate[], message: String, displayText : String, itemClick : any) => {
-    if(array.length == 0) {
+    if(array.length === 0) {
         return ( <>{message}</>   )
     }
 return(
