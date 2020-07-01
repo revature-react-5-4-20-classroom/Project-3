@@ -336,16 +336,16 @@ And this data is shown as a table and a Calendar view</p><br/>
 	setProgramType=(value:string)=>    //filter
 	{	
 		console.log(`Setting program type: ${value}`);
-		this.setState({programType: value});
+		this.setState({programType: value},this.applyFilters);
 	}
 
 	
 	setClient=(value:string)=> {
-		this.setState({client: value})
+		this.setState({client: value},this.applyFilters)
 	}
 
 	setCurriculum=(value:string)=> {   //filter
-		this.setState({curriculum: value});
+		this.setState({curriculum: value},this.applyFilters);
 	}
 
 	setViewType=(value:string)=>
