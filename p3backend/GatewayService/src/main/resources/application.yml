@@ -3,7 +3,7 @@
 
 
 server:  
-  port: 8212
+  port: 2331
   
 spring:
   application:    
@@ -16,13 +16,13 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://ec2-3-235-74-191.compute-1.amazonaws.com:8762/eureka
+      defaultZone: http://ec2-3-235-74-191.compute-1.amazonaws.com:2329/eureka
 
 zuul:
   routes:    
     eureka:
       path: /eureka/**
-      url: http://ec2-3-235-74-191.compute-1.amazonaws.com:8762/
+      url: http://ec2-3-235-74-191.compute-1.amazonaws.com:2329/
     data:
       path: /data/**
       service-id: dataservice
