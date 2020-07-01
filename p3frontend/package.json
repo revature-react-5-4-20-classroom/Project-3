@@ -41,7 +41,6 @@
     "redux-thunk": "^2.3.0",
     "typescript": "^3.7.5",
     "util": "^0.12.3",
-    "webpack": "^4.43.0",
     "start": "^5.1.0"
   },
   "scripts": {
