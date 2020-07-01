@@ -40,6 +40,8 @@ export class InProgress extends React.Component<any,any>
 		filteredBatches: [],
 		clientId: 0,
 		curriculum: '',
+		programTypesArray:[]
+		
 		}
 	}
 
@@ -77,7 +79,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 				<br/>
 				<br/>
 				{/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
-				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux batches={this.state.batches}/>	}
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux batches={this.state.filteredBatches}/>	}
 				{/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
 		</Container>)
 	}
@@ -291,11 +293,22 @@ And this data is shown as a table and a Calendar view</p><br/>
 		// }
 		try {
 			let batchData = await getAllBatches();
+			let programtype=batchData.map((batch:Batch)=>{
+				return batch.programType;
+			
+			});
+			
 			this.setState({
 				batches: batchData,
 				filteredBatches: batchData,
 				batchDisplayData: this.convertServerDataToDisplayData(batchData),
+				programTypesArray:programtype
 			});
+
+
+
+
+
 		} catch(e) {
 			this.setState({error:e});
 		}
@@ -303,22 +316,37 @@ And this data is shown as a table and a Calendar view</p><br/>
 
 	setProgramType=(value:string)=>
 	{
-		//this.fetchTheBatchData()
-		this.setState({programType:value})
+	console.log(value);
+if(this.state.programTypesArray.indexOf(value)>-1){
+	let filtercurr=this.state.filteredBatches;
+	let filtered=filtercurr.filter((batch:Batch)=>{
+		return batch.programType===value;
+				  })
+				  console.log(filtered);
+		
+				this.setState({filteredBatches:filtered})
+
+
+}
+
+
 	}
 
-	// setWorkType=(value:string)=>
-	// {
-	// 	//this.fetchTheBatchData()
-	// 	this.setState({workType:value})
-	// }
 	
 	setClient=(value:string)=> {
 		this.setState({client: value})
 	}
 
 	setCurriculum=(value:string)=> {
-		this.setState({curriculum: value})
+		console.log(value);
+		let filtercurr=this.state.filteredBatches;
+		console.log(filtercurr)
+          let filtered=filtercurr.filter((batch:Batch)=>{
+return batch.curriculum.name==value;
+		  })
+		  console.log(filtered);
+
+		this.setState({filteredBatches:filtered})
 	}
 
 	setViewType=(value:string)=>
