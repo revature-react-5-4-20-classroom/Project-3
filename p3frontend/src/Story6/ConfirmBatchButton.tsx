@@ -2,26 +2,36 @@ import React from 'react';
 import { Button } from 'reactstrap';
 import { Batch } from '../models/Batch';
 import { updateBatch } from '../api/batch';
-import { IState } from '../redux/reducers';
+import { IState, allTheMapStateToProps } from '../redux/reducers';
 import { batchUpdateActionMapper } from '../redux/action-mapper'
 import { connect } from 'react-redux';
 
 interface IConfirmBatchButtonProps {
-    batch : Batch;
+    batch : Batch | null
     batchUpdateActionMapper: (batch : Batch) => void
 }
 
 class ConfirmBatchButton extends React.Component<IConfirmBatchButtonProps, any> {
 
     handleClick = async () => {
-        let confData = this.props.batch.isConfirmed;
-        if (confData) {
-            confData = false;
-        } else {
-            confData = true;
+    if (this.props.batch) {
+        try {
+            let confData = this.props.batch.isConfirmed;
+            if (confData) {
+                confData = false;
+            } else {
+                confData = true;
+            }
+            const newBatch = await updateBatch(this.props.batch.batchId, confData)
+            this.props.batchUpdateActionMapper(newBatch);
+        } catch (e) {
+            console.log("Confirm click failed", e.message);
         }
-        const newBatch = await updateBatch(this.props.batch.batchId, confData)
-        this.props.batchUpdateActionMapper(newBatch);
+    } else {
+        alert('No batch selected. Confirm click failed');
+    }
+        
+        
     }
 
     render() {
@@ -33,14 +43,8 @@ class ConfirmBatchButton extends React.Component<IConfirmBatchButtonProps, any> 
     }
 }
 
-const mapStateToProps = (state : IState) => {
-    return {
-        state
-    }
-}
-
 const mapDispatchToProps = {
     batchUpdateActionMapper
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmBatchButton);
+export default connect(allTheMapStateToProps, mapDispatchToProps)(ConfirmBatchButton);
