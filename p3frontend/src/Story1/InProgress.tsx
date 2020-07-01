@@ -8,6 +8,7 @@ import { Row, Col, Table, Container, Button } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
+import { TimelineComponent, TimelineRedux } from "./Timeline";
 import { axiosClient } from "../api/axios";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { Batch } from "../models/Batch";

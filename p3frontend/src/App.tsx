@@ -21,6 +21,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import BatchModal from "./Story1/BatchModal";
 
+
 export class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -35,64 +36,63 @@ export class App extends React.Component<any, any> {
     return (
       <Container>
         <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          rel='stylesheet'
+          href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         />
-        {/* <TestdateDifferenceWeeks/> */}
         <Router>
-          <Navbar color="light" light expand="md">
+          <Navbar color='light' light expand='md'>
             <NavbarToggler onClick={this.toggleNavbar} />
-            <Nav className="mr-auto" tabs>
+            <Nav className='mr-auto' tabs>
               <NavItem>
                 <NavLink
-                  to="/home"
-                  className="nav-link"
-                  activeClassName="active"
+                  to='/home'
+                  className='nav-link'
+                  activeClassName='active'
                 >
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  to="/batches"
-                  className="nav-link"
-                  activeClassName="active"
+                  to='/batches'
+                  className='nav-link'
+                  activeClassName='active'
                 >
                   Batches
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  to="/in-progress"
-                  className="nav-link"
-                  activeClassName="active"
+                  to='/in-progress'
+                  className='nav-link'
+                  activeClassName='active'
                 >
                   In Progress
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  to="/overview"
-                  className="nav-link"
-                  activeClassName="active"
+                  to='/overview'
+                  className='nav-link'
+                  activeClassName='active'
                 >
                   Overview
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  to="/overview-training"
-                  className="nav-link"
-                  activeClassName="active"
+                  to='/overview-training'
+                  className='nav-link'
+                  activeClassName='active'
                 >
                   Training Overview
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  to="/assign-trainer"
-                  className="nav-link"
-                  activeClassName="active"
+                  to='/assign-trainer'
+                  className='nav-link'
+                  activeClassName='active'
                 >
                   Assign Trainers
                 </NavLink>

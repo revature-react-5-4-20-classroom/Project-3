@@ -28,24 +28,26 @@ public class Batch {
 
   }
 
-  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed, Integer interviewScoreLower,
-		String programType, List<Trainer> trainers, Location location, Curriculum curriculum,
-		List<Associate> associates) {
-	super();
-	this.batchId = batchId;
-	this.startDate = startDate;
-	this.endDate = endDate;
-	this.isConfirmed = isConfirmed;
-	this.interviewScoreLower = interviewScoreLower;
-	this.programType = programType;
-	this.trainers = trainers;
-	this.location = location;
-	this.curriculum = curriculum;
-	this.associates = associates;
-}
+
+  public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
+      Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
+      List<Associate> associates, String programType) {
+    super();
+    this.batchId = batchId;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.isConfirmed = isConfirmed;
+    this.interviewScoreLower = interviewScoreLower;
+    this.trainers = trainers;
+    this.location = location;
+    this.curriculum = curriculum;
+    this.associates = associates;
+    this.programType = programType;
+  }
 
 
-@Id
+
+  @Id
   @Column(name = "batch_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer batchId;
@@ -61,13 +63,11 @@ public class Batch {
 
   @Column(name = "interview_score_lower")
   private Integer interviewScoreLower;
-  
-  @Column(name = "program_type")
-  private String programType;
 
   @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
+
   @ManyToMany(cascade=CascadeType.MERGE)
-  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="trainer_id"),inverseJoinColumns=@JoinColumn(name="batch_id"))
+  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="batch_id"),inverseJoinColumns=@JoinColumn(name="trainer_id"))
   private List<Trainer> trainers;
 
 
@@ -89,15 +89,17 @@ public class Batch {
   @OneToMany(mappedBy = "batch", cascade = CascadeType.MERGE)
   private List<Associate> associates;
 
+  @Column(name = "program_type")
+  private String programType;
 
   // WORKING
   // Batch to consent
   // Getting rid of this at Nick's request
 
-//  @JsonIgnoreProperties({"batch", "trainerSkills"})
-//  @OneToMany(mappedBy = "batch")
-//  private List<Consent> consent;
- 
+  // @JsonIgnoreProperties({"batch", "trainerSkills"})
+  // @OneToMany(mappedBy = "batch")
+  // private List<Consent> consent;
+
 
 
   public Integer getBatchId() {
@@ -150,20 +152,18 @@ public class Batch {
   }
 
   public List<Trainer> getTrainers() {
-	return trainers;
-}
+    return trainers;
+  }
 
 
 
-
-public void setTrainers(List<Trainer> trainers) {
-	this.trainers = trainers;
-}
-
+  public void setTrainers(List<Trainer> trainers) {
+    this.trainers = trainers;
+  }
 
 
 
-public Location getLocation() {
+  public Location getLocation() {
     return location;
   }
 
@@ -194,31 +194,37 @@ public Location getLocation() {
     this.associates = associates;
   }
 
-public String getProgramType() {
-	return programType;
-}
 
-public void setProgramType(String programType) {
-	this.programType = programType;
-}
-  
-  
+  public String getProgramType() {
+    return programType;
+  }
 
+  public void setProgramType(String programType) {
+    this.programType = programType;
+  }
 
 
 
-//public List<Consent> getConsent() {
-//	return consent;
-//}
-//
-//
-//
-//
-//public void setConsent(List<Consent> consent) {
-//	this.consent = consent;
-//}
+  @Override
+  public String toString() {
+    return "Batch [batchId=" + batchId + ", startDate=" + startDate + ", endDate=" + endDate
+        + ", isConfirmed=" + isConfirmed + ", interviewScoreLower=" + interviewScoreLower
+        + ", trainers=" + trainers + ", location=" + location + ", curriculum=" + curriculum
+        + ", associates=" + associates + ", programType=" + programType + "]";
+  }
 
 
+
+  // public List<Consent> getConsent() {
+  // return consent;
+  // }
+  //
+  //
+  //
+  //
+  // public void setConsent(List<Consent> consent) {
+  // this.consent = consent;
+  // }
 
 
 
