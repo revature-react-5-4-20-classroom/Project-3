@@ -32,6 +32,11 @@ npm run build'''
     }
     stage('Ls the root folder') {
       agent any
+      when {
+        expression {
+          env.BRANCH_NAME == 'ocean-jenkins'
+        }
+      }
       steps {
         sh '''ls'''
       }
