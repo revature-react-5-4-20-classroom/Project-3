@@ -2,6 +2,6 @@ Are the services running correctly on the EC2?
 
 Is the frontend functional?
 
-Did you swap the eureka ports to Master ports?
+Did you swap the ports to Master ports?
 
 etc... dont break master

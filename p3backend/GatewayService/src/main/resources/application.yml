@@ -1,18 +1,22 @@
+#GATEWAY MASTER PORT IS 8212 - SWAP THIS IN WHEN PUSHING TO MASTER
+#GATEWAY DEVELOPMENt PORT IS 2331 - THIS SHOULD BE ACTIVE BY DEFAULT
+
+
 server:  
-  port: 8212
+  port: 2331
   
 spring:
   application:    
     name: gatewayservice
 
 
-#MASTER PORT IS 8762 - SWAP THIS IN WHEN PUSHING TO MASTER
-#DEVELOPMENT PORT IS 2330 - THIS SHOULD BE ACTIVE BY DEFAULT
+#EUREKA MASTER PORT IS 8762 - SWAP THIS IN WHEN PUSHING TO MASTER
+#EUREKA DEVELOPMENT PORT IS 2329 - THIS SHOULD BE ACTIVE BY DEFAULT
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://ec2-3-235-74-191.compute-1.amazonaws.com:2330/eureka
+      defaultZone: http://ec2-3-235-74-191.compute-1.amazonaws.com:2329/eureka
 
 zuul:
   routes:    
