@@ -10,30 +10,6 @@ const initialBatchState: IBatchState = {
   batch: null,
 };
 
-<<<<<<< HEAD
-export const batchReducer = (state:IBatchState = initialBatchState, action:AnyAction) : IBatchState =>{
-    switch(action.type){
-        case clickTypes.BATCH_CLICK:{
-                
-              let newBatch : Batch = action.payload.batchClicked;
-
-              return{
-                  batch:newBatch
-              }
-               
-            }
-        case clickTypes.BATCH_UPDATE: {
-            let updatedBatch : Batch = action.payload.updatedBatch;
-            return {
-                batch: updatedBatch
-            }
-        }
-        default :{
-            return state;
-        }
-    } 
-}
-=======
 export const batchReducer = (
   state: IBatchState = initialBatchState,
   action: AnyAction
@@ -55,12 +31,18 @@ export const batchReducer = (
       };
     }
 
+    case clickTypes.BATCH_UPDATE: {
+        let updatedBatch : Batch = action.payload.updatedBatch;
+        return {
+            batch: updatedBatch
+        }
+    }
+
     default: {
       return state;
     }
   }
 };
->>>>>>> development
 
 export interface IState {
   batch: IBatchState;

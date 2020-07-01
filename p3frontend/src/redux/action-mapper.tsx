@@ -1,17 +1,10 @@
 import { Batch } from "../models/Batch";
 
 export const clickTypes = {
-<<<<<<< HEAD
-    BATCH_CLICK: 'BATCH_CLICK',
-    BATCH_UPDATE: 'BATCH_UPDATE'
-}
-
-
-=======
   BATCH_CLICK: "BATCH_CLICK",
   CURRENT_BATCH_CLICK: "CURRENT_BACTCH_CLICK",
+  BATCH_UPDATE: 'BATCH_UPDATE'
 };
->>>>>>> development
 
 export const batchClickActionMapper = (batchClicked: Batch) => {
   return {
@@ -41,14 +34,8 @@ export const batchUpdateActionMapper = (updatedBatch : Batch) => {
     All the action mappers can go here and be 
     used when needed anywhere in the project
 */
-<<<<<<< HEAD
-export const allTheActionMappers={
-    batchClickActionMapper,
-    batchUpdateActionMapper
-}
-=======
 export const allTheActionMappers = {
   batchClickActionMapper,
   currentBatchClickActionMapper,
+  batchUpdateActionMapper
 };
->>>>>>> development
