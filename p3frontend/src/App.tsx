@@ -11,6 +11,8 @@ import {
 import { InProgress, ReduxInProgress } from './Story1/InProgress';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
 
+
+
 import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
 import { ViewConsentRequests } from './Components/ViewConsentRequests';
 import { OverviewClientDemand } from './Story2/OverviewClientDemand';
@@ -20,6 +22,7 @@ import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceW
 import { ColumnChartTest } from './Story2/colGraphComponent';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import ASTableModel from './Components/ASTableModel';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -124,8 +127,12 @@ export class App extends React.Component<any, any> {
             </Provider>
           </Switch>
         </Router>
+        <div className="associate-table" >
+          <ASTableModel  />
+        </div> 
       </Container>
     );
+
   }
 }
 
