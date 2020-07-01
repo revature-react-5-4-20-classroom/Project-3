@@ -38,7 +38,7 @@ export class InProgress extends React.Component<any,any>
 		batchDisplayData:[],	//holds the batch data formatted for display
 		batches: [], // batch data to be passed as a prop
 		filteredBatches: [],
-		clientId: 0,
+		client: '(none)',
 		curriculum: '',
 		}
 	}
@@ -61,7 +61,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 
 					<Col>
 						<b>client</b>
-						<EasyDropdown onSelected={this.setClient}  items={['client1','client2']}  />
+						<EasyDropdown onSelected={this.setClient}  items={['(none)','Walmart','Amazon']}  />
 					</Col>
 
 					<Col>
@@ -314,7 +314,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 	// }
 	
 	setClient=(value:string)=> {
-		this.setState({client: value})
+		this.setState({client: value},this.filterBatchesByClient)
 	}
 
 	setCurriculum=(value:string)=> {
@@ -324,6 +324,31 @@ And this data is shown as a table and a Calendar view</p><br/>
 	setViewType=(value:string)=>
 	{
 		this.setState({viewType:value})
+	}
+
+	filterBatchesByClient=() => {		// finds clients in batches, based on client demands regarding curricula
+		if(this.state.client !== '(none)') {
+			let client = this.state.client;
+			let filteredBatches = this.state.batches.filter( (b: Batch) => {
+				let clientDemands = b.curriculum.curriculumSkillset.clientDemands;
+				for(let cd of clientDemands) {
+					if(cd.client.name === client) {
+						return true;
+					}
+				}
+				return false;
+			} );
+			this.setState({
+				filteredBatches: filteredBatches,
+				batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
+			})
+		} else {
+			let batches = this.state.batches;
+			this.setState({
+				filteredBatches: this.state.batches,
+				batchDisplayData: this.convertServerDataToDisplayData(batches),
+			})
+		}
 	}
 
 	componentDidMount()
