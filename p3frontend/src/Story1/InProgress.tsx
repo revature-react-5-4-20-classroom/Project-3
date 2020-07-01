@@ -23,6 +23,7 @@ import {pseudoDataResponse}  from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
 import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
 import BatchModal from "./BatchModal";
+import { timeStamp } from "console";
 
 const doPrnt=true//prnt will work
 
@@ -50,6 +51,14 @@ export class InProgress extends React.Component<any,any>
 		}
 	}
 
+	showModal = (index:number) => {
+		let modalShow = !this.state.modalShow
+		let modalBatch = this.props.batchClickActionMapper(this.state.filteredBatches[index])
+		this.setState({
+			modalShow : modalShow,
+			modalBatch : modalBatch,
+		})
+	}
 	render()
 	{
 		return(<Container>
@@ -125,7 +134,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 				</thead>
 				<tbody>
 					{
-						this.state.batchDisplayData.map((batch:any)=>
+						this.state.batchDisplayData.map((batch:any,index:number)=>
 						{
 							return(
 							<tr>
@@ -133,8 +142,9 @@ And this data is shown as a table and a Calendar view</p><br/>
 									{/* <Button onClick={
 											()=>{
 												//set the modalBatch and it will pop up
-												this.setState({modalBatch:batch,modalShow:true})
+												//this.setState({modalBatch:batch,modalShow:true})
 												//this.props.batchClickActionMapper(batch.batchFromServer)//maybe we throw out redux
+												this.showModal(index);
 											}
 										}>View
 									</Button> */}
@@ -166,6 +176,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 						})
 					}
 				</tbody>
+				{this.state.modalShow ? <BatchModal toggle={this.showModal} currentBatch={this.state.modalBatch}/> : null}
 			</Table>
 		)
 	}
