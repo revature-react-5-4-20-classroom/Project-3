@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 import {
   BrowserRouter as Router,
@@ -7,19 +7,20 @@ import {
   Switch,
   BrowserRouter,
   NavLink,
-} from 'react-router-dom';
-import { InProgress, ReduxInProgress } from './Story1/InProgress';
-import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+} from "react-router-dom";
+import { InProgress, ReduxInProgress } from "./Story1/InProgress";
+import { Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
 
-import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
-import { ViewConsentRequests } from './Components/ViewConsentRequests';
-import { OverviewClientDemand } from './Story2/OverviewClientDemand';
-import { OverviewTraining } from './Story3/OverviewTraining';
-import { AssignTrainer } from './Story4/AssignTrainer';
-import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
-import { ColumnChartTest } from './Story2/colGraphComponent';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { TrainerAssignmentComponent } from "./Components/TrainerAssignment";
+import { ViewConsentRequests } from "./Components/ViewConsentRequests";
+import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
+import { OverviewTraining } from "./Story3/OverviewTraining";
+import { AssignTrainer } from "./Story4/AssignTrainer";
+import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import BatchModal from "./Story1/BatchModal";
+
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -34,7 +35,6 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        {/* <ColumnChartTest /> */}
         <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
@@ -97,30 +97,42 @@ export class App extends React.Component<any, any> {
                   Assign Trainers
                 </NavLink>
               </NavItem>
+              {/* <NavItem>
+                <NavLink
+                  to="/modal"
+                  className="nav-link"
+                  activeClassName="active"
+                >
+                  See modal
+                </NavLink>
+              </NavItem> */}
             </Nav>
           </Navbar>
           <Switch>
             <Provider store={store}>
-              <Route path='/home'>Home page</Route>
-              <Route path='/in-progress'>
+              <Route path="/home">Home page</Route>
+              <Route path="/in-progress">
                 <ReduxInProgress />
               </Route>
-              <Route path='/overview'>
+              <Route path="/overview">
                 <OverviewClientDemand />
               </Route>
-              <Route path='/overview-training'>
+              <Route path="/overview-training">
                 <OverviewTraining />
               </Route>
-              <Route path='/assign-trainer'>
+              <Route path="/assign-trainer">
                 <AssignTrainer />
                 <TrainerAssignmentComponent />
               </Route>
-              <Route path='/trainers'>
+              <Route path="/trainers">
                 <TrainerAssignmentComponent />
               </Route>
-              <Route path='/consent'>
+              <Route path="/consent">
                 <ViewConsentRequests />
               </Route>
+              {/* <Route path="/modal">
+                <BatchModal />
+              </Route> */}
             </Provider>
           </Switch>
         </Router>
