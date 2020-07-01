@@ -88,7 +88,7 @@ export class App extends React.Component<any, any> {
           </Switch>
       </Router>
 
-      <div className= "left"><ASTableModel /></div>
+      <div className="associate-table" ><ASTableModel  /></div> 
         
 
         </Container>)

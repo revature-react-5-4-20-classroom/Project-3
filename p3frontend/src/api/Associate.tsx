@@ -22,14 +22,17 @@ try {
   }
 }
 
-export async function updateAssociate(obj: Associate) : Promise <Associate> {
+export async function updateAssociate(obj: Associate)  {
 try  {
+  const oReq = new XMLHttpRequest();
+  oReq.open("PATCH", "http://localhost:1235/associates");
+  
+  oReq.send(JSON.stringify(obj));
+  
+  
 
-  let response = await axiosClient.patch ('/associates');
-
-  return response.data.map((a: Associate) => {
-    let {associateId, firstName, lastName, email, active, interviewScore, batch} = a;
-  });} catch (e) {
+ 
+  } catch (e) {
     throw new FailedUpdateException (`The update has failed`);
 }
 }
