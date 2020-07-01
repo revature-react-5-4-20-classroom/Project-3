@@ -20,6 +20,7 @@ import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceW
 import { ColumnChartTest } from './Story2/colGraphComponent';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { BatchPage } from './Components/GenerateBatch/BatchPage';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -102,6 +103,9 @@ export class App extends React.Component<any, any> {
           <Switch>
             <Provider store={store}>
               <Route path='/home'>Home page</Route>
+              <Route path='/batches'>
+                <BatchPage />
+              </Route>
               <Route path='/in-progress'>
                 <ReduxInProgress />
               </Route>

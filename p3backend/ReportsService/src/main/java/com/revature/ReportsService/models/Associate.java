@@ -8,10 +8,10 @@ public class Associate {
 	private String email;
 	private Boolean active;
 	private Integer interviewScore;
-	private Integer assignedBatchId;
+	private Batch batch;
 
 	public Associate(Integer associateId, String firstName, String lastName, String email, Boolean active,
-			Integer interviewScore, Integer assignedBatchId) {
+			Integer interviewScore, Batch assignedBatchId) {
 		super();
 		this.associateId = associateId;
 		this.firstName = firstName;
@@ -19,7 +19,7 @@ public class Associate {
 		this.email = email;
 		this.active = active;
 		this.interviewScore = interviewScore;
-		this.assignedBatchId = assignedBatchId;
+		this.batch = assignedBatchId;
 	}
 
 	public Integer getAssociateId() {
@@ -70,11 +70,11 @@ public class Associate {
 		this.interviewScore = interviewScore;
 	}
 
-	public Integer getAssignedBatchId() {
-		return assignedBatchId;
+	public Batch getAssignedBatchId() {
+		return batch;
 	}
 
-	public void setAssignedBatchId(Integer assignedBatchId) {
-		this.assignedBatchId = assignedBatchId;
+	public void setAssignedBatchId(Batch assignedBatchId) {
+		this.batch = assignedBatchId;
 	}
 }
