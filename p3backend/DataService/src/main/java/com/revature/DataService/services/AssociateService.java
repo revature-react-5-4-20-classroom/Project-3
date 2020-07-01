@@ -28,9 +28,10 @@ public class AssociateService {
 	}
 	
 
-	public Associate updateAssociate(Associate a) {
+	public void updateAssociate(Associate a) {
 		
-		return associateRepository.save(a);
+		
+		associateRepository.save(a);
 	}
 }
 

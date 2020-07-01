@@ -43,9 +43,9 @@ public class AssociateController {
 	}
 	
 	@PatchMapping
-	public Associate updateAssociate(@RequestBody Associate a) {
+	public void updateAssociate(@RequestBody Associate a) {
 		try {
-			return associateService.updateAssociate(a);
+			associateService.updateAssociate(a);
 		} catch (Exception e) {
 			throw new UpdateFailedException("Associate batch did not update");
 		}
