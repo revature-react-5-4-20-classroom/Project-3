@@ -21,7 +21,7 @@ public class ClientDemandController
     ClientDemandRepo clientDemandRepo;
     
     //get all the clientDemand rows in that table
-    @GetMapping("/clientDemand")
+    @GetMapping("/clientdemand")
     public List<ClientDemand> endpointAll1() {
       return clientDemandRepo.findAll();
     } 
