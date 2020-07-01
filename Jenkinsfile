@@ -6,11 +6,13 @@ pipeline {
       when {
         expression {
           env.BRANCH_NAME == 'master' ||
+
           env.BRANCH_NAME == 'development' ||
           env.BRANCH_NAME == 'development-dataservice' ||
           env.CHANGE_TARGET == 'master' ||
           env.CHANGE_TARGET == 'development' ||
           env.CHANGE_TARGET == 'development-dataservice' 
+
         }
       }
       environment {
@@ -33,6 +35,7 @@ chmod +x mvnw
       when {
         expression {
           env.BRANCH_NAME == 'master' ||
+
           env.BRANCH_NAME == 'development' ||
           env.BRANCH_NAME == 'development-dataservice' ||
           env.BRANCH_NAME == 'development-reportservice' ||
