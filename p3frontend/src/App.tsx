@@ -35,8 +35,8 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        <ColumnChartTest />
-        {/* <link
+        {/* <ColumnChartTest /> */}
+        <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         />
@@ -97,8 +97,8 @@ export class App extends React.Component<any, any> {
                 >
                   Assign Trainers
                 </NavLink>
-              </NavItem> */}
-        {/* <NavItem>
+              </NavItem>
+              <NavItem>
                 <NavLink
                   to="/modal"
                   className="nav-link"
@@ -106,8 +106,8 @@ export class App extends React.Component<any, any> {
                 >
                   See modal
                 </NavLink>
-              </NavItem> */}
-        {/* </Nav>
+              </NavItem>
+        </Nav>
           </Navbar>
           <Switch>
             <Provider store={store}>
@@ -130,13 +130,13 @@ export class App extends React.Component<any, any> {
               </Route>
               <Route path="/consent">
                 <ViewConsentRequests />
-              </Route> */}
-        {/* <Route path="/modal">
+              </Route>
+        <Route path="/modal">
                 <BatchModal />
-              </Route> */}
-        {/* </Provider>
+              </Route>
+        </Provider>
           </Switch>
-        </Router> */}
+        </Router>
       </Container>
     );
   }
