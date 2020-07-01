@@ -51,10 +51,9 @@ npm run build'''
       agent any
       steps {
         sh '''ls
-        printenv'''
-        
-    //   }
-    // }
+        printenv''' 
+      }
+    }
     // stage('Ls the root folder') {
     //   agent any
     //   when {
