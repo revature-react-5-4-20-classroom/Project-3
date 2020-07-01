@@ -22,13 +22,13 @@ export class ViewConsentRequests extends React.Component<any,IViewConsentRequest
     }
 
     accept = async(id:number) =>{
-        let consentRequest = this.state.consentRequests[id];
+        let consentRequest : Consent= this.state.consentRequests[id];
         consentRequest.isApproved = true;
         await approveConsentRequest(consentRequest);
     }
 
     decline = async(id:number) =>{
-        let consentRequest = this.state.consentRequests[id];
+        let consentRequest : Consent = this.state.consentRequests[id];
         consentRequest.isApproved = false;
         await denyConsentRequest(consentRequest);
     }

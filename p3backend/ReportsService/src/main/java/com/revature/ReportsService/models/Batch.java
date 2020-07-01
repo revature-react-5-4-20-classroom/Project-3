@@ -5,28 +5,26 @@ import java.time.LocalDate;
 public class Batch {
 
 	private Integer batchId;
-	private String curriculumId;
+	private Integer curriculumId;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private Boolean isConfirmed;
 	private Integer interviewScoreLower;
 	private Integer locationId;
-	private Integer trainerId;
 
-	public Batch(Integer batchId, String curriculumId, LocalDate startDate, LocalDate endDate, Boolean isConfirmed,
-			Integer interviewScoreLower, Integer locationId, Integer trainerId) {
-		super();
-		this.batchId = batchId;
-		this.curriculumId = curriculumId;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.isConfirmed = isConfirmed;
-		this.interviewScoreLower = interviewScoreLower;
-		this.locationId = locationId;
-		this.trainerId = trainerId;
-	}
+	public Batch(Integer batchId, Integer curriculumId, LocalDate startDate, LocalDate endDate,
+      Boolean isConfirmed, Integer interviewScoreLower, Integer locationId) {
+    super();
+    this.batchId = batchId;
+    this.curriculumId = curriculumId;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.isConfirmed = isConfirmed;
+    this.interviewScoreLower = interviewScoreLower;
+    this.locationId = locationId;
+  }
 
-	public Integer getBatchId() {
+  public Integer getBatchId() {
 		return batchId;
 	}
 
@@ -34,11 +32,11 @@ public class Batch {
 		this.batchId = batchId;
 	}
 
-	public String getCurriculumId() {
+	public Integer getCurriculumId() {
 		return curriculumId;
 	}
 
-	public void setCurriculumId(String curriculumId) {
+	public void setCurriculumId(Integer curriculumId) {
 		this.curriculumId = curriculumId;
 	}
 
@@ -82,12 +80,6 @@ public class Batch {
 		this.locationId = locationId;
 	}
 
-	public Integer getTrainerId() {
-		return trainerId;
-	}
 
-	public void setTrainerId(Integer trainerId) {
-		this.trainerId = trainerId;
-	}
 
 }
