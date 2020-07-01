@@ -21,9 +21,7 @@ class ConfirmBatchButton extends React.Component<IConfirmBatchButtonProps, any> 
             confData = true;
         }
         const newBatch = await updateBatch(this.props.batch.batchId, confData)
-        console.log(newBatch);
         this.props.batchUpdateActionMapper(newBatch);
-        // Needs to be connected to redux store for component tree to register change
     }
 
     render() {
