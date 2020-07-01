@@ -1,9 +1,17 @@
+#GATEWAY MASTER PORT IS 2331 - SWAP THIS IN WHEN PUSHING TO MASTER
+#GATEWAY DEVELOPMENt PORT IS 8212 - THIS SHOULD BE ACTIVE BY DEFAULT
+
+
 server:  
   port: 8212
   
 spring:
   application:    
     name: gatewayservice
+
+
+#EUREKA MASTER PORT IS 2329 - SWAP THIS IN WHEN PUSHING TO MASTER
+#EUREKA DEVELOPMENT PORT IS 8762 - THIS SHOULD BE ACTIVE BY DEFAULT
 
 eureka:
   client:
@@ -21,3 +29,6 @@ zuul:
     reports:
       path: /reports/**
       service-id: reportsservice
+      
+       
+      
