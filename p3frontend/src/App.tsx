@@ -8,7 +8,7 @@ import {
   BrowserRouter,
   NavLink,
 } from 'react-router-dom';
-import { InProgress, ReduxInProgress } from './Story1/InProgress';
+import { InProgress, ReduxInProgress } from './Story1/InProgressRenes';
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
 
 import { TrainerAssignmentComponent } from './Story4/TrainerAssignment';
