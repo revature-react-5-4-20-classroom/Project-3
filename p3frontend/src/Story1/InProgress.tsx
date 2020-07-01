@@ -93,6 +93,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 		let batch=this.state.batches;
 		console.log(batch)
 		this.setState({
+			filteredBatches:batch,
 			batchDisplayData: this.convertServerDataToDisplayData(batch),
 		})
 	}
