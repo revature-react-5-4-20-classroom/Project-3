@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useState } from 'react';
+import './App.css';
 
 import {
   BrowserRouter as Router,
@@ -20,6 +20,16 @@ import ASTableModel from "./Story1/ASTableModel";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
 
+// import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
+// import { ViewConsentRequests } from './Components/ViewConsentRequests';
+// import { OverviewClientDemand } from './Story2/OverviewClientDemand';
+// import { OverviewTraining } from './Story3/OverviewTraining';
+//import { AssignTrainer } from './Story4/AssignTrainer';
+import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
+// import { Provider } from 'react-redux';
+// import { store } from './redux/store';
+// import BatchModal from './Story1/BatchModal';
+import { ColumnChartTest } from './Story2/colGraphComponent';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -34,7 +44,8 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        <link
+        <ColumnChartTest />
+        {/* <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         />
