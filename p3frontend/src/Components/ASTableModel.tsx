@@ -31,7 +31,7 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
     super(props);
 
     this.state = {
-     currentBatchId : 9,
+     currentBatchId :7,
      associates: [], //everybody that comes from the backend
      eligibleAssociates: [], //interview score >70 and no assigned batch yet
      associatesInBatch: [], //associates chosen for the current batch
@@ -61,6 +61,9 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
       associatesInBatch: associatesInBatch,
       associatesLoaded: true,
       })
+console.log(this.state.eligibleAssociates);
+console.log(associatesInBatch);
+
     };
   
     associateAdd = async (obj : Associate, i: number) => {

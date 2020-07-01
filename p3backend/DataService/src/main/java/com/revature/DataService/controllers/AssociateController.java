@@ -32,7 +32,7 @@ public class AssociateController {
 		return associateService.getAll();
 	}
 	
-
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	public Associate getAssociateById(@PathVariable Integer id) {
 		try {
