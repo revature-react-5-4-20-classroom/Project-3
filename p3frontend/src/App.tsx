@@ -16,7 +16,7 @@ import { OverviewTraining } from "./Story3/OverviewTraining";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import BatchModal from "./Story1/BatchModal";
-import ASTableModel from "./Components/ASTableModel";
+import ASTableModel from "./Story1/ASTableModel";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
 
@@ -51,12 +51,10 @@ export class App extends React.Component<any, any> {
             [
               {end:'/home',             name:'Home',                comp:(<h1>Home</h1>)},
               {end:'/in-progress',      name:'In Progress',         comp:(<ReduxInProgress />)},
-              {end:'/ASTable',          name:'ASTable',             comp:(<ASTableModel  />)},
               {end:'/trainer-assign',   name:'Trainer assignment',  comp:(<TrainerAssignmentComponent />)},
               {end:'/consent-requests', name:'Consent requests',    comp:(<ViewConsentRequests />)},
               {end:'/overview-training',name:'Overview Training',   comp:(<OverviewTraining />)},
               {end:'/overview-demand',  name:'Overview Demand',     comp:(<OverviewClientDemand />)},
-              {end:'/s1modal',          name:'S1 Modal',            comp:(<BatchModal />)},
             ]
           )
 
