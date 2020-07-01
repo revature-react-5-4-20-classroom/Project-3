@@ -21,6 +21,12 @@ export const batchReducer = (state:IBatchState = initialBatchState, action:AnyAc
               }
                
             }
+        case clickTypes.BATCH_UPDATE: {
+            let updatedBatch : Batch = action.payload.updatedBatch;
+            return {
+                batch: updatedBatch
+            }
+        }
         default :{
             return state;
         }
