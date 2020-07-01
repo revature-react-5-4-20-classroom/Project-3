@@ -21,6 +21,7 @@ import { allTheActionMappers, batchClickActionMapper } from "../redux/action-map
 import { IState, allTheMapStateToProps } from "../redux/reducers";
 import {pseudoDataResponse}  from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
+import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
 
 const doPrnt=true//prnt will work
 
@@ -51,6 +52,8 @@ When I navigate to the 'In Progress' view
 And I optionally select Program Type (ROCP, CF, Standard, Spark) or Curricula or client
 Then I see current week, weeks remaining, number of active/inactive associates, trainer, location filtered by criteria
 And this data is shown as a table and a Calendar view</p><br/>
+				<Button id='btnUsePseudo' onClick={this.usePseudoData}>Use pseudo data</Button>
+				<EasyTooltip target={'btnUsePseudo'} displayText='Puts pseudo data into this component. pseudo data is json that is stored within the frontend.' />
 				<Row>
 					<Col>
 						<b>program type</b>
@@ -212,6 +215,15 @@ And this data is shown as a table and a Calendar view</p><br/>
 		})
 	}
 
+	//puts pseudo data in when we do not have data from the server
+	usePseudoData=()=>
+	{
+		this.setState({
+			batches: pseudoDataResponse.data,
+			batchDisplayData: this.convertServerDataToDisplayData(pseudoDataResponse.data),
+		});
+	}
+
 	//returns an array of batches that haven been transformed for easy display
 	convertServerDataToDisplayData=(batchesFromServer:Batch[])=>
 	{
@@ -265,6 +277,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 		})
 	}
 
+	//fetches batches from the server, converts it to display data, and set it. checks for error edge cases.
 	fetchTheBatchData=async()=>
 	{
 		try 
@@ -278,6 +291,8 @@ And this data is shown as a table and a Calendar view</p><br/>
 			}
 			else
 			{
+				prnt(doPrnt,`fetchTheBatchData() had a response`)
+
 				this.setState({
 					batches: batchData,
 					batchDisplayData: this.convertServerDataToDisplayData(batchData),
