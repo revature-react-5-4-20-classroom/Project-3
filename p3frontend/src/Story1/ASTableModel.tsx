@@ -30,7 +30,7 @@ interface IASTableModelState {
   associates can be assigned or removed from the batch.
 */
 
-export default class ASTableModel extends React.Component<IASTableModelProps, IASTableModelState> 
+export default class ASTableModel extends React.Component<IASTableModelProps, any> 
 {
   constructor (props: IASTableModelProps) 
   {
@@ -47,14 +47,14 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
 
   }
 
-  async componentDidMount()
+  componentDidMount=async()=>
   {
     try
     {
       console.log(`ASTableModel componentDidMount() has been reached`)
 
-      let associatesInBatch=this.props.currentBatch.associates
-      prnt(doPrnt,`associatesInBatch A=`,associatesInBatch)
+      let assocInBatch=this.props.currentBatch.associates
+      prnt(doPrnt,`assocInBatch A=`,assocInBatch)
 
       const associateArray: Associate[] = await getAllAssociates();
 
@@ -71,13 +71,12 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
       //   //this.state.currentBatchId 
       // });
 
-      associatesInBatch=this.props.currentBatch.associates
-      prnt(doPrnt,`associatesInBatch V=`,associatesInBatch)
+      prnt(doPrnt,`assocInBatch B=`,assocInBatch)
 
       this.setState({
         associates: associateArray,
         eligibleAssociates: eligibleAssociateArray,
-        associatesInBatch: associatesInBatch,
+        associatesInBatch: assocInBatch,
         associatesLoaded: true,
       })
     }
@@ -85,9 +84,13 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
     {
       this.setState({errorObject:e,errorMessage:"Could not retrieve all associates"})
     }
-  };
+  }
 
-  render() {
+  render() 
+  {
+    prnt(doPrnt,`ASTableModel render() has been reached`)
+    prnt(doPrnt,`this.state.associatesInBatch=`,this.state.associatesInBatch)
+    //prnt(doPrnt,`this.props.currentBatch.associates=`,this.props.currentBatch.associates)
 
     return (
       <Container>

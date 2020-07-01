@@ -19,6 +19,7 @@ import BatchModal from "./Story1/BatchModal";
 import ASTableModel from "./Story1/ASTableModel";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
+import { TestConvertToObject } from "./GeneralPurposeHelpers/convertToObject";
 
 
 export class App extends React.Component<any, any> {
@@ -55,6 +56,7 @@ export class App extends React.Component<any, any> {
               {end:'/consent-requests', name:'Consent requests',    comp:(<ViewConsentRequests />)},
               {end:'/overview-training',name:'Overview Training',   comp:(<OverviewTraining />)},
               {end:'/overview-demand',  name:'Overview Demand',     comp:(<OverviewClientDemand />)},
+              {end:'/test-convert',     name:'TC',                  comp:(<TestConvertToObject />)},
             ]
           )
 
