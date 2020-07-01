@@ -69,6 +69,68 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
 //         })
 //     }
 
+// componentWillReceiveProps=()=>{
+//     this.changeState();
+// }
+
+
+
+componentDidUpdate=(prevProps:any)=>{
+    
+    if(prevProps.batches!==this.props.batches){
+        this.changeState();
+    }
+
+}
+
+
+ changeState=()=>{
+     console.log("hello")
+    let mappedGroups: any[] = [];
+    let mappedItems: any[] = [];
+
+    this.props.batches && this.props.batches.map(  (batch:Batch, index:number) => {
+        let group = {
+            id: batch.batchId,
+            title: ` ${batch.location.locationName}`,
+            
+        }
+        let item = {
+            id: batch.batchId,
+            group: batch.batchId,
+            title:`${batch.curriculum.name}` ,
+            start_time: new Date(batch.startDate),
+            end_time: new Date(batch.endDate),
+            canMove: false,
+            canResize: false,
+            canChangeGroup: false,
+            color: 'rgb(0, 14, 206)',
+     
+            itemProps:{
+        onContextMenu:(event:any)=>{
+            this.displayBatchInfo(batch)
+        },
+                
+
+                onDoubleClick: () => {alert("hello")},
+            }
+
+        }
+
+        mappedGroups.push(group);
+        mappedItems.push(item);
+      
+    })
+    console.log(mappedItems);
+    this.setGroupsAndItems(mappedGroups,mappedItems)
+
+
+
+
+
+}
+
+
 
 toggle=()=>{
     let toggle=!this.state.toggle;
@@ -83,7 +145,7 @@ toggle=()=>{
             items : items,
         })
     }
-    async componentDidMount() {
+     componentDidMount() {
         let timer:any;
         let alreadyClicked=false;
         //await this.setBatches();
@@ -161,7 +223,7 @@ toggle=()=>{
 
     render() {
 
-
+console.log(this.state.items)
         if(this.state.items){
         return (
             <div>
