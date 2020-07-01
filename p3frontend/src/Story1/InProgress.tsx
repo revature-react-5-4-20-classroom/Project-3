@@ -40,6 +40,8 @@ export class InProgress extends React.Component<any,any>
 		filteredBatches: [],
 		client: '(none)',
 		curriculum: '',
+		programTypesArray:[]
+		
 		}
 	}
 
@@ -54,6 +56,9 @@ And I optionally select Program Type (ROCP, CF, Standard, Spark) or Curricula or
 Then I see current week, weeks remaining, number of active/inactive associates, trainer, location filtered by criteria
 And this data is shown as a table and a Calendar view</p><br/>
 				<Row>
+					<Col>
+					<Button onClick={this.reset}>Reset</Button>
+					</Col>
 					<Col>
 						<b>program type</b>
 						<EasyDropdown onSelected={this.setProgramType}  items={['CF','ROCP',  'Standard', 'Spark']}/>
@@ -77,9 +82,19 @@ And this data is shown as a table and a Calendar view</p><br/>
 				<br/>
 				<br/>
 				{/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
-				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux batches={this.state.batches}/>	}
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux batches={this.state.filteredBatches}/>	}
 				{/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
 		</Container>)
+	}
+
+
+	reset=()=>{
+		console.log("helsf")
+		let batch=this.state.batches;
+		console.log(batch)
+		this.setState({
+			batchDisplayData: this.convertServerDataToDisplayData(batch),
+		})
 	}
 
 	displayTheDataAsATable=()=>
@@ -291,34 +306,62 @@ And this data is shown as a table and a Calendar view</p><br/>
 		// }
 		try {
 			let batchData = await getAllBatches();
+			let programtype=batchData.map((batch:Batch)=>{
+				return batch.programType;
+			
+			});
+			
 			this.setState({
 				batches: batchData,
 				filteredBatches: batchData,
 				batchDisplayData: this.convertServerDataToDisplayData(batchData),
+				programTypesArray:programtype
 			});
+
+
+
+
+
 		} catch(e) {
 			this.setState({error:e});
 		}
 	}
 
-	setProgramType=(value:string)=>
+	setProgramType=(value:string)=>    //filter
 	{
-		//this.fetchTheBatchData()
-		this.setState({programType:value})
+	console.log(value);
+if(this.state.programTypesArray.indexOf(value)>-1){
+	let filtercurr=this.state.filteredBatches;
+	let filtered=filtercurr.filter((batch:Batch)=>{
+		return batch.programType===value;
+				  })
+				  console.log(filtered);
+		
+				this.setState({filteredBatches:filtered,
+					batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+
+
+}
+
+
 	}
 
-	// setWorkType=(value:string)=>
-	// {
-	// 	//this.fetchTheBatchData()
-	// 	this.setState({workType:value})
-	// }
 	
 	setClient=(value:string)=> {
 		this.setState({client: value},this.filterBatchesByClient)
 	}
 
-	setCurriculum=(value:string)=> {
-		this.setState({curriculum: value})
+	setCurriculum=(value:string)=> {   //filter
+		console.log(value);
+		let filtercurr=this.state.filteredBatches;
+		console.log(filtercurr)
+          let filtered=filtercurr.filter((batch:Batch)=>{
+return batch.curriculum.name==value;
+		  })
+		  console.log(filtered);
+
+		this.setState({filteredBatches:filtered,
+			batchDisplayData: this.convertServerDataToDisplayData(filtered)})
 	}
 
 	setViewType=(value:string)=>
