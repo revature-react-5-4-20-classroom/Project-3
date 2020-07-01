@@ -14,7 +14,7 @@ export class ColumnChartTest extends React.Component<any, any> {
       shouldUpdate: false,
       current: 0,
       shouldRunInit: false,
-      clientDemand: [],
+      clientDemand: new Map(),
     };
   }
 
@@ -48,8 +48,31 @@ export class ColumnChartTest extends React.Component<any, any> {
   getDemand = async () => {
     let demandArr = await getAllClientDemands();
     console.log(`DEMAND = `, demandArr);
-    return demandArr;
+    // Create client demand data that has skillsetname : #
+    let clientDemandData = new Map();
+    // map through array of demands to add skillset & quantity to obj
+    demandArr.map((cl: any) => {
+      let skillset = cl.skillsetName;
+      let quantity = cl.quantity;
+      // Check to see if skillset is already in object, and if so
+      // add the quantity to the existing quantity
+      if (!clientDemandData.has(skillset)) {
+        clientDemandData.set(skillset, quantity);
+      } else {
+        clientDemandData.set(
+          skillset,
+          clientDemandData.get(skillset) + quantity
+        );
+      }
+    });
+    console.log(clientDemandData);
+    return clientDemandData;
   };
+
+  // getSupply = async() => {
+  //   let supplyArr = await
+  // }
+
   // This initializes google charts
   loadGoogle = () => {
     google.charts.load('current', { packages: ['corechart', 'bar'] });
@@ -86,6 +109,33 @@ export class ColumnChartTest extends React.Component<any, any> {
       ['1 Month', 10],
       ['3 Months', 20],
     ]);
+    data[2] = new google.visualization.DataTable();
+    data[2].addColumn('string', 'Demand and Supply');
+    data[2].addColumn('number', 'Salesforce');
+    data[2].addRows([
+      ['Client Demand', 21],
+      ['Current', 6],
+      ['1 Month', 12],
+      ['3 Months', 15],
+    ]);
+    data[3] = new google.visualization.DataTable();
+    data[3].addColumn('string', 'Demand and Supply');
+    data[3].addColumn('number', 'Data');
+    data[3].addRows([
+      ['Client Demand', 16],
+      ['Current', 8],
+      ['1 Month', 6],
+      ['3 Months', 10],
+    ]);
+    data[4] = new google.visualization.DataTable();
+    data[4].addColumn('string', 'Demand and Supply');
+    data[4].addColumn('number', 'Ai');
+    data[4].addRows([
+      ['Client Demand', 4],
+      ['Current', 1],
+      ['1 Month', 3],
+      ['3 Months', 5],
+    ]);
 
     // Creates view with data?????????
     var view = [];
@@ -93,6 +143,12 @@ export class ColumnChartTest extends React.Component<any, any> {
     view[0].setRows([0, 1, 2, 3]);
     view[1] = new google.visualization.DataView(data[1]);
     view[1].setRows([0, 1, 2, 3]);
+    view[2] = new google.visualization.DataView(data[2]);
+    view[2].setRows([0, 1, 2, 3]);
+    view[3] = new google.visualization.DataView(data[3]);
+    view[3].setRows([0, 1, 2, 3]);
+    view[4] = new google.visualization.DataView(data[4]);
+    view[4].setRows([0, 1, 2, 3]);
 
     // Labeling and styling
     var options: any = {
@@ -125,22 +181,57 @@ export class ColumnChartTest extends React.Component<any, any> {
     });
   };
 
-  doSomething = () => {
+  doSomething = (n: number) => {
     this.setState({
-      current: 1 - this.state.current,
+      current: n,
       shouldRunInit: true,
       shouldUpdate: true,
     });
   };
+
+  // This can be used to loop through data to create all tables necessary
+  // createTableData = (dataArray: any, viewArray: any, index: number, dataObj: any) => {
+  //   let data = dataArray;
+  //   data[index] = new google.visualization.DataTable();
+  //   data[index].addColumn('string', 'Demand and Supply');
+  //   data[index].addColumn('number', 'Java/React'); // Data.curriculumName
+  //   data[index].addRows([
+  //     ['Client Demand', 23], // data.total
+  //     ['Current', 4], // data.current
+  //     ['1 Month', 10], // data.oneMonth
+  //     ['3 Months', 20], // data.threeMonth
+  //   ]);
+  //   let view = viewArray;
+  //   view[index] = new google.visualization.DataView(data[index]);
+  //   view[index].setRows([0, 1, 2, 3]);
+  //   let results = {data, view};
+  //   return results;
+  // }
 
   render() {
     return (
       <>
         <h1>Hi</h1>
         <div ref={this.myRef} />
-        <Button onClick={this.doSomething} ref={this.myButton}>
-          Change
+        {/* <Button onClick={() => this.doSomething(0)} ref={this.myButton}>
+          All
         </Button>
+
+        <Button onClick={() => this.doSomething(1)} ref={this.myButton}>
+          Java/React
+        </Button>
+
+        <Button onClick={() => this.doSomething(2)} ref={this.myButton}>
+          Salesforce
+        </Button>
+
+        <Button onClick={() => this.doSomething(3)} ref={this.myButton}>
+          Data
+        </Button>
+
+        <Button onClick={() => this.doSomething(4)} ref={this.myButton}>
+          AI
+        </Button> */}
       </>
     );
   }
