@@ -6,6 +6,7 @@ import { getBatchById } from "../api/batch";
 import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
+import { axiosClient } from "../api/axios";
 
 const doPrnt=true//prnt may be toggled
 
@@ -71,7 +72,7 @@ export default class ASTableModel extends React.Component<IASTableModelProps, an
       //   //this.state.currentBatchId 
       // });
 
-      prnt(doPrnt,`assocInBatch B=`,assocInBatch)
+      //prnt(doPrnt,`assocInBatch B=`,assocInBatch)
 
       this.setState({
         associates: associateArray,
@@ -88,8 +89,8 @@ export default class ASTableModel extends React.Component<IASTableModelProps, an
 
   render() 
   {
-    prnt(doPrnt,`ASTableModel render() has been reached`)
-    prnt(doPrnt,`this.state.associatesInBatch=`,this.state.associatesInBatch)
+    // prnt(doPrnt,`ASTableModel render() has been reached`)
+    // prnt(doPrnt,`this.state.associatesInBatch=`,this.state.associatesInBatch)
     //prnt(doPrnt,`this.props.currentBatch.associates=`,this.props.currentBatch.associates)
 
     return (
@@ -109,13 +110,30 @@ export default class ASTableModel extends React.Component<IASTableModelProps, an
     );
   }
 
+  async patchTheAssoc(assoc:Associate)
+  {
+    prnt(doPrnt,`ASTableModel patchTheAssoc() has been reached`)
+    prnt(doPrnt,`assoc=`,assoc)
+
+    try
+    {
+      await axiosClient.patch('/associates', assoc);
+    }
+    catch(e)
+    {
+      this.setState({errorObject:e,errorMessage:"Could not patch associate"})
+    }
+  }
+
   associateAdd = async (assoc : Associate, i: number) => {
     this.state.associatesInBatch.push(assoc);
     this.state.eligibleAssociates.splice(i, 1);
     assoc.batch = this.props.currentBatch//await getBatchById(this.state.currentBatchId);
     console.log(assoc.batch);
     console.log(assoc);
-    await updateAssociate(assoc);
+
+    await this.patchTheAssoc(assoc);
+
     this.setState({});
   }
 
@@ -125,7 +143,7 @@ export default class ASTableModel extends React.Component<IASTableModelProps, an
     assoc.batch = this.state.eligibleAssociates[0].batch;
     console.log(assoc.batch);
     console.log(assoc);
-    await updateAssociate(assoc);
+    await this.patchTheAssoc(assoc);
     this.setState({});
   }
 

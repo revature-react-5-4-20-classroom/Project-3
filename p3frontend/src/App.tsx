@@ -51,13 +51,12 @@ export class App extends React.Component<any, any> {
           */
           createRoutesAndNavbar(this.toggleNavbar,
             [
-              {end:'/home',             name:'Home',                comp:(<h1>Home</h1>)},
-              {end:'/in-progress',      name:'In Progress',         comp:(<ReduxInProgress />)},
-              {end:'/trainer-assign',   name:'Trainer assignment',  comp:(<TrainerAssignmentComponent />)},
-              {end:'/consent-requests', name:'Consent requests',    comp:(<ViewConsentRequests />)},
-              {end:'/overview-training',name:'Overview Training',   comp:(<OverviewTraining />)},
-              {end:'/overview-demand',  name:'Overview Demand',     comp:(<OverviewClientDemand />)},
-              {end:'/test-convert',     name:'TC',                  comp:(<TestConvertToObject />)},
+              {end:'/in-progress',      name:'S1 In Progress',        comp:(<ReduxInProgress />)},
+              {end:'/overview-demand',  name:'S2 Overview Demand',    comp:(<OverviewClientDemand />)},
+              {end:'/overview-training',name:'S3 Overview Training',  comp:(<OverviewTraining />)},
+              {end:'/trainer-assign',   name:'Trainer assignment',    comp:(<TrainerAssignmentComponent />)},
+              {end:'/consent-requests', name:'Consent requests',      comp:(<ViewConsentRequests />)},
+              {end:'/test-convert',     name:'TC',                    comp:(<TestConvertToObject />)},
             ]
           )
 
