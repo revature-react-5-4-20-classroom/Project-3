@@ -126,13 +126,12 @@ export class App extends React.Component<any, any> {
               </Route>
             </Provider>
           </Switch>
-      </Router>
-
-      <div className="associate-table" ><ASTableModel  /></div> 
-        
-
-        </Container>)
-
+        </Router>
+        <div className="associate-table" >
+          <ASTableModel  />
+        </div> 
+      </Container>
+    );
 
   }
 }
