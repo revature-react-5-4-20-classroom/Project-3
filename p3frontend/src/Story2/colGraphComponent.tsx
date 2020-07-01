@@ -136,7 +136,7 @@ export class ColumnChartTest extends React.Component<any, any> {
   render() {
     return (
       <>
-        <h1>Hi</h1>
+        <h6>Please enjoy the following data</h6>
         <div ref={this.myRef} />
         <Button onClick={this.doSomething} ref={this.myButton}>
           Change

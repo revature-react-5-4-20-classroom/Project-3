@@ -41,7 +41,7 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
 
   }
 
-     async componentDidMount(){
+    async componentDidMount(){
     
     const associateArray: Associate[] = await getAllAssociates();
     //console.log(`ComponentDidMount ${JSON.stringify(associateArray)}`);
@@ -86,18 +86,20 @@ export default class ASTableModel extends React.Component<IASTableModelProps, IA
   render() {
 
     return (
-      <Container >
-        <Row>
-          <Col >
-            <h4>All Available Associates</h4>
-             {this.displayTable(this.state.eligibleAssociates, "No eligible associates left.", "Add", this.associateAdd)}
-          </Col>
-          <Col>
-            <h4>Batch Associates</h4>
-            {this.displayTable(this.state.associatesInBatch, "No associates currently assigned to this batch.", "Remove", this.associateRemove)}
-          </Col>
-        </Row>
-      </Container> 
+      <div className="associate-table" >
+        <Container >
+          <Row>
+            <Col >
+              <h4>All Available Associates</h4>
+              {this.displayTable(this.state.eligibleAssociates, "No eligible associates left.", "Add", this.associateAdd)}
+            </Col>
+            <Col>
+              <h4>Batch Associates</h4>
+              {this.displayTable(this.state.associatesInBatch, "No associates currently assigned to this batch.", "Remove", this.associateRemove)}
+            </Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 

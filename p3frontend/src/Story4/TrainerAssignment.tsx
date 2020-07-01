@@ -91,10 +91,11 @@ export class TrainerAssignmentComponent extends React.Component<
       trainers: allTrainers,
     });
   };
-
+  
   render() {
     return (
       <>
+        <h6>Trainer assignment component</h6>
         <ListGroup>
           {this.state.trainers.map((trainer: Trainer, i) => {
             //trying to use the same item display everywhere
