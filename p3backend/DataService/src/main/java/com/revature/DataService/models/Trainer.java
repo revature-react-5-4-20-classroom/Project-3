@@ -122,6 +122,7 @@ public class Trainer {
 	}
 
 
+<<<<<<< HEAD
 
 
 	public Trainer() {
@@ -151,10 +152,38 @@ public class Trainer {
 	public void setConsent(List<Consent> consent) {
 		this.consents = consent;
 	}
+=======
+
+	public Trainer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+public Trainer(Integer trainerId, String firstName, String lastName, String email, List<Skillset> trainerSkills,
+		List<Batch> batches, boolean isEligible) {
+	super();
+	this.trainerId = trainerId;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.email = email;
+	this.trainerSkills = trainerSkills;
+	this.batches = batches;
+	this.isEligible = isEligible;
+}
+
+//	public List<Consent> getConsent() {
+//		return consents;
+//	}
+//
+//	public void setConsent(List<Consent> consent) {
+//		this.consents = consent;
+//	}
+>>>>>>> addcbf979d06ba49b4d4ff38556653052b22a354
 
 	@Override
 	public String toString() {
 		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+<<<<<<< HEAD
 				+ email + ", isEligible=" + isEligible + ", trainerSkills=" + trainerSkills + ", consents=" + consents
 				+ ", batches=" + batches + "]";
 	}
@@ -166,6 +195,10 @@ public class Trainer {
 	
 
 	
+=======
+				+ email + ", trainerSkills=" + trainerSkills + ", batches=" + batches + "]";
+	}	
+>>>>>>> addcbf979d06ba49b4d4ff38556653052b22a354
 
 	
 }
