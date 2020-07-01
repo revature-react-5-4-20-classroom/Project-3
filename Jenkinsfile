@@ -3,6 +3,11 @@ pipeline {
   stages {
     stage('Build DataService') {
       agent any
+      when {
+        expression {
+          env.BRANCH_NAME == 'master'
+        }
+      }
       environment {
         SPRING_PROFILES_ACTIVE = 'local'
       }
@@ -38,7 +43,9 @@ npm run build'''
         }
       }
       steps {
-        sh '''ls'''
+        sh '''ls
+        printenv'''
+        
       }
     }
 
