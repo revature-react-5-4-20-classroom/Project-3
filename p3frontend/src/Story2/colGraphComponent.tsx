@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button } from 'reactstrap';
+import { getAllClientDemands } from '../api/clientDemand';
+import { ClientDemands } from '../models/ClientDemands';
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -12,11 +14,15 @@ export class ColumnChartTest extends React.Component<any, any> {
       shouldUpdate: false,
       current: 0,
       shouldRunInit: false,
+      clientDemand: [],
     };
   }
 
   componentDidMount() {
     this.loadGoogle();
+    this.setState({
+      clientDemand: this.getDemand(),
+    });
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -39,6 +45,11 @@ export class ColumnChartTest extends React.Component<any, any> {
     }
   }
 
+  getDemand = async () => {
+    let demandArr = await getAllClientDemands();
+    console.log(`DEMAND = `, demandArr);
+    return demandArr;
+  };
   // This initializes google charts
   loadGoogle = () => {
     google.charts.load('current', { packages: ['corechart', 'bar'] });
