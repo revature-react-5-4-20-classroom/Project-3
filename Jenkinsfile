@@ -45,7 +45,7 @@ npm i
 npm run build'''
       }
     }
-    // stage('Ls the root folder') { ss
+    // stage('Ls the root folder') { 
     //   agent any
     //   when {
     //     expression {
