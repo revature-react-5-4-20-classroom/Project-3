@@ -32,6 +32,11 @@ public class AssociateController {
 		return associateService.getAll();
 	}
 	
+	@GetMapping("/get-active")
+	public List<Associate> getActiveAssociates() {
+	  return associateService.getAllActive();
+	}
+	
 
 	@GetMapping("/{id}")
 	public Associate getAssociateById(@PathVariable Integer id) {

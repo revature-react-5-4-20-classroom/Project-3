@@ -14,7 +14,7 @@ export class ColumnChartTest extends React.Component<any, any> {
       shouldUpdate: false,
       current: 0,
       shouldRunInit: false,
-      clientDemand: [],
+      clientDemand: new Map(),
     };
   }
 
@@ -49,20 +49,30 @@ export class ColumnChartTest extends React.Component<any, any> {
     let demandArr = await getAllClientDemands();
     console.log(`DEMAND = `, demandArr);
     // Create client demand data that has skillsetname : #
-    let clientDemandData = [{}];
+    let clientDemandData = new Map();
     // map through array of demands to add skillset & quantity to obj
-    let mappedData = demandArr.map((cl: any) => {
+    demandArr.map((cl: any) => {
       let skillset = cl.skillsetName;
       let quantity = cl.quantity;
       // Check to see if skillset is already in object, and if so
       // add the quantity to the existing quantity
-      if (!(skillset in clientDemandData)) {
-        clientDemandData.push({ skillset: quantity });
+      if (!clientDemandData.has(skillset)) {
+        clientDemandData.set(skillset, quantity);
       } else {
+        clientDemandData.set(
+          skillset,
+          clientDemandData.get(skillset) + quantity
+        );
       }
     });
-    return demandArr;
+    console.log(clientDemandData);
+    return clientDemandData;
   };
+
+  // getSupply = async() => {
+  //   let supplyArr = await
+  // }
+
   // This initializes google charts
   loadGoogle = () => {
     google.charts.load('current', { packages: ['corechart', 'bar'] });
