@@ -31,12 +31,15 @@ export class InProgress extends React.Component<any,any>
 		super(props)
 		this.state={
 		programType:'',		//EasyDropdown will set this to its first item during render
-		workType:   '',
+		//workType:   '',
 		viewType:   '',
 		sortAscend:	true,		//sorts by ascending or decending
 		error:		null,		//holds an axios error object that will be displayed
 		batchDisplayData:[],	//holds the batch data formatted for display
 		batches: [], // batch data to be passed as a prop
+		filteredBatches: [],
+		clientId: 0,
+		curriculum: '',
 		}
 	}
 
@@ -57,8 +60,13 @@ And this data is shown as a table and a Calendar view</p><br/>
 					</Col>
 
 					<Col>
-						<b>work type</b>
-						<EasyDropdown onSelected={this.setWorkType}     items={['Curricula', 'Client']} />
+						<b>client</b>
+						<EasyDropdown onSelected={this.setClient}  items={['client1','client2']}  />
+					</Col>
+
+					<Col>
+						<b>curriculum</b>
+						<EasyDropdown onSelected={this.setCurriculum} items={['curriculum1','curriculum2']} />
 					</Col>
 
 					<Col>
@@ -285,6 +293,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 			let batchData = await getAllBatches();
 			this.setState({
 				batches: batchData,
+				filteredBatches: batchData,
 				batchDisplayData: this.convertServerDataToDisplayData(batchData),
 			});
 		} catch(e) {
@@ -298,10 +307,18 @@ And this data is shown as a table and a Calendar view</p><br/>
 		this.setState({programType:value})
 	}
 
-	setWorkType=(value:string)=>
-	{
-		//this.fetchTheBatchData()
-		this.setState({workType:value})
+	// setWorkType=(value:string)=>
+	// {
+	// 	//this.fetchTheBatchData()
+	// 	this.setState({workType:value})
+	// }
+	
+	setClient=(value:string)=> {
+		this.setState({client: value})
+	}
+
+	setCurriculum=(value:string)=> {
+		this.setState({curriculum: value})
 	}
 
 	setViewType=(value:string)=>
