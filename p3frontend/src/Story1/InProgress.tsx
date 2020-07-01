@@ -57,6 +57,9 @@ Then I see current week, weeks remaining, number of active/inactive associates, 
 And this data is shown as a table and a Calendar view</p><br/>
 				<Row>
 					<Col>
+					<Button onClick={this.reset}>Reset</Button>
+					</Col>
+					<Col>
 						<b>program type</b>
 						<EasyDropdown onSelected={this.setProgramType}  items={['CF','ROCP',  'Standard', 'Spark']}/>
 					</Col>
@@ -82,6 +85,16 @@ And this data is shown as a table and a Calendar view</p><br/>
 				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux batches={this.state.filteredBatches}/>	}
 				{/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
 		</Container>)
+	}
+
+
+	reset=()=>{
+		console.log("helsf")
+		let batch=this.state.batches;
+		console.log(batch)
+		this.setState({
+			batchDisplayData: this.convertServerDataToDisplayData(batch),
+		})
 	}
 
 	displayTheDataAsATable=()=>
@@ -314,7 +327,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 		}
 	}
 
-	setProgramType=(value:string)=>
+	setProgramType=(value:string)=>    //filter
 	{
 	console.log(value);
 if(this.state.programTypesArray.indexOf(value)>-1){
@@ -324,7 +337,8 @@ if(this.state.programTypesArray.indexOf(value)>-1){
 				  })
 				  console.log(filtered);
 		
-				this.setState({filteredBatches:filtered})
+				this.setState({filteredBatches:filtered,
+					batchDisplayData: this.convertServerDataToDisplayData(filtered)})
 
 
 }
@@ -337,7 +351,7 @@ if(this.state.programTypesArray.indexOf(value)>-1){
 		this.setState({client: value})
 	}
 
-	setCurriculum=(value:string)=> {
+	setCurriculum=(value:string)=> {   //filter
 		console.log(value);
 		let filtercurr=this.state.filteredBatches;
 		console.log(filtercurr)
@@ -346,7 +360,8 @@ return batch.curriculum.name==value;
 		  })
 		  console.log(filtered);
 
-		this.setState({filteredBatches:filtered})
+		this.setState({filteredBatches:filtered,
+			batchDisplayData: this.convertServerDataToDisplayData(filtered)})
 	}
 
 	setViewType=(value:string)=>
