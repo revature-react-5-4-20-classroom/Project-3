@@ -8,7 +8,7 @@ const buildCliDem = (res: any): ClientDemands => {
 
 export async function getAllClientDemands(): Promise<ClientDemands[]> {
   try {
-    const response = await axiosClient.get('/clientdemand');
+    const response = await axiosClient.get('/client-demand');
     const demandArr: ClientDemands[] = response.data.map(
       (cl: ClientDemands) => {
         return buildCliDem(cl);
