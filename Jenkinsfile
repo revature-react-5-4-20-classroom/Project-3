@@ -8,7 +8,6 @@ pipeline {
           env.BRANCH_NAME == 'master' ||
           env.BRANCH_NAME == 'development' ||
           env.BRANCH_NAME == 'development-dataservice' ||
-          // env.BRANCH_NAME.substring(0, 2) == 'PR'
           env.CHANGE_TARGET == 'master' ||
           env.CHANGE_TARGET == 'development' ||
           env.CHANGE_TARGET == 'development-dataservice' 
@@ -38,10 +37,11 @@ chmod +x mvnw
           env.BRANCH_NAME == 'development-dataservice' ||
           env.BRANCH_NAME == 'development-reportservice' ||
           env.BRANCH_NAME == 'development-sqsservice' ||
-          // env.BRANCH_NAME.substring(0, 2) == 'PR'
           env.CHANGE_TARGET == 'master' ||
           env.CHANGE_TARGET == 'development' ||
-          env.CHANGE_TARGET == 'development-dataservice' 
+          env.CHANGE_TARGET == 'development-dataservice' ||
+          env.CHANGE_TARGET == 'development-reportservice' ||
+          env.CHANGE_TARGET == 'development-sqsservice'
         }
       }
       environment {
@@ -53,39 +53,6 @@ npm i
 npm run build'''
       }
     }
-    stage('Ls the root folder') {
-      agent any
-      steps {
-        sh '''ls
-        printenv''' 
-      }
-    }
-    // stage('Ls the root folder') {
-    //   agent any
-    //   when {
-    //     expression {
-    //       env.BRANCH_NAME == 'ocean-jenkins'
-    //     }
-    //   }
-    //   steps {
-    //     sh '''ls
-    //     printenv'''
-        
-    //   }
-    // }
-    // stage('Ls the root folder') {
-    //   agent any
-    //   when {
-    //     expression {
-    //       env.BRANCH_NAME == 'ocean-jenkins'
-    //     }
-    //   }
-    //   steps {
-    //     sh '''ls
-    //     printenv'''
-        
-    //   }
-    // }
 
   }
 }
