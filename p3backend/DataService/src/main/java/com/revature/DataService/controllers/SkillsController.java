@@ -18,7 +18,7 @@ import com.revature.DataService.services.SkillsService;
 
 
 @RestController
-@RequestMapping("skills")
+@RequestMapping("/skills")
 public class SkillsController {
 	
 	@Autowired

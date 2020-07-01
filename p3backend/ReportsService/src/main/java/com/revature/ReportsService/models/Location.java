@@ -5,9 +5,16 @@ public class Location {
    private Integer locationId;
    private String locationName;
    
+  public Location(Integer locationId, String locationName) {
+    super();
+    this.locationId = locationId;
+    this.locationName = locationName;
+  }
+  
   public Integer getLocationId() {
     return locationId;
   }
+  
   public void setLocationId(Integer locationId) {
     this.locationId = locationId;
   }
