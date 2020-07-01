@@ -26,7 +26,7 @@ export async function updateAssociate(obj: Associate)  {
 try  {
   
         const response = await axiosClient.patch('/associates', obj);
-        console.log(`Associate ${obj.associateId} assigned to batch ${obj.batch.batchId}`);
+        
     } catch (e) {
         console.log('failed to assign associate to new batch', e.message);
         throw e;
