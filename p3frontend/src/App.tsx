@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 import {
   BrowserRouter as Router,
@@ -7,19 +7,19 @@ import {
   Switch,
   BrowserRouter,
   NavLink,
-} from 'react-router-dom';
-import { InProgress, ReduxInProgress } from './Story1/InProgressRenes';
-import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+} from "react-router-dom";
 
-import { TrainerAssignmentComponent } from './Story4/TrainerAssignment';
-import { ViewConsentRequests } from './GeneralPurposeComponents/ViewConsentRequests';
-import { OverviewClientDemand } from './Story2/OverviewClientDemand';
-import { OverviewTraining } from './Story3/OverviewTraining';
-import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
-import { ColumnChartTest } from './Story2/colGraphComponent';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import ASTableModel from './Components/ASTableModel';
+import { ReduxInProgress } from "./Story1/InProgress";
+import { Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
+import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
+import { OverviewTraining } from "./Story3/OverviewTraining";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import BatchModal from "./Story1/BatchModal";
+import ASTableModel from "./Components/ASTableModel";
+import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
+import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
+
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -34,7 +34,6 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        {/* <ColumnChartTest /> */}
         <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
@@ -57,14 +56,13 @@ export class App extends React.Component<any, any> {
               {end:'/consent-requests', name:'Consent requests',    comp:(<ViewConsentRequests />)},
               {end:'/overview-training',name:'Overview Training',   comp:(<OverviewTraining />)},
               {end:'/overview-demand',  name:'Overview Demand',     comp:(<OverviewClientDemand />)},
-              
+              {end:'/s1modal',          name:'S1 Modal',            comp:(<BatchModal />)},
             ]
           )
 
         }
       </Container>
     );
-
   }
 }
 
