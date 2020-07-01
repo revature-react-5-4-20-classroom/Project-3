@@ -48,6 +48,19 @@ export class ColumnChartTest extends React.Component<any, any> {
   getDemand = async () => {
     let demandArr = await getAllClientDemands();
     console.log(`DEMAND = `, demandArr);
+    // Create client demand data that has skillsetname : #
+    let clientDemandData = [{}];
+    // map through array of demands to add skillset & quantity to obj
+    let mappedData = demandArr.map((cl: any) => {
+      let skillset = cl.skillsetName;
+      let quantity = cl.quantity;
+      // Check to see if skillset is already in object, and if so
+      // add the quantity to the existing quantity
+      if (!(skillset in clientDemandData)) {
+        clientDemandData.push({ skillset: quantity });
+      } else {
+      }
+    });
     return demandArr;
   };
   // This initializes google charts
@@ -158,9 +171,9 @@ export class ColumnChartTest extends React.Component<any, any> {
     });
   };
 
-  doSomething = () => {
+  doSomething = (n: number) => {
     this.setState({
-      current: 1 - this.state.current,
+      current: n,
       shouldRunInit: true,
       shouldUpdate: true,
     });
@@ -190,25 +203,25 @@ export class ColumnChartTest extends React.Component<any, any> {
       <>
         <h1>Hi</h1>
         <div ref={this.myRef} />
-        <Button onClick={this.doSomething} ref={this.myButton}>
+        {/* <Button onClick={() => this.doSomething(0)} ref={this.myButton}>
           All
         </Button>
 
-        <Button onClick={this.doSomething} ref={this.myButton}>
+        <Button onClick={() => this.doSomething(1)} ref={this.myButton}>
           Java/React
         </Button>
 
-        <Button onClick={this.doSomething} ref={this.myButton}>
+        <Button onClick={() => this.doSomething(2)} ref={this.myButton}>
           Salesforce
         </Button>
 
-        <Button onClick={this.doSomething} ref={this.myButton}>
+        <Button onClick={() => this.doSomething(3)} ref={this.myButton}>
           Data
         </Button>
 
-        <Button onClick={this.doSomething} ref={this.myButton}>
+        <Button onClick={() => this.doSomething(4)} ref={this.myButton}>
           AI
-        </Button>
+        </Button> */}
       </>
     );
   }

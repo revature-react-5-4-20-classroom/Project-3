@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 
-export class ColumnChartTest extends React.Component<any, any> {
+export class ColumnButton extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -9,7 +9,7 @@ export class ColumnChartTest extends React.Component<any, any> {
     };
   }
 
-  changeChart = () => {};
+  // changeChart = () => {};
 
   // THIS NEEDS TO BE A BUTTON THAT CAN BE RENDERED WITH EACH 'TAB' OR
   // DIFFERENT 'PAGE' OF THE CHARTS THAT WILL CHANGE THE CHART TO THE
