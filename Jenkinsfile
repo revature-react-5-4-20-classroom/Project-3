@@ -31,7 +31,6 @@ chmod +x mvnw
         expression {
           env.BRANCH_NAME == 'master' ||
           env.BRANCH_NAME == 'development' ||
-          env.BRANCH_NAME == 'development-dataservice' ||
           env.BRANCH_NAME == 'development-reportservice' ||
           env.BRANCH_NAME == 'development-sqsservice' ||
           env.BRANCH_NAME.substring(0, 2) == 'PR'
