@@ -14,5 +14,22 @@ chmod +x mvnw
       }
     }
 
+    stage('Build FrontEnd') {
+      agent {
+        docker {
+          image 'node:13-alpine'
+        }
+
+      }
+      environment {
+        npm_config_cache = 'npm-cache'
+      }
+      steps {
+        sh '''cd p3frontend/
+npm i
+npm run build'''
+      }
+    }
+
   }
 }
