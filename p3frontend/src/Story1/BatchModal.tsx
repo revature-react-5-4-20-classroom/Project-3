@@ -27,16 +27,15 @@ import { allTheActionMappers } from "../redux/action-mapper";
   The modal will look like a View button.
   when that button is clicked the modal will pop up
 */
-class BatchModal extends React.Component<any, any> 
-{
-  constructor(props: any)
-  {
-    super(props)
+class BatchModal extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
     this.state = {
       showThis: false,
       showTrainers: false, //T to show trainers. F to show associates
-    }
+    };
   }
+
 
   render() 
   {
@@ -45,45 +44,68 @@ class BatchModal extends React.Component<any, any>
       this.props.batchClickActionMapper(this.props.currentBatch)
     }
 
-    return (<>
+
+    return (
+      <>
         <Button onClick={toggle}>View</Button>
         <Modal
           isOpen={this.state.showThis}
           contentClassName="modalStyle"
-          size="lg">
-          <ModalHeader toggle={toggle}>Batch {this.props.currentBatch.batchId}</ModalHeader>
+          size="lg"
+        >
+          <ModalHeader toggle={toggle}>
+            Batch {this.props.currentBatch.batchId}
+          </ModalHeader>
           <ModalBody>
             <Row>
-              <Col><b>Start Date:</b></Col> 
+              <Col>
+                <b>Start Date:</b>
+              </Col>
               <Col>{this.props.currentBatch.startDate}</Col>
             </Row>
             <Row>
-              <Col><b>End Date: </b></Col>
+              <Col>
+                <b>End Date: </b>
+              </Col>
               <Col>{this.props.currentBatch.endDate}</Col>
             </Row>
             <Row>
-              <Col><b>Curriculum Name:</b></Col>
-              <Col>{this.props.currentBatch.curriculum?this.props.currentBatch.curriculum.name:"no-curriculum"}</Col>
+              <Col>
+                <b>Curriculum Name:</b>
+              </Col>
+              <Col>
+                {this.props.currentBatch.curriculum
+                  ? this.props.currentBatch.curriculum.name
+                  : "no-curriculum"}
+              </Col>
             </Row>
-            <br/>
+            <br />
             <Row>
               <Col>
-                <Button 
-                  color=  {this.state.showTrainers?"secondary":"primary"}
-                  onClick={() => {this.setState({showTrainers: false})}}
-                >Associates</Button>
+                <Button
+                  color={this.state.showTrainers ? "secondary" : "primary"}
+                  onClick={() => {
+                    this.setState({ showTrainers: false });
+                  }}
+                >
+                  Associates
+                </Button>
               </Col>
               <Col>
                 <Button
-                  color=  {this.state.showTrainers?"primary":"secondary"}
-                  onClick={() => {this.setState({showTrainers: true})}}
-                >Trainers</Button>
+                  color={this.state.showTrainers ? "primary" : "secondary"}
+                  onClick={() => {
+                    this.setState({ showTrainers: true });
+                  }}
+                >
+                  Trainers
+                </Button>
               </Col>
             </Row>
-            <hr/>
+            <hr />
           </ModalBody>
-            
-            {/* 
+
+          {/* 
             <ModalFooter>
             <Navbar color='light' light expand='md'>
               <Nav onClick={changeModalViewToTrainer}>
@@ -103,15 +125,18 @@ class BatchModal extends React.Component<any, any>
           </ModalFooter>*/}
 
           <ModalBody>
-            {this.state.showTrainers ? (<>
-              <span>This is trainers stuff - </span>
-              <span>This is trainers stuff - </span>
-            </>) : (
-              <ASTableModel currentBatch={this.props.currentBatch}/>
+            {this.state.showTrainers ? (
+              <>
+                <span>This is trainers stuff - </span>
+                <span>This is trainers stuff - </span>
+              </>
+            ) : (
+              <ASTableModel currentBatch={this.props.currentBatch} />
             )}
           </ModalBody>
         </Modal>
-      </>)
+      </>
+    );
   }
 }
 

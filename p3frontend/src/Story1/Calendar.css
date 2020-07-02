@@ -1,10 +1,10 @@
 .react-calendar {
-  width: 300px;             /*<- I alter this sometimes*/
-  max-width:    100%;
+  width: 300px; /*<- I alter this sometimes*/
+  max-width: 100%;
   background: white;
-  border:       1px solid #a0a096;
-  font-family:  Arial, Helvetica, sans-serif;
-  line-height:  1.125em;
+  border: 1px solid #a0a096;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
 }
 
 .react-calendar--doubleView {
@@ -97,7 +97,7 @@
 }
 
 .react-calendar__tile {
-  height:40px;                   /*Changes the height of each tile*/
+  height: 40px; /*Changes the height of each tile*/
   max-width: 100%;
   text-align: center;
   padding: 0.75em 0.5em;
