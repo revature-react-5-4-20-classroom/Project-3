@@ -191,6 +191,7 @@ export class TimelineComponent extends React.Component<
           ) : (
             <></>
           )}
+          {}
         </div>
       );
     } else {

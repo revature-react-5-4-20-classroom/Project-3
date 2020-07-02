@@ -4,6 +4,7 @@ import { Batch } from "../models/Batch";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
 import { associatesGetActiveTotal } from "../models/Associate";
 import { Trainer } from "../models/Trainer";
+import moment from "moment";
 import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 
 interface TimelineModalProps {

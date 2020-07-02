@@ -28,6 +28,7 @@ import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
 import BatchModal, { ReduxBatchModal } from "./BatchModal";
 import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
+import moment from "moment";
 import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 
 const doPrnt = true; //prnt will work
@@ -53,6 +54,16 @@ export class InProgress extends React.Component<any, any> {
     };
   }
 
+  showModal = (index: number) => {
+    let modalShow = !this.state.modalShow;
+    let modalBatch = this.props.batchClickActionMapper(
+      this.state.filteredBatches[index]
+    );
+    this.setState({
+      modalShow: modalShow,
+      modalBatch: modalBatch,
+    });
+  };
   render() {
     return (
       <Container>
@@ -173,7 +184,7 @@ export class InProgress extends React.Component<any, any> {
           </tr>
         </thead>
         <tbody>
-          {this.state.batchDisplayData.map((batch: any) => {
+          {this.state.batchDisplayData.map((batch: any, index: number) => {
             return (
               <tr>
                 <td>
@@ -185,7 +196,6 @@ export class InProgress extends React.Component<any, any> {
                     View
                   </Button> */}
                   {/* <Button onClick={
-
 											()=>{
 												//set the modalBatch and it will pop up
 												//this.setState({modalBatch:batch,modalShow:true})
@@ -197,7 +207,6 @@ export class InProgress extends React.Component<any, any> {
                   {/* we are looping over display batches. 
 									give the modal the batch from the server. 
 									the official batch object*/}
-
                   <ReduxBatchModal currentBatch={batch.batchFromServer} />
                 </td>
                 <td>{batch.id}</td>
@@ -224,6 +233,7 @@ export class InProgress extends React.Component<any, any> {
             );
           })}
         </tbody>
+        {/* {this.state.modalShow ? <BatchModal toggle={this.showModal} currentBatch={this.state.modalBatch}/> : null} */}
       </Table>
     );
   };
@@ -376,6 +386,34 @@ export class InProgress extends React.Component<any, any> {
 
   //fetches batches from the server, converts it to display data, and set it. checks for error edge cases.
   fetchTheBatchData = async () => {
+    // try
+    // {
+    // 	// let batchData = await getAllBatches();
+    // 	// //let batchData=pseudoDataResponse.data
+
+    // 	// if(batchData==null)
+    // 	// {
+    // 	// 	this.setState({errorMessage:"ERROR. There wasn't a data property in the server response"})
+    // 	// }
+    // 	// else
+    // 	// {
+    // 	// 	prnt(doPrnt,`fetchTheBatchData() had a response`)
+
+    // // 	if(response.status!==200)
+    // // 	{
+    // // 		this.setState({error:response})
+    // // 	}
+    // // 	else
+    // // 	{
+    // // 		this.setState({
+    // // 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
+    // // 		})
+    // // 	}
+    // // }
+    // // catch(e)
+    // // {
+    // // 	this.setState({error:e})
+    // // }
     try {
       let batchData = await getAllBatches();
       let programtype = batchData.map((batch: Batch) => {
