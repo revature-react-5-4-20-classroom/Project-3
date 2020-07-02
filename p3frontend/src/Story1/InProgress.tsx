@@ -345,7 +345,7 @@ export class InProgress extends React.Component<any, any> {
   fetchTheBatchData = async () => {
     try {
       let batchData = await getAllBatches();
-      //let batchData=pseudoDataResponse.data
+      //let batchData=pseudoDataResponse
 
       if (batchData == null) {
         this.setState({
@@ -353,7 +353,7 @@ export class InProgress extends React.Component<any, any> {
             "ERROR. There wasn't a data property in the server response",
         });
       } else {
-        prnt(doPrnt, `fetchTheBatchData() had a response`);
+        prnt(doPrnt, `fetchTheBatchData() had a response. batchData=`,batchData);
 
         this.setState({
           batches: batchData,
