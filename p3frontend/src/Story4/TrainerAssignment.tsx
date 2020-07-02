@@ -260,7 +260,7 @@ sleep = (milliseconds : any) => {
       trainers: allTrainers,
     });
   };
-
+  
   render() {
     console.log(this.state.trainers)
     let buttonArray:any[] = []
@@ -272,37 +272,7 @@ sleep = (milliseconds : any) => {
     })
     return (
       <>
-
-      <ListGroup>
-
-        
-              {  this.state.trainers.map( (trainer: Trainer, i) => {
-                  //trying to use the same item display everywhere
-                  return( 
-                  <ListGroupItem key={i}>
-
-                          <Row> 
-                          
-                          <Col>
-                            <Row>
-                              <Col>
-                              {trainer.firstName + ' ' + trainer.lastName}
-                              </Col>
-                              
-                            </Row> 
-                            <Row>
-                              <Col>
-                              { buttonArray[i]}
-                              </Col>
-                            </Row>
-                          </Col>
-                        </Row>
-                  
-                  </ListGroupItem>)
-
-              })}
-          </ListGroup></>
-
+        <h6>Trainer assignment component</h6>
         <ListGroup>
           {this.state.trainers.map((trainer: Trainer, i) => {
             //trying to use the same item display everywhere

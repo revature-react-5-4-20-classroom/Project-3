@@ -1,9 +1,9 @@
 import React from "react";
 //npm install react-calendar
 //npm i @types/react-calendar
-import Calendar from "react-calendar";
-import "./Calendar.css";
-import "./Table.css";
+import Calendar from 'react-calendar';
+import './Calendar.css';
+import './Table.css';
 import { Row, Col, Table, Container, Button } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
@@ -16,14 +16,14 @@ import { trainerGetName } from "../models/Trainer";
 import { associatesGetActiveTotal } from "../models/Associate";
 import { locationGetName } from "../models/Location";
 import { seeIt } from "../GeneralPurposeHelpers/seeIt";
-import { connect } from "react-redux";
-import {
-  allTheActionMappers,
-  batchClickActionMapper,
-} from "../redux/action-mapper";
+import { connect } from 'react-redux';
+import { allTheActionMappers, batchClickActionMapper } from "../redux/action-mapper";
 import { IState, allTheMapStateToProps } from "../redux/reducers";
 import {pseudoDataResponse}  from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
+import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
+import BatchModal, { ReduxBatchModal } from "./BatchModal";
+import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
 
 const doPrnt=true//prnt will work
@@ -34,13 +34,21 @@ export class InProgress extends React.Component<any,any>
 	{
 		super(props)
 		this.state={
+		// programType:	'',		//EasyDropdown will set this to its first item during render
+		// workType:   	'',
+		// viewType:   	'',
+		// sortAscend:		true,	  //sorts by ascending or decending
+		// error:			  null,	  //holds an axios error object that will be displayed
+		 errorMessage:	'',		  //holds an error message for other special cases
 		programType:'(none)',		//EasyDropdown will set this to its first item during render
 		//workType:   '',
 		viewType:   '',
 		sortAscend:	true,		//sorts by ascending or decending
 		error:		null,		//holds an axios error object that will be displayed
 		batchDisplayData:[],	//holds the batch data formatted for display
-		batches: [], // batch data to be passed as a prop
+		batches: [], 			    // batch data to be passed as a prop
+		modalBatch:   	null,   //what batch will be shown in the modal?
+		modalShow:		false,	//do we show the modal?
 		filteredBatches: [],
 		client: '(none)',
 		curriculum: '(none)',
@@ -49,10 +57,18 @@ export class InProgress extends React.Component<any,any>
 		}
 	}
 
+	showModal = (index:number) => {
+		let modalShow = !this.state.modalShow
+		let modalBatch = this.props.batchClickActionMapper(this.state.filteredBatches[index])
+		this.setState({
+			modalShow : modalShow,
+			modalBatch : modalBatch,
+		})
+	}
 	render()
 	{
 		return(<Container>
-				<ErrorAlert error={this.state.error}/>
+				<ErrorAlert message={this.state.errorMessage} error={this.state.error}/>
 				<h6>Story 1. "In Progress"</h6><br/>
 				<p>Given that batches are currently in operation
 When I navigate to the 'In Progress' view
@@ -125,17 +141,24 @@ And this data is shown as a table and a Calendar view</p><br/>
 				</thead>
 				<tbody>
 					{
-						this.state.batchDisplayData.map((batch:any)=>
+						this.state.batchDisplayData.map((batch:any,index:number)=>
 						{
 							return(
 							<tr>
 								<td>
-									<Button onClick={
+									{/* <Button onClick={
 											()=>{
-												this.props.batchClickActionMapper(batch.batchFromServer)
+												//set the modalBatch and it will pop up
+												//this.setState({modalBatch:batch,modalShow:true})
+												//this.props.batchClickActionMapper(batch.batchFromServer)//maybe we throw out redux
+												this.showModal(index);
 											}
 										}>View
-									</Button>
+									</Button> */}
+									{/* we are looping over display batches. 
+									give the modal the batch from the server. 
+									the official batch object*/}
+									<ReduxBatchModal currentBatch={batch.batchFromServer}/>
 								</td>
 								<td>{batch.id}</td>
 								{/* <td>{batch.name}</td> */}
@@ -160,6 +183,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 						})
 					}
 				</tbody>
+				{/* {this.state.modalShow ? <BatchModal toggle={this.showModal} currentBatch={this.state.modalBatch}/> : null} */}
 			</Table>
 		)
 	}
@@ -228,6 +252,15 @@ And this data is shown as a table and a Calendar view</p><br/>
 		})
 	}
 
+	//puts pseudo data in when we do not have data from the server
+	usePseudoData=()=>
+	{
+		this.setState({
+			batches: pseudoDataResponse.data,
+			batchDisplayData: this.convertServerDataToDisplayData(pseudoDataResponse.data),
+		});
+	}
+
 	//returns an array of batches that haven been transformed for easy display
 	convertServerDataToDisplayData=(batchesFromServer:Batch[])=>
 	{
@@ -235,7 +268,13 @@ And this data is shown as a table and a Calendar view</p><br/>
 		{
 			let dateStart=new Date(batch.startDate)//convert strings to Date objects
 			let dateEnd=new Date(batch.endDate)
-
+			
+			// let dateStartUTC = Date.parse(batch.startDate)
+			// let dateEndUTC = Date.parse(batch.endDate)
+			// dateStart.setMilliseconds(dateStartUTC)
+			// dateEnd.setMilliseconds(dateEndUTC)
+			// console.log(dateStart)
+			// console.log(batch.startDate)
 			let weekC=dateDifferenceWeeks(dateStart,new Date(Date.now()))	//calc current week we are on
 			let weekR=dateDifferenceWeeks(new Date(Date.now()),	dateEnd)	//calc weeks remaining
 
@@ -281,35 +320,37 @@ And this data is shown as a table and a Calendar view</p><br/>
 		})
 	}
 
+	//fetches batches from the server, converts it to display data, and set it. checks for error edge cases.
 	fetchTheBatchData=async()=>
 	{
-		// this.setState({
-		// 	batchDisplayData:this.convertServerDataToDisplayData(pseudoDataResponse.data)
-		// })
-
-		// prnt(doPrnt,`fetchTheBatchData() has been reached`)
-
-		// try
+		// try 
 		// {
-		// 	let response=await axiosClient.get('/batches')
+		// 	// let batchData = await getAllBatches();
+		// 	// //let batchData=pseudoDataResponse.data
 
-		// 	prnt(doPrnt,`response=`,response)
+		// 	// if(batchData==null)
+		// 	// {
+		// 	// 	this.setState({errorMessage:"ERROR. There wasn't a data property in the server response"})
+		// 	// }
+		// 	// else
+		// 	// {
+		// 	// 	prnt(doPrnt,`fetchTheBatchData() had a response`)
 
-		// 	if(response.status!==200)
-		// 	{
-		// 		this.setState({error:response})
-		// 	}
-		// 	else
-		// 	{
-		// 		this.setState({
-		// 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
-		// 		})
-		// 	}
-		// }
-		// catch(e)
-		// {
-		// 	this.setState({error:e})
-		// }
+		// // 	if(response.status!==200)
+		// // 	{
+		// // 		this.setState({error:response})
+		// // 	}
+		// // 	else
+		// // 	{
+		// // 		this.setState({
+		// // 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
+		// // 		})
+		// // 	}
+		// // }
+		// // catch(e)
+		// // {
+		// // 	this.setState({error:e})
+		// // }
 		try {
 			let batchData = await getAllBatches();
 			let programtype=batchData.map((batch:Batch)=>{
@@ -440,7 +481,4 @@ And this data is shown as a table and a Calendar view</p><br/>
 }
 
 //Create a redux version of InProgress
-export const ReduxInProgress = connect(
-  allTheMapStateToProps,
-  allTheActionMappers
-)(InProgress);
+export const ReduxInProgress = connect(allTheMapStateToProps, allTheActionMappers)(InProgress);

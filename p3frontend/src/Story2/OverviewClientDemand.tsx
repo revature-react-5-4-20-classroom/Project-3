@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
+import { ColumnChartTest } from "./colGraphComponent";
 
 
 export class OverviewClientDemand extends React.Component<any,any>
@@ -33,8 +34,8 @@ Then I see graphics depicting the Quantity Demanded vs Quantity Supplied by Curr
 				</Col>
 			</Row>
 			<Row>
-				<Col sm={{size:6, offset:3}}>
-					<h1>Chart</h1>
+				<Col>
+					<ColumnChartTest/>
 				</Col>
 			</Row>
 		</Container>)

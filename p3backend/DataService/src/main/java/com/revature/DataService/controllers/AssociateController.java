@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path="/associates")

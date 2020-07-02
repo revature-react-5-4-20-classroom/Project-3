@@ -44,11 +44,16 @@ export async function getActiveAssociates(): Promise<Associate[]> {
   }
 }
 
-export async function updateAssociate(obj: Associate) {
-  try {
+export async function updateAssociate(obj: Associate)  
+{
+  try  
+  {
     const response = await axiosClient.patch('/associates', obj);
-  } catch (e) {
+        
+  } 
+  catch (e) 
+  {
     console.log('failed to assign associate to new batch', e.message);
-    throw e;
-  }
+    //throw e;//we do not throw. we put the error into a nice alert component
+  } 
 }
