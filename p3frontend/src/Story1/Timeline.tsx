@@ -151,6 +151,7 @@ export class TimelineComponent extends React.Component<
         mappedItems.push(item);
       });
     this.setGroupsAndItems(mappedGroups, mappedItems);
+    console.log(mappedGroups,mappedItems);
   }
 
   setIsOpen = () => {
@@ -177,7 +178,7 @@ export class TimelineComponent extends React.Component<
 
   render() {
     console.log(this.state.items);
-    if (this.state.items) {
+    if (this.state.items&&this.state.items.length>0) {
       return (
         <div>
           <Button color="primary" onClick={this.toggle}>
@@ -207,6 +208,12 @@ export class TimelineComponent extends React.Component<
           {}
         </div>
       );
+    }else if(this.state.items&&this.state.items.length<1){
+      return(
+        <h2>No batches exists</h2>
+      )
+
+
     } else {
       return <p>Loading...</p>;
     }

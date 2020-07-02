@@ -20,16 +20,16 @@ interface FilterFormProps {
   setProgramType: (value: string) => void;
   setClient: (value: string) => void;
   setCurriculum: (value: string) => void;
-  applyFilters: () => void;
+  //applyFilters: () => void;
+  programTypeSelection: string[];
+  clientSelection: string[];
+  curriculumSelection: string[];
 }
 
 interface FilterFormState {
   programType: string;
   client: string;
   curriculum: string;
-  programTypeSelection: string[];
-  clientSelection: string[];
-  curriculumSelection: string[];
   isOpen: boolean;
 }
 
@@ -43,14 +43,11 @@ export class FilterForm extends React.Component<
       programType: "(none)",
       client: "(none)",
       curriculum: "(none)",
-      programTypeSelection: ["(none)", "CF", "ROCP", "Standard", "Spark"],
-      clientSelection: ["(none)", "Walmart", "Amazon"],
-      curriculumSelection: ["(none)", "curriculum1", "curriculum2"],
       isOpen: false,
     };
   }
 
-//   getSelections = ()
+  getSelections = () => {};
 
   setProgramType = (e: any) => {
     console.log(`Setting program type in FilterForm: ${e.value}`);
@@ -72,20 +69,19 @@ export class FilterForm extends React.Component<
     });
   };
 
+  toggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  };
+
   applyAllFilters = (e: any) => {
     e.preventDefault();
     console.log("In applyAllFilters");
     this.props.setProgramType(this.state.programType);
     this.props.setClient(this.state.client);
     this.props.setCurriculum(this.state.curriculum);
-    this.props.applyFilters();
     this.toggle();
-  };
-
-  toggle = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
   };
 
   reset = () => {
@@ -114,7 +110,13 @@ export class FilterForm extends React.Component<
                         {this.state.programType}
                       </DropdownToggle>
                       <DropdownMenu>
-                        {this.state.programTypeSelection.map(
+                        <DropdownItem
+                          value="(none)"
+                          onClick={this.setProgramType}
+                        >
+                          (none)
+                        </DropdownItem>
+                        {this.props.programTypeSelection.map(
                           (selection: string, i: number) => {
                             return (
                               <DropdownItem
@@ -137,7 +139,10 @@ export class FilterForm extends React.Component<
                     <UncontrolledDropdown id="selectClient">
                       <DropdownToggle caret>{this.state.client}</DropdownToggle>
                       <DropdownMenu>
-                        {this.state.clientSelection.map(
+                        <DropdownItem value="(none)" onClick={this.setClient}>
+                          (none)
+                        </DropdownItem>
+                        {this.props.clientSelection.map(
                           (selection: string, i: number) => {
                             return (
                               <DropdownItem
@@ -162,7 +167,13 @@ export class FilterForm extends React.Component<
                         {this.state.curriculum}
                       </DropdownToggle>
                       <DropdownMenu>
-                        {this.state.curriculumSelection.map(
+                        <DropdownItem
+                          value="(none)"
+                          onClick={this.setCurriculum}
+                        >
+                          (none)
+                        </DropdownItem>
+                        {this.props.curriculumSelection.map(
                           (selection: string, i: number) => {
                             return (
                               <DropdownItem
