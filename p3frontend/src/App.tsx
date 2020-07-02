@@ -11,25 +11,16 @@ import {
 
 import { ReduxInProgress } from "./Story1/InProgress";
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
-import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
-import { OverviewTraining } from "./Story3/OverviewTraining";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
-import BatchModal from "./Story1/BatchModal";
-import ASTableModel from "./Story1/ASTableModel";
-import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
-import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
-
-// import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
-// import { ViewConsentRequests } from './Components/ViewConsentRequests';
-// import { OverviewClientDemand } from './Story2/OverviewClientDemand';
-// import { OverviewTraining } from './Story3/OverviewTraining';
-//import { AssignTrainer } from './Story4/AssignTrainer';
+import { TestConvertToObject } from "./GeneralPurposeHelpers/convertToObject";
+import { OverviewClientDemand } from './Story2/OverviewClientDemand';
+import { OverviewTraining } from './Story3/OverviewTraining';
 import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
-// import { Provider } from 'react-redux';
-// import { store } from './redux/store';
-// import BatchModal from './Story1/BatchModal';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import BatchModal from './Story1/BatchModal';
 import { ColumnChartTest } from './Story2/colGraphComponent';
+import { TrainerAssignmentComponent } from './Story4/TrainerAssignment';
+import { ViewConsentRequests } from './GeneralPurposeComponents/ViewConsentRequests';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -44,8 +35,8 @@ export class App extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        <ColumnChartTest />
-        {/* <link
+        
+        <link
           rel='stylesheet'
           href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         />
@@ -60,12 +51,12 @@ export class App extends React.Component<any, any> {
           */
           createRoutesAndNavbar(this.toggleNavbar,
             [
-              {end:'/home',             name:'Home',                comp:(<h1>Home</h1>)},
-              {end:'/in-progress',      name:'In Progress',         comp:(<ReduxInProgress />)},
-              {end:'/trainer-assign',   name:'Trainer assignment',  comp:(<TrainerAssignmentComponent />)},
-              {end:'/consent-requests', name:'Consent requests',    comp:(<ViewConsentRequests />)},
-              {end:'/overview-training',name:'Overview Training',   comp:(<OverviewTraining />)},
-              {end:'/overview-demand',  name:'Overview Demand',     comp:(<OverviewClientDemand />)},
+              {end:'/in-progress',      name:'S1 In Progress',        comp:(<ReduxInProgress />)},
+              {end:'/overview-demand',  name:'S2 Overview Demand',    comp:(<OverviewClientDemand />)},
+              {end:'/overview-training',name:'S3 Overview Training',  comp:(<OverviewTraining />)},
+              {end:'/trainer-assign',   name:'Trainer assignment',    comp:(<TrainerAssignmentComponent />)},
+              {end:'/consent-requests', name:'Consent requests',      comp:(<ViewConsentRequests />)},
+              {end:'/test-convert',     name:'TC',                    comp:(<TestConvertToObject />)},
             ]
           )
 

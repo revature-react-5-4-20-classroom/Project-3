@@ -15,8 +15,6 @@ import {
   Container,
 } from "reactstrap";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
-import TrainersModal from "./TrainersModal";
-import AssociatesModal from "./AssociatesModal";
 import "../../src/index.css";
 import ASTableModel from "./ASTableModel";
 
@@ -99,9 +97,10 @@ class BatchModal extends React.Component<any, any>
           </ModalFooter>*/}
 
           <ModalBody>
-            {this.state.showTrainers ? (
-              <TrainersModal/>
-            ) : (
+            {this.state.showTrainers ? (<>
+              <span>This is trainers stuff - </span>
+              <span>This is trainers stuff - </span>
+            </>) : (
               <ASTableModel currentBatch={this.props.currentBatch}/>
             )}
           </ModalBody>
