@@ -279,7 +279,7 @@ sleep = (milliseconds : any) => {
                       <Col>{trainer.firstName + ' ' + trainer.lastName}</Col>
                     </Row>
                     <Row>
-                      {/* <Col>{this.getButton(trainer, i)}</Col> */}
+                      <Col>{buttonArray[i]}</Col>
                     </Row>
                   </Col>
                 </Row>
