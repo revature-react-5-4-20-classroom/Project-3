@@ -37,12 +37,6 @@ export class InProgress extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      // programType:	'',		//EasyDropdown will set this to its first item during render
-      // workType:   	'',
-      // viewType:   	'',
-      // sortAscend:		true,	  //sorts by ascending or decending
-      // error:			  null,	  //holds an axios error object that will be displayed
-      errorMessage: "", //holds an error message for other special cases
       programType: "(none)", //EasyDropdown will set this to its first item during render
       //workType:   '',
       viewType: "",
@@ -50,12 +44,13 @@ export class InProgress extends React.Component<any, any> {
       error: null, //holds an axios error object that will be displayed
       batchDisplayData: [], //holds the batch data formatted for display
       batches: [], // batch data to be passed as a prop
-      modalBatch: null, //what batch will be shown in the modal?
-      modalShow: false, //do we show the modal?
       filteredBatches: [],
       client: "(none)",
       curriculum: "(none)",
       programTypesArray: [],
+      errorMessage: "", //holds an error message for other special cases
+      modalBatch: null, //what batch will be shown in the modal?
+      modalShow: false, //do we show the modal?
     };
   }
 
@@ -91,7 +86,7 @@ export class InProgress extends React.Component<any, any> {
           <Col>
             <Button onClick={this.reset}>Reset</Button>
           </Col>
-          <Col>
+          {/* <Col>
             <b>program type</b>
             <EasyDropdown
               onSelected={this.setProgramType}
@@ -113,7 +108,7 @@ export class InProgress extends React.Component<any, any> {
               onSelected={this.setCurriculum}
               items={["(none)", "curriculum1", "curriculum2"]}
             />
-          </Col>
+          </Col> */}
 
           <Col>
             <b>view type:</b>
@@ -123,6 +118,7 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
+          <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/>
         </Row>
         <br />
         <br />
@@ -187,6 +183,13 @@ export class InProgress extends React.Component<any, any> {
             return (
               <tr>
                 <td>
+                  <Button
+                    onClick={() => {
+                      this.props.batchClickActionMapper(batch.batchFromServer);
+                    }}
+                  >
+                    View
+                  </Button>
                   {/* <Button onClick={
 											()=>{
 												//set the modalBatch and it will pop up
@@ -422,13 +425,23 @@ export class InProgress extends React.Component<any, any> {
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
       });
+      //let batchData=pseudoDataResponse.data
 
-      this.setState({
-        batches: batchData,
-        filteredBatches: batchData,
-        batchDisplayData: this.convertServerDataToDisplayData(batchData),
-        programTypesArray: programtype,
-      });
+      if (batchData == null) {
+        this.setState({
+          errorMessage:
+            "ERROR. There wasn't a data property in the server response",
+        });
+      } else {
+        prnt(doPrnt, `fetchTheBatchData() had a response`);
+
+        this.setState({
+          batches: batchData,
+          filteredBatches: batchData,
+          batchDisplayData: this.convertServerDataToDisplayData(batchData),
+          programTypesArray: programtype,
+        });
+      }
     } catch (e) {
       this.setState({ error: e });
     }
