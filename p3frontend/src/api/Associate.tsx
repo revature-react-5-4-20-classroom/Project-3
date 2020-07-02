@@ -37,8 +37,28 @@ export async function getAllAssociates(): Promise<Associate[]> {
 export async function getActiveAssociates(): Promise<Associate[]> {
   try {
     let response = await axiosClient.get('/associates/get-active');
-    console.log('FROM API', response);
-    return response.data;
+    console.log('hello?');
+    return response.data.map((a: Associate) => {
+      let {
+        associateId,
+        firstName,
+        lastName,
+        email,
+        active,
+        interviewScore,
+        batch,
+      } = a;
+
+      return new Associate(
+        associateId,
+        firstName,
+        lastName,
+        email,
+        active,
+        interviewScore,
+        batch
+      );
+    });
   } catch (error) {
     throw new FailedRequestException('Failed to fetch active associates');
   }

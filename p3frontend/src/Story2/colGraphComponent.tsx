@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'reactstrap';
 import { getAllClientDemands } from '../api/clientDemand';
 import { ClientDemands } from '../models/ClientDemands';
-import { getAllAssociates } from '../api/Associate';
+import { getActiveAssociates } from '../api/Associate';
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -82,7 +82,9 @@ export class ColumnChartTest extends React.Component<any, any> {
 
   // 1) get data from api associate (skillset and batch graduation date) {associateId: 2, associateName: 'Tom', Skillset: {skillsetId: 1, name: 'Java/react'}}
   getData = async () => {
-    return await getAllAssociates();
+    let abc = await getActiveAssociates();
+    console.log('get all associates:', abc);
+    return abc;
   };
   // 2) pass each associate through loop that says:   gd=graduation date [{java/react: current}, {java/react: onemonth}, {salesforce: current}]
   //      if Date(gd} <= date.now() -> object created with {skillset: 'current'}
