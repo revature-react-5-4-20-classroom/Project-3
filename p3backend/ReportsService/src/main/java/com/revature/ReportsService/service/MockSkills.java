@@ -8,18 +8,18 @@ import com.revature.ReportsService.models.Skills;
 public class MockSkills {
 
   private List<Skills> skills;
-  
+
   public MockSkills() {
     super();
   }
-  
+
   public List<Skills> getSkills() {
     return skills;
   }
-  
+
   public Skills getSkillById(Integer id) {
     Skills out = null;
-    for (Skills s: this.skills) {
+    for (Skills s : this.skills) {
       if (s.getSkillId().equals(id)) {
         out = s;
         break;
@@ -29,8 +29,8 @@ public class MockSkills {
       throw new RuntimeException("Skills with the id " + id + " not found.");
     }
     return out;
-    
+
   }
-  
-  
+
+
 }

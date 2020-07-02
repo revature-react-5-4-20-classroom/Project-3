@@ -11,14 +11,14 @@ import com.revature.ReportsService.models.ClientDemand;
 @Primary
 public class ClientDemandService {
 
-	public List<ClientDemand> getAll() {
-		// return open feign grab to the dataService endpoint for all
-		return new MockClientDemand().getClientDemands();
-	}
+  public List<ClientDemand> getAll() {
+    // return open feign grab to the dataService endpoint for all
+    return new MockClientDemand().getClientDemands();
+  }
 
-	public ClientDemand getByID(Integer id) {
-		// return open feign grab to the dataService endpoint for one
-		return new MockClientDemand().getClientDemandById(id);
-	}
+  public ClientDemand getByID(Integer id) {
+    // return open feign grab to the dataService endpoint for one
+    return new MockClientDemand().getClientDemandById(id);
+  }
 
 }

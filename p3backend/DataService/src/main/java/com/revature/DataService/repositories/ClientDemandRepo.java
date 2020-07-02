@@ -7,18 +7,17 @@ import com.revature.DataService.models.ClientDemand;
 import com.revature.DataService.models.Skillset;
 
 @Repository
-public interface ClientDemandRepo extends JpaRepository<ClientDemand, Integer> 
-{
-  //we now have basic CRUD methods
-  //we take our naming convention VERY seriously around here
-  
+public interface ClientDemandRepo extends JpaRepository<ClientDemand, Integer> {
+  // we now have basic CRUD methods
+  // we take our naming convention VERY seriously around here
+
 
   List<ClientDemand> findByClientDemandId(Integer clientDemandId);
-  
+
   // I don't believe this is working
-//  List<ClientDemand> findByClientId(Integer clientId);
-  
+  // List<ClientDemand> findByClientId(Integer clientId);
+
   // Not working
-//  List<ClientDemand> findByClientDemandSkillSet(Skillset clientDemandSkillset);
+  // List<ClientDemand> findByClientDemandSkillSet(Skillset clientDemandSkillset);
 
 }
