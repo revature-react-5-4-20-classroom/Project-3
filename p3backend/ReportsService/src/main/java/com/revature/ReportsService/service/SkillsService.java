@@ -10,11 +10,11 @@ import com.revature.ReportsService.models.Skills;
 @Primary
 public class SkillsService {
 
-  
+
   public List<Skills> getAll() {
     return new MockSkills().getSkills();
   }
-  
+
   public Skills getById(Integer id) {
     return new MockSkills().getSkillById(id);
   }

@@ -13,21 +13,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class ReportsServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ReportsServiceApplication.class, args);
+  public static void main(String[] args) {
+    SpringApplication.run(ReportsServiceApplication.class, args);
 
-	}
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		// We're defining the class we're using inline here as a shortcut
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:3000").allowCredentials(true)
-				.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS");
+  }
 
-			}
-		};
-	}
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    // We're defining the class we're using inline here as a shortcut
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("http://localhost:3000").allowCredentials(true)
+            .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS");
+
+      }
+    };
+  }
 
 }

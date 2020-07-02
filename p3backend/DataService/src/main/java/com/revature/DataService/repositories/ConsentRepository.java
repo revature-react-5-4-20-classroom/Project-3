@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.revature.DataService.models.Consent;
 
 @Repository
-public interface ConsentRepository extends JpaRepository<Consent, Integer>{
+public interface ConsentRepository extends JpaRepository<Consent, Integer> {
 
-	
 
-//	@Query("select c from Consent c where c.trainer.trainerId=:id and c.isApprovedColumn=NULL") //HQL
+
+  // @Query("select c from Consent c where c.trainer.trainerId=:id and c.isApprovedColumn=NULL")
+  // //HQL
 
 
 }

@@ -23,77 +23,76 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(schema = "project3", name = "curriculum")
 public class Curriculum {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "curriculum_id")
-	private Integer curriculumId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "curriculum_id")
+  private Integer curriculumId;
 
-	@Column(name = "name")
-	private String name;
+  @Column(name = "name")
+  private String name;
 
-	// Batch to curriculum
-	@JsonIgnoreProperties({ "curriculum", "trainers", "location", "associates", "consent" })
-	@OneToMany(mappedBy = "curriculum")
-	private List<Batch> batch;
+  // Batch to curriculum
+  @JsonIgnoreProperties({"curriculum", "trainers", "location", "associates", "consent"})
+  @OneToMany(mappedBy = "curriculum")
+  private List<Batch> batch;
 
-	// Working
-	@ManyToOne
-	@JsonIgnoreProperties({ "curriculum","curricula" })
-	@JoinColumn(name = "curriculum_skillset_id")
-	private Skillset curriculumSkillset;
+  // Working
+  @ManyToOne
+  @JsonIgnoreProperties({"curriculum", "curricula"})
+  @JoinColumn(name = "curriculum_skillset_id")
+  private Skillset curriculumSkillset;
 
-	public Integer getCurriculumId() {
-		return curriculumId;
-	}
+  public Integer getCurriculumId() {
+    return curriculumId;
+  }
 
-	public void setCurriculumId(Integer curriculumId) {
-		this.curriculumId = curriculumId;
-	}
+  public void setCurriculumId(Integer curriculumId) {
+    this.curriculumId = curriculumId;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public Skillset getCurriculumSkillset() {
-		return curriculumSkillset;
-	}
+  public Skillset getCurriculumSkillset() {
+    return curriculumSkillset;
+  }
 
-	public void setCurriculumSkillset(Skillset curriculumSkillset) {
-		this.curriculumSkillset = curriculumSkillset;
-	}
+  public void setCurriculumSkillset(Skillset curriculumSkillset) {
+    this.curriculumSkillset = curriculumSkillset;
+  }
 
-	public List<Batch> getBatch() {
-		return batch;
-	}
+  public List<Batch> getBatch() {
+    return batch;
+  }
 
-	public void setBatch(List<Batch> batch) {
-		this.batch = batch;
-	}
+  public void setBatch(List<Batch> batch) {
+    this.batch = batch;
+  }
 
-	@Override
-	public String toString() {
-		return "Curriculum [curriculumId=" + curriculumId + ", name=" + name + ", batch=" + batch
-				+ ", curriculumSkillset=" + curriculumSkillset + "]";
-	}
+  @Override
+  public String toString() {
+    return "Curriculum [curriculumId=" + curriculumId + ", name=" + name + ", batch=" + batch
+        + ", curriculumSkillset=" + curriculumSkillset + "]";
+  }
 
-	public Curriculum(Integer curriculumId, String name, List<Batch> batch, Skillset curriculumSkillset) {
-		super();
-		this.curriculumId = curriculumId;
-		this.name = name;
-		this.batch = batch;
-		this.curriculumSkillset = curriculumSkillset;
-	}
+  public Curriculum(Integer curriculumId, String name, List<Batch> batch,
+      Skillset curriculumSkillset) {
+    super();
+    this.curriculumId = curriculumId;
+    this.name = name;
+    this.batch = batch;
+    this.curriculumSkillset = curriculumSkillset;
+  }
 
-	public Curriculum() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
+  public Curriculum() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
 
 
 

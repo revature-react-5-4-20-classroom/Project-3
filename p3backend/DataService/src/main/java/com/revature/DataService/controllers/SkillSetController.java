@@ -12,15 +12,15 @@ import com.revature.DataService.services.SkillSetService;
 @RequestMapping(path = "/skillsets")
 @RestController
 public class SkillSetController {
-  
+
   @Autowired
   SkillSetService skillSetService;
-  
+
   @GetMapping
-  public List<Skillset> getAllSkillSets(){
+  public List<Skillset> getAllSkillSets() {
     return skillSetService.getAll();
   }
-  
+
   @GetMapping("/{id}")
   public Skillset getSkillSetById(@PathVariable Integer id) {
     return skillSetService.getById(id);

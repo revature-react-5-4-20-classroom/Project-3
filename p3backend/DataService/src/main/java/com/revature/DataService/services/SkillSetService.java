@@ -9,14 +9,14 @@ import com.revature.DataService.repositories.SkillSetRepository;
 
 @Service
 public class SkillSetService {
-  
-  @Autowired 
+
+  @Autowired
   SkillSetRepository skillSetRepository;
-  
+
   public List<Skillset> getAll() {
     return skillSetRepository.findAll();
   }
-  
+
   public Skillset getById(Integer id) {
     Optional<Skillset> skillset = skillSetRepository.findById(id);
     return skillset.get();
