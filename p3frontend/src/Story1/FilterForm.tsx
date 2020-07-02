@@ -1,21 +1,36 @@
-// This isn't really working right now --Liam
 import React from "react";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Modal,
+  ModalHeader,
+  Jumbotron,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Row,
+  Col,
+} from "reactstrap";
 
 interface FilterFormProps {
   setProgramType: (value: string) => void;
   setClient: (value: string) => void;
   setCurriculum: (value: string) => void;
-  applyFilters: () => void;
+  //applyFilters: () => void;
+  programTypeSelection: string[];
+  clientSelection: string[];
+  curriculumSelection: string[];
 }
 
 interface FilterFormState {
   programType: string;
   client: string;
   curriculum: string;
-  programTypeSelection: string[];
-  clientSelection: string[];
-  curriculumSelection: string[];
+  isOpen: boolean;
 }
 
 export class FilterForm extends React.Component<
@@ -28,28 +43,35 @@ export class FilterForm extends React.Component<
       programType: "(none)",
       client: "(none)",
       curriculum: "(none)",
-      programTypeSelection: ["(none)", "CF", "ROCP", "Standard", "Spark"],
-      clientSelection: ["(none)", "Walmart", "Amazon"],
-      curriculumSelection: ["(none)", "curriculum1", "curriculum2"],
+      isOpen: false,
     };
   }
 
+  getSelections = () => {};
+
   setProgramType = (e: any) => {
     console.log(`Setting program type in FilterForm: ${e.value}`);
+    console.log(e);
     this.setState({
-      programType: e.value,
+      programType: e.target.value,
     });
   };
 
   setClient = (e: any) => {
     this.setState({
-      client: e.value,
+      client: e.target.value,
     });
   };
 
   setCurriculum = (e: any) => {
     this.setState({
-      curriculum: e.value,
+      curriculum: e.target.value,
+    });
+  };
+
+  toggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen,
     });
   };
 
@@ -59,62 +81,121 @@ export class FilterForm extends React.Component<
     this.props.setProgramType(this.state.programType);
     this.props.setClient(this.state.client);
     this.props.setCurriculum(this.state.curriculum);
-    this.props.applyFilters();
+    this.toggle();
+  };
+
+  reset = () => {
+    this.setState({
+      programType: "(none)",
+      client: "(none)",
+      curriculum: "(none)",
+    });
   };
 
   render() {
     return (
-      <Form>
-        <FormGroup>
-          <Label for="selectProgramType">Select Program Type</Label>
-          <Input type="select">
-            {this.state.programTypeSelection.map(
-              (selection: string, i: number) => {
-                return (
-                  <option
-                    value={selection}
-                    key={i}
-                    onChange={this.setProgramType}
-                  >
-                    {selection}
-                  </option>
-                );
-              }
-            )}
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label for="selectClient">Select Client</Label>
-          <Input type="select">
-            {this.state.clientSelection.map((selection: string, i: number) => {
-              return (
-                <option value={selection} key={i} onClick={this.setClient}>
-                  {selection}
-                </option>
-              );
-            })}
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label for="selectCurriculum">Select Curriculum</Label>
-          <Input type="select">
-            {this.state.curriculumSelection.map(
-              (selection: string, i: number) => {
-                return (
-                  <option
-                    value={selection}
-                    key={i}
-                    onClick={this.setCurriculum}
-                  >
-                    {selection}
-                  </option>
-                );
-              }
-            )}
-          </Input>
-        </FormGroup>
-        <Button onClick={this.applyAllFilters}>Apply Filters</Button>
-      </Form>
+      <>
+        <Button onClick={this.toggle}>Set Filters</Button>
+        <Modal isOpen={this.state.isOpen} toggle={this.toggle}>
+          <ModalHeader toggle={this.toggle}>Set Batch Filters</ModalHeader>
+          <Jumbotron>
+            <Button onClick={this.reset}>Reset Selection</Button>
+            <Form onSubmit={this.applyAllFilters}>
+              <Row form>
+                <Col lg={'auto'}>
+                  <FormGroup>
+                    <Label for="selectProgramType">Program Type</Label>
+                    <UncontrolledDropdown id="selectProgramType">
+                      <DropdownToggle caret>
+                        {this.state.programType}
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem
+                          value="(none)"
+                          onClick={this.setProgramType}
+                        >
+                          (none)
+                        </DropdownItem>
+                        {this.props.programTypeSelection.map(
+                          (selection: string, i: number) => {
+                            return (
+                              <DropdownItem
+                                key={i}
+                                value={selection}
+                                onClick={this.setProgramType}
+                              >
+                                {selection}
+                              </DropdownItem>
+                            );
+                          }
+                        )}
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </FormGroup>
+                </Col>
+                <Col lg={'auto'}>
+                  <FormGroup>
+                    <Label for="selectClient">Client</Label>
+                    <UncontrolledDropdown id="selectClient">
+                      <DropdownToggle caret>{this.state.client}</DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem value="(none)" onClick={this.setClient}>
+                          (none)
+                        </DropdownItem>
+                        {this.props.clientSelection.map(
+                          (selection: string, i: number) => {
+                            return (
+                              <DropdownItem
+                                key={i}
+                                value={selection}
+                                onClick={this.setClient}
+                              >
+                                {selection}
+                              </DropdownItem>
+                            );
+                          }
+                        )}
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </FormGroup>
+                </Col>
+                <Col lg={'auto'}>
+                  <FormGroup>
+                    <Label for="selectCurriculum">Curriculum</Label>
+                    <UncontrolledDropdown id="selectCurriculum">
+                      <DropdownToggle caret>
+                        {this.state.curriculum}
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem
+                          value="(none)"
+                          onClick={this.setCurriculum}
+                        >
+                          (none)
+                        </DropdownItem>
+                        {this.props.curriculumSelection.map(
+                          (selection: string, i: number) => {
+                            return (
+                              <DropdownItem
+                                key={i}
+                                value={selection}
+                                onClick={this.setCurriculum}
+                              >
+                                {selection}
+                              </DropdownItem>
+                            );
+                          }
+                        )}
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Button color="primary">Apply Filters</Button>
+            </Form>
+          </Jumbotron>
+        </Modal>
+      </>
     );
   }
 }
