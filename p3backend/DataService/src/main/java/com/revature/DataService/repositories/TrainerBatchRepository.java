@@ -7,6 +7,6 @@ import com.revature.DataService.models.Skills;
 import com.revature.DataService.models.TrainerBatch;
 
 @Repository
-public interface TrainerBatchRepository extends JpaRepository<TrainerBatch,Integer> {
+public interface TrainerBatchRepository extends JpaRepository<TrainerBatch, Integer> {
 
 }

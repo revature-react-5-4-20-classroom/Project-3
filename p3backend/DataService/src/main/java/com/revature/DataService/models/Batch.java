@@ -67,8 +67,10 @@ public class Batch {
 
   @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
 
-  @ManyToMany(cascade=CascadeType.MERGE)
-  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="batch_id"),inverseJoinColumns=@JoinColumn(name="trainer_id"))
+  @ManyToMany(cascade = CascadeType.MERGE)
+  @JoinTable(name = "trainerbatch", schema = "project3",
+      joinColumns = @JoinColumn(name = "batch_id"),
+      inverseJoinColumns = @JoinColumn(name = "trainer_id"))
   private List<Trainer> trainers;
 
 
@@ -101,7 +103,6 @@ public class Batch {
   @JsonIgnoreProperties({"batch", "trainerSkills"})
   @OneToMany(mappedBy = "batch")
   private List<Consent> consent;
-
 
 
 
@@ -208,16 +209,15 @@ public class Batch {
 
 
 
-public List<Consent> getConsent() {
-	return consent;
-}
+  public List<Consent> getConsent() {
+    return consent;
+  }
 
 
 
-
-public void setConsent(List<Consent> consent) {
-	this.consent = consent;
-}
+  public void setConsent(List<Consent> consent) {
+    this.consent = consent;
+  }
 
 
   @Override

@@ -14,24 +14,24 @@ import com.revature.ReportsService.service.DataGeneratorService;
 @RestController
 public class DataGeneratorController {
 
-	@Autowired
-	DataGetterFeign dataGetterFeign;
+  @Autowired
+  DataGetterFeign dataGetterFeign;
 
-	@Autowired
-	DataGeneratorService dataGeneratorService;
+  @Autowired
+  DataGeneratorService dataGeneratorService;
 
-	@GetMapping("datagetter/{interviewScore}/{quantity}")
-	public List<Associate> getData(@PathVariable int interviewScore, @PathVariable int quantity) {
-		List<Associate> associatesList = dataGetterFeign.getAssociates();
+  @GetMapping("datagetter/{interviewScore}/{quantity}")
+  public List<Associate> getData(@PathVariable int interviewScore, @PathVariable int quantity) {
+    List<Associate> associatesList = dataGetterFeign.getAssociates();
 
-		return dataGeneratorService.generateBatch(interviewScore, quantity, associatesList);
+    return dataGeneratorService.generateBatch(interviewScore, quantity, associatesList);
 
-	}
+  }
 
-	@GetMapping("/hello")
-	public String hello() {
+  @GetMapping("/hello")
+  public String hello() {
 
-		return "hello frontend";
-	}
+    return "hello frontend";
+  }
 
 }
