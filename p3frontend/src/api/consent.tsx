@@ -109,6 +109,7 @@ export async function createConsentRequest(
     console.log(e);
   }
 }
+
 // export async function createConsentRequest(
 //   trainerId: number,
 //   isApproved: null,
@@ -125,6 +126,7 @@ export async function createConsentRequest(
 //     console.log(e);
 //   }
 // }
+
 
 export async function createTrainerBatch(trainerId: number, batchId: number) {
   try {
@@ -198,10 +200,12 @@ export async function denyConsentRequest(consent: Consent) {
 //   }
 // }
 
-export async function getConsentByTrainerId(id: number): Promise<any[]> {
+export async function getConsentByTrainerId(id: number): Promise<Consent[]> {
   try {
     const response = await axiosClient.get(`/consent/${id}`);
-    return response.data.map((itemObj: any) => {
+
+    return response.data.map((itemObj: Consent) => {
+
       const { consentId, trainer, isApproved, batch } = itemObj;
       return new Consent(consentId, trainer, isApproved, batch);
     });
@@ -211,20 +215,6 @@ export async function getConsentByTrainerId(id: number): Promise<any[]> {
     throw e;
   }
 }
-// export async function getConsentByTrainerId(id: number): Promise<any[]> {
-//   try {
-//     const response = await axiosClient.get(`/consent/${id}`);
-//     return response.data.map((itemObj: any) => {
-//       const { consentId, trainerId, isApproved, batchId } = itemObj;
-//       return new Consent(consentId, trainerId, isApproved, batchId);
-//     });
-//   } catch (e) {
-//     // Add more error functionality later
-//     console.log(e.message);
-//     throw e;
-//   }
-
-// }
 
 export async function getEligibility(
   trainerId: number,

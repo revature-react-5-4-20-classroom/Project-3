@@ -31,11 +31,13 @@ public class ConsentController {
     return consentService.getAll();
   }
 
-  // @CrossOrigin(origins="*")
-  // @GetMapping("/consent/{trainerId}")
-  // public List<Consent> getAllReviews(@PathVariable Integer trainerId){
-  // return consentService.getConsentByTrainerId(trainerId);
-  // }
+
+  @CrossOrigin(origins = "*")
+  @GetMapping("/consent/{trainerId}")
+  public List<Consent> getAllReviews(@PathVariable Integer trainerId) {
+    return consentService.getConsentByTrainerId(trainerId);
+  }
+
 
   @CrossOrigin(origins = "*")
   @PatchMapping("/consent")

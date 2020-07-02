@@ -421,6 +421,7 @@ export class InProgress extends React.Component<any, any> {
     try {
       let batchData = await getAllBatches();
 
+
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
       });
@@ -451,13 +452,18 @@ export class InProgress extends React.Component<any, any> {
       }
       //let batchData=pseudoDataResponse.data
 
+
       if (batchData == null) {
         this.setState({
           errorMessage:
             "ERROR. There wasn't a data property in the server response",
         });
       } else {
-        prnt(doPrnt, `fetchTheBatchData() had a response`);
+        prnt(
+          doPrnt,
+          `fetchTheBatchData() had a response. batchData=`,
+          batchData
+        );
 
         this.setState({
           batches: batchData,

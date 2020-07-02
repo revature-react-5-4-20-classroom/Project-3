@@ -23,9 +23,11 @@ public class ConsentService {
   }
 
 
-  // public List<Consent> getConsentByTrainerId(Integer trainerId){
-  // return consentRepository.getConsentByTrainerId(trainerId);
-  // }
+  public List<Consent> getConsentByTrainerId(Integer trainerId) {
+    return consentRepository.getConsentByTrainerId(trainerId);
+  }
+
+
 
   public Consent create(Consent consent) {
     return consentRepository.save(consent);
