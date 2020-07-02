@@ -16,7 +16,7 @@ import { trainerGetName } from "../models/Trainer";
 import { associatesGetActiveTotal } from "../models/Associate";
 import { locationGetName } from "../models/Location";
 import { seeIt } from "../GeneralPurposeHelpers/seeIt";
-import { connect } from "react-redux";
+import { connect, batch } from "react-redux";
 import {
   allTheActionMappers,
   batchClickActionMapper,
@@ -46,6 +46,8 @@ export class InProgress extends React.Component<any, any> {
       client: "(none)",
       curriculum: "(none)",
       programTypesArray: [],
+      clientsArray: [],
+      curriculaArray: [],
       errorMessage: "", //holds an error message for other special cases
       modalBatch: null, //what batch will be shown in the modal?
       modalShow: false, //do we show the modal?
@@ -71,9 +73,9 @@ export class InProgress extends React.Component<any, any> {
         </p>
         <br />
         <Row>
-          <Col>
+          {/* <Col>
             <Button onClick={this.reset}>Reset</Button>
-          </Col>
+          </Col> */}
           {/* <Col>
             <b>program type</b>
             <EasyDropdown
@@ -106,7 +108,8 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
-          <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/>
+          <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum}
+            programTypeSelection={this.state.programTypesArray} clientSelection={this.state.clientsArray} curriculumSelection={this.state.curriculaArray}/>
         </Row>
         <br />
         <br />
@@ -308,14 +311,14 @@ export class InProgress extends React.Component<any, any> {
   };
 
   //puts pseudo data in when we do not have data from the server
-  usePseudoData = () => {
-    this.setState({
-      batches: pseudoDataResponse.data,
-      batchDisplayData: this.convertServerDataToDisplayData(
-        pseudoDataResponse.data
-      ),
-    });
-  };
+  // usePseudoData = () => {
+  //   this.setState({
+  //     batches: pseudoDataResponse.data,
+  //     batchDisplayData: this.convertServerDataToDisplayData(
+  //       pseudoDataResponse.data
+  //     ),
+  //   });
+  // };
 
   //returns an array of batches that haven been transformed for easy display
   convertServerDataToDisplayData = (batchesFromServer: Batch[]) => {
@@ -372,9 +375,34 @@ export class InProgress extends React.Component<any, any> {
   fetchTheBatchData = async () => {
     try {
       let batchData = await getAllBatches();
+
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
       });
+      programtype = programtype.filter((value, index, self) => { // Use this to get only unique values
+        return self.indexOf(value) === index;
+      })
+
+      let curricula = batchData.map((batch:Batch) => {
+        return batch.curriculum.name;
+      })
+      curricula = curricula.filter((value,index,self) => {
+        return self.indexOf(value) === index;
+      })
+
+      let clientDemandLists = batchData.map((batch: Batch) => {
+        return batch.curriculum.curriculumSkillset.clientDemands;
+      })
+      let clients: any[] = [];
+      for(let cdList of clientDemandLists) {
+        console.log(cdList);
+        for(let cd of cdList) {
+          if(clients.indexOf(cd.client.name) === -1) {
+            console.log(cd.client.name);
+            clients.push(cd.client.name);
+          }
+        }
+        }
       //let batchData=pseudoDataResponse.data
 
       if (batchData == null) {
@@ -390,6 +418,8 @@ export class InProgress extends React.Component<any, any> {
           filteredBatches: batchData,
           batchDisplayData: this.convertServerDataToDisplayData(batchData),
           programTypesArray: programtype,
+          clientsArray: clients,
+          curriculaArray: curricula,
         });
       }
     } catch (e) {
@@ -401,11 +431,11 @@ export class InProgress extends React.Component<any, any> {
     value: string //filter
   ) => {
     console.log(`Setting program type: ${value}`);
-    this.setState({ programType: value }, this.applyFilters);
+    this.setState({ programType: value });
   };
 
   setClient = (value: string) => {
-    this.setState({ client: value }, this.applyFilters);
+    this.setState({ client: value });
   };
 
   setCurriculum = (value: string) => {
