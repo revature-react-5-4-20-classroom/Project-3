@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentElement } from 'react';
 import { Trainer } from '../models/Trainer';
 import {getAllTrainers, getAllEligibleTrainers, createConsentRequest} from '../api/consent'
 import { Form, FormGroup, Label, Col, Input, Button, Toast, ToastHeader, ToastBody, ListGroupItem, ListGroup, Row } from 'reactstrap';
@@ -8,44 +8,109 @@ import { assignTrainer } from '../api/batch';
 interface IAssignmentComponentState { 
   trainers : Trainer[]
   eligibleTrainers: Trainer[];
+  updateArray: Trainer[];
+  buttonArray: any[];
 
 }
 
 export class TrainerAssignmentComponent extends React.Component<any, IAssignmentComponentState> {
-
-    
-
   constructor(props: any) {
     super(props);
     this.state = {
       trainers: [],
-      eligibleTrainers: []
+      eligibleTrainers: [],
+      updateArray:[],
+      buttonArray: []
     }
   }
-  componentDidMount(){
-     this.getAllTrainers();
-     this.getAllEligibleTrainers(20);
-     this.assignEligibility();
+  async componentDidMount(){
+     
+    //this.getAllTrainers();
+    
+
+    let allTrainers : Trainer[] = await getAllTrainers();
+    
+    // this.setState({
+    //   trainers:allTrainers
+    // })
+    // this.sleep(50).then(()=>{
+    //   this.getAllEligibleTrainers(2);
+    //  });
+
+     let eligibleTrainers : Trainer[] = await getAllEligibleTrainers(2);
+    // this.setState({
+    //   trainers:allTrainers,
+    //   eligibleTrainers:trainers
+    // })
+    // this.sleep(50).then(()=>{
+    //   this.assignEligibility();
+    //  });
+    
+  
+    let tempButtonArray:any[] = [];
+    let eligibleTrainerIds = eligibleTrainers.map((trainer) =>{
+      return trainer.trainerId;
+    })
+    // console.log("debugging");
+    // console.log(allTrainers);
+    // console.log(allEligible);
+    
+    let i = 0;
+    
+    allTrainers.forEach(trainer =>{
+      console.log(eligibleTrainerIds.includes(trainer.trainerId));
+      console.log(eligibleTrainerIds);
+      if(eligibleTrainerIds.includes(trainer.trainerId)){
+        trainer.isEligible = true;
+      } else{
+        trainer.isEligible = false;
+      }
+      // this.sleep(50).then(()=>{
+      //   let newButton = this.getButton(trainer, i , trainer.trainerId);
+      //   tempButtonArray.push(newButton);
+        
+      // });
+       i = i + 1;
+    })
+    this.setState({
+      trainers:allTrainers,
+      eligibleTrainers:eligibleTrainers
+    })
+   
+
     
   }
 
+
+sleep = (milliseconds : any) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+// setUserid =(id: any) => {
+//     this.setState({
+//         userid: id.currentTarget.value,
+//       }) 
+//     this.sleep(50).then(() => {
+//         this.updateReimbursements();
+//       })
+    
+// }
   assign = async(trainerId:number, batchId:number) =>{
-      await assignTrainer(trainerId, 20);
+      await assignTrainer(trainerId, 8);
   }
   request = async(trainerId:number, batchId:number)=>{
       
-      await createConsentRequest(trainerId, null, 20);
+      await createConsentRequest(trainerId, null, 8);
   }
 
-  getButton = (trainer:Trainer, i:number) =>{
+  getButton = (trainer:Trainer, i:number, trainerId:number)  =>{
     
     let jsxElement =(<><h4>test</h4></>);
     if(trainer.isEligible){
-      jsxElement =  (<Button color="primary" id={i.toString()} onClick={()=>this.assign(this.state.trainers[0].trainerId, 20)}>Assign</Button>)
+      return <Button color="primary" id={i.toString()} onClick={()=>this.assign(trainerId, 8) }>Assign</Button>
     }else{
-      jsxElement = (<Button color="primary" id={i.toString()} onClick={()=>this.request(this.state.trainers[0].trainerId, 20)}>Request Consent</Button>)
+      return <Button color="primary" id={i.toString()} onClick={()=>this.request(trainerId, 8)}>Request Consent</Button>
     }
-    console.log(jsxElement)
+    
     return jsxElement;
   }
   
@@ -55,31 +120,73 @@ export class TrainerAssignmentComponent extends React.Component<any, IAssignment
     this.setState({
       trainers:allTrainers
     })
+    this.sleep(50).then(()=>{
+      this.getAllEligibleTrainers(2);
+     });
   }
   getAllEligibleTrainers = async(batchId:number) => {
     let trainers : Trainer[] = await getAllEligibleTrainers(batchId);
     this.setState({
       eligibleTrainers:trainers
     })
+    this.sleep(50).then(()=>{
+      this.assignEligibility();
+     });
   }
 
   assignEligibility = () =>{
-    let allTrainers = this.state.trainers;
-    let allEligible = this.state.eligibleTrainers;
+    let allTrainers : Trainer[] = this.state.trainers;
+    let allEligible: Trainer[] = this.state.eligibleTrainers;
+    let tempButtonArray:any[] = [];
+    let eligibleTrainerIds = allEligible.map((trainer) =>{
+      return trainer.trainerId;
+    })
+    let updateArray:Trainer[] = [];
+    console.log("debugging");
+    console.log(allTrainers);
+    console.log(allEligible);
+    
+    let i = 0;
+    
     allTrainers.forEach(trainer =>{
-      if(allEligible.includes(trainer)){
+      console.log(eligibleTrainerIds.includes(trainer.trainerId));
+      if(eligibleTrainerIds.includes(trainer.trainerId)){
+        
         trainer.isEligible = true;
+        updateArray.push(trainer);
       } else{
         trainer.isEligible = false;
       }
+      this.sleep(50).then(()=>{
+        let newButton = this.getButton(trainer, i , trainer.trainerId);
+        tempButtonArray.push(newButton);
+        console.log(tempButtonArray);
+      });
+       i = i + 1;
     })
+    this.setState({
+      trainers:allTrainers,
+      buttonArray:tempButtonArray
+    })
+    console.log(this.state.buttonArray);
+    
     
   }
 
   render() {
+    console.log(this.state.trainers)
+    let buttonArray:any[] = []
+    let trainers = this.state.trainers;
+    let i =0;
+    trainers.forEach(trainer=>{
+        let button = this.getButton(trainer, i, trainer.trainerId);
+        buttonArray.push(button);
+    })
     return (
       <>
       <ListGroup>
+
+        
               {  this.state.trainers.map( (trainer: Trainer, i) => {
                   //trying to use the same item display everywhere
                   return( 
@@ -96,7 +203,7 @@ export class TrainerAssignmentComponent extends React.Component<any, IAssignment
                             </Row> 
                             <Row>
                               <Col>
-                              { this.getButton(trainer,i)}
+                              { buttonArray[i]}
                               </Col>
                             </Row>
                           </Col>

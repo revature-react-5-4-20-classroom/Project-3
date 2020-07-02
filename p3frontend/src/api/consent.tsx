@@ -81,8 +81,8 @@ export async function getConsentByTrainerId(id: number) : Promise<any[]> {
     try {
         const response = await axiosClient.get(`/consent/${id}`);
         return response.data.map((itemObj: any) => {
-           const {consentId, trainerId, isApproved, batchId  } = itemObj;
-           return new Consent(consentId, trainerId, isApproved, batchId);
+           const {consentId, trainer, isApproved, batch  } = itemObj;
+           return new Consent(consentId, trainer, isApproved, batch);
         })
     } catch(e) {
         // Add more error functionality later

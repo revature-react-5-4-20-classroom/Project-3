@@ -5,7 +5,7 @@ export class Consent{
     consentId : number;
     trainer: Trainer;
     isApproved: boolean|null;
-    batch: Batch
+    batch: Batch;
     
 
 
@@ -14,5 +14,6 @@ export class Consent{
         this.trainer = trainer;
         this.isApproved  = isApproved;
         this.batch = batch;
+        
     }
 }

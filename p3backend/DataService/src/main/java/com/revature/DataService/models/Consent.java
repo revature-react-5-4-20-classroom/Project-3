@@ -1,11 +1,14 @@
 package com.revature.DataService.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -25,6 +28,9 @@ public class Consent {
 
   @Column(name = "consent_approved")
   private String isApprovedColumn;
+  
+//  @Column(name = "trainer_id")
+//  private Integer trainerId;
 
 
   // Working
@@ -32,14 +38,14 @@ public class Consent {
   @JsonIgnoreProperties({"consent", "trainers"})
   @ManyToOne
   @JoinColumn(name = "batch_id")
-  @Column(name = "batch_id")
+  //@Column(name = "batch_id")
   private Batch batch;
 
   	// Changing at Nick's request
   @JsonIgnoreProperties({"consent", "batches"})
   @ManyToOne
   @JoinColumn(name = "trainerId")
-  @Column(name="trainer_id")
+  //@Column(name="trainer_id")
   private Trainer trainer;
 
   public Consent() {
@@ -63,6 +69,8 @@ public void setIsApprovedColumn(String isApprovedColumn) {
 	this.isApprovedColumn = isApprovedColumn;
 }
 
+
+
 public Batch getBatch() {
 	return batch;
 }
@@ -79,12 +87,7 @@ public void setTrainer(Trainer trainer) {
 	this.trainer = trainer;
 }
 
-<<<<<<< HEAD
 public Consent(Integer consentId, String isApprovedColumn, Batch batch, Trainer trainer) {
-=======
-
-public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
->>>>>>> addcbf979d06ba49b4d4ff38556653052b22a354
 	super();
 	this.consentId = consentId;
 	this.isApprovedColumn = isApprovedColumn;
@@ -97,20 +100,18 @@ public String toString() {
 	return "Consent [consentId=" + consentId + ", isApprovedColumn=" + isApprovedColumn + ", batch=" + batch
 			+ ", trainer=" + trainer + "]";
 }
-  
- 
 
 
 
 
-<<<<<<< HEAD
-=======
-@Override
-public String toString() {
-	return "Consent [consentId=" + consentId + ", isApproved=" + isApprovedColumn + ", batchId=" + batchId + ", trainerId="
-			+ trainerId + "]";
-}
->>>>>>> addcbf979d06ba49b4d4ff38556653052b22a354
+
+
+
+
+
+
+
+
 
 
 

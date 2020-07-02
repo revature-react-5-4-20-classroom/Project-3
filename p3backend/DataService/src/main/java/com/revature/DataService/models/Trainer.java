@@ -122,28 +122,7 @@ public class Trainer {
 	}
 
 
-<<<<<<< HEAD
 
-
-	public Trainer() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public Trainer(Integer trainerId, String firstName, String lastName, String email, boolean isEligible,
-			List<Skillset> trainerSkills, List<Consent> consents, List<Batch> batches) {
-		super();
-		this.trainerId = trainerId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.isEligible = isEligible;
-		this.trainerSkills = trainerSkills;
-		this.consents = consents;
-		this.batches = batches;
-	}
 
 	public List<Consent> getConsent() {
 		return consents;
@@ -152,7 +131,6 @@ public class Trainer {
 	public void setConsent(List<Consent> consent) {
 		this.consents = consent;
 	}
-=======
 
 	public Trainer() {
 		super();
@@ -171,6 +149,13 @@ public Trainer(Integer trainerId, String firstName, String lastName, String emai
 	this.isEligible = isEligible;
 }
 
+@Override
+public String toString() {
+	return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+			+ email + ", isEligible=" + isEligible + ", trainerSkills=" + trainerSkills + ", consents=" + consents
+			+ ", batches=" + batches + "]";
+}
+
 //	public List<Consent> getConsent() {
 //		return consents;
 //	}
@@ -178,27 +163,9 @@ public Trainer(Integer trainerId, String firstName, String lastName, String emai
 //	public void setConsent(List<Consent> consent) {
 //		this.consents = consent;
 //	}
->>>>>>> addcbf979d06ba49b4d4ff38556653052b22a354
-
-	@Override
-	public String toString() {
-		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-<<<<<<< HEAD
-				+ email + ", isEligible=" + isEligible + ", trainerSkills=" + trainerSkills + ", consents=" + consents
-				+ ", batches=" + batches + "]";
-	}
-
-	
 
 
 	
-	
-
-	
-=======
-				+ email + ", trainerSkills=" + trainerSkills + ", batches=" + batches + "]";
-	}	
->>>>>>> addcbf979d06ba49b4d4ff38556653052b22a354
 
 	
 }

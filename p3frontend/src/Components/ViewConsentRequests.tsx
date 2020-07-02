@@ -55,7 +55,7 @@ export class ViewConsentRequests extends React.Component<any,IViewConsentRequest
                                     
                                     
                                     
-                                        {consent.batchId}
+                                        
                                         <Button color="primary" id={i.toString()} onClick={()=>this.accept(i)}>Accept</Button>
                                         <Button color="primary" id={i.toString()} onClick={()=>this.decline(i)}>Decline</Button>
                                     
