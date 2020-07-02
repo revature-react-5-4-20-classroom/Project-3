@@ -118,7 +118,12 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
-          <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/>
+          <FilterForm
+            setProgramType={this.setProgramType}
+            setClient={this.setClient}
+            setCurriculum={this.setCurriculum}
+            applyFilters={this.applyFilters}
+          />
         </Row>
         <br />
         <br />
@@ -183,13 +188,13 @@ export class InProgress extends React.Component<any, any> {
             return (
               <tr>
                 <td>
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       this.props.batchClickActionMapper(batch.batchFromServer);
                     }}
                   >
                     View
-                  </Button>
+                  </Button> */}
                   {/* <Button onClick={
 											()=>{
 												//set the modalBatch and it will pop up

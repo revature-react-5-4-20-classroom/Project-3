@@ -31,28 +31,26 @@ interface TimelineComponentState {
   toggle: any;
 }
 
-export class TimelineComponent extends React.Component<any,TimelineComponentState> {
-    constructor(props:any){
-        super(props)
-        this.state = {
-            //batches: null,
-            groups :null,
-            items : null,
+export class TimelineComponent extends React.Component<
+  any,
+  TimelineComponentState
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      //batches: null,
+      groups: null,
+      items: null,
 
-            prevent:false,
-           isOpen :false,
-         toggle:false
+      prevent: false,
+      isOpen: false,
+      toggle: false,
+    };
+  }
 
-        }
-    }
-    
-   
-
-
-componentDidUpdate=(prevProps:any)=>{
-    
-    if(prevProps.batches!==this.props.batches){
-        this.changeState();
+  componentDidUpdate = (prevProps: any) => {
+    if (prevProps.batches !== this.props.batches) {
+      this.changeState();
     }
   };
 
