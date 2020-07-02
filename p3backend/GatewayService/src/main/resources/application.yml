@@ -1,3 +1,7 @@
+#GATEWAY MASTER PORT IS 2331 - SWAP THIS IN WHEN PUSHING TO MASTER
+#GATEWAY DEVELOPMENt PORT IS 8212 - THIS SHOULD BE ACTIVE BY DEFAULT
+
+
 server:  
   port: 8212
   
@@ -9,14 +13,30 @@ eureka:
     serviceUrl:
       defaultZone: http://ec2-3-236-121-83.compute-1.amazonaws.com:8762/eureka
 
+
+#EUREKA MASTER PORT IS 2329 - SWAP THIS IN WHEN PUSHING TO MASTER
+#EUREKA DEVELOPMENT PORT IS 8762 - THIS SHOULD BE ACTIVE BY DEFAULT
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://ec2-3-235-74-191.compute-1.amazonaws.com:8762/eureka
+
 zuul:
   routes:    
     eureka:
       path: /eureka/**
+<<<<<<< HEAD
       url: http://localhost:8761/
+=======
+      url: http://ec2-3-235-74-191.compute-1.amazonaws.com:8762/
+>>>>>>> f0b0a89646d31588ca2e075e02df5cca68b6356c
     data:
       path: /data/**
       service-id: dataservice
     reports:
       path: /reports/**
       service-id: reportsservice
+      
+       
+      

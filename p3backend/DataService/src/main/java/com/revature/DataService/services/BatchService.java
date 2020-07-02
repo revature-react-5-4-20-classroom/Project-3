@@ -38,7 +38,9 @@ public class BatchService {
 	}
 	
 	public Batch updateBatch(Batch batch) throws Exception {
-	  Optional<Batch> existingBatch = batchRepository.findById(batch.getBatchId());
+	  Integer id = batch.getBatchId();
+	  
+	  Optional<Batch> existingBatch = batchRepository.findById(id);
 	  if (existingBatch.isPresent()) {
         return batchRepository.save(batch);
       } else {

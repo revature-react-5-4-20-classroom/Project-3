@@ -29,17 +29,17 @@ public class Consent {
 
   // Working
   // Changing at Nick's request
-//  @JsonIgnoreProperties({"consent", "trainers"})
-//  @ManyToOne
-//  @JoinColumn(name = "batch_id")
+  // @JsonIgnoreProperties({"consent", "trainers"})
+  // @ManyToOne
+  // @JoinColumn(name = "batch_id")
   @Column(name = "batch_id")
   private Integer batchId;
 
-  	// Changing at Nick's request
-//  @JsonIgnoreProperties({"consent", "batches"})
-//  @ManyToOne
-//  @JoinColumn(name = "trainerId")
-  @Column(name="trainer_id")
+  // Changing at Nick's request
+  // @JsonIgnoreProperties({"consent", "batches"})
+  // @ManyToOne
+  // @JoinColumn(name = "trainerId")
+  @Column(name = "trainer_id")
 
   private Integer trainerId;
 
@@ -58,53 +58,49 @@ public class Consent {
 
 
 
+  public Integer getBatchId() {
+    return batchId;
+  }
 
-public Integer getBatchId() {
-	return batchId;
-}
+  public void setBatchId(Integer batchId) {
+    this.batchId = batchId;
+  }
 
-public void setBatchId(Integer batchId) {
-	this.batchId = batchId;
-}
+  public Integer getTrainer_id() {
+    return trainerId;
+  }
 
-public Integer getTrainer_id() {
-	return trainerId;
-}
-
-public void setTrainer_id(Integer trainerId) {
-	this.trainerId = trainerId;
-}
+  public void setTrainer_id(Integer trainerId) {
+    this.trainerId = trainerId;
+  }
 
 
-public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
-	super();
-	this.consentId = consentId;
-	this.isApprovedColumn = isApproved;
-	this.batchId = batchId;
-	this.trainerId = trainerId;
-}
+  public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
+    super();
+    this.consentId = consentId;
+    this.isApprovedColumn = isApproved;
+    this.batchId = batchId;
+    this.trainerId = trainerId;
+  }
 
 
 
   public boolean getIsApprovedColumn() {
-	return isApprovedColumn;
-}
+    return isApprovedColumn;
+  }
 
-public void setIsApprovedColumn(boolean isApprovedColumn) {
-	this.isApprovedColumn = isApprovedColumn;
-}
-
-
-
-@Override
-public String toString() {
-	return "Consent [consentId=" + consentId + ", isApproved=" + isApprovedColumn + ", batchId=" + batchId + ", trainerId="
-			+ trainerId + "]";
-}
+  public void setIsApprovedColumn(boolean isApprovedColumn) {
+    this.isApprovedColumn = isApprovedColumn;
+  }
 
 
 
-  
+  @Override
+  public String toString() {
+    return "Consent [consentId=" + consentId + ", isApproved=" + isApprovedColumn + ", batchId="
+        + batchId + ", trainerId=" + trainerId + "]";
+  }
+
 
 
 }

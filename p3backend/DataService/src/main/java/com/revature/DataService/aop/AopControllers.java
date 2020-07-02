@@ -23,8 +23,8 @@ public class AopControllers {
 	
 @Before(value="within(com.revature.DataService..*)")
 public void logBefore(JoinPoint jp) {
-
-	logger.info(" Method "+jp.toShortString()+" called on "+jp.getTarget()+" args: "+Arrays.toString(jp.getArgs()));
+// Commented out because it was interfering with the Batch controller, if I don't remember to add back let me know --> John A.
+//	logger.info(" Method "+jp.toShortString()+" called on "+jp.getTarget()+" args: "+Arrays.toString(jp.getArgs()));
 	
 	
 	
