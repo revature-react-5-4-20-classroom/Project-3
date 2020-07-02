@@ -35,14 +35,18 @@ export class InProgress extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      programType: "", //EasyDropdown will set this to its first item during render
-      workType: "",
+      programType: "(none)", //EasyDropdown will set this to its first item during render
+      //workType:   '',
       viewType: "",
       sortAscend: true, //sorts by ascending or decending
       error: null, //holds an axios error object that will be displayed
-      errorMessage: "", //holds an error message for other special cases
       batchDisplayData: [], //holds the batch data formatted for display
       batches: [], // batch data to be passed as a prop
+      filteredBatches: [],
+      client: "(none)",
+      curriculum: "(none)",
+      programTypesArray: [],
+      errorMessage: "", //holds an error message for other special cases
       modalBatch: null, //what batch will be shown in the modal?
       modalShow: false, //do we show the modal?
     };
@@ -66,33 +70,33 @@ export class InProgress extends React.Component<any, any> {
           view
         </p>
         <br />
-
-        <Button id="btnUsePseudo" onClick={this.usePseudoData}>
-          Use pseudo data
-        </Button>
-        <EasyTooltip
-          target={"btnUsePseudo"}
-          displayText="Puts pseudo data into this component. pseudo data is json that is stored within the frontend."
-        />
-
         <Row>
           <Col>
+            <Button onClick={this.reset}>Reset</Button>
+          </Col>
+          {/* <Col>
             <b>program type</b>
             <EasyDropdown
               onSelected={this.setProgramType}
-              hoverText="I am not sure what the program type is for at this time. Please bear with me"
-              items={["CF", "ROCP", "Standard", "Spark"]}
+              items={["(none)", "CF", "ROCP", "Standard", "Spark"]}
             />
           </Col>
 
           <Col>
-            <b>work type</b>
+            <b>client</b>
             <EasyDropdown
-              onSelected={this.setWorkType}
-              hoverText="I am not sure what the work type is for at this time. Please bear with me"
-              items={["Curricula", "Client"]}
+              onSelected={this.setClient}
+              items={["(none)", "Walmart", "Amazon"]}
             />
           </Col>
+
+          <Col>
+            <b>curriculum</b>
+            <EasyDropdown
+              onSelected={this.setCurriculum}
+              items={["(none)", "curriculum1", "curriculum2"]}
+            />
+          </Col> */}
 
           <Col>
             <b>view type:</b>
@@ -102,6 +106,7 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
+          <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/>
         </Row>
         <br />
         <br />
@@ -115,12 +120,22 @@ export class InProgress extends React.Component<any, any> {
         {this.state.viewType === "Table" ? (
           this.displayTheDataAsATable()
         ) : (
-          <TimelineRedux batches={this.state.batches} />
+          <TimelineRedux batches={this.state.filteredBatches} />
         )}
         {/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
       </Container>
     );
   }
+
+  reset = () => {
+    console.log("helsf");
+    let batch = this.state.batches;
+    console.log(batch);
+    this.setState({
+      filteredBatches: batch,
+      batchDisplayData: this.convertServerDataToDisplayData(batch),
+    });
+  };
 
   displayTheDataAsATable = () => {
     return (
@@ -156,6 +171,13 @@ export class InProgress extends React.Component<any, any> {
             return (
               <tr>
                 <td>
+                  <Button
+                    onClick={() => {
+                      this.props.batchClickActionMapper(batch.batchFromServer);
+                    }}
+                  >
+                    View
+                  </Button>
                   {/* <Button onClick={
 
 											()=>{
@@ -350,6 +372,9 @@ export class InProgress extends React.Component<any, any> {
   fetchTheBatchData = async () => {
     try {
       let batchData = await getAllBatches();
+      let programtype = batchData.map((batch: Batch) => {
+        return batch.programType;
+      });
       //let batchData=pseudoDataResponse.data
 
       if (batchData == null) {
@@ -362,7 +387,9 @@ export class InProgress extends React.Component<any, any> {
 
         this.setState({
           batches: batchData,
+          filteredBatches: batchData,
           batchDisplayData: this.convertServerDataToDisplayData(batchData),
+          programTypesArray: programtype,
         });
       }
     } catch (e) {
@@ -370,18 +397,102 @@ export class InProgress extends React.Component<any, any> {
     }
   };
 
-  setProgramType = (value: string) => {
-    //this.fetchTheBatchData()
-    this.setState({ programType: value });
+  setProgramType = (
+    value: string //filter
+  ) => {
+    console.log(`Setting program type: ${value}`);
+    this.setState({ programType: value }, this.applyFilters);
   };
 
-  setWorkType = (value: string) => {
-    //this.fetchTheBatchData()
-    this.setState({ workType: value });
+  setClient = (value: string) => {
+    this.setState({ client: value }, this.applyFilters);
+  };
+
+  setCurriculum = (value: string) => {
+    //filter
+    this.setState({ curriculum: value }, this.applyFilters);
   };
 
   setViewType = (value: string) => {
     this.setState({ viewType: value });
+  };
+
+  filterBatchesByClient = (batchesToFilter: Batch[]) => {
+    // finds clients in batches, based on client demands regarding curricula
+    if (this.state.client !== "(none)") {
+      let client = this.state.client;
+      let filteredBatches = batchesToFilter.filter((b: Batch) => {
+        let clientDemands = b.curriculum.curriculumSkillset.clientDemands;
+        for (let cd of clientDemands) {
+          if (cd.client.name === client) {
+            return true;
+          }
+        }
+        return false;
+      });
+      // this.setState({
+      // 	filteredBatches: filteredBatches,
+      // 	batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
+      // })
+      return filteredBatches;
+    } else {
+      // let batches = this.state.batches;
+      // this.setState({
+      // 	filteredBatches: this.state.batches,
+      // 	batchDisplayData: this.convertServerDataToDisplayData(batches),
+      // })
+      return batchesToFilter;
+    }
+  };
+
+  filterBatchesByCurriculum = (batchesToFilter: Batch[]) => {
+    if (this.state.curriculum !== "(none)") {
+      let filtercurr = batchesToFilter;
+      console.log(filtercurr);
+      let filtered = filtercurr.filter((batch: Batch) => {
+        return batch.curriculum.name == this.state.curriculum;
+      });
+      console.log(filtered);
+
+      // this.setState({filteredBatches:filtered,
+      // 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+      return filtered;
+    } else {
+      return batchesToFilter;
+    }
+  };
+
+  filterBatchesByProgramType = (batchesToFilter: Batch[]) => {
+    if (this.state.programType !== "(none)") {
+      if (this.state.programTypesArray.indexOf(this.state.programType) > -1) {
+        let filtercurr = batchesToFilter;
+        let filtered = filtercurr.filter((batch: Batch) => {
+          return batch.programType === this.state.programType;
+        });
+        console.log(filtered);
+
+        // this.setState({filteredBatches:filtered,
+        // 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+        return filtered;
+      } else {
+        return batchesToFilter;
+      }
+    } else {
+      return batchesToFilter;
+    }
+  };
+
+  applyFilters = () => {
+    let batches = this.state.batches;
+    console.log(`Batches: ${batches}`);
+    console.log(batches);
+    let filteredBatches = this.filterBatchesByProgramType(batches);
+    filteredBatches = this.filterBatchesByCurriculum(filteredBatches);
+    filteredBatches = this.filterBatchesByClient(filteredBatches);
+    this.setState({
+      filteredBatches: filteredBatches,
+      batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
+    });
   };
 
   componentDidMount() {
