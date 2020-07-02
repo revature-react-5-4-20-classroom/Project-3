@@ -28,6 +28,8 @@ import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
 import BatchModal, { ReduxBatchModal } from "./BatchModal";
 import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
+import moment from "moment";
+import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 
 const doPrnt = true; //prnt will work
 
@@ -52,6 +54,16 @@ export class InProgress extends React.Component<any, any> {
     };
   }
 
+  showModal = (index: number) => {
+    let modalShow = !this.state.modalShow;
+    let modalBatch = this.props.batchClickActionMapper(
+      this.state.filteredBatches[index]
+    );
+    this.setState({
+      modalShow: modalShow,
+      modalBatch: modalBatch,
+    });
+  };
   render() {
     return (
       <Container>
@@ -106,7 +118,12 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
-          <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/>
+          <FilterForm
+            setProgramType={this.setProgramType}
+            setClient={this.setClient}
+            setCurriculum={this.setCurriculum}
+            applyFilters={this.applyFilters}
+          />
         </Row>
         <br />
         <br />
@@ -167,19 +184,18 @@ export class InProgress extends React.Component<any, any> {
           </tr>
         </thead>
         <tbody>
-          {this.state.batchDisplayData.map((batch: any) => {
+          {this.state.batchDisplayData.map((batch: any, index: number) => {
             return (
               <tr>
                 <td>
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       this.props.batchClickActionMapper(batch.batchFromServer);
                     }}
                   >
                     View
-                  </Button>
+                  </Button> */}
                   {/* <Button onClick={
-
 											()=>{
 												//set the modalBatch and it will pop up
 												//this.setState({modalBatch:batch,modalShow:true})
@@ -191,8 +207,7 @@ export class InProgress extends React.Component<any, any> {
                   {/* we are looping over display batches. 
 									give the modal the batch from the server. 
 									the official batch object*/}
-
-                  <BatchModal currentBatch={batch.batchFromServer} />
+                  <ReduxBatchModal currentBatch={batch.batchFromServer} />
                 </td>
                 <td>{batch.id}</td>
                 {/* <td>{batch.name}</td> */}
@@ -218,6 +233,7 @@ export class InProgress extends React.Component<any, any> {
             );
           })}
         </tbody>
+        {/* {this.state.modalShow ? <BatchModal toggle={this.showModal} currentBatch={this.state.modalBatch}/> : null} */}
       </Table>
     );
   };
@@ -320,11 +336,22 @@ export class InProgress extends React.Component<any, any> {
   //returns an array of batches that haven been transformed for easy display
   convertServerDataToDisplayData = (batchesFromServer: Batch[]) => {
     return batchesFromServer.map((batch: any) => {
-      let dateStart = new Date(batch.startDate); //convert strings to Date objects
-      let dateEnd = new Date(batch.endDate);
-
-      let weekC = dateDifferenceWeeks(dateStart, new Date(Date.now())); //calc current week we are on
-      let weekR = dateDifferenceWeeks(new Date(Date.now()), dateEnd); //calc weeks remaining
+      //let dateStart = moment(batch.startDate).utc().toDate(); //convert strings to Date objects
+      let dateStart = convertDateToUTC(batch.startDate);
+      let dateEnd = convertDateToUTC(batch.endDate);
+      //console.log(dateStart)
+      // let dateStartUTC = Date.parse(batch.startDate)
+      // let dateEndUTC = Date.parse(batch.endDate)
+      // let dateStartUTC = Date.UTC(dateStart.getUTCFullYear(),dateStart.getUTCMonth(),dateStart.getUTCDate(),
+      // 					dateStart.getUTCHours(),dateStart.getUTCMinutes(),dateStart.getUTCSeconds())
+      //dateStart = new Date(dateStartUTC)
+      //console.log(dateStartUTC)
+      //dateEnd.setMilliseconds(dateEndUTC)
+      //   let date = moment(batch.startDate);
+      //   console.log(date.utc().toDate());
+      //   console.log(batch.startDate);
+      let weekC = dateDifferenceWeeks(dateStart, convertDateToUTC()); //calc current week we are on
+      let weekR = dateDifferenceWeeks(convertDateToUTC(), dateEnd); //calc weeks remaining
 
       let jsxWeekC = <>{weekC}</>; //we want to know how to display the weeks
       let jsxWeekR = <>{weekR}</>; //when now() is outside the week range, we want some nice display text
@@ -370,6 +397,34 @@ export class InProgress extends React.Component<any, any> {
 
   //fetches batches from the server, converts it to display data, and set it. checks for error edge cases.
   fetchTheBatchData = async () => {
+    // try
+    // {
+    // 	// let batchData = await getAllBatches();
+    // 	// //let batchData=pseudoDataResponse.data
+
+    // 	// if(batchData==null)
+    // 	// {
+    // 	// 	this.setState({errorMessage:"ERROR. There wasn't a data property in the server response"})
+    // 	// }
+    // 	// else
+    // 	// {
+    // 	// 	prnt(doPrnt,`fetchTheBatchData() had a response`)
+
+    // // 	if(response.status!==200)
+    // // 	{
+    // // 		this.setState({error:response})
+    // // 	}
+    // // 	else
+    // // 	{
+    // // 		this.setState({
+    // // 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
+    // // 		})
+    // // 	}
+    // // }
+    // // catch(e)
+    // // {
+    // // 	this.setState({error:e})
+    // // }
     try {
       let batchData = await getAllBatches();
       let programtype = batchData.map((batch: Batch) => {
