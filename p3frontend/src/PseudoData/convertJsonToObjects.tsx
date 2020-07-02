@@ -3,8 +3,8 @@
 	I do not know why.
 */
 
-import jsonWithQuotes from './DataBatches.json'
+import jsonWithQuotes from "./DataBatches.json";
 
-let jsonAsAString=JSON.stringify(jsonWithQuotes)
+let jsonAsAString = JSON.stringify(jsonWithQuotes);
 
-export const pseudoDataResponse=JSON.parse(jsonAsAString)
+export const pseudoDataResponse = JSON.parse(jsonAsAString);

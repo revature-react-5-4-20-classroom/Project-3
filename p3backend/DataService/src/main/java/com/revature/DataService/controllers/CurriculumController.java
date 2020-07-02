@@ -16,22 +16,22 @@ import com.revature.DataService.services.CurriculumService;
 @RequestMapping(path = "/curricula")
 @RestController
 public class CurriculumController {
-	
-	@Autowired
-	CurriculumService curriculumService;
-	
-	@GetMapping
-	public List<Curriculum> getAllCurricula() {
-		return curriculumService.getAll();
-	}
-	
-	@GetMapping("/{id}")
-	public Curriculum getCurriculumById(@PathVariable Integer id) {
-//		try {
-			return curriculumService.getById(id);
-//		} catch (CurriculumNotFoundException e) {
-//			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//		}
-	}
-	
+
+  @Autowired
+  CurriculumService curriculumService;
+
+  @GetMapping
+  public List<Curriculum> getAllCurricula() {
+    return curriculumService.getAll();
+  }
+
+  @GetMapping("/{id}")
+  public Curriculum getCurriculumById(@PathVariable Integer id) {
+    // try {
+    return curriculumService.getById(id);
+    // } catch (CurriculumNotFoundException e) {
+    // throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    // }
+  }
+
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.revature.DataService.models.Curriculum;
 
 @Repository
-public interface CurriculumRepository extends JpaRepository<Curriculum,Integer> {
+public interface CurriculumRepository extends JpaRepository<Curriculum, Integer> {
 
 }

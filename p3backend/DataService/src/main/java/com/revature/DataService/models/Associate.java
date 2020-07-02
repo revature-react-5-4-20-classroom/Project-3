@@ -18,88 +18,89 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(schema = "project3", name = "associate")
 public class Associate {
 
-	
-	public Associate() {
-		super();
-		
-	}
-	
-	
-	@Id
-	@Column(name= "associate_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer associateId;
-	
-	@Column(name="first_name")
-	private String firstName;
-	
-	@Column(name="last_name")
-	private String lastName;
-	
-	@Column(name="email")
-	private String email;
-	
-	@Column(name="active")
-	private boolean active;
-	
-	@Column(name="interview_score")
-	private double interviewScore;
-	
 
-	// Associate to Batch
-	@JsonIgnoreProperties({"associate","associates","trainers","consent","clientDemands","curriculum"})
-	@ManyToOne
-	@JoinColumn(name="assigned_batch_id")
-	private Batch batch;
+  public Associate() {
+    super();
 
-	public Integer getAssociateId() {
-		return associateId;
-	}
-
-	public void setAssociateId(Integer associateId) {
-		this.associateId = associateId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+  }
 
 
-	public String getEmail() {
-		return email;
-	}
+  @Id
+  @Column(name = "associate_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer associateId;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  @Column(name = "first_name")
+  private String firstName;
 
-	public boolean isActive() {
-		return active;
-	}
+  @Column(name = "last_name")
+  private String lastName;
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+  @Column(name = "email")
+  private String email;
 
-	public double getInterviewScore() {
-		return interviewScore;
-	}
+  @Column(name = "active")
+  private boolean active;
 
-	public void setInterviewScore(double interviewScore) {
-		this.interviewScore = interviewScore;
-	}
+  @Column(name = "interview_score")
+  private double interviewScore;
+
+
+  // Associate to Batch
+  @JsonIgnoreProperties({"associate", "associates", "trainers", "consent", "clientDemands",
+      "curriculum"})
+  @ManyToOne
+  @JoinColumn(name = "assigned_batch_id")
+  private Batch batch;
+
+  public Integer getAssociateId() {
+    return associateId;
+  }
+
+  public void setAssociateId(Integer associateId) {
+    this.associateId = associateId;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
+  }
+
+  public double getInterviewScore() {
+    return interviewScore;
+  }
+
+  public void setInterviewScore(double interviewScore) {
+    this.interviewScore = interviewScore;
+  }
 
   public Batch getBatch() {
     return batch;
@@ -129,6 +130,5 @@ public class Associate {
   }
 
 
-	
-	
+
 }
