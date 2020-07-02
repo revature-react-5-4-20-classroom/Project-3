@@ -3,7 +3,7 @@ import { Batch } from "../models/Batch";
 export const clickTypes = {
   BATCH_CLICK: "BATCH_CLICK",
   CURRENT_BATCH_CLICK: "CURRENT_BACTCH_CLICK",
-  BATCH_UPDATE: 'BATCH_UPDATE'
+  BATCH_UPDATE: "BATCH_UPDATE",
 };
 
 export const batchClickActionMapper = (batchClicked: Batch) => {
@@ -23,12 +23,12 @@ export const currentBatchClickActionMapper = (currentBatchClicked: Batch) => {
   };
 };
 
-export const batchUpdateActionMapper = (updatedBatch : Batch) => {
-    return {
-        type: clickTypes.BATCH_UPDATE,
-        payload: updatedBatch
-    }
-}
+export const batchUpdateActionMapper = (updatedBatch: Batch) => {
+  return {
+    type: clickTypes.BATCH_UPDATE,
+    payload: updatedBatch,
+  };
+};
 
 /*
     All the action mappers can go here and be 
@@ -37,5 +37,5 @@ export const batchUpdateActionMapper = (updatedBatch : Batch) => {
 export const allTheActionMappers = {
   batchClickActionMapper,
   currentBatchClickActionMapper,
-  batchUpdateActionMapper
+  batchUpdateActionMapper,
 };
