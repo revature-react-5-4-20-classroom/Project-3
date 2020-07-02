@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 import { Modal, Toast, Button } from "reactstrap";
 import { TimelineModal } from "./TimelineModal";
 import { store } from "../redux/store";
+import { ReduxTimelineBatchModal,TimelineBatchModal } from "./TimelineBatchModal";
 
 interface TimelineComponentProps {
   batches: Batch[];
@@ -30,6 +31,7 @@ interface TimelineComponentState {
   isOpen: boolean;
   toggle: any;
   batchIsOpen: boolean;
+  index : number
 }
 
 export class TimelineComponent extends React.Component<
@@ -47,6 +49,7 @@ export class TimelineComponent extends React.Component<
       isOpen: false,
       toggle: false,
       batchIsOpen: false,
+      index: 0,
     };
   }
 
@@ -84,7 +87,7 @@ export class TimelineComponent extends React.Component<
             },
 
             onDoubleClick: () => {
-              alert("hello");
+                this.showBatchModal(batch,index)
             },
           },
         };
@@ -141,8 +144,8 @@ export class TimelineComponent extends React.Component<
               this.displayBatchInfo(batch);
             },
 
-            onDoubleClick: (batch:any) => {
-              alert("hello");
+            onDoubleClick: (batch: any) => {
+              this.showBatchModal(batch,index)
             },
           },
         };
@@ -151,7 +154,7 @@ export class TimelineComponent extends React.Component<
         mappedItems.push(item);
       });
     this.setGroupsAndItems(mappedGroups, mappedItems);
-    console.log(mappedGroups,mappedItems);
+    console.log(mappedGroups, mappedItems);
   }
 
   setIsOpen = () => {
@@ -166,19 +169,28 @@ export class TimelineComponent extends React.Component<
   };
 
   setBatchIsOpen = () => {
-      let batchIsOpen
-      this.setState({
-          
-      })
-  }
-  showBatchModal = (batch: Batch) => {
-    this.props.batchClickActionMapper(batch);
+    let batchIsOpen = !this.state.batchIsOpen;
+    this.setState({
+      batchIsOpen: batchIsOpen,
+    });
+  };
+  showBatchModal = (batch: Batch,index: number) => {
+    //this.props.batchClickActionMapper(batch);
+    this.setIndex(index)
+    this.setBatchIsOpen();
+    console.log(store.getState().batch.batch)
+  };
 
+  setIndex = (index: number) => {
+      let newIndex = index
+      this.setState({
+          index : newIndex
+      })
   }
 
   render() {
     console.log(this.state.items);
-    if (this.state.items&&this.state.items.length>0) {
+    if (this.state.items && this.state.items.length > 0) {
       return (
         <div>
           <Button color="primary" onClick={this.toggle}>
@@ -205,15 +217,19 @@ export class TimelineComponent extends React.Component<
           ) : (
             <></>
           )}
-          {}
+          {this.state.batchIsOpen ? (
+            <ReduxTimelineBatchModal
+              batch={this.props.batches[this.state.index]}
+              isOpen={this.state.batchIsOpen}
+              toggle={this.setBatchIsOpen}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       );
-    }else if(this.state.items&&this.state.items.length<1){
-      return(
-        <h2>No batches exists</h2>
-      )
-
-
+    } else if (this.state.items && this.state.items.length < 1) {
+      return <h2>No batches exists</h2>;
     } else {
       return <p>Loading...</p>;
     }

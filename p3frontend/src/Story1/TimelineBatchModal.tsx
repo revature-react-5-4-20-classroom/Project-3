@@ -29,26 +29,20 @@ export class TimelineBatchModal extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      showThis: false,
-      showTrainers: false, //T to show trainers. F to show associates
+ 
     };
   }
 
   render() {
-    const toggle = () => {
-      this.setState({ showThis: !this.state.showThis });
-      //this.props.batchClickActionMapper(this.props.currentBatch);
-    };
-
+    console.log(this.props.batch)
     return (
       <>
-        <Button onClick={toggle}>View</Button>
         <Modal
-          isOpen={this.state.showThis}
+          isOpen={this.props.isOpen}
           contentClassName="modalStyle"
           size="lg"
         >
-          <ModalHeader toggle={toggle}>
+          <ModalHeader toggle={this.props.toggle}>
             Batch {this.props.batch.batchId}
           </ModalHeader>
           <ModalBody>
@@ -135,7 +129,7 @@ export class TimelineBatchModal extends React.Component<any, any> {
   }
 }
 
-export const ReduxBatchModal = connect(
+export const ReduxTimelineBatchModal = connect(
   allTheMapStateToProps,
   allTheActionMappers
 )(TimelineBatchModal);
