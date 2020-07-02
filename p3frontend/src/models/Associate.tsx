@@ -87,3 +87,16 @@ export async function updateAssociate(obj: Associate) {
     //throw e;//we do not throw. we put the error into a nice alert component
   }
 }
+
+/*
+  returns the active associates from the backend
+*/
+export async function getActiveAssociates(): Promise<Associate[]> {
+  try {
+    let response = await axiosClient.get("/associates/get-active");
+    console.log("FROM API", response);
+    return response.data;
+  } catch (error) {
+    throw new FailedRequestException("Failed to fetch active associates");
+  }
+}

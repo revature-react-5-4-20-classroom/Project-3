@@ -358,7 +358,11 @@ export class InProgress extends React.Component<any, any> {
             "ERROR. There wasn't a data property in the server response",
         });
       } else {
-        prnt(doPrnt, `fetchTheBatchData() had a response. batchData=`,batchData);
+        prnt(
+          doPrnt,
+          `fetchTheBatchData() had a response. batchData=`,
+          batchData
+        );
 
         this.setState({
           batches: batchData,

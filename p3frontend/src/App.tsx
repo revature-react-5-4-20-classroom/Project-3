@@ -22,6 +22,7 @@ import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
 import { TestASTableModel } from "./Story1/TestASTableModel";
+import { FilterForm } from "./Story1/FilterForm";
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
