@@ -1,13 +1,13 @@
 package com.revature.DataService.exceptions;
 
-public class UpdateFailedException extends RuntimeException{
+public class UpdateFailedException extends RuntimeException {
 
   /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
-public UpdateFailedException() {
+  public UpdateFailedException() {
     super();
     // TODO Auto-generated constructor stub
   }
@@ -32,6 +32,6 @@ public UpdateFailedException() {
     super(cause);
     // TODO Auto-generated constructor stub
   }
-  
-  
+
+
 }

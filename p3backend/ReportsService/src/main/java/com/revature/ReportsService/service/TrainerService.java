@@ -11,14 +11,14 @@ import com.revature.ReportsService.models.Trainer;
 @Primary
 public class TrainerService {
 
-	public List<Trainer> getAll(){
-		//return open feign grab to the dataService endpoint for all  
-		return new MockTrainer().getTrainers();
-	}
-	
-	public Trainer getByID(Integer id){
-		//return open feign grab to the dataService endpoint for one 
-		return new MockTrainer().getTrainerById(id);
-	}
-	
+  public List<Trainer> getAll() {
+    // return open feign grab to the dataService endpoint for all
+    return new MockTrainer().getTrainers();
+  }
+
+  public Trainer getByID(Integer id) {
+    // return open feign grab to the dataService endpoint for one
+    return new MockTrainer().getTrainerById(id);
+  }
+
 }

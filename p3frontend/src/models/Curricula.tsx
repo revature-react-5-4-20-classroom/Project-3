@@ -1,10 +1,9 @@
-export class Curricula{
+export class Curricula {
+  curriculumId: number;
+  name: string;
 
-    curriculumId: number;
-    name: string;
-
-    constructor(curriculumId:number, name:string){
-        this.curriculumId = curriculumId;
-        this.name = name;
-    }
+  constructor(curriculumId: number, name: string) {
+    this.curriculumId = curriculumId;
+    this.name = name;
+  }
 }

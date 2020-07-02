@@ -1,6 +1,6 @@
 package com.revature.DataService.exceptions;
 
-public class TrainerNotFoundException extends RuntimeException{
+public class TrainerNotFoundException extends RuntimeException {
 
   public TrainerNotFoundException() {
     super();
@@ -27,6 +27,6 @@ public class TrainerNotFoundException extends RuntimeException{
     super(cause);
     // TODO Auto-generated constructor stub
   }
-  
-  
+
+
 }

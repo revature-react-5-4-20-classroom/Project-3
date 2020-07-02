@@ -14,8 +14,8 @@ import com.revature.ReportsService.models.Associate;
 @FeignClient(name = "dataservice")
 public interface DataGetterFeign {
 
-	// This will SEND an HTTP req to /books/3 on the appbook service and return the result as a String
-	@GetMapping("/associates")
-	public List<Associate> getAssociates();
+  // This will SEND an HTTP req to /books/3 on the appbook service and return the result as a String
+  @GetMapping("/associates")
+  public List<Associate> getAssociates();
 
 }

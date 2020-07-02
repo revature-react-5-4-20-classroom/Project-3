@@ -1,11 +1,13 @@
-import React, { ComponentElement } from 'react';
-import { Trainer } from '../models/Trainer';
+import React, { ComponentElement } from "react";
+import { Trainer } from "../models/Trainer";
 
 import {
   getAllTrainers,
   createConsentRequest,
+
   getAllEligibleTrainers
 } from '../api/consent';
+
 import {
   Form,
   FormGroup,
@@ -19,32 +21,31 @@ import {
   ListGroupItem,
   ListGroup,
   Row,
-} from 'reactstrap';
-import { Consent } from '../models/Consent';
-import { assignTrainer } from '../api/batch';
+} from "reactstrap";
+import { Consent } from "../models/Consent";
+import { assignTrainer } from "../api/batch";
 
-interface IAssignmentComponentState { 
-  trainers : Trainer[]
+interface IAssignmentComponentState {
+  trainers: Trainer[];
   eligibleTrainers: Trainer[];
   updateArray: Trainer[];
   buttonArray: any[];
-
 }
 
 export class TrainerAssignmentComponent extends React.Component<
   any,
   IAssignmentComponentState
 > {
-
   constructor(props: any) {
     super(props);
     this.state = {
       trainers: [],
       eligibleTrainers: [],
-      updateArray:[],
-      buttonArray: []
-    }
+      updateArray: [],
+      buttonArray: [],
+    };
   }
+
 
   // componentDidMount() {
   //   this.getAllTrainers();
@@ -256,6 +257,7 @@ sleep = (milliseconds : any) => {
   //   });
   // };
   
+
   render() {
     console.log(this.state.trainers)
     let buttonArray:any[] = []
@@ -281,6 +283,7 @@ sleep = (milliseconds : any) => {
                     <Row>
                       <Col>{buttonArray[i]}</Col>
                     </Row>
+                    <Row>{/* <Col>{this.getButton(trainer, i)}</Col> */}</Row>
                   </Col>
                 </Row>
               </ListGroupItem>
@@ -288,8 +291,6 @@ sleep = (milliseconds : any) => {
           })}
         </ListGroup>
       </>
-
     );
   }
 }
-

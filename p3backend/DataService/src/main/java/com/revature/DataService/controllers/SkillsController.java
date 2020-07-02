@@ -20,57 +20,55 @@ import com.revature.DataService.services.SkillsService;
 @RestController
 @RequestMapping("/skills")
 public class SkillsController {
-	
-	@Autowired
-	SkillsService skillsService;
-	
-	
-	
-	
-//	@GetMapping
-//	public String hello() {
-//		return "hello";
-//	}
-	
-	@GetMapping
-	public List<Skills> getAll(){
-		return skillsService.getAll();
-	}
-	
-	@PostMapping
-	public Skills save(@RequestBody Skills skill) {
-		System.out.println(skill);
-	
-		return skillsService.save(skill);
-	}
-	
-	
-	@PatchMapping
-	public Skills update(@RequestBody Skills skill) {
-		try {
-			return skillsService.update(skill);
-		}catch(RuntimeException e) {
-			System.out.println(e);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			
-		}
-		
-	}
-	
-	@GetMapping("/{id}")
-	public Skills getById(@PathVariable Integer id) {
-		try {
-			return skillsService.getbyId(id);
-		}catch(RuntimeException e){
-		
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			
-		}
-		
-		
-	}
-	
-	
-	
+
+  @Autowired
+  SkillsService skillsService;
+
+
+
+  // @GetMapping
+  // public String hello() {
+  // return "hello";
+  // }
+
+  @GetMapping
+  public List<Skills> getAll() {
+    return skillsService.getAll();
+  }
+
+  @PostMapping
+  public Skills save(@RequestBody Skills skill) {
+    System.out.println(skill);
+
+    return skillsService.save(skill);
+  }
+
+
+  @PatchMapping
+  public Skills update(@RequestBody Skills skill) {
+    try {
+      return skillsService.update(skill);
+    } catch (RuntimeException e) {
+      System.out.println(e);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+    }
+
+  }
+
+  @GetMapping("/{id}")
+  public Skills getById(@PathVariable Integer id) {
+    try {
+      return skillsService.getbyId(id);
+    } catch (RuntimeException e) {
+
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+    }
+
+
+  }
+
+
 
 }
