@@ -4,6 +4,8 @@ import { Batch } from "../models/Batch";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
 import { associatesGetActiveTotal } from "../models/Associate";
 import { Trainer } from "../models/Trainer";
+import moment from "moment";
+import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 
 interface TimelineModalProps {
   isOpen: boolean;
@@ -17,12 +19,12 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
   }
   render() {
     let currentWeek = dateDifferenceWeeks(
-      new Date(this.props.batch.startDate),
-      new Date(Date.now())
+      convertDateToUTC(this.props.batch.startDate),
+      convertDateToUTC()
     );
     let remainingWeeks = dateDifferenceWeeks(
-      new Date(Date.now()),
-      new Date(this.props.batch.endDate)
+      convertDateToUTC(),
+      convertDateToUTC(this.props.batch.endDate)
     );
 
     let activeAssociates = associatesGetActiveTotal(
@@ -46,11 +48,15 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
             <p>{`Skillset: ${this.props.batch.curriculum.name}`}</p>
             <p>{`Active Associates: ${activeAssociates}`}</p>
             <p>{`Inactive Associates: ${inactiveAssociates}`}</p>
-            {/* <div>
-                             {this.props.batch.trainers.map((trainer:Trainer,index) => {
-                                return (<p>{`Trainer ${index+1}: ${trainer.firstName} ${trainer.lastName}`}</p>)
-                            })} 
-                        </div> */}
+            <div>
+              {this.props.batch.trainers.map((trainer: Trainer, index) => {
+                return (
+                  <p>{`Trainer ${index + 1}: ${trainer.firstName} ${
+                    trainer.lastName
+                  }`}</p>
+                );
+              })}
+            </div>
             <p>{`Location: ${this.props.batch.location.locationName}`}</p>
           </ModalBody>
         </Container>

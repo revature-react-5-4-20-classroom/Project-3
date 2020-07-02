@@ -16,7 +16,7 @@ import { trainerGetName } from "../models/Trainer";
 import { associatesGetActiveTotal } from "../models/Associate";
 import { locationGetName } from "../models/Location";
 import { seeIt } from "../GeneralPurposeHelpers/seeIt";
-import { connect } from "react-redux";
+import { connect, batch } from "react-redux";
 import {
   allTheActionMappers,
   batchClickActionMapper,
@@ -28,6 +28,8 @@ import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
 import BatchModal, { ReduxBatchModal } from "./BatchModal";
 import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
+import moment from "moment";
+import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 
 const doPrnt = true; //prnt will work
 
@@ -35,19 +37,35 @@ export class InProgress extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      programType: "", //EasyDropdown will set this to its first item during render
-      workType: "",
+      programType: "(none)", //EasyDropdown will set this to its first item during render
+      //workType:   '',
       viewType: "",
       sortAscend: true, //sorts by ascending or decending
       error: null, //holds an axios error object that will be displayed
-      errorMessage: "", //holds an error message for other special cases
       batchDisplayData: [], //holds the batch data formatted for display
       batches: [], // batch data to be passed as a prop
+      filteredBatches: [],
+      client: "(none)",
+      curriculum: "(none)",
+      programTypesArray: [],
+      clientsArray: [],
+      curriculaArray: [],
+      errorMessage: "", //holds an error message for other special cases
       modalBatch: null, //what batch will be shown in the modal?
       modalShow: false, //do we show the modal?
     };
   }
 
+  showModal = (index: number) => {
+    let modalShow = !this.state.modalShow;
+    let modalBatch = this.props.batchClickActionMapper(
+      this.state.filteredBatches[index]
+    );
+    this.setState({
+      modalShow: modalShow,
+      modalBatch: modalBatch,
+    });
+  };
   render() {
     return (
       <Container>
@@ -66,33 +84,33 @@ export class InProgress extends React.Component<any, any> {
           view
         </p>
         <br />
-
-        <Button id="btnUsePseudo" onClick={this.usePseudoData}>
-          Use pseudo data
-        </Button>
-        <EasyTooltip
-          target={"btnUsePseudo"}
-          displayText="Puts pseudo data into this component. pseudo data is json that is stored within the frontend."
-        />
-
         <Row>
-          <Col>
+          {/* <Col>
+            <Button onClick={this.reset}>Reset</Button>
+          </Col> */}
+          {/* <Col>
             <b>program type</b>
             <EasyDropdown
               onSelected={this.setProgramType}
-              hoverText="I am not sure what the program type is for at this time. Please bear with me"
-              items={["CF", "ROCP", "Standard", "Spark"]}
+              items={["(none)", "CF", "ROCP", "Standard", "Spark"]}
             />
           </Col>
 
           <Col>
-            <b>work type</b>
+            <b>client</b>
             <EasyDropdown
-              onSelected={this.setWorkType}
-              hoverText="I am not sure what the work type is for at this time. Please bear with me"
-              items={["Curricula", "Client"]}
+              onSelected={this.setClient}
+              items={["(none)", "Walmart", "Amazon"]}
             />
           </Col>
+
+          <Col>
+            <b>curriculum</b>
+            <EasyDropdown
+              onSelected={this.setCurriculum}
+              items={["(none)", "curriculum1", "curriculum2"]}
+            />
+          </Col> */}
 
           <Col>
             <b>view type:</b>
@@ -102,6 +120,14 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
+          <FilterForm
+            setProgramType={this.setProgramType}
+            setClient={this.setClient}
+            setCurriculum={this.setCurriculum}
+            programTypeSelection={this.state.programTypesArray}
+            clientSelection={this.state.clientsArray}
+            curriculumSelection={this.state.curriculaArray}
+          />
         </Row>
         <br />
         <br />
@@ -115,12 +141,22 @@ export class InProgress extends React.Component<any, any> {
         {this.state.viewType === "Table" ? (
           this.displayTheDataAsATable()
         ) : (
-          <TimelineRedux batches={this.state.batches} />
+          <TimelineRedux batches={this.state.filteredBatches} />
         )}
         {/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
       </Container>
     );
   }
+
+  reset = () => {
+    console.log("helsf");
+    let batch = this.state.batches;
+    console.log(batch);
+    this.setState({
+      filteredBatches: batch,
+      batchDisplayData: this.convertServerDataToDisplayData(batch),
+    });
+  };
 
   displayTheDataAsATable = () => {
     return (
@@ -152,12 +188,18 @@ export class InProgress extends React.Component<any, any> {
           </tr>
         </thead>
         <tbody>
-          {this.state.batchDisplayData.map((batch: any) => {
+          {this.state.batchDisplayData.map((batch: any, index: number) => {
             return (
               <tr>
                 <td>
+                  {/* <Button
+                    onClick={() => {
+                      this.props.batchClickActionMapper(batch.batchFromServer);
+                    }}
+                  >
+                    View
+                  </Button> */}
                   {/* <Button onClick={
-
 											()=>{
 												//set the modalBatch and it will pop up
 												//this.setState({modalBatch:batch,modalShow:true})
@@ -169,8 +211,7 @@ export class InProgress extends React.Component<any, any> {
                   {/* we are looping over display batches. 
 									give the modal the batch from the server. 
 									the official batch object*/}
-
-                  <BatchModal currentBatch={batch.batchFromServer} />
+                  <ReduxBatchModal currentBatch={batch.batchFromServer} />
                 </td>
                 <td>{batch.id}</td>
                 {/* <td>{batch.name}</td> */}
@@ -196,6 +237,7 @@ export class InProgress extends React.Component<any, any> {
             );
           })}
         </tbody>
+        {/* {this.state.modalShow ? <BatchModal toggle={this.showModal} currentBatch={this.state.modalBatch}/> : null} */}
       </Table>
     );
   };
@@ -286,23 +328,23 @@ export class InProgress extends React.Component<any, any> {
   };
 
   //puts pseudo data in when we do not have data from the server
-  usePseudoData = () => {
-    this.setState({
-      batches: pseudoDataResponse.data,
-      batchDisplayData: this.convertServerDataToDisplayData(
-        pseudoDataResponse.data
-      ),
-    });
-  };
+  // usePseudoData = () => {
+  //   this.setState({
+  //     batches: pseudoDataResponse.data,
+  //     batchDisplayData: this.convertServerDataToDisplayData(
+  //       pseudoDataResponse.data
+  //     ),
+  //   });
+  // };
 
   //returns an array of batches that haven been transformed for easy display
   convertServerDataToDisplayData = (batchesFromServer: Batch[]) => {
     return batchesFromServer.map((batch: any) => {
-      let dateStart = new Date(batch.startDate); //convert strings to Date objects
-      let dateEnd = new Date(batch.endDate);
+      let dateStart = convertDateToUTC(batch.startDate); //convert strings to Date objects
+      let dateEnd = convertDateToUTC(batch.endDate);
 
-      let weekC = dateDifferenceWeeks(dateStart, new Date(Date.now())); //calc current week we are on
-      let weekR = dateDifferenceWeeks(new Date(Date.now()), dateEnd); //calc weeks remaining
+      let weekC = dateDifferenceWeeks(dateStart, convertDateToUTC()); //calc current week we are on
+      let weekR = dateDifferenceWeeks(convertDateToUTC(), dateEnd); //calc weeks remaining
 
       let jsxWeekC = <>{weekC}</>; //we want to know how to display the weeks
       let jsxWeekR = <>{weekR}</>; //when now() is outside the week range, we want some nice display text
@@ -348,9 +390,68 @@ export class InProgress extends React.Component<any, any> {
 
   //fetches batches from the server, converts it to display data, and set it. checks for error edge cases.
   fetchTheBatchData = async () => {
+    // try
+    // {
+    // 	// let batchData = await getAllBatches();
+    // 	// //let batchData=pseudoDataResponse.data
+
+    // 	// if(batchData==null)
+    // 	// {
+    // 	// 	this.setState({errorMessage:"ERROR. There wasn't a data property in the server response"})
+    // 	// }
+    // 	// else
+    // 	// {
+    // 	// 	prnt(doPrnt,`fetchTheBatchData() had a response`)
+
+    // // 	if(response.status!==200)
+    // // 	{
+    // // 		this.setState({error:response})
+    // // 	}
+    // // 	else
+    // // 	{
+    // // 		this.setState({
+    // // 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
+    // // 		})
+    // // 	}
+    // // }
+    // // catch(e)
+    // // {
+    // // 	this.setState({error:e})
+    // // }
     try {
       let batchData = await getAllBatches();
-      //let batchData=pseudoDataResponse
+
+
+      let programtype = batchData.map((batch: Batch) => {
+        return batch.programType;
+      });
+      programtype = programtype.filter((value, index, self) => {
+        // Use this to get only unique values
+        return self.indexOf(value) === index;
+      });
+
+      let curricula = batchData.map((batch: Batch) => {
+        return batch.curriculum.name;
+      });
+      curricula = curricula.filter((value, index, self) => {
+        return self.indexOf(value) === index;
+      });
+
+      let clientDemandLists = batchData.map((batch: Batch) => {
+        return batch.curriculum.curriculumSkillset.clientDemands;
+      });
+      let clients: any[] = [];
+      for (let cdList of clientDemandLists) {
+        console.log(cdList);
+        for (let cd of cdList) {
+          if (clients.indexOf(cd.client.name) === -1) {
+            console.log(cd.client.name);
+            clients.push(cd.client.name);
+          }
+        }
+      }
+      //let batchData=pseudoDataResponse.data
+
 
       if (batchData == null) {
         this.setState({
@@ -366,7 +467,11 @@ export class InProgress extends React.Component<any, any> {
 
         this.setState({
           batches: batchData,
+          filteredBatches: batchData,
           batchDisplayData: this.convertServerDataToDisplayData(batchData),
+          programTypesArray: programtype,
+          clientsArray: clients,
+          curriculaArray: curricula,
         });
       }
     } catch (e) {
@@ -374,18 +479,102 @@ export class InProgress extends React.Component<any, any> {
     }
   };
 
-  setProgramType = (value: string) => {
-    //this.fetchTheBatchData()
+  setProgramType = (
+    value: string //filter
+  ) => {
+    console.log(`Setting program type: ${value}`);
     this.setState({ programType: value });
   };
 
-  setWorkType = (value: string) => {
-    //this.fetchTheBatchData()
-    this.setState({ workType: value });
+  setClient = (value: string) => {
+    this.setState({ client: value });
+  };
+
+  setCurriculum = (value: string) => {
+    //filter
+    this.setState({ curriculum: value }, this.applyFilters);
   };
 
   setViewType = (value: string) => {
     this.setState({ viewType: value });
+  };
+
+  filterBatchesByClient = (batchesToFilter: Batch[]) => {
+    // finds clients in batches, based on client demands regarding curricula
+    if (this.state.client !== "(none)") {
+      let client = this.state.client;
+      let filteredBatches = batchesToFilter.filter((b: Batch) => {
+        let clientDemands = b.curriculum.curriculumSkillset.clientDemands;
+        for (let cd of clientDemands) {
+          if (cd.client.name === client) {
+            return true;
+          }
+        }
+        return false;
+      });
+      // this.setState({
+      // 	filteredBatches: filteredBatches,
+      // 	batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
+      // })
+      return filteredBatches;
+    } else {
+      // let batches = this.state.batches;
+      // this.setState({
+      // 	filteredBatches: this.state.batches,
+      // 	batchDisplayData: this.convertServerDataToDisplayData(batches),
+      // })
+      return batchesToFilter;
+    }
+  };
+
+  filterBatchesByCurriculum = (batchesToFilter: Batch[]) => {
+    if (this.state.curriculum !== "(none)") {
+      let filtercurr = batchesToFilter;
+      console.log(filtercurr);
+      let filtered = filtercurr.filter((batch: Batch) => {
+        return batch.curriculum.name == this.state.curriculum;
+      });
+      console.log(filtered);
+
+      // this.setState({filteredBatches:filtered,
+      // 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+      return filtered;
+    } else {
+      return batchesToFilter;
+    }
+  };
+
+  filterBatchesByProgramType = (batchesToFilter: Batch[]) => {
+    if (this.state.programType !== "(none)") {
+      if (this.state.programTypesArray.indexOf(this.state.programType) > -1) {
+        let filtercurr = batchesToFilter;
+        let filtered = filtercurr.filter((batch: Batch) => {
+          return batch.programType === this.state.programType;
+        });
+        console.log(filtered);
+
+        // this.setState({filteredBatches:filtered,
+        // 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+        return filtered;
+      } else {
+        return batchesToFilter;
+      }
+    } else {
+      return batchesToFilter;
+    }
+  };
+
+  applyFilters = () => {
+    let batches = this.state.batches;
+    console.log(`Batches: ${batches}`);
+    console.log(batches);
+    let filteredBatches = this.filterBatchesByProgramType(batches);
+    filteredBatches = this.filterBatchesByCurriculum(filteredBatches);
+    filteredBatches = this.filterBatchesByClient(filteredBatches);
+    this.setState({
+      filteredBatches: filteredBatches,
+      batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
+    });
   };
 
   componentDidMount() {

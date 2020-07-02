@@ -19,55 +19,52 @@ import ASTableModel from "./ASTableModel";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
+import { Batch } from "../models/Batch";
 
-interface TimelineBatchModalProps {}
+// interface TimelineBatchModalProps {
+//   batch : Batch,
+// }
 
 export class TimelineBatchModal extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      showThis: false,
-      showTrainers: false, //T to show trainers. F to show associates
+ 
     };
   }
 
   render() {
-    const toggle = () => {
-      this.setState({ showThis: !this.state.showThis });
-      this.props.batchClickActionMapper(this.props.currentBatch);
-    };
-
+    console.log(this.props.batch)
     return (
       <>
-        <Button onClick={toggle}>View</Button>
         <Modal
-          isOpen={this.state.showThis}
+          isOpen={this.props.isOpen}
           contentClassName="modalStyle"
           size="lg"
         >
-          <ModalHeader toggle={toggle}>
-            Batch {this.props.currentBatch.batchId}
+          <ModalHeader toggle={this.props.toggle}>
+            Batch {this.props.batch.batchId}
           </ModalHeader>
           <ModalBody>
             <Row>
               <Col>
                 <b>Start Date:</b>
               </Col>
-              <Col>{this.props.currentBatch.startDate}</Col>
+              <Col>{this.props.batch.startDate}</Col>
             </Row>
             <Row>
               <Col>
                 <b>End Date: </b>
               </Col>
-              <Col>{this.props.currentBatch.endDate}</Col>
+              <Col>{this.props.batch.endDate}</Col>
             </Row>
             <Row>
               <Col>
                 <b>Curriculum Name:</b>
               </Col>
               <Col>
-                {this.props.currentBatch.curriculum
-                  ? this.props.currentBatch.curriculum.name
+                {this.props.batch.curriculum
+                  ? this.props.batch.curriculum.name
                   : "no-curriculum"}
               </Col>
             </Row>
@@ -123,7 +120,7 @@ export class TimelineBatchModal extends React.Component<any, any> {
                 <span>This is trainers stuff - </span>
               </>
             ) : (
-              <ASTableModel currentBatch={this.props.currentBatch} />
+              <ASTableModel currentBatch={this.props.batch} />
             )}
           </ModalBody>
         </Modal>
@@ -132,7 +129,7 @@ export class TimelineBatchModal extends React.Component<any, any> {
   }
 }
 
-export const ReduxBatchModal = connect(
+export const ReduxTimelineBatchModal = connect(
   allTheMapStateToProps,
   allTheActionMappers
 )(TimelineBatchModal);
