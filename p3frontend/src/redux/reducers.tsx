@@ -32,10 +32,10 @@ export const batchReducer = (
     }
 
     case clickTypes.BATCH_UPDATE: {
-        let updatedBatch : Batch = action.payload.updatedBatch;
-        return {
-            batch: updatedBatch
-        }
+      let updatedBatch: Batch = action.payload.updatedBatch;
+      return {
+        batch: updatedBatch,
+      };
     }
 
     default: {

@@ -25,7 +25,9 @@ import { IState, allTheMapStateToProps } from "../redux/reducers";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
 import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
-import BatchModal from "./BatchModal";
+import BatchModal, { ReduxBatchModal } from "./BatchModal";
+import { timeStamp } from "console";
+import { FilterForm } from "./FilterForm";
 
 const doPrnt = true; //prnt will work
 
@@ -155,16 +157,19 @@ export class InProgress extends React.Component<any, any> {
               <tr>
                 <td>
                   {/* <Button onClick={
+
 											()=>{
 												//set the modalBatch and it will pop up
-												this.setState({modalBatch:batch,modalShow:true})
+												//this.setState({modalBatch:batch,modalShow:true})
 												//this.props.batchClickActionMapper(batch.batchFromServer)//maybe we throw out redux
+												this.showModal(index);
 											}
 										}>View
 									</Button> */}
                   {/* we are looping over display batches. 
 									give the modal the batch from the server. 
 									the official batch object*/}
+
                   <BatchModal currentBatch={batch.batchFromServer} />
                 </td>
                 <td>{batch.id}</td>

@@ -1,11 +1,11 @@
 export class Curriculum {
-    curriculumId : number;
-    name : string;
-    
-    constructor(curriculumId : number, name : string) 
+  curriculumId: number;
+  name: string;
+  curriculumSkillset: any;
 
-    {
-        this.curriculumId = curriculumId;
-        this.name = name;
-    }
+  constructor(curriculumId: number, name: string, curriculumSkillset: any) {
+    this.curriculumId = curriculumId;
+    this.name = name;
+    this.curriculumSkillset = curriculumSkillset;
+  }
 }

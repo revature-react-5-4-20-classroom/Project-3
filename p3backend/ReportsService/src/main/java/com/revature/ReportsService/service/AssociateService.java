@@ -11,16 +11,16 @@ import com.revature.ReportsService.models.Associate;
 @Primary
 public class AssociateService {
 
-//	@Autowired
-//	AssociateRepository associateRepository;
+  // @Autowired
+  // AssociateRepository associateRepository;
 
-	public List<Associate> getAll() {
-//		return associateRepository.getAll();
-		return new MockAssociate().getAssociates();
-	}
+  public List<Associate> getAll() {
+    // return associateRepository.getAll();
+    return new MockAssociate().getAssociates();
+  }
 
-	public Associate getById(Integer id) {
-		return new MockAssociate().getById(id);
-	}
+  public Associate getById(Integer id) {
+    return new MockAssociate().getById(id);
+  }
 
 }

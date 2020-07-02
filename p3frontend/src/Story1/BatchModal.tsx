@@ -17,6 +17,9 @@ import {
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import "../../src/index.css";
 import ASTableModel from "./ASTableModel";
+import { connect } from "react-redux";
+import { allTheMapStateToProps } from "../redux/reducers";
+import { allTheActionMappers } from "../redux/action-mapper";
 
 /*
   <BatchModal currentBatch={aBatchObject}/>
@@ -36,6 +39,7 @@ class BatchModal extends React.Component<any, any> {
   render() {
     const toggle = () => {
       this.setState({ showThis: !this.state.showThis });
+      this.props.batchClickActionMapper(this.props.currentBatch);
     };
 
     return (
@@ -134,3 +138,8 @@ class BatchModal extends React.Component<any, any> {
 }
 
 export default BatchModal;
+
+export const ReduxBatchModal = connect(
+  allTheMapStateToProps,
+  allTheActionMappers
+)(BatchModal);

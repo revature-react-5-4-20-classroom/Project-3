@@ -1,7 +1,8 @@
-import React from 'react';
-import { Button } from 'reactstrap';
-import { getAllClientDemands } from '../api/clientDemand';
-import { ClientDemands } from '../models/ClientDemands';
+import React from "react";
+import { Button } from "reactstrap";
+import { getAllClientDemands } from "../api/clientDemand";
+import { ClientDemands } from "../models/ClientDemands";
+import { getActiveAssociates } from "../api/Associate";
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -23,6 +24,7 @@ export class ColumnChartTest extends React.Component<any, any> {
     this.setState({
       clientDemand: this.getDemand(),
     });
+    this.getSupply();
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -69,13 +71,14 @@ export class ColumnChartTest extends React.Component<any, any> {
     return clientDemandData;
   };
 
-  // getSupply = async() => {
-  //   let supplyArr = await
-  // }
+  getSupply = async () => {
+    let supplyArr = await getActiveAssociates();
+    console.log("supplyarr, ", supplyArr);
+  };
 
   // This initializes google charts
   loadGoogle = () => {
-    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.load("current", { packages: ["corechart", "bar"] });
     google.charts.setOnLoadCallback(this.init);
   };
 
@@ -88,53 +91,53 @@ export class ColumnChartTest extends React.Component<any, any> {
     // Each array is a grouping of the above columns
     var data: any = [];
     data[0] = new google.visualization.DataTable();
-    data[0].addColumn('string', 'Demand and Supply');
-    data[0].addColumn('number', 'Total');
-    data[0].addColumn('number', 'Java/React');
-    data[0].addColumn('number', 'Salesforce');
-    data[0].addColumn('number', 'Data');
-    data[0].addColumn('number', 'Ai');
+    data[0].addColumn("string", "Demand and Supply");
+    data[0].addColumn("number", "Total");
+    data[0].addColumn("number", "Java/React");
+    data[0].addColumn("number", "Salesforce");
+    data[0].addColumn("number", "Data");
+    data[0].addColumn("number", "Ai");
     data[0].addRows([
-      ['Client Demand', 64, 23, 21, 16, 4],
-      ['Current', 19, 4, 6, 8, 1],
-      ['1 Month', 31, 10, 12, 6, 3],
-      ['3 Months', 50, 20, 15, 10, 5],
+      ["Client Demand", 64, 23, 21, 16, 4],
+      ["Current", 19, 4, 6, 8, 1],
+      ["1 Month", 31, 10, 12, 6, 3],
+      ["3 Months", 50, 20, 15, 10, 5],
     ]);
     data[1] = new google.visualization.DataTable();
-    data[1].addColumn('string', 'Demand and Supply');
-    data[1].addColumn('number', 'Java/React');
+    data[1].addColumn("string", "Demand and Supply");
+    data[1].addColumn("number", "Java/React");
     data[1].addRows([
-      ['Client Demand', 23],
-      ['Current', 4],
-      ['1 Month', 10],
-      ['3 Months', 20],
+      ["Client Demand", 23],
+      ["Current", 4],
+      ["1 Month", 10],
+      ["3 Months", 20],
     ]);
     data[2] = new google.visualization.DataTable();
-    data[2].addColumn('string', 'Demand and Supply');
-    data[2].addColumn('number', 'Salesforce');
+    data[2].addColumn("string", "Demand and Supply");
+    data[2].addColumn("number", "Salesforce");
     data[2].addRows([
-      ['Client Demand', 21],
-      ['Current', 6],
-      ['1 Month', 12],
-      ['3 Months', 15],
+      ["Client Demand", 21],
+      ["Current", 6],
+      ["1 Month", 12],
+      ["3 Months", 15],
     ]);
     data[3] = new google.visualization.DataTable();
-    data[3].addColumn('string', 'Demand and Supply');
-    data[3].addColumn('number', 'Data');
+    data[3].addColumn("string", "Demand and Supply");
+    data[3].addColumn("number", "Data");
     data[3].addRows([
-      ['Client Demand', 16],
-      ['Current', 8],
-      ['1 Month', 6],
-      ['3 Months', 10],
+      ["Client Demand", 16],
+      ["Current", 8],
+      ["1 Month", 6],
+      ["3 Months", 10],
     ]);
     data[4] = new google.visualization.DataTable();
-    data[4].addColumn('string', 'Demand and Supply');
-    data[4].addColumn('number', 'Ai');
+    data[4].addColumn("string", "Demand and Supply");
+    data[4].addColumn("number", "Ai");
     data[4].addRows([
-      ['Client Demand', 4],
-      ['Current', 1],
-      ['1 Month', 3],
-      ['3 Months', 5],
+      ["Client Demand", 4],
+      ["Current", 1],
+      ["1 Month", 3],
+      ["3 Months", 5],
     ]);
 
     // Creates view with data?????????
@@ -152,7 +155,7 @@ export class ColumnChartTest extends React.Component<any, any> {
 
     // Labeling and styling
     var options: any = {
-      orientation: 'horizontal',
+      orientation: "horizontal",
       width: 900,
       column: 0,
       height: 500,
@@ -160,10 +163,10 @@ export class ColumnChartTest extends React.Component<any, any> {
         direction: 1,
       },
       vAxes: {
-        0: { title: 'Amount of Associates' },
+        0: { title: "Amount of Associates" },
       },
       hAxes: {
-        0: { title: 'Demand and Supply' },
+        0: { title: "Demand and Supply" },
       },
     };
     // myRef acts like .getElementById but for React

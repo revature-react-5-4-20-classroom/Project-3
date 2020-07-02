@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from 'reactstrap';
+import React from "react";
+import { Button } from "reactstrap";
 
 export class ColumnButton extends React.Component<any, any> {
   constructor(props: any) {

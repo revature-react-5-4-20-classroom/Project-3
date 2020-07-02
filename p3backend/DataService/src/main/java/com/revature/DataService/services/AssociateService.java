@@ -9,33 +9,33 @@ import com.revature.DataService.repositories.AssociateRepository;
 
 @Service
 public class AssociateService {
-	
-	@Autowired
-	AssociateRepository associateRepository;
-	
-	public Associate getById(Integer id) throws Exception {
-		Optional<Associate> associate = associateRepository.findById(id);
-		if(associate.isPresent()) {
-			return associate.get();
-		} else {
-			throw new Exception("associate not found");
-		}
-	}
-	
-	public List<Associate> getAll()  {
-		
-		return associateRepository.findAll();
-	}
-	
-	public List<Associate> getAllActive() {
-	  return associateRepository.findAllWhere();
-	}
-	
 
-	public void updateAssociate(Associate a) {
-		
-		
-		associateRepository.save(a);
-	}
+  @Autowired
+  AssociateRepository associateRepository;
+
+  public Associate getById(Integer id) throws Exception {
+    Optional<Associate> associate = associateRepository.findById(id);
+    if (associate.isPresent()) {
+      return associate.get();
+    } else {
+      throw new Exception("associate not found");
+    }
+  }
+
+  public List<Associate> getAll() {
+
+    return associateRepository.findAll();
+  }
+
+  public List<Associate> getAllActive() {
+    return associateRepository.findAllWhere();
+  }
+
+
+  public void updateAssociate(Associate a) {
+
+
+    associateRepository.save(a);
+  }
 }
 

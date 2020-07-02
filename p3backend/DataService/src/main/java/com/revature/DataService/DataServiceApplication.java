@@ -13,29 +13,30 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class DataServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DataServiceApplication.class, args);
-	}
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedMethods("GET","POST","PUT","PATCH","DELETE","OPTIONS")
-				.allowedHeaders("*");
-				
-			}
-		};
-	}
-	
-	@Bean
-    public WebMvcConfigurer configureContent() {
-      return new WebMvcConfigurer() {
-        @Override
-        public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-          configurer.ignoreAcceptHeader(true).defaultContentType(MediaType.APPLICATION_JSON);
-        }
-      };
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(DataServiceApplication.class, args);
+  }
+
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+            .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS").allowedHeaders("*");
+
+      }
+    };
+  }
+
+  @Bean
+  public WebMvcConfigurer configureContent() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.ignoreAcceptHeader(true).defaultContentType(MediaType.APPLICATION_JSON);
+      }
+    };
+  }
 
 }
