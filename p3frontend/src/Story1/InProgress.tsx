@@ -107,7 +107,12 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
-          <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/>
+          <FilterForm
+            setProgramType={this.setProgramType}
+            setClient={this.setClient}
+            setCurriculum={this.setCurriculum}
+            applyFilters={this.applyFilters}
+          />
         </Row>
         <br />
         <br />

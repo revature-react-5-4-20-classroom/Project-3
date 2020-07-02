@@ -1,9 +1,9 @@
-import moment from 'moment'
+import moment from "moment";
 
-export function convertDateToUTC(date?:string) {
-    if (date) {
-        return moment(date).utc().toDate();
-    }else{
-        return moment().utc().toDate();
-    }
+export function convertDateToUTC(date?: string) {
+  if (date) {
+    return moment(date).utc().toDate();
+  } else {
+    return moment().utc().toDate();
+  }
 }

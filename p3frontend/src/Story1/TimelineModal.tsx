@@ -19,7 +19,7 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
   render() {
     let currentWeek = dateDifferenceWeeks(
       convertDateToUTC(this.props.batch.startDate),
-      convertDateToUTC(),
+      convertDateToUTC()
     );
     let remainingWeeks = dateDifferenceWeeks(
       convertDateToUTC(),
@@ -47,11 +47,15 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
             <p>{`Skillset: ${this.props.batch.curriculum.name}`}</p>
             <p>{`Active Associates: ${activeAssociates}`}</p>
             <p>{`Inactive Associates: ${inactiveAssociates}`}</p>
-            {/* <div>
-                             {this.props.batch.trainers.map((trainer:Trainer,index) => {
-                                return (<p>{`Trainer ${index+1}: ${trainer.firstName} ${trainer.lastName}`}</p>)
-                            })} 
-                        </div> */}
+            <div>
+              {this.props.batch.trainers.map((trainer: Trainer, index) => {
+                return (
+                  <p>{`Trainer ${index + 1}: ${trainer.firstName} ${
+                    trainer.lastName
+                  }`}</p>
+                );
+              })}
+            </div>
             <p>{`Location: ${this.props.batch.location.locationName}`}</p>
           </ModalBody>
         </Container>
