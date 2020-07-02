@@ -12,11 +12,11 @@ import com.revature.DataService.repositories.TrainerBatchRepository;
 @Service
 public class TrainerBatchService {
 
-	
-	@Autowired
-	TrainerBatchRepository trainerBatchRepository;
-	
-	public TrainerBatch create(TrainerBatch trainerBatch) {
-		return trainerBatchRepository.save(trainerBatch);
-	}
+
+  @Autowired
+  TrainerBatchRepository trainerBatchRepository;
+
+  public TrainerBatch create(TrainerBatch trainerBatch) {
+    return trainerBatchRepository.save(trainerBatch);
+  }
 }

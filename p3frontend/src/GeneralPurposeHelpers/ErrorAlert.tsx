@@ -1,7 +1,6 @@
 import { Alert } from "reactstrap";
 import React from "react";
 
-
 /*
 	<ErrorAlert error={errorObject} message="We have an issue"/>
 
@@ -11,39 +10,36 @@ import React from "react";
 	message (optional): can be displayed if you do not have an errorObject
 */
 
-export function ErrorAlert(props:any)
-{
-	let jsxAlerts=(<></>)
+export function ErrorAlert(props: any) {
+  let jsxAlerts = <></>;
 
-	if(props.error)
-	{
-		jsxAlerts=(
-		<Alert color="danger">
-			{/* {JSON.stringify(props.error)} */}
-			{props.error.name}&nbsp;
-			{props.error.message}&nbsp;
-			{
-				props.error.config?
-					(<>
-						{props.error.config.method}&nbsp;
-						{props.error.config.baseURL}{props.error.config.url}
-					</>)
-				:
-					(<></>)
-			
-			}
-		</Alert>)
-	}
+  if (props.error) {
+    jsxAlerts = (
+      <Alert color="danger">
+        {/* {JSON.stringify(props.error)} */}
+        {props.error.name}&nbsp;
+        {props.error.message}&nbsp;
+        {props.error.config ? (
+          <>
+            {props.error.config.method}&nbsp;
+            {props.error.config.baseURL}
+            {props.error.config.url}
+          </>
+        ) : (
+          <></>
+        )}
+      </Alert>
+    );
+  }
 
-	if(props.message)
-	{
-		jsxAlerts=(<>
-			{jsxAlerts}
-			<Alert color="danger">
-				{props.message}
-			</Alert>
-		</>)
-	}
+  if (props.message) {
+    jsxAlerts = (
+      <>
+        {jsxAlerts}
+        <Alert color="danger">{props.message}</Alert>
+      </>
+    );
+  }
 
-	return jsxAlerts
+  return jsxAlerts;
 }

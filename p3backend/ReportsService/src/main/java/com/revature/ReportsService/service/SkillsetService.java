@@ -11,14 +11,14 @@ import com.revature.ReportsService.models.Skillset;
 @Primary
 public class SkillsetService {
 
-	public List<Skillset> getAll(){
-		//return open feign grab to the dataService endpoint for all
-		return new MockSkillset().getSkillsets();
-	}
-	
-	public Skillset getByID(Integer id){
-		//return open feign grab to the dataService endpoint for one 
-		return new MockSkillset().getSkillsetById(id);
-	}
-	
+  public List<Skillset> getAll() {
+    // return open feign grab to the dataService endpoint for all
+    return new MockSkillset().getSkillsets();
+  }
+
+  public Skillset getByID(Integer id) {
+    // return open feign grab to the dataService endpoint for one
+    return new MockSkillset().getSkillsetById(id);
+  }
+
 }

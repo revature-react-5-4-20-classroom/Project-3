@@ -7,9 +7,9 @@ import com.revature.DataService.models.Associate;
 
 public interface AssociateRepository extends JpaRepository<Associate, Integer> {
 
-	
-	public Associate save(Associate a);
-	
-	@Query("select a from Associate a where a.active = true")
-	List<Associate> findAllWhere();
+
+  public Associate save(Associate a);
+
+  @Query("select a from Associate a where a.active = true")
+  List<Associate> findAllWhere();
 }

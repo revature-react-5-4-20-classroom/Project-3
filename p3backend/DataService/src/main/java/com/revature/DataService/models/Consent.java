@@ -62,10 +62,6 @@ public class Consent {
     this.consentId = consentId;
   }
 
-public String getIsApprovedColumn() {
-	return isApprovedColumn;
-}
-
 
 public void setIsApprovedColumn(String isApprovedColumn) {
 	this.isApprovedColumn = isApprovedColumn;
@@ -104,44 +100,5 @@ public String toString() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-  public Integer getBatchId() {
-    return batchId;
-  }
-
-  public void setBatchId(Integer batchId) {
-    this.batchId = batchId;
-  }
-
-  public Integer getTrainer_id() {
-    return trainerId;
-  }
-
-  public void setTrainer_id(Integer trainerId) {
-    this.trainerId = trainerId;
-  }
-
-
-  public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
-    super();
-    this.consentId = consentId;
-    this.isApprovedColumn = isApproved;
-    this.batchId = batchId;
-    this.trainerId = trainerId;
-  }
-
-
-
-  public boolean getIsApprovedColumn() {
-    return isApprovedColumn;
-  }
+}
 

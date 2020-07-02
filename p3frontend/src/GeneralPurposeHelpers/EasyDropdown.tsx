@@ -1,6 +1,11 @@
 import React from "react";
 import { EasyTooltip } from "./EasyTooltip";
-import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem } from "reactstrap";
+import {
+  DropdownToggle,
+  DropdownMenu,
+  UncontrolledDropdown,
+  DropdownItem,
+} from "reactstrap";
 
 /*
 	<EasyDropdown 
@@ -18,57 +23,54 @@ import { DropdownToggle, DropdownMenu, UncontrolledDropdown, DropdownItem } from
 	onSelected(item:string)
 */
 
-export class EasyDropdown extends React.Component<any,any>
-{
-	constructor(props:any)
-	{
-		super(props)
-		this.state={
-			selectedItem:"not set yet",
-			items:[],
+export class EasyDropdown extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      selectedItem: "not set yet",
+      items: [],
 
-			//need a unique id for tooltip to reference this dropdown
-			//I'm not super happy with this but I don't know the best way to find a textual unique id
-			id:'needsToBeText'+Math.floor(Math.random()*100000) 
-		}
-	}
-	
-	setTheItem(item:string)
-	{
-		this.props.onSelected(item)			//set the item in the parent component
-		this.setState({selectedItem:item})	//set the item inside this dropdown, cause re-render
-	}
+      //need a unique id for tooltip to reference this dropdown
+      //I'm not super happy with this but I don't know the best way to find a textual unique id
+      id: "needsToBeText" + Math.floor(Math.random() * 100000),
+    };
+  }
 
-	componentDidMount()
-	{
-		this.setTheItem(this.props.items[0])
-	}
+  setTheItem(item: string) {
+    this.props.onSelected(item); //set the item in the parent component
+    this.setState({ selectedItem: item }); //set the item inside this dropdown, cause re-render
+  }
 
-	changeSelection=(event:any)=>
-	{
-		this.setTheItem(event.currentTarget.value)
-	}
+  componentDidMount() {
+    this.setTheItem(this.props.items[0]);
+  }
 
-	render()
-	{
-		return(<>
-			<UncontrolledDropdown>
-				<DropdownToggle caret id={this.state.id}>{this.state.selectedItem}</DropdownToggle>
-				<DropdownMenu>
+  changeSelection = (event: any) => {
+    this.setTheItem(event.currentTarget.value);
+  };
 
-					{
-						this.props.items.map((item:string)=>
-						{
-							return(
-								<DropdownItem value={item} onClick={this.changeSelection}>
-									{item}
-								</DropdownItem>
-							)
-						})
-					}
-				</DropdownMenu>
-			</UncontrolledDropdown>
-			<EasyTooltip target={this.state.id} displayText={this.props.hoverText}/>
-			</>)
-	}
+  render() {
+    return (
+      <>
+        <UncontrolledDropdown>
+          <DropdownToggle caret id={this.state.id}>
+            {this.state.selectedItem}
+          </DropdownToggle>
+          <DropdownMenu>
+            {this.props.items.map((item: string) => {
+              return (
+                <DropdownItem value={item} onClick={this.changeSelection}>
+                  {item}
+                </DropdownItem>
+              );
+            })}
+          </DropdownMenu>
+        </UncontrolledDropdown>
+        <EasyTooltip
+          target={this.state.id}
+          displayText={this.props.hoverText}
+        />
+      </>
+    );
+  }
 }

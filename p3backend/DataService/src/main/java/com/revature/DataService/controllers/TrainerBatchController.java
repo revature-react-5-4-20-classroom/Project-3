@@ -11,12 +11,12 @@ import com.revature.DataService.services.TrainerBatchService;
 @RestController
 public class TrainerBatchController {
 
-	@Autowired
-	TrainerBatchService trainerBatchService;
-	
-	
-	@PostMapping("/trainerbatch")
-	 public TrainerBatch createTrainer(@RequestBody TrainerBatch trainerBatch) {
-	    return trainerBatchService.create(trainerBatch);
-	 }
+  @Autowired
+  TrainerBatchService trainerBatchService;
+
+
+  @PostMapping("/trainerbatch")
+  public TrainerBatch createTrainer(@RequestBody TrainerBatch trainerBatch) {
+    return trainerBatchService.create(trainerBatch);
+  }
 }

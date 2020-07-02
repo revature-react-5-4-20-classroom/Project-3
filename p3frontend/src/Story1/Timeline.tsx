@@ -31,47 +31,28 @@ interface TimelineComponentState {
   toggle: any;
 }
 
-export class TimelineComponent extends React.Component<
-  any,
-  TimelineComponentState
-> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      //batches: null,
-      groups: null,
-      items: null,
+export class TimelineComponent extends React.Component<any,TimelineComponentState> {
+    constructor(props:any){
+        super(props)
+        this.state = {
+            //batches: null,
+            groups :null,
+            items : null,
 
-      prevent: false,
-      isOpen: false,
-      toggle: false,
-    };
-  }
+            prevent:false,
+           isOpen :false,
+         toggle:false
 
-  // itemRenderer = ({item, itemContext, getItemProps, getResizeProps }) => {
-  //     <div {...getItemProps(item.itemProps)}>
-  //         <div className="rct-item-content">
-  //             {item}
-  //         </div>
-  //     </div>
-  // }
+        }
+    }
+    
+   
 
-  //     setBatches  = async () => {
 
-  // let batches=await getAllBatches();
-
-  //         this.setState({
-  //             batches  : batches
-  //         })
-  //     }
-
-  // componentWillReceiveProps=()=>{
-  //     this.changeState();
-  // }
-
-  componentDidUpdate = (prevProps: any) => {
-    if (prevProps.batches !== this.props.batches) {
-      this.changeState();
+componentDidUpdate=(prevProps:any)=>{
+    
+    if(prevProps.batches!==this.props.batches){
+        this.changeState();
     }
   };
 

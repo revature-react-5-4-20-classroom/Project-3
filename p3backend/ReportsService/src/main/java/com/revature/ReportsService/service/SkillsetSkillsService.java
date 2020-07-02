@@ -12,7 +12,7 @@ public class SkillsetSkillsService {
   public List<SkillsetSkills> getAll() {
     return new MockSkillsetSkills().getSkillsetSkills();
   }
-  
+
   public SkillsetSkills getById(Integer id) {
     return new MockSkillsetSkills().getSkillsetSkillsById(id);
   }

@@ -119,11 +119,17 @@ export class InProgress extends React.Component<any, any> {
             <b>view type:</b>
             <EasyDropdown
               onSelected={this.setViewType}
+              hoverText="Please enjoy viewing the batches in a table or calendar"
               items={["Table", "Calendar"]}
             />
           </Col>
-          {/* <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/> */}
         </Row>
+        <br />
+        <br />
+        <>
+          Total batches in that are in the system:{" "}
+          <b>{this.state.batches.length}</b>
+        </>
         <br />
         <br />
         {/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
