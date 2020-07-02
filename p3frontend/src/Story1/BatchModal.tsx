@@ -39,7 +39,7 @@ class BatchModal extends React.Component<any, any> {
   render() {
     const toggle = () => {
       this.setState({ showThis: !this.state.showThis });
-      this.props.batchClickActionMapper(this.props.currentBatch);
+      //this.props.batchClickActionMapper(this.props.currentBatch);
     };
 
     return (
