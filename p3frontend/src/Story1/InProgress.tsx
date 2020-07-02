@@ -108,8 +108,14 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
-          <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum}
-            programTypeSelection={this.state.programTypesArray} clientSelection={this.state.clientsArray} curriculumSelection={this.state.curriculaArray}/>
+          <FilterForm
+            setProgramType={this.setProgramType}
+            setClient={this.setClient}
+            setCurriculum={this.setCurriculum}
+            programTypeSelection={this.state.programTypesArray}
+            clientSelection={this.state.clientsArray}
+            curriculumSelection={this.state.curriculaArray}
+          />
         </Row>
         <br />
         <br />
@@ -379,30 +385,31 @@ export class InProgress extends React.Component<any, any> {
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
       });
-      programtype = programtype.filter((value, index, self) => { // Use this to get only unique values
+      programtype = programtype.filter((value, index, self) => {
+        // Use this to get only unique values
         return self.indexOf(value) === index;
-      })
+      });
 
-      let curricula = batchData.map((batch:Batch) => {
+      let curricula = batchData.map((batch: Batch) => {
         return batch.curriculum.name;
-      })
-      curricula = curricula.filter((value,index,self) => {
+      });
+      curricula = curricula.filter((value, index, self) => {
         return self.indexOf(value) === index;
-      })
+      });
 
       let clientDemandLists = batchData.map((batch: Batch) => {
         return batch.curriculum.curriculumSkillset.clientDemands;
-      })
+      });
       let clients: any[] = [];
-      for(let cdList of clientDemandLists) {
+      for (let cdList of clientDemandLists) {
         console.log(cdList);
-        for(let cd of cdList) {
-          if(clients.indexOf(cd.client.name) === -1) {
+        for (let cd of cdList) {
+          if (clients.indexOf(cd.client.name) === -1) {
             console.log(cd.client.name);
             clients.push(cd.client.name);
           }
         }
-        }
+      }
       //let batchData=pseudoDataResponse.data
 
       if (batchData == null) {

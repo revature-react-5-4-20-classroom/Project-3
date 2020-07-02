@@ -47,9 +47,7 @@ export class FilterForm extends React.Component<
     };
   }
 
-  getSelections = () => {
-
-  }
+  getSelections = () => {};
 
   setProgramType = (e: any) => {
     console.log(`Setting program type in FilterForm: ${e.value}`);
@@ -112,7 +110,12 @@ export class FilterForm extends React.Component<
                         {this.state.programType}
                       </DropdownToggle>
                       <DropdownMenu>
-                        <DropdownItem value="(none)" onClick={this.setProgramType}>(none)</DropdownItem>
+                        <DropdownItem
+                          value="(none)"
+                          onClick={this.setProgramType}
+                        >
+                          (none)
+                        </DropdownItem>
                         {this.props.programTypeSelection.map(
                           (selection: string, i: number) => {
                             return (
@@ -136,7 +139,9 @@ export class FilterForm extends React.Component<
                     <UncontrolledDropdown id="selectClient">
                       <DropdownToggle caret>{this.state.client}</DropdownToggle>
                       <DropdownMenu>
-                      <DropdownItem value="(none)" onClick={this.setClient}>(none)</DropdownItem>
+                        <DropdownItem value="(none)" onClick={this.setClient}>
+                          (none)
+                        </DropdownItem>
                         {this.props.clientSelection.map(
                           (selection: string, i: number) => {
                             return (
@@ -162,7 +167,12 @@ export class FilterForm extends React.Component<
                         {this.state.curriculum}
                       </DropdownToggle>
                       <DropdownMenu>
-                      <DropdownItem value="(none)" onClick={this.setCurriculum}>(none)</DropdownItem>
+                        <DropdownItem
+                          value="(none)"
+                          onClick={this.setCurriculum}
+                        >
+                          (none)
+                        </DropdownItem>
                         {this.props.curriculumSelection.map(
                           (selection: string, i: number) => {
                             return (
