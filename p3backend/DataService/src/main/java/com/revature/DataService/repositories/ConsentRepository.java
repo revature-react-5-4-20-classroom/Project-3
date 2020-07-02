@@ -13,8 +13,7 @@ public interface ConsentRepository extends JpaRepository<Consent, Integer> {
 
 
 
-  // @Query("select c from Consent c where c.trainer.trainerId=:id and c.isApprovedColumn=NULL")
-  // //HQL
-
+  @Query("select c from Consent c where c.trainer.trainerId=:id and c.isApprovedColumn=NULL") // HQL
+  List<Consent> getConsentByTrainerId(Integer id);
 
 }

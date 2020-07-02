@@ -55,6 +55,7 @@ public class Trainer {
 
 
   // This prevents infinite display. Need to cut down later when we want certain information
+
   @JsonIgnoreProperties({"batches", "trainers", "curriculum", "consent", "associates"})
   @ManyToMany(mappedBy = "trainers", cascade = CascadeType.ALL)
   private List<Batch> batches;

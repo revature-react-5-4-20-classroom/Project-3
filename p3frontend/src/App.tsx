@@ -21,6 +21,8 @@ import BatchModal from "./Story1/BatchModal";
 import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
+import { TestASTableModel } from "./Story1/TestASTableModel";
+import { FilterForm } from "./Story1/FilterForm";
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -39,108 +41,6 @@ export class App extends React.Component<any, any> {
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         />
-        {/*
-        OLD NAV ROUTER. KEEP FOR NOW.
-        <Router>
-          <Navbar color='light' light expand='md'>
-            <NavbarToggler onClick={this.toggleNavbar} />
-            <Nav className='mr-auto' tabs>
-              <NavItem>
-                <NavLink
-                  to='/home'
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  Home
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  to='/batches'
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  Batches
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  to='/in-progress'
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  In Progress
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  to='/overview'
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  Overview
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  to='/overview-training'
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  Training Overview
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  to='/assign-trainer'
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  Assign Trainers
-                </NavLink>
-              </NavItem> */}
-        {/* <NavItem>
-                <NavLink
-                  to="/modal"
-                  className="nav-link"
-                  activeClassName="active"
-                >
-                  See modal
-                </NavLink>
-              </NavItem> */}
-        {/* </Nav>
-          </Navbar>
-          <Switch>
-            <Provider store={store}>
-              <Route path='/home'>Home page</Route>
-              <Route path='/batches'>
-                <BatchPage />
-              </Route>
-              <Route path='/in-progress'>
-                <ReduxInProgress />
-              </Route>
-              <Route path="/overview">
-                <OverviewClientDemand />
-              </Route>
-              <Route path="/overview-training">
-                <OverviewTraining />
-              </Route>
-              <Route path="/assign-trainer">
-                <AssignTrainer />
-                <TrainerAssignmentComponent />
-              </Route>
-              <Route path="/trainers">
-                <TrainerAssignmentComponent />
-              </Route>
-              <Route path="/consent">
-                <ViewConsentRequests />
-              </Route> */}
-        {/* <Route path="/modal">
-                <BatchModal />
-              </Route> */}
-        {/* </Provider>
-          </Switch>
-        </Router> */}
 
         {
           /*
@@ -177,6 +77,7 @@ export class App extends React.Component<any, any> {
               comp: <ViewConsentRequests />,
             },
             { end: "/test-convert", name: "TC", comp: <TestConvertToObject /> },
+            { end: "/test-ASTable", name: "TAST", comp: <TestASTableModel /> },
           ])
         }
       </Container>
