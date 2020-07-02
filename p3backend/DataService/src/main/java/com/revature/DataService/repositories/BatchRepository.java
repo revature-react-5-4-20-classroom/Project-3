@@ -17,11 +17,11 @@ public interface BatchRepository extends JpaRepository<Batch, Integer>{
 
 
 
-@Query("select c from Batch c where c.curriculum.curriculumId=:id ")
-	List<Batch> getBatchByCurriculaJ(Integer id);
+	@Query("select c from Batch c where c.curriculum.curriculumId=:id ")
+	public List<Batch> getBatchByCurriculaJ(Integer id);
 	
 	@Query("select b from Batch b join "
 	+ "  b.curriculum.curriculumSkillset.clientDemands c where c.client.clientId=:id" )
-	List<Batch> getBatchByClient(Integer id);
+	public List<Batch> getBatchByClient(Integer id);
 	
 }

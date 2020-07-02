@@ -1,6 +1,5 @@
 package com.revature.DataService.dtos;
 
-
 import lombok.Data;
 
 @Data

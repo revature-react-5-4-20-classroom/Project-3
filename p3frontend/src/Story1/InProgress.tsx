@@ -1,13 +1,14 @@
 import React from "react";
 //npm install react-calendar
 //npm i @types/react-calendar
-import Calendar from 'react-calendar';
-import './Calendar.css';
-import './Table.css';
+import Calendar from "react-calendar";
+import "./Calendar.css";
+import "./Table.css";
 import { Row, Col, Table, Container, Button } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
+import { TimelineComponent, TimelineRedux } from "./Timeline";
 import { axiosClient } from "../api/axios";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { Batch } from "../models/Batch";
@@ -15,10 +16,15 @@ import { trainerGetName } from "../models/Trainer";
 import { associatesGetActiveTotal } from "../models/Associate";
 import { locationGetName } from "../models/Location";
 import { seeIt } from "../GeneralPurposeHelpers/seeIt";
-import { connect } from 'react-redux';
-import { allTheActionMappers, batchClickActionMapper } from "../redux/action-mapper";
+import { connect } from "react-redux";
+import {
+  allTheActionMappers,
+  batchClickActionMapper,
+} from "../redux/action-mapper";
 import { IState, allTheMapStateToProps } from "../redux/reducers";
 import {pseudoDataResponse}  from "../PseudoData/convertJsonToObjects";
+import { getAllBatches } from "../api/batch";
+import { FilterForm } from "./FilterForm";
 
 const doPrnt=true//prnt will work
 
@@ -28,12 +34,18 @@ export class InProgress extends React.Component<any,any>
 	{
 		super(props)
 		this.state={
-		programType:'',		//EasyDropdown will set this to its first item during render
-		workType:   '',
+		programType:'(none)',		//EasyDropdown will set this to its first item during render
+		//workType:   '',
 		viewType:   '',
 		sortAscend:	true,		//sorts by ascending or decending
 		error:		null,		//holds an axios error object that will be displayed
 		batchDisplayData:[],	//holds the batch data formatted for display
+		batches: [], // batch data to be passed as a prop
+		filteredBatches: [],
+		client: '(none)',
+		curriculum: '(none)',
+		programTypesArray:[]
+		
 		}
 	}
 
@@ -49,25 +61,46 @@ Then I see current week, weeks remaining, number of active/inactive associates, 
 And this data is shown as a table and a Calendar view</p><br/>
 				<Row>
 					<Col>
+					<Button onClick={this.reset}>Reset</Button>
+					</Col>
+					<Col>
 						<b>program type</b>
-						<EasyDropdown onSelected={this.setProgramType}  items={['CF','ROCP',  'Standard', 'Spark']}/>
+						<EasyDropdown onSelected={this.setProgramType}  items={['(none)','CF','ROCP',  'Standard', 'Spark']}/>
 					</Col>
 
 					<Col>
-						<b>work type</b>
-						<EasyDropdown onSelected={this.setWorkType}     items={['Curricula', 'Client']} />
+						<b>client</b>
+						<EasyDropdown onSelected={this.setClient}  items={['(none)','Walmart','Amazon']}  />
+					</Col>
+
+					<Col>
+						<b>curriculum</b>
+						<EasyDropdown onSelected={this.setCurriculum} items={['(none)','curriculum1','curriculum2']} />
 					</Col>
 
 					<Col>
 						<b>view type:</b>
 						<EasyDropdown onSelected={this.setViewType}     items={['Table','Calendar']} />
 					</Col>
+					{/* <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/> */}
 				</Row>
 				<br/>
 				<br/>
-				{	this.state.viewType==='Table'?this.displayTheDataAsATable():this.displayDataAsCalendar()}
-				
+				{/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
+				{	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineRedux batches={this.state.filteredBatches}/>	}
+				{/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
 		</Container>)
+	}
+
+
+	reset=()=>{
+		console.log("helsf")
+		let batch=this.state.batches;
+		console.log(batch)
+		this.setState({
+			filteredBatches:batch,
+			batchDisplayData: this.convertServerDataToDisplayData(batch),
+		})
 	}
 
 	displayTheDataAsATable=()=>
@@ -196,7 +229,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 	}
 
 	//returns an array of batches that haven been transformed for easy display
-	convertServerDataToDisplayData=(batchesFromServer:[])=>
+	convertServerDataToDisplayData=(batchesFromServer:Batch[])=>
 	{
 		return batchesFromServer.map((batch:any)=>
 		{
@@ -250,9 +283,9 @@ And this data is shown as a table and a Calendar view</p><br/>
 
 	fetchTheBatchData=async()=>
 	{
-		this.setState({
-			batchDisplayData:this.convertServerDataToDisplayData(pseudoDataResponse.data)
-		})
+		// this.setState({
+		// 	batchDisplayData:this.convertServerDataToDisplayData(pseudoDataResponse.data)
+		// })
 
 		// prnt(doPrnt,`fetchTheBatchData() has been reached`)
 
@@ -277,23 +310,127 @@ And this data is shown as a table and a Calendar view</p><br/>
 		// {
 		// 	this.setState({error:e})
 		// }
+		try {
+			let batchData = await getAllBatches();
+			let programtype=batchData.map((batch:Batch)=>{
+				return batch.programType;
+			
+			});
+			
+			this.setState({
+				batches: batchData,
+				filteredBatches: batchData,
+				batchDisplayData: this.convertServerDataToDisplayData(batchData),
+				programTypesArray:programtype
+			});
+
+
+
+
+
+		} catch(e) {
+			this.setState({error:e});
+		}
 	}
 
-	setProgramType=(value:string)=>
-	{
-		//this.fetchTheBatchData()
-		this.setState({programType:value})
+	setProgramType=(value:string)=>    //filter
+	{	
+		console.log(`Setting program type: ${value}`);
+		this.setState({programType: value},this.applyFilters);
 	}
 
-	setWorkType=(value:string)=>
-	{
-		//this.fetchTheBatchData()
-		this.setState({workType:value})
+	
+	setClient=(value:string)=> {
+		this.setState({client: value},this.applyFilters)
+	}
+
+	setCurriculum=(value:string)=> {   //filter
+		this.setState({curriculum: value},this.applyFilters);
 	}
 
 	setViewType=(value:string)=>
 	{
 		this.setState({viewType:value})
+	}
+
+	filterBatchesByClient=(batchesToFilter: Batch[]) => {		// finds clients in batches, based on client demands regarding curricula
+		if(this.state.client !== '(none)') {
+			let client = this.state.client;
+			let filteredBatches = batchesToFilter.filter( (b: Batch) => {
+				let clientDemands = b.curriculum.curriculumSkillset.clientDemands;
+				for(let cd of clientDemands) {
+					if(cd.client.name === client) {
+						return true;
+					}
+				}
+				return false;
+			} );
+			// this.setState({
+			// 	filteredBatches: filteredBatches,
+			// 	batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
+			// })
+			return filteredBatches;
+		} else {
+			// let batches = this.state.batches;
+			// this.setState({
+			// 	filteredBatches: this.state.batches,
+			// 	batchDisplayData: this.convertServerDataToDisplayData(batches),
+			// })
+			return batchesToFilter;
+		}
+	}
+
+	filterBatchesByCurriculum = (batchesToFilter: Batch[]) => {
+		if(this.state.curriculum !== '(none)') {
+			let filtercurr=batchesToFilter;
+			console.log(filtercurr)
+			let filtered=filtercurr.filter((batch:Batch)=>{
+				return batch.curriculum.name==this.state.curriculum;
+			})
+			console.log(filtered);
+
+			// this.setState({filteredBatches:filtered,
+			// 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+			return filtered;
+		} else {
+			return batchesToFilter;
+		}
+	}
+
+	filterBatchesByProgramType = (batchesToFilter: Batch[]) => {
+		if(this.state.programType !== '(none)') {
+			if(this.state.programTypesArray.indexOf(this.state.programType)>-1){
+				let filtercurr=batchesToFilter;
+				let filtered=filtercurr.filter((batch:Batch)=>{
+					return batch.programType===this.state.programType;
+							  })
+				console.log(filtered);
+	
+				// this.setState({filteredBatches:filtered,
+				// 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+				return filtered;
+
+			
+			}	
+		 else {
+			return batchesToFilter;
+		}
+	} else {
+		return batchesToFilter;
+	}
+}
+
+	applyFilters = () => {
+		let batches = this.state.batches;
+		console.log(`Batches: ${batches}`);
+		console.log(batches);
+		let filteredBatches = this.filterBatchesByProgramType(batches);
+		filteredBatches = this.filterBatchesByCurriculum(filteredBatches);
+		filteredBatches = this.filterBatchesByClient(filteredBatches);
+		this.setState({
+			filteredBatches: filteredBatches,
+			batchDisplayData: this.convertServerDataToDisplayData(filteredBatches)
+		});
 	}
 
 	componentDidMount()
@@ -303,4 +440,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 }
 
 //Create a redux version of InProgress
-export const ReduxInProgress = connect(allTheMapStateToProps, allTheActionMappers)(InProgress);
+export const ReduxInProgress = connect(
+  allTheMapStateToProps,
+  allTheActionMappers
+)(InProgress);

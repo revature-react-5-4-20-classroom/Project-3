@@ -22,9 +22,10 @@ public class ConsentService {
 		return consentRepository.findAll();
 	}
 	
+
 	public List<Consent> getConsentByTrainerId(Integer trainerId){
 		return consentRepository.getConsentByTrainerId(trainerId);
-	}
+
 	
 	public Consent create(Consent consent) {
 		return consentRepository.save(consent);
