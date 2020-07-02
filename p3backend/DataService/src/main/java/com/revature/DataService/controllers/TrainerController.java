@@ -1,5 +1,6 @@
 package com.revature.DataService.controllers;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,11 @@ public class TrainerController {
 	@Autowired
 	CurriculumService curriculumService;
 	
-		@CrossOrigin(origins = "*")
+	  @CrossOrigin(origins = "*")
 	  @GetMapping("/trainer")
 	  public List<Trainer> getAllTrainers() {
 	    return trainerService.getAll();
 	  } 
-	  
 	  @CrossOrigin(origins = "*")
 	  @GetMapping("/trainer/{id}")
 	  public Trainer getTrainerById(@PathVariable Integer id) {
@@ -49,39 +49,78 @@ public class TrainerController {
 	  }
 	  //Commented out until Trainer skillset is defined/implemented
 	  
+//	  @CrossOrigin(origins = "*")
+//	  @GetMapping("/trainer/eligible/{batchId}/trainerid/{trainerId}")
+//	  public boolean getTrainersByEligibility( @PathVariable Integer batchId, @PathVariable Integer trainerId) {
+//		  
+//	  try {
+//			  Batch selectedBatch;
+//			  
+//			  
+//			  
+//			  Trainer trainer =trainerService.getById(trainerId);
+////			  System.out.println(trainer);
+//			  selectedBatch = batchService.getById(batchId);
+////			  System.out.println(selectedBatch);
+//			  Curriculum currentCurriculum = selectedBatch.getCurriculum();
+//			  Skillset curriculumSkillset = currentCurriculum.getCurriculumSkillset();
+//			  List<Skills> curriculumSkills = curriculumSkillset.getSkills();
+//			  List<Skillset> trainerSkillSet = trainer.getTrainerSkills();
+//			  
+//
+//				 for(Skillset ss : trainerSkillSet) {
+//					 
+//					 List<Skills> trainerSkillsList = ss.getSkills();
+//					 if(skillsComparison(trainerSkillsList, curriculumSkills)) {
+//						
+//						 return true;
+//					 }
+//				 }
+//				 System.out.println("Returning false");
+//				 return false;
+//		  } catch(Exception e) {
+//			  System.out.println(e);
+//			  throw new RuntimeException(e);
+//		  } 
+//		
+//		  
+//		
+//		
+//	  }
 	  @CrossOrigin(origins = "*")
-	  @GetMapping("/trainer/eligible/{batchId}/trainerid/{trainerId}")
-	  public boolean getTrainerByEligibility( @PathVariable Integer batchId, @PathVariable Integer trainerId) {
-		  Batch selectedBatch;
-		  try {
-			  Trainer trainer =trainerService.getById(trainerId);
-			  System.out.println(trainer);
+	  @GetMapping("/trainer/eligible/{batchId}")
+	  public List<Trainer> getTrainersByEligibility( @PathVariable Integer batchId) {
+		  
+	  try {
+			  Batch selectedBatch;
+			  List<Trainer> eligibleTrainers = new ArrayList<Trainer>();
+			  
+			  List<Trainer> trainers = trainerService.getAll();
+//			  System.out.println(trainer);
 			  selectedBatch = batchService.getById(batchId);
-			  System.out.println(selectedBatch);
+//			  System.out.println(selectedBatch);
 			  Curriculum currentCurriculum = selectedBatch.getCurriculum();
 			  Skillset curriculumSkillset = currentCurriculum.getCurriculumSkillset();
 			  List<Skills> curriculumSkills = curriculumSkillset.getSkills();
-			  List<Skillset> trainerSkillSet = trainer.getTrainerSkills();
+			  //List<Skillset> trainerSkillSet = trainer.getTrainerSkills();
 			  
-
-				 for(Skillset ss : trainerSkillSet) {
-					 
-					 List<Skills> trainerSkillsList = ss.getSkills();
-					 if(skillsComparison(trainerSkillsList, curriculumSkills)) {
-						
-						 return true;
+			  for(Trainer t: trainers) {
+				  List<Skillset> trainerSkillSet = t.getTrainerSkills();
+				  
+				  for(Skillset ss : trainerSkillSet) {
+						 
+						 List<Skills> trainerSkillsList = ss.getSkills();
+						 if(skillsComparison(trainerSkillsList, curriculumSkills)) {
+							
+							 eligibleTrainers.add(t);
+						 }
 					 }
-				 }
-				 System.out.println("Returning false");
-				 return false;
+			  }
+				 return eligibleTrainers;
 		  } catch(Exception e) {
 			  System.out.println(e);
-			  throw new Error(e);
+			  throw new RuntimeException(e);
 		  } 
-		
-		  
-		
-		
 	  }
 	  public boolean skillsComparison(List<Skills> tSkills, List<Skills> cSkills) {
 		    ArrayList<String> sharedSkills = new ArrayList<String>();
@@ -94,7 +133,7 @@ public class TrainerController {
 		    System.out.print("Shared Trainer Skills with Curriculum: ");
 		    for(String p : sharedSkills)
 		      System.out.print(p + " ");
-		    if(sharedSkills.size() / cSkills.size() > .8)
+		    if(sharedSkills.size() / cSkills.size() == 1)
 		      return true;
 		    else
 		      return false;

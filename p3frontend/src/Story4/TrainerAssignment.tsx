@@ -1,5 +1,19 @@
-import React from 'react';
+import React, { ComponentElement } from 'react';
 import { Trainer } from '../models/Trainer';
+
+import { Consent } from '../models/Consent';
+import { assignTrainer } from '../api/batch';
+
+interface IAssignmentComponentState { 
+  trainers : Trainer[]
+  eligibleTrainers: Trainer[];
+  updateArray: Trainer[];
+  buttonArray: any[];
+
+}
+
+export class TrainerAssignmentComponent extends React.Component<any, IAssignmentComponentState> {
+
 import {
   getAllTrainers,
   getEligibility,
@@ -30,10 +44,105 @@ export class TrainerAssignmentComponent extends React.Component<
   any,
   IAssignmentComponentState
 > {
+
   constructor(props: any) {
     super(props);
     this.state = {
       trainers: [],
+      eligibleTrainers: [],
+      updateArray:[],
+      buttonArray: []
+    }
+  }
+  async componentDidMount(){
+     
+    //this.getAllTrainers();
+    
+
+    let allTrainers : Trainer[] = await getAllTrainers();
+    
+    // this.setState({
+    //   trainers:allTrainers
+    // })
+    // this.sleep(50).then(()=>{
+    //   this.getAllEligibleTrainers(2);
+    //  });
+
+     let eligibleTrainers : Trainer[] = await getAllEligibleTrainers(2);
+    // this.setState({
+    //   trainers:allTrainers,
+    //   eligibleTrainers:trainers
+    // })
+    // this.sleep(50).then(()=>{
+    //   this.assignEligibility();
+    //  });
+    
+  
+    let tempButtonArray:any[] = [];
+    let eligibleTrainerIds = eligibleTrainers.map((trainer) =>{
+      return trainer.trainerId;
+    })
+    // console.log("debugging");
+    // console.log(allTrainers);
+    // console.log(allEligible);
+    
+    let i = 0;
+    
+    allTrainers.forEach(trainer =>{
+      console.log(eligibleTrainerIds.includes(trainer.trainerId));
+      console.log(eligibleTrainerIds);
+      if(eligibleTrainerIds.includes(trainer.trainerId)){
+        trainer.isEligible = true;
+      } else{
+        trainer.isEligible = false;
+      }
+      // this.sleep(50).then(()=>{
+      //   let newButton = this.getButton(trainer, i , trainer.trainerId);
+      //   tempButtonArray.push(newButton);
+        
+      // });
+       i = i + 1;
+    })
+    this.setState({
+      trainers:allTrainers,
+      eligibleTrainers:eligibleTrainers
+    })
+   
+
+    
+  }
+
+
+sleep = (milliseconds : any) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+// setUserid =(id: any) => {
+//     this.setState({
+//         userid: id.currentTarget.value,
+//       }) 
+//     this.sleep(50).then(() => {
+//         this.updateReimbursements();
+//       })
+    
+// }
+  assign = async(trainerId:number, batchId:number) =>{
+      await assignTrainer(trainerId, 8);
+  }
+  request = async(trainerId:number, batchId:number)=>{
+      
+      await createConsentRequest(trainerId, null, 8);
+  }
+
+  getButton = (trainer:Trainer, i:number, trainerId:number)  =>{
+    
+    let jsxElement =(<><h4>test</h4></>);
+    if(trainer.isEligible){
+      return <Button color="primary" id={i.toString()} onClick={()=>this.assign(trainerId, 8) }>Assign</Button>
+    }else{
+      return <Button color="primary" id={i.toString()} onClick={()=>this.request(trainerId, 8)}>Request Consent</Button>
+    }
+    
+
     };
   }
   componentDidMount() {
@@ -75,10 +184,70 @@ export class TrainerAssignmentComponent extends React.Component<
       );
     }
     console.log(jsxElement);
+
     return jsxElement;
   };
 
   getAllTrainers = async () => {
+
+    let allTrainers : Trainer[] = await getAllTrainers();
+    console.log(allTrainers);
+    this.setState({
+      trainers:allTrainers
+    })
+    this.sleep(50).then(()=>{
+      this.getAllEligibleTrainers(2);
+     });
+  }
+  getAllEligibleTrainers = async(batchId:number) => {
+    let trainers : Trainer[] = await getAllEligibleTrainers(batchId);
+    this.setState({
+      eligibleTrainers:trainers
+    })
+    this.sleep(50).then(()=>{
+      this.assignEligibility();
+     });
+  }
+
+  assignEligibility = () =>{
+    let allTrainers : Trainer[] = this.state.trainers;
+    let allEligible: Trainer[] = this.state.eligibleTrainers;
+    let tempButtonArray:any[] = [];
+    let eligibleTrainerIds = allEligible.map((trainer) =>{
+      return trainer.trainerId;
+    })
+    let updateArray:Trainer[] = [];
+    console.log("debugging");
+    console.log(allTrainers);
+    console.log(allEligible);
+    
+    let i = 0;
+    
+    allTrainers.forEach(trainer =>{
+      console.log(eligibleTrainerIds.includes(trainer.trainerId));
+      if(eligibleTrainerIds.includes(trainer.trainerId)){
+        
+        trainer.isEligible = true;
+        updateArray.push(trainer);
+      } else{
+        trainer.isEligible = false;
+      }
+      this.sleep(50).then(()=>{
+        let newButton = this.getButton(trainer, i , trainer.trainerId);
+        tempButtonArray.push(newButton);
+        console.log(tempButtonArray);
+      });
+       i = i + 1;
+    })
+    this.setState({
+      trainers:allTrainers,
+      buttonArray:tempButtonArray
+    })
+    console.log(this.state.buttonArray);
+    
+    
+  }
+
     let allTrainers: Trainer[] = await getAllTrainers();
     allTrainers.forEach(async (trainer) => {
       let trainerId = trainer.trainerId;
@@ -93,6 +262,14 @@ export class TrainerAssignmentComponent extends React.Component<
   };
   
   render() {
+    console.log(this.state.trainers)
+    let buttonArray:any[] = []
+    let trainers = this.state.trainers;
+    let i =0;
+    trainers.forEach(trainer=>{
+        let button = this.getButton(trainer, i, trainer.trainerId);
+        buttonArray.push(button);
+    })
     return (
       <>
         <h6>Trainer assignment component</h6>
@@ -116,6 +293,7 @@ export class TrainerAssignmentComponent extends React.Component<
           })}
         </ListGroup>
       </>
+
     );
   }
 }
