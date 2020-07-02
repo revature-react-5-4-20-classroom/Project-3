@@ -28,6 +28,7 @@ import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
 import BatchModal, { ReduxBatchModal } from "./BatchModal";
 import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
+import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 
 const doPrnt = true; //prnt will work
 
@@ -171,13 +172,13 @@ export class InProgress extends React.Component<any, any> {
             return (
               <tr>
                 <td>
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       this.props.batchClickActionMapper(batch.batchFromServer);
                     }}
                   >
                     View
-                  </Button>
+                  </Button> */}
                   {/* <Button onClick={
 
 											()=>{
@@ -192,7 +193,7 @@ export class InProgress extends React.Component<any, any> {
 									give the modal the batch from the server. 
 									the official batch object*/}
 
-                  <BatchModal currentBatch={batch.batchFromServer} />
+                  <ReduxBatchModal currentBatch={batch.batchFromServer} />
                 </td>
                 <td>{batch.id}</td>
                 {/* <td>{batch.name}</td> */}
@@ -320,11 +321,11 @@ export class InProgress extends React.Component<any, any> {
   //returns an array of batches that haven been transformed for easy display
   convertServerDataToDisplayData = (batchesFromServer: Batch[]) => {
     return batchesFromServer.map((batch: any) => {
-      let dateStart = new Date(batch.startDate); //convert strings to Date objects
-      let dateEnd = new Date(batch.endDate);
+      let dateStart = convertDateToUTC(batch.startDate); //convert strings to Date objects
+      let dateEnd = convertDateToUTC(batch.endDate);
 
-      let weekC = dateDifferenceWeeks(dateStart, new Date(Date.now())); //calc current week we are on
-      let weekR = dateDifferenceWeeks(new Date(Date.now()), dateEnd); //calc weeks remaining
+      let weekC = dateDifferenceWeeks(dateStart, convertDateToUTC()); //calc current week we are on
+      let weekR = dateDifferenceWeeks(convertDateToUTC(), dateEnd); //calc weeks remaining
 
       let jsxWeekC = <>{weekC}</>; //we want to know how to display the weeks
       let jsxWeekR = <>{weekR}</>; //when now() is outside the week range, we want some nice display text
