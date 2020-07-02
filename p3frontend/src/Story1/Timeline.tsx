@@ -31,46 +31,148 @@ interface TimelineComponentState {
   toggle: any;
 }
 
-export class TimelineComponent extends React.Component<
-  any,
-  TimelineComponentState
-> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      //batches: null,
-      groups: null,
-      items: null,
 
-      prevent: false,
-      isOpen: false,
-      toggle: false,
-    };
-  }
+export class TimelineComponent extends React.Component<any,TimelineComponentState> {
+    constructor(props:any){
+        super(props)
+        this.state = {
+            //batches: null,
+            groups :null,
+            items : null,
 
-  // itemRenderer = ({item, itemContext, getItemProps, getResizeProps }) => {
-  //     <div {...getItemProps(item.itemProps)}>
-  //         <div className="rct-item-content">
-  //             {item}
-  //         </div>
-  //     </div>
-  // }
+            prevent:false,
+           isOpen :false,
+         toggle:false
 
-  //     setBatches  = async () => {
+        }
+    }
+    
+    // itemRenderer = ({item, itemContext, getItemProps, getResizeProps }) => {
+    //     <div {...getItemProps(item.itemProps)}> 
+    //         <div className="rct-item-content">
+    //             {item}
+    //         </div>    
+    //     </div>
+    // }
 
-  // let batches=await getAllBatches();
 
-  //         this.setState({
-  //             batches  : batches
-  //         })
-  //     }
+   
 
-  toggle = () => {
-    let toggle = !this.state.toggle;
+//     setBatches  = async () => {
+      
+
+// let batches=await getAllBatches();
+
+//         this.setState({
+//             batches  : batches
+//         })
+//     }
+
+// componentWillReceiveProps=()=>{
+//     this.changeState();
+// }
+
+
+
+componentDidUpdate=(prevProps:any)=>{
+    
+    if(prevProps.batches!==this.props.batches){
+        this.changeState();
+    }
+
+}
+
+
+ changeState=()=>{
+     console.log("hello")
+    let mappedGroups: any[] = [];
+    let mappedItems: any[] = [];
+
+    this.props.batches && this.props.batches.map(  (batch:Batch, index:number) => {
+        let group = {
+            id: batch.batchId,
+            title: ` ${batch.location.locationName}`,
+            
+        }
+        let item = {
+            id: batch.batchId,
+            group: batch.batchId,
+            title:`${batch.curriculum.name}` ,
+            start_time: new Date(batch.startDate),
+            end_time: new Date(batch.endDate),
+            canMove: false,
+            canResize: false,
+            canChangeGroup: false,
+            color: 'rgb(0, 14, 206)',
+     
+            itemProps:{
+        onContextMenu:(event:any)=>{
+            this.displayBatchInfo(batch)
+        },
+                
+
+                onDoubleClick: () => {alert("hello")},
+            }
+
+        }
+
+        mappedGroups.push(group);
+        mappedItems.push(item);
+      
+    })
+    console.log(mappedItems);
+    this.setGroupsAndItems(mappedGroups,mappedItems)
+
+
+
+
+
+}
+
+
+
+toggle=()=>{
+    let toggle=!this.state.toggle;
     this.setState({
-      toggle: toggle,
-    });
-  };
+        toggle:toggle
+    })
+}
+
+    setGroupsAndItems = (groups:any[],items:any[]) => {
+        this.setState({
+            groups : groups,
+            items : items,
+        })
+    }
+     componentDidMount() {
+        let timer:any;
+        let alreadyClicked=false;
+        //await this.setBatches();
+        let mappedGroups: any[] = [];
+        let mappedItems: any[] = [];
+
+        this.props.batches && this.props.batches.map(  (batch:Batch, index:number) => {
+            let group = {
+                id: batch.batchId,
+                title: ` ${batch.location.locationName}`,
+                
+            }
+            let item = {
+                id: batch.batchId,
+                group: batch.batchId,
+                title:`${batch.curriculum.name}` ,
+                start_time: new Date(batch.startDate),
+                end_time: new Date(batch.endDate),
+                canMove: false,
+                canResize: false,
+                canChangeGroup: false,
+                color: 'rgb(0, 14, 206)',
+                // onItemClick:()=>{alert("sdf")},
+            //    onClick:()=>{alert("sfds")},
+                // selectedBgColor: 'rgba(225, 166, 244, 1)',
+                // bgColor : 'rgba(225, 166, 244, 0.6)',
+                itemProps:{
+
 
   setGroupsAndItems = (groups: any[], items: any[]) => {
     this.setState({
@@ -125,11 +227,27 @@ export class TimelineComponent extends React.Component<
               this.displayBatchInfo(batch);
             },
 
-            onDoubleClick: () => {
-              alert("hello");
-            },
-          },
-        };
+
+    displayBatchInfo = (batch:Batch) => {
+        this.props.batchClickActionMapper(batch);
+        this.setIsOpen();
+    }
+
+    render() {
+
+console.log(this.state.items)
+        if(this.state.items){
+        return (
+            <div>
+                 <Button color="primary" onClick={this.toggle}>Click me</Button>
+               <br />  
+<Toast isOpen={this.state.toggle}>
+
+Double click to edit or right click to view information
+
+</Toast>
+<br /> 
+                          
 
         mappedGroups.push(group);
         mappedItems.push(item);

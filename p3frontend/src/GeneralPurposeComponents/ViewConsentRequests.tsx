@@ -38,8 +38,8 @@ export class ViewConsentRequests extends React.Component<
     await denyConsentRequest(consentRequest);
   };
 
-  getConsentRequests = async () => {
-    let consentRequests: Consent[] = await getConsentByTrainerId(1);
+
+
 
     this.setState({
       consentRequests: consentRequests,
@@ -77,10 +77,33 @@ export class ViewConsentRequests extends React.Component<
             //         <Col xs='auto'><img src={getImageUrl(this.state.itemList[i])} style={{height:"100px", width:"auto"}} /></Col>
             //         <Col xs='auto'><a href='#' onClick={this.toggleRedirect} id={i.toString()}>{item.item_name}</a></Col>
 
-            //         {/* Added this so long descriptions did not go off page */}
-            //         <Container>
-            //         <Col xs='auto'>{item.description}</Col>
-            //         </Container>
+
+        this.setState({
+            consentRequests : consentRequests
+        })
+            
+        
+    }
+    render(){
+        return(
+            <>
+            <h6>View Consent Requests</h6>
+                    <ListGroup>
+                            {this.state.consentRequests.map((consent: Consent, i) => {
+                                
+                                //trying to use the same item display everywhere
+                                return( 
+                                <ListGroupItem key={i}>
+                                    
+                                    
+                                    
+                                        
+                                        <Button color="primary" id={i.toString()} onClick={()=>this.accept(i)}>Accept</Button>
+                                        <Button color="primary" id={i.toString()} onClick={()=>this.decline(i)}>Decline</Button>
+                                    
+                                
+                                </ListGroupItem>)
+
 
             //         <Col xs='auto'><Button color="primary" id={i.toString()} onClick={this.addToCart}>Add to cart</Button></Col>
             //     </Row>
