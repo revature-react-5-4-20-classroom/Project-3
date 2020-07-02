@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'reactstrap';
 import { getAllClientDemands } from '../api/clientDemand';
 import { ClientDemands } from '../models/ClientDemands';
+import { getActiveAssociates } from '../api/Associate';
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -23,6 +24,7 @@ export class ColumnChartTest extends React.Component<any, any> {
     this.setState({
       clientDemand: this.getDemand(),
     });
+    this.getSupply();
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -69,9 +71,10 @@ export class ColumnChartTest extends React.Component<any, any> {
     return clientDemandData;
   };
 
-  // getSupply = async() => {
-  //   let supplyArr = await
-  // }
+  getSupply = async () => {
+    let supplyArr = await getActiveAssociates();
+    console.log('supplyarr, ', supplyArr);
+  };
 
   // This initializes google charts
   loadGoogle = () => {
@@ -211,7 +214,7 @@ export class ColumnChartTest extends React.Component<any, any> {
   render() {
     return (
       <>
-        <h1>Hi</h1>
+        <h6>Please enjoy the following data</h6>
         <div ref={this.myRef} />
         {/* <Button onClick={() => this.doSomething(0)} ref={this.myButton}>
           All

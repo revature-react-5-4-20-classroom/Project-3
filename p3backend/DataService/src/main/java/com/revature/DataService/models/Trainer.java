@@ -49,9 +49,9 @@ public class Trainer {
 
 	// this prevents infinite display
 	// Getting rid of this at Nick's request
-//	@JsonIgnoreProperties({"trainer", "batch"})
-//	@OneToMany(mappedBy = "trainer")
-//	private List<Consent> consents;
+	@JsonIgnoreProperties({"trainer", "batch"})
+	@OneToMany(mappedBy = "trainer")
+	private List<Consent> consents;
 
 	
 	// This prevents infinite display. Need to cut down later when we want certain information
@@ -123,6 +123,15 @@ public class Trainer {
 
 
 
+
+	public List<Consent> getConsent() {
+		return consents;
+	}
+
+	public void setConsent(List<Consent> consent) {
+		this.consents = consent;
+	}
+
 	public Trainer() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -140,6 +149,13 @@ public Trainer(Integer trainerId, String firstName, String lastName, String emai
 	this.isEligible = isEligible;
 }
 
+@Override
+public String toString() {
+	return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+			+ email + ", isEligible=" + isEligible + ", trainerSkills=" + trainerSkills + ", consents=" + consents
+			+ ", batches=" + batches + "]";
+}
+
 //	public List<Consent> getConsent() {
 //		return consents;
 //	}
@@ -148,11 +164,8 @@ public Trainer(Integer trainerId, String firstName, String lastName, String emai
 //		this.consents = consent;
 //	}
 
-	@Override
-	public String toString() {
-		return "Trainer [trainerId=" + trainerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", trainerSkills=" + trainerSkills + ", batches=" + batches + "]";
-	}	
+
+	
 
 	
 }

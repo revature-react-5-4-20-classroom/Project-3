@@ -67,7 +67,7 @@ public Skillset(Integer skillSetId, String skillSetName, List<Skills> skills, Li
   
 
   // SkillSet to ClientDemand
-  @JsonIgnoreProperties({"clientDemandSkillset", "quantity", "deadline", "client_demand_id", "client"})
+  @JsonIgnoreProperties({"clientDemandSkillset", "quantity", "deadline"})
   @OneToMany(mappedBy = "clientDemandSkillset")
   private List<ClientDemand> clientDemands;  
   
@@ -133,6 +133,8 @@ public String toString() {
 	return "Skillset [skillSetId=" + skillSetId + ", skillSetName=" + skillSetName + ", skills=" + skills
 			+ ", trainers=" + trainers + ", clientDemands=" + clientDemands + ", curricula=" + curricula + "]";
 }
+
+
 
 
 

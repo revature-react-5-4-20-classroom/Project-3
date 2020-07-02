@@ -10,6 +10,7 @@ const initialBatchState: IBatchState = {
   batch: null,
 };
 
+
 export const batchReducer = (
   state: IBatchState = initialBatchState,
   action: AnyAction
