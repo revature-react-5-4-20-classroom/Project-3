@@ -11,22 +11,22 @@ import com.revature.DataService.repositories.CurriculumRepository;
 
 @Service
 public class CurriculumService {
-	
-	@Autowired
-	CurriculumRepository curriculumRepository;
-	
-	public List<Curriculum> getAll() {
-		return curriculumRepository.findAll();
-	}
-	
-	public Curriculum getById(Integer id) {
-		Optional<Curriculum> curriculum = curriculumRepository.findById(id);
-		if(curriculum.isPresent()) {
-			return curriculum.get();
-		} else {
-			// throw new CurriculumNotFoundException; // Maybe add in later?
-			throw new RuntimeException();
-		}
-	}
-	
+
+  @Autowired
+  CurriculumRepository curriculumRepository;
+
+  public List<Curriculum> getAll() {
+    return curriculumRepository.findAll();
+  }
+
+  public Curriculum getById(Integer id) {
+    Optional<Curriculum> curriculum = curriculumRepository.findById(id);
+    if (curriculum.isPresent()) {
+      return curriculum.get();
+    } else {
+      // throw new CurriculumNotFoundException; // Maybe add in later?
+      throw new RuntimeException();
+    }
+  }
+
 }

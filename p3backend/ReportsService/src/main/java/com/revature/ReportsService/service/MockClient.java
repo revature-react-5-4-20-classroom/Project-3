@@ -25,7 +25,7 @@ public class MockClient {
   public List<Client> getClients() {
     return clients;
   }
-  
+
   public Client getClientById(Integer id) {
     Client out = null;
     for (Client c : this.clients) {
@@ -39,6 +39,6 @@ public class MockClient {
     }
     return out;
   }
-  
-  
+
+
 }

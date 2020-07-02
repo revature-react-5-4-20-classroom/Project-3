@@ -9,11 +9,11 @@ import com.revature.ReportsService.models.Location;
 @Primary
 public class LocationService {
 
-  
+
   public List<Location> getAll() {
     return new MockLocation().getLocations();
   }
-  
+
   public Location getById(Integer id) {
     return new MockLocation().getLocationById(id);
   }

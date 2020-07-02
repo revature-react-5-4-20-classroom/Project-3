@@ -6,11 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.revature.DataService.models.Skills;
 
 @Repository
-public interface SkillsRepository extends JpaRepository<Skills,Integer> {
+public interface SkillsRepository extends JpaRepository<Skills, Integer> {
 
-	
-	
-	
-	
-	
+
+
 }
