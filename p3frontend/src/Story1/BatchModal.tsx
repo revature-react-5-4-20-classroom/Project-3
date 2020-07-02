@@ -102,25 +102,6 @@ class BatchModal extends React.Component<any, any> {
             <hr />
           </ModalBody>
 
-          {/* 
-            <ModalFooter>
-            <Navbar color='light' light expand='md'>
-              <Nav onClick={changeModalViewToTrainer}>
-                <NavItem
-                  activeClassName="active"
-                  className="modalNavItem trainerModalNav nav-link"
-                >
-                  Trainers
-                </NavItem>
-              </Nav>
-              <Nav onClick={changeModalViewToAssociate}>
-                <NavItem className="modalNavItem associatesModalNav nav-link">
-                  Associates
-                </NavItem>
-              </Nav>
-            </Navbar> 
-          </ModalFooter>*/}
-
           <ModalBody>
             {this.state.showTrainers ? (
               <>

@@ -85,33 +85,6 @@ export class InProgress extends React.Component<any, any> {
         </p>
         <br />
         <Row>
-          {/* <Col>
-            <Button onClick={this.reset}>Reset</Button>
-          </Col> */}
-          {/* <Col>
-            <b>program type</b>
-            <EasyDropdown
-              onSelected={this.setProgramType}
-              items={["(none)", "CF", "ROCP", "Standard", "Spark"]}
-            />
-          </Col>
-
-          <Col>
-            <b>client</b>
-            <EasyDropdown
-              onSelected={this.setClient}
-              items={["(none)", "Walmart", "Amazon"]}
-            />
-          </Col>
-
-          <Col>
-            <b>curriculum</b>
-            <EasyDropdown
-              onSelected={this.setCurriculum}
-              items={["(none)", "curriculum1", "curriculum2"]}
-            />
-          </Col> */}
-
           <Col>
             <b>view type:</b>
             <EasyDropdown
@@ -132,7 +105,7 @@ export class InProgress extends React.Component<any, any> {
         <br />
         <br />
         <>
-          Total batches in that are in the system:{" "}
+          Total batches that are in the system:{" "}
           <b>{this.state.batches.length}</b>
         </>
         <br />
@@ -390,37 +363,8 @@ export class InProgress extends React.Component<any, any> {
 
   //fetches batches from the server, converts it to display data, and set it. checks for error edge cases.
   fetchTheBatchData = async () => {
-    // try
-    // {
-    // 	// let batchData = await getAllBatches();
-    // 	// //let batchData=pseudoDataResponse.data
-
-    // 	// if(batchData==null)
-    // 	// {
-    // 	// 	this.setState({errorMessage:"ERROR. There wasn't a data property in the server response"})
-    // 	// }
-    // 	// else
-    // 	// {
-    // 	// 	prnt(doPrnt,`fetchTheBatchData() had a response`)
-
-    // // 	if(response.status!==200)
-    // // 	{
-    // // 		this.setState({error:response})
-    // // 	}
-    // // 	else
-    // // 	{
-    // // 		this.setState({
-    // // 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
-    // // 		})
-    // // 	}
-    // // }
-    // // catch(e)
-    // // {
-    // // 	this.setState({error:e})
-    // // }
     try {
       let batchData = await getAllBatches();
-
 
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
@@ -450,8 +394,6 @@ export class InProgress extends React.Component<any, any> {
           }
         }
       }
-      //let batchData=pseudoDataResponse.data
-
 
       if (batchData == null) {
         this.setState({

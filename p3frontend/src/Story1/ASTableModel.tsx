@@ -88,23 +88,24 @@ export default class ASTableModel extends React.Component<
 
         {this.state.associatesLoaded ? (
           <DualTables
+            onMoveToLeft={(item) => this.patchTheAssoc(item, false)}
+            onMoveToRight={(item) => this.patchTheAssoc(item, true)}
             arrayLeft={this.state.eligibleAssociates}
+            messageLeft="None in the system"
+            messageRight="None assigned to this batch"
+            arrayRight={this.props.currentBatch.associates}
             headerLeft={
               <>
-                All eligable associates{" "}
+                All eligible associates{" "}
                 <b>{this.state.eligibleAssociates.length}</b>
               </>
             }
-            messageLeft="None in the system"
-            arrayRight={this.props.currentBatch.associates}
             headerRight={
               <>
                 Associates in batch{" "}
                 <b>{this.props.currentBatch.associates.length}</b>
               </>
             }
-            messageRight="None assigned to this batch"
-            onMoveFunc={this.patchTheAssoc}
           />
         ) : (
           <Spinner />
@@ -113,18 +114,40 @@ export default class ASTableModel extends React.Component<
     );
   }
 
-  patchTheAssoc = async (assoc: Associate) => {
+  /*
+    patchTheAssoc(assoc,moveToBatch)
+
+    patches the assoc object.
+    when moveToBatch is:
+      true, the assoc is assigned to the currentBatch object
+      false, the assoc is assigned to no batch at all. null
+  */
+  patchTheAssoc = async (assoc: Associate, moveToBatch: boolean) => {
     prnt(doPrnt, `ASTableModel patchTheAssoc() has been reached`);
     prnt(doPrnt, `assoc before=`, assoc);
 
-    //assoc.batch=this.props.currentBatch.batchId
+    //send an associate and its batch object that is a non-circular data structure
+    //Assoc->Batch->Associate[]->Batch was breaking when being sent
+    //we want to send this data to the server for it to save directly into the repo
+    const nonCircularAssocPatch = {
+      associateId: assoc.associateId, //copy over all fields. typescript prevents easier copying
+      firstName: assoc.firstName,
+      lastName: assoc.lastName,
+      email: assoc.email,
+      active: moveToBatch, //set active to true or false
+      interviewScore: assoc.interviewScore,
+      batch: moveToBatch ? this.props.currentBatch : null, //assign to a batch.
+      //we have to watch out because this batch has an array of
+      //associates and associates have batches and we get circular json errors when sending
+      //this is why express exists
+    };
 
-    prnt(doPrnt, `assoc after=`, assoc);
+    prnt(doPrnt, `nonCircularAssocPatch=`, nonCircularAssocPatch);
     //prnt(doPrnt, `assoc.batch=`, assoc.batch);
     //prnt(doPrnt, `this.props.currentBatch=`, this.props.currentBatch);
 
     try {
-      await axiosClient.patch("/associates", assoc);
+      await axiosClient.patch("/associates", nonCircularAssocPatch);
     } catch (e) {
       this.setState({
         errorObject: e,

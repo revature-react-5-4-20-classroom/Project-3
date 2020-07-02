@@ -4,14 +4,14 @@ import { Table, Button, Row, Col } from "reactstrap";
 /*
 	<DualTables 
 		arrayLeft=		{anArray} 	
+    arrayRight=		{anotherArray}
+    messageLeft=	"displayed on left when array is empty"
+    messageRight=	"displayed on right when array is empty"
+    onMoveToLeft={aFunction}
+    onMoveToRight={aFunction}
 		headerLeft=		"Displayed above the left table"	
-		messageLeft=	"displayed on left when array is empty"
-
-		arrayRight=		{anotherArray}
 		headerRight=	"Displayed above the right table"	
-		messageRight=	"displayed on right when array is empty"
-    
-    onMoveFunc={aFunction}/>
+    />
 
 	Displays two tables next to each other. 
 	Items may be added to the right table.
@@ -19,14 +19,26 @@ import { Table, Button, Row, Col } from "reactstrap";
   When an item is moved, onMoveFunc is called on the item.
   onMoveFunc(item)
 
-	headerLeft			|		headerRight
+	headerLeft			  |		headerRight
 	___________________________________
-	messageLeft			|		messageRight
-						|
+	messageLeft			  |		messageRight
+						        |
 	arrayLeft[0](ADD)	|		arrayRight[0](REMOVE)
 	arrayLeft[1](ADD)	|		arrayRight[1](REMOVE)
 */
-export class DualTables extends React.Component<any, any> {
+
+interface IPDualTables{
+  arrayLeft:any[]
+  arrayRight:any[]
+  messageLeft:any //could be a string or jsx
+  messageRight:any //could be a string or jsx
+  headerLeft:any //could be a string or jsx
+  headerRight:any //could be a string or jsx
+  onMoveToLeft: (item: any) => void //called when an item is moved. onMoveToLeft(item)
+  onMoveToRight: (item: any) => void
+}
+
+export class DualTables extends React.Component<IPDualTables, any> {
   constructor(props: any) {
     super(props);
   }
@@ -57,16 +69,16 @@ export class DualTables extends React.Component<any, any> {
   }
 
   moveToRightTable = (item: any, i: number) => {
-    this.props.arrayRight.push(item);
+    this.props.arrayRight.push(item);//move the item within the arrays
     this.props.arrayLeft.splice(i, 1);
-    this.props.onMoveFunc(item);
+    this.props.onMoveToRight(item);//use a callback so things can be done outside this component
     this.setState({});
   };
 
   moveToLeftTable = (item: any, i: number) => {
     this.props.arrayRight.splice(i, 1);
     this.props.arrayLeft.push(item);
-    this.props.onMoveFunc(item);
+    this.props.onMoveToLeft(item);
     this.setState({});
   };
 
