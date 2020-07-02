@@ -115,7 +115,11 @@ export default class ASTableModel extends React.Component<
 
   patchTheAssoc = async (assoc: Associate) => {
     prnt(doPrnt, `ASTableModel patchTheAssoc() has been reached`);
-    prnt(doPrnt, `assoc=`, assoc);
+    prnt(doPrnt, `assoc before=`, assoc);
+
+    //assoc.batch=this.props.currentBatch.batchId
+
+    prnt(doPrnt, `assoc after=`, assoc);
     //prnt(doPrnt, `assoc.batch=`, assoc.batch);
     //prnt(doPrnt, `this.props.currentBatch=`, this.props.currentBatch);
 
