@@ -35,19 +35,19 @@ export class TimelineComponent extends React.Component<
   any,
   TimelineComponentState
 > {
-  //     constructor(props:any){
-  //         super(props)
-  //         this.state = {
-  //             //batches: null,
-  //             groups :null,
-  //             items : null,
+      // constructor(props:any){
+      //     super(props)
+      //     this.state = {
+      //         //batches: null,
+      //         groups :null,
+      //         items : null,
 
-  //             prevent:false,
-  //            isOpen :false,
-  //          toggle:false
+      //         prevent:false,
+      //        isOpen :false,
+      //      toggle:false
 
-  //         }
-  //     }
+      //     }
+      // }
 
   //     // itemRenderer = ({item, itemContext, getItemProps, getResizeProps }) => {
   //     //     <div {...getItemProps(item.itemProps)}>
@@ -252,7 +252,7 @@ export class TimelineComponent extends React.Component<
   //   };
 
   render() {
-    if (this.state.items) {
+    //if (this.state.items) {
       return (
         <div>
           {/* <Button color="primary" onClick={this.toggle}>
@@ -281,9 +281,9 @@ export class TimelineComponent extends React.Component<
           )} */}
         </div>
       );
-    } else {
-      return <p>Loading...</p>;
-    }
+    // } else {
+    //   return <p>Loading...</p>;
+    // }
   }
 }
 
