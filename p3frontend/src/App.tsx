@@ -7,9 +7,20 @@ import {
   Switch,
   BrowserRouter,
   NavLink,
-} from 'react-router-dom';
-import { InProgress, ReduxInProgress } from './Story1/InProgress';
-import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+} from "react-router-dom";
+import { InProgress, ReduxInProgress } from "./Story1/InProgress";
+import { Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
+
+import { TrainerAssignmentComponent } from "./Components/TrainerAssignment";
+import { ViewConsentRequests } from "./Components/ViewConsentRequests";
+import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
+import { OverviewTraining } from "./Story3/OverviewTraining";
+import { AssignTrainer } from "./Story4/AssignTrainer";
+import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import BatchModal from "./Story1/BatchModal";
+import { BatchPage } from "./Components/GenerateBatch/BatchPage";
 
 import { TrainerAssignmentComponent } from './Components/TrainerAssignment';
 import { ViewConsentRequests } from './Components/ViewConsentRequests';
@@ -111,8 +122,11 @@ export class App extends React.Component<any, any> {
           </Navbar>
           <Switch>
             <Provider store={store}>
-              <Route path="/home">Home page</Route>
-              <Route path="/in-progress">
+              <Route path='/home'>Home page</Route>
+              <Route path='/batches'>
+                <BatchPage />
+              </Route>
+              <Route path='/in-progress'>
                 <ReduxInProgress />
               </Route>
               <Route path="/overview">
