@@ -59,14 +59,14 @@ export class DualTables extends React.Component<any, any> {
   moveToRightTable = (item: any, i: number) => {
     this.props.arrayRight.push(item);
     this.props.arrayLeft.splice(i, 1);
-    this.props.onMoveFunc(item)
+    this.props.onMoveFunc(item);
     this.setState({});
   };
 
   moveToLeftTable = (item: any, i: number) => {
     this.props.arrayRight.splice(i, 1);
     this.props.arrayLeft.push(item);
-    this.props.onMoveFunc(item)
+    this.props.onMoveFunc(item);
     this.setState({});
   };
 
@@ -76,8 +76,8 @@ export class DualTables extends React.Component<any, any> {
     displayText: String,
     itemClick: any
   ) => {
-    if(array==null) return(<></>)
-    if (array.length === 0) return(<>{message}</>)
+    if (array == null) return <></>;
+    if (array.length === 0) return <>{message}</>;
 
     return (
       <div className="associate-table">

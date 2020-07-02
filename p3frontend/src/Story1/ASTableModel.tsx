@@ -40,22 +40,20 @@ export default class ASTableModel extends React.Component<
     super(props);
     this.state = {
       eligibleAssociates: [], //interview score >70 and no assigned batch yet
-      associatesLoaded: false,//have we fetched the associates from the backend?
+      associatesLoaded: false, //have we fetched the associates from the backend?
       errorObject: null, //when set to an axios error object, it will display the network error nicely
       errorMessage: "", //when set a message it will be displayed, possibly with a network error
     };
   }
 
-  componentDidMount = async () => 
-  {
+  componentDidMount = async () => {
     console.log(`ASTableModel componentDidMount() has been reached`);
 
-    try 
-    {
+    try {
       const allAssociates: Associate[] = await getAllAssociates();
       //prnt(doPrnt, `associateArray=`, allAssociates)
 
-      const eligibleAssociateArray = allAssociates.filter((assoc)=>{
+      const eligibleAssociateArray = allAssociates.filter((assoc) => {
         return assoc.interviewScore >= 70 && assoc.active === false;
         //return assoc.interviewScore >= 70 && assoc.batchId <=0;
       });
@@ -78,7 +76,8 @@ export default class ASTableModel extends React.Component<
     //prnt(doPrnt,`this.props.currentBatch.associates=`,this.props.currentBatch.associates)
     //prnt(doPrnt,`this.props.currentBatch=`,this.props.currentBatch)
 
-    if(this.props.currentBatch==null)return(<>ASTableModel this.props.currentBatch is null</>)
+    if (this.props.currentBatch == null)
+      return <>ASTableModel this.props.currentBatch is null</>;
 
     return (
       <Container>
@@ -87,28 +86,34 @@ export default class ASTableModel extends React.Component<
           message={this.state.errorMessage}
         />
 
-        {
-          this.state.associatesLoaded?
-            <DualTables 
-              arrayLeft=		{this.state.eligibleAssociates} 	
-              headerLeft=		{(<>All eligable associates <b>{this.state.eligibleAssociates.length}</b></>)}
-              messageLeft=	"None in the system"
-
-
-              arrayRight=		{this.props.currentBatch.associates}
-              headerRight=	{(<>Associates in batch <b>{this.props.currentBatch.associates.length}</b></>)}
-              messageRight=	"None assigned to this batch"
-              
-              onMoveFunc={this.patchTheAssoc}/>
-            :
-            <Spinner />
-        }
-
+        {this.state.associatesLoaded ? (
+          <DualTables
+            arrayLeft={this.state.eligibleAssociates}
+            headerLeft={
+              <>
+                All eligable associates{" "}
+                <b>{this.state.eligibleAssociates.length}</b>
+              </>
+            }
+            messageLeft="None in the system"
+            arrayRight={this.props.currentBatch.associates}
+            headerRight={
+              <>
+                Associates in batch{" "}
+                <b>{this.props.currentBatch.associates.length}</b>
+              </>
+            }
+            messageRight="None assigned to this batch"
+            onMoveFunc={this.patchTheAssoc}
+          />
+        ) : (
+          <Spinner />
+        )}
       </Container>
     );
   }
 
-  patchTheAssoc=async(assoc: Associate)=>{
+  patchTheAssoc = async (assoc: Associate) => {
     prnt(doPrnt, `ASTableModel patchTheAssoc() has been reached`);
     prnt(doPrnt, `assoc=`, assoc);
     //prnt(doPrnt, `assoc.batch=`, assoc.batch);
@@ -122,5 +127,5 @@ export default class ASTableModel extends React.Component<
         errorMessage: "Could not patch associate",
       });
     }
-  }
+  };
 }

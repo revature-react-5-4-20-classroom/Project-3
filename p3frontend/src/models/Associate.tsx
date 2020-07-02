@@ -9,7 +9,7 @@ export class Associate {
   email: string;
   active: boolean;
   interviewScore: number;
-  batchId : number;//causes circular structure. Batch->Associate->Batch->Associate->...
+  batchId: number; //causes circular structure. Batch->Associate->Batch->Associate->...
 
   constructor(
     associateId: number,
@@ -18,7 +18,7 @@ export class Associate {
     email: string,
     active: boolean,
     interviewScore: number,
-    batchId : number
+    batchId: number
   ) {
     this.associateId = associateId;
     this.firstName = firstName;
