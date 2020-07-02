@@ -24,6 +24,9 @@ import {
 import { IState, allTheMapStateToProps } from "../redux/reducers";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
+import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
+import BatchModal, { ReduxBatchModal } from "./BatchModal";
+import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
 
 const doPrnt = true; //prnt will work
@@ -43,13 +46,19 @@ export class InProgress extends React.Component<any, any> {
       client: "(none)",
       curriculum: "(none)",
       programTypesArray: [],
+      errorMessage: "", //holds an error message for other special cases
+      modalBatch: null, //what batch will be shown in the modal?
+      modalShow: false, //do we show the modal?
     };
   }
 
   render() {
     return (
       <Container>
-        <ErrorAlert error={this.state.error} />
+        <ErrorAlert
+          message={this.state.errorMessage}
+          error={this.state.error}
+        />
         <h6>Story 1. "In Progress"</h6>
         <br />
         <p>
@@ -93,11 +102,18 @@ export class InProgress extends React.Component<any, any> {
             <b>view type:</b>
             <EasyDropdown
               onSelected={this.setViewType}
+              hoverText="Please enjoy viewing the batches in a table or calendar"
               items={["Table", "Calendar"]}
             />
           </Col>
           <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/>
         </Row>
+        <br />
+        <br />
+        <>
+          Total batches in that are in the system:{" "}
+          <b>{this.state.batches.length}</b>
+        </>
         <br />
         <br />
         {/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
@@ -162,6 +178,21 @@ export class InProgress extends React.Component<any, any> {
                   >
                     View
                   </Button>
+                  {/* <Button onClick={
+
+											()=>{
+												//set the modalBatch and it will pop up
+												//this.setState({modalBatch:batch,modalShow:true})
+												//this.props.batchClickActionMapper(batch.batchFromServer)//maybe we throw out redux
+												this.showModal(index);
+											}
+										}>View
+									</Button> */}
+                  {/* we are looping over display batches. 
+									give the modal the batch from the server. 
+									the official batch object*/}
+
+                  <BatchModal currentBatch={batch.batchFromServer} />
                 </td>
                 <td>{batch.id}</td>
                 {/* <td>{batch.name}</td> */}
@@ -276,6 +307,16 @@ export class InProgress extends React.Component<any, any> {
     });
   };
 
+  //puts pseudo data in when we do not have data from the server
+  usePseudoData = () => {
+    this.setState({
+      batches: pseudoDataResponse.data,
+      batchDisplayData: this.convertServerDataToDisplayData(
+        pseudoDataResponse.data
+      ),
+    });
+  };
+
   //returns an array of batches that haven been transformed for easy display
   convertServerDataToDisplayData = (batchesFromServer: Batch[]) => {
     return batchesFromServer.map((batch: any) => {
@@ -327,46 +368,30 @@ export class InProgress extends React.Component<any, any> {
     });
   };
 
+  //fetches batches from the server, converts it to display data, and set it. checks for error edge cases.
   fetchTheBatchData = async () => {
-    // this.setState({
-    // 	batchDisplayData:this.convertServerDataToDisplayData(pseudoDataResponse.data)
-    // })
-
-    // prnt(doPrnt,`fetchTheBatchData() has been reached`)
-
-    // try
-    // {
-    // 	let response=await axiosClient.get('/batches')
-
-    // 	prnt(doPrnt,`response=`,response)
-
-    // 	if(response.status!==200)
-    // 	{
-    // 		this.setState({error:response})
-    // 	}
-    // 	else
-    // 	{
-    // 		this.setState({
-    // 			batchDisplayData:this.convertServerDataToDisplayData(response.data),
-    // 		})
-    // 	}
-    // }
-    // catch(e)
-    // {
-    // 	this.setState({error:e})
-    // }
     try {
       let batchData = await getAllBatches();
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
       });
+      //let batchData=pseudoDataResponse.data
 
-      this.setState({
-        batches: batchData,
-        filteredBatches: batchData,
-        batchDisplayData: this.convertServerDataToDisplayData(batchData),
-        programTypesArray: programtype,
-      });
+      if (batchData == null) {
+        this.setState({
+          errorMessage:
+            "ERROR. There wasn't a data property in the server response",
+        });
+      } else {
+        prnt(doPrnt, `fetchTheBatchData() had a response`);
+
+        this.setState({
+          batches: batchData,
+          filteredBatches: batchData,
+          batchDisplayData: this.convertServerDataToDisplayData(batchData),
+          programTypesArray: programtype,
+        });
+      }
     } catch (e) {
       this.setState({ error: e });
     }

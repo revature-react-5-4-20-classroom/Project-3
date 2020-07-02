@@ -8,18 +8,18 @@ import com.revature.ReportsService.models.Location;
 public class MockLocation {
 
   public List<Location> locations;
-  
+
   public MockLocation() {
     super();
   }
-  
+
   public List<Location> getLocations() {
     return locations;
   }
-  
+
   public Location getLocationById(Integer id) {
     Location out = null;
-    for(Location l: this.locations) {
+    for (Location l : this.locations) {
       if (l.getLocationId().equals(id)) {
         out = l;
         break;
@@ -30,5 +30,5 @@ public class MockLocation {
     }
     return out;
   }
-  
+
 }

@@ -11,22 +11,22 @@ import com.revature.DataService.repositories.ClientRepository;
 
 @Service
 public class ClientService {
-	
-	@Autowired
-	ClientRepository clientRepository;
-	
-	public List<Client> getAll() {
-		return clientRepository.findAll();
-	}
-	
-	public Client getById(Integer id) {
-		Optional<Client> client = clientRepository.findById(id);
-		if(client.isPresent()) {
-			return client.get();
-		} else {
-			// throw new ClientNotFoundException; // Maybe add in later?
-			throw new RuntimeException();
-		}
-	}
-	
+
+  @Autowired
+  ClientRepository clientRepository;
+
+  public List<Client> getAll() {
+    return clientRepository.findAll();
+  }
+
+  public Client getById(Integer id) {
+    Optional<Client> client = clientRepository.findById(id);
+    if (client.isPresent()) {
+      return client.get();
+    } else {
+      // throw new ClientNotFoundException; // Maybe add in later?
+      throw new RuntimeException();
+    }
+  }
+
 }

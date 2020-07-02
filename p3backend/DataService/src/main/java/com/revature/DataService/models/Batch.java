@@ -29,6 +29,7 @@ public class Batch {
   }
 
 
+
   public Batch(Integer batchId, Date startDate, Date endDate, Boolean isConfirmed,
       Integer interviewScoreLower, List<Trainer> trainers, Location location, Curriculum curriculum,
       List<Associate> associates, String programType) {
@@ -66,8 +67,10 @@ public class Batch {
 
   @JsonIgnoreProperties({"batches", "consent", "trainerSkills"})
 
-  @ManyToMany(cascade=CascadeType.MERGE)
-  @JoinTable(name="trainerbatch", schema="project3",joinColumns=@JoinColumn(name="batch_id"),inverseJoinColumns=@JoinColumn(name="trainer_id"))
+  @ManyToMany(cascade = CascadeType.MERGE)
+  @JoinTable(name = "trainerbatch", schema = "project3",
+      joinColumns = @JoinColumn(name = "batch_id"),
+      inverseJoinColumns = @JoinColumn(name = "trainer_id"))
   private List<Trainer> trainers;
 
 
@@ -96,9 +99,10 @@ public class Batch {
   // Batch to consent
   // Getting rid of this at Nick's request
 
-  // @JsonIgnoreProperties({"batch", "trainerSkills"})
-  // @OneToMany(mappedBy = "batch")
-  // private List<Consent> consent;
+
+  @JsonIgnoreProperties({"batch", "trainerSkills"})
+  @OneToMany(mappedBy = "batch")
+  private List<Consent> consent;
 
 
 
@@ -203,6 +207,17 @@ public class Batch {
     this.programType = programType;
   }
 
+
+
+  public List<Consent> getConsent() {
+    return consent;
+  }
+
+
+
+  public void setConsent(List<Consent> consent) {
+    this.consent = consent;
+  }
 
 
   @Override

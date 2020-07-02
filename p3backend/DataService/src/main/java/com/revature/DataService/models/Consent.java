@@ -1,11 +1,14 @@
 package com.revature.DataService.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,24 +27,27 @@ public class Consent {
   private Integer consentId;
 
   @Column(name = "consent_approved")
-  private boolean isApprovedColumn;
+  private String isApprovedColumn;
+  
+//  @Column(name = "trainer_id")
+//  private Integer trainerId;
 
 
   // Working
   // Changing at Nick's request
-  // @JsonIgnoreProperties({"consent", "trainers"})
-  // @ManyToOne
-  // @JoinColumn(name = "batch_id")
-  @Column(name = "batch_id")
-  private Integer batchId;
+  @JsonIgnoreProperties({"consent", "trainers"})
+  @ManyToOne
+  @JoinColumn(name = "batch_id")
+  //@Column(name = "batch_id")
+  private Batch batch;
 
-  // Changing at Nick's request
-  // @JsonIgnoreProperties({"consent", "batches"})
-  // @ManyToOne
-  // @JoinColumn(name = "trainerId")
-  @Column(name = "trainer_id")
+  	// Changing at Nick's request
+  @JsonIgnoreProperties({"consent", "batches"})
+  @ManyToOne
+  @JoinColumn(name = "trainerId")
+  //@Column(name="trainer_id")
+  private Trainer trainer;
 
-  private Integer trainerId;
 
   public Consent() {
     super();
@@ -57,50 +63,42 @@ public class Consent {
   }
 
 
-
-  public Integer getBatchId() {
-    return batchId;
-  }
-
-  public void setBatchId(Integer batchId) {
-    this.batchId = batchId;
-  }
-
-  public Integer getTrainer_id() {
-    return trainerId;
-  }
-
-  public void setTrainer_id(Integer trainerId) {
-    this.trainerId = trainerId;
-  }
-
-
-  public Consent(Integer consentId, boolean isApproved, Integer batchId, Integer trainerId) {
-    super();
-    this.consentId = consentId;
-    this.isApprovedColumn = isApproved;
-    this.batchId = batchId;
-    this.trainerId = trainerId;
-  }
+public void setIsApprovedColumn(String isApprovedColumn) {
+	this.isApprovedColumn = isApprovedColumn;
+}
 
 
 
-  public boolean getIsApprovedColumn() {
-    return isApprovedColumn;
-  }
+public Batch getBatch() {
+	return batch;
+}
 
-  public void setIsApprovedColumn(boolean isApprovedColumn) {
-    this.isApprovedColumn = isApprovedColumn;
-  }
+public void setBatch(Batch batch) {
+	this.batch = batch;
+}
 
+public Trainer getTrainer() {
+	return trainer;
+}
 
+public void setTrainer(Trainer trainer) {
+	this.trainer = trainer;
+}
 
-  @Override
-  public String toString() {
-    return "Consent [consentId=" + consentId + ", isApproved=" + isApprovedColumn + ", batchId="
-        + batchId + ", trainerId=" + trainerId + "]";
-  }
+public Consent(Integer consentId, String isApprovedColumn, Batch batch, Trainer trainer) {
+	super();
+	this.consentId = consentId;
+	this.isApprovedColumn = isApprovedColumn;
+	this.batch = batch;
+	this.trainer = trainer;
+}
 
+@Override
+public String toString() {
+	return "Consent [consentId=" + consentId + ", isApprovedColumn=" + isApprovedColumn + ", batch=" + batch
+			+ ", trainer=" + trainer + "]";
+}
 
 
 }
+

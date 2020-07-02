@@ -1,10 +1,13 @@
 spring:
   profiles:
-    active: ${SPRING_PROFILE_ACTIVE}
+    active: local
   application:
     name: dataservice
   jpa:
     show-sql: true
+    
+#DATA MASTER PORT IS 2333 - SWAP THIS IN WHEN PUSHING TO MASTER
+#DATA DEVELOPMENT PORT IS 1235 - THIS SHOULD BE ACTIVE BY DEFAULT    
     
 server:
   port: 1235
@@ -57,6 +60,10 @@ spring:
     hibernate:
       ddl-auto: validate
     database: postgresql
+
+
+#EUREKA MASTER PORT IS 2329 - SWAP THIS IN WHEN PUSHING TO MASTER
+#EUREKA DEVELOPMENT PORT IS 8762 - THIS SHOULD BE ACTIVE BY DEFAULT
 
 eureka:
   client:

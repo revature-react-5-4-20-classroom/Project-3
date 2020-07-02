@@ -1,8 +1,18 @@
-th{
-	color:blue;
+th {
+  /* color:blue; */
+  color: #f26925;
 }
 
-th:hover{
-	text-decoration: underline;
-	cursor: pointer;
+.shadow {
+  box-shadow: 2px 5px 5px black;
+}
+
+table {
+  /*offsetx offsety radius color*/
+  box-shadow: 2px 5px 5px black;
+}
+
+th:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

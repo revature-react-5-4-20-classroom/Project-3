@@ -48,31 +48,7 @@ export class TimelineComponent extends React.Component<any,TimelineComponentStat
         }
     }
     
-    // itemRenderer = ({item, itemContext, getItemProps, getResizeProps }) => {
-    //     <div {...getItemProps(item.itemProps)}> 
-    //         <div className="rct-item-content">
-    //             {item}
-    //         </div>    
-    //     </div>
-    // }
-
-
    
-
-//     setBatches  = async () => {
-      
-
-// let batches=await getAllBatches();
-
-//         this.setState({
-//             batches  : batches
-//         })
-//     }
-
-// componentWillReceiveProps=()=>{
-//     this.changeState();
-// }
-
 
 
 componentDidUpdate=(prevProps:any)=>{
@@ -174,23 +150,7 @@ toggle=()=>{
                 // bgColor : 'rgba(225, 166, 244, 0.6)',
                 itemProps:{
 
-            //         onContextMenu:(event:any)=>{
-            //         console.log(event.target.id);
-            //         timer= setTimeout(()=>{
-            //               if(!alreadyClicked){
-            //                   alert("dfdfdsf");
-            //                  }
-
-            //                  alreadyClicked=false;
-                          
-                         
-            //          },100);
-                
-                
-            //     },
-                     
-                        
-            //    },
+            
 
             onContextMenu:(event:any)=>{
                 this.displayBatchInfo(batch)

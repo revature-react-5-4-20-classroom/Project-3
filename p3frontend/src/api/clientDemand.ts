@@ -1,5 +1,5 @@
-import { axiosClient } from './axios';
-import { ClientDemands } from '../models/ClientDemands';
+import { axiosClient } from "./axios";
+import { ClientDemands } from "../models/ClientDemands";
 
 const buildCliDem = (res: any): ClientDemands => {
   const {
@@ -20,8 +20,8 @@ const buildCliDem = (res: any): ClientDemands => {
 
 export async function getAllClientDemands(): Promise<ClientDemands[]> {
   try {
-    const response = await axiosClient.get('/client-demand');
-    console.log('FROM API', response.data);
+    const response = await axiosClient.get("/client-demand");
+    console.log("FROM API", response.data);
     const demandArr: ClientDemands[] = response.data.map(
       (cl: ClientDemands) => {
         return buildCliDem(cl);

@@ -11,23 +11,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.DataService.models.Client;
 import com.revature.DataService.services.ClientService;
 
-@RequestMapping(path="/clients")
+@RequestMapping(path = "/clients")
 @RestController
 public class ClientController {
 
-	@Autowired ClientService clientService;
-	
-	@GetMapping
-	public List<Client> getAllClients() {
-		return clientService.getAll();
-	}
-	
-	@GetMapping("/{id}")
-	public Client getClientById(@PathVariable Integer id) {
-//		try {
-			return clientService.getById(id);
-//		} catch (clientNotFoundException e) {
-//			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//		}
-	}
+  @Autowired
+  ClientService clientService;
+
+  @GetMapping
+  public List<Client> getAllClients() {
+    return clientService.getAll();
+  }
+
+  @GetMapping("/{id}")
+  public Client getClientById(@PathVariable Integer id) {
+    // try {
+    return clientService.getById(id);
+    // } catch (clientNotFoundException e) {
+    // throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    // }
+  }
 }
