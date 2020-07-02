@@ -102,7 +102,7 @@ export class FilterForm extends React.Component<
             <Button onClick={this.reset}>Reset Selection</Button>
             <Form onSubmit={this.applyAllFilters}>
               <Row form>
-                <Col md={4}>
+                <Col lg={'auto'}>
                   <FormGroup>
                     <Label for="selectProgramType">Program Type</Label>
                     <UncontrolledDropdown id="selectProgramType">
@@ -133,7 +133,7 @@ export class FilterForm extends React.Component<
                     </UncontrolledDropdown>
                   </FormGroup>
                 </Col>
-                <Col md={4}>
+                <Col lg={'auto'}>
                   <FormGroup>
                     <Label for="selectClient">Client</Label>
                     <UncontrolledDropdown id="selectClient">
@@ -159,7 +159,7 @@ export class FilterForm extends React.Component<
                     </UncontrolledDropdown>
                   </FormGroup>
                 </Col>
-                <Col md={4}>
+                <Col lg={'auto'}>
                   <FormGroup>
                     <Label for="selectCurriculum">Curriculum</Label>
                     <UncontrolledDropdown id="selectCurriculum">

@@ -212,7 +212,7 @@ export class TimelineComponent extends React.Component<
       );
     }else if(this.state.items&&this.state.items.length<1){
       return(
-        <h2>No batches exists</h2>
+        <h2>No batches exist with current filters</h2>
       )
 
 
