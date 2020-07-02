@@ -1,8 +1,8 @@
-import React from "react";
-import { Button } from "reactstrap";
-import { getAllClientDemands } from "../api/clientDemand";
-import { ClientDemands } from "../models/ClientDemands";
-import { getActiveAssociates } from "../api/Associate";
+import React from 'react';
+import { Button } from 'reactstrap';
+import { getAllClientDemands } from '../api/clientDemand';
+import { ClientDemands } from '../models/ClientDemands';
+import { getAllAssociates } from '../api/Associate';
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -24,7 +24,8 @@ export class ColumnChartTest extends React.Component<any, any> {
     this.setState({
       clientDemand: this.getDemand(),
     });
-    this.getSupply();
+    // this.getSupply();
+    this.getData();
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -71,14 +72,75 @@ export class ColumnChartTest extends React.Component<any, any> {
     return clientDemandData;
   };
 
-  getSupply = async () => {
-    let supplyArr = await getActiveAssociates();
-    console.log("supplyarr, ", supplyArr);
+  // supplyData = [{java/react: 2020-08-01}, {java/react: 2020-10-01}]
+
+  // groupData =
+  // [
+  // {Java/react: {current: 1, omon: 2, tmon: 5}},
+  // {saleseforce: {current: 3, omon: 2, tmon: 6}}
+  // ]
+
+  // 1) get data from api associate (skillset and batch graduation date) {associateId: 2, associateName: 'Tom', Skillset: {skillsetId: 1, name: 'Java/react'}}
+  getData = async () => {
+    return await getAllAssociates();
   };
+  // 2) pass each associate through loop that says:   gd=graduation date [{java/react: current}, {java/react: onemonth}, {salesforce: current}]
+  //      if Date(gd} <= date.now() -> object created with {skillset: 'current'}
+  // //    else if gd > date.now() && gd <= {onemonthfromnow} -> obj created with {skillset:'oneMonth'}
+  // //    else if gd > {onemonthfromnow} && gd <= {threemonthsfromnow} -> obj created with {skillset: 'threeMonth}
+
+  // // 3) map through array to create an array that graphs can work with [{java/react: {current: 3, onemonth: 6, threemonth: 23}}, {salesforce...}]
+
+  // // 5?) Data is now a array/map of objects with key of Skillsetname and value that is an object
+  // //     that has current/onemonth/threemonth with a # as a value that reps # of associates
+
+  // // Getting back api response and creating array of objects that
+  // // each contain an associates skillset and their graduation date
+  // // aka batch end date
+  // getSupply = async () => {
+  //   let supplyArr = await getActiveAssociates();
+  //   let supplyData = [{}];
+  //   supplyArr.map((a: any) => {
+  //     let skillset = a.skillset;
+  //     let batchDate = a.batchDate;
+  //     supplyData.push({ skillset, batchDate });
+  //   });
+  //   return supplyData;
+  // };
+  // //   groupData = [
+  // //      {Java/react: {current: 1, omon: 2, tmon: 5}},
+  // //      {saleseforce: {current: 3, omon: 2, tmon: 6}}
+  // //   ]
+  // // supplyData = [{java/react: 2020-08-01}, {java/react: 2020-10-01}]
+  // // getting grouping of associate skillsets, & batchend date
+  // // and turning into Array of nested objects of skillsets and // quantities sorted by date
+  // groupByDate = async (arr: any[]) => {
+  //   let groupedSupply = new Map();
+  //   arr.map((a: any) => {
+  //     let key = Object.keys(a)[0]; // should be 'java/react'
+  //     let current = a.key.current; // should be a number for current
+  //     let oneMonth = a.key.oneMonth;
+  //     let threeMonth = a.key.threeMonth;
+  //     // // loop through groupedSupply to see if the key for a given
+  //     // // element of the supply data array already exists
+  //     for (let i = 0; i< Object.keys(groupedSupply).length; i++) {
+  //       if (key === Object.keys(groupedSupply)[i])	{
+  //         let skillObj = groupedSupply.get(key);
+  //         groupedSupply.set(key,
+  //           {
+  //           current: skillObj.current
+  //           }
+  //         )
+  //       }
+  //     }
+  //     //  if (a.batchEnddate <= date.now()) {
+  //   });
+  //   return groupedSupply;
+  // };
 
   // This initializes google charts
   loadGoogle = () => {
-    google.charts.load("current", { packages: ["corechart", "bar"] });
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
     google.charts.setOnLoadCallback(this.init);
   };
 
@@ -91,53 +153,53 @@ export class ColumnChartTest extends React.Component<any, any> {
     // Each array is a grouping of the above columns
     var data: any = [];
     data[0] = new google.visualization.DataTable();
-    data[0].addColumn("string", "Demand and Supply");
-    data[0].addColumn("number", "Total");
-    data[0].addColumn("number", "Java/React");
-    data[0].addColumn("number", "Salesforce");
-    data[0].addColumn("number", "Data");
-    data[0].addColumn("number", "Ai");
+    data[0].addColumn('string', 'Demand and Supply');
+    data[0].addColumn('number', 'Total');
+    data[0].addColumn('number', 'Java/React');
+    data[0].addColumn('number', 'Salesforce');
+    data[0].addColumn('number', 'Data');
+    data[0].addColumn('number', 'Ai');
     data[0].addRows([
-      ["Client Demand", 64, 23, 21, 16, 4],
-      ["Current", 19, 4, 6, 8, 1],
-      ["1 Month", 31, 10, 12, 6, 3],
-      ["3 Months", 50, 20, 15, 10, 5],
+      ['Client Demand', 64, 23, 21, 16, 4],
+      ['Current', 19, 4, 6, 8, 1],
+      ['1 Month', 31, 10, 12, 6, 3],
+      ['3 Months', 50, 20, 15, 10, 5],
     ]);
     data[1] = new google.visualization.DataTable();
-    data[1].addColumn("string", "Demand and Supply");
-    data[1].addColumn("number", "Java/React");
+    data[1].addColumn('string', 'Demand and Supply');
+    data[1].addColumn('number', 'Java/React');
     data[1].addRows([
-      ["Client Demand", 23],
-      ["Current", 4],
-      ["1 Month", 10],
-      ["3 Months", 20],
+      ['Client Demand', 23],
+      ['Current', 4],
+      ['1 Month', 10],
+      ['3 Months', 20],
     ]);
     data[2] = new google.visualization.DataTable();
-    data[2].addColumn("string", "Demand and Supply");
-    data[2].addColumn("number", "Salesforce");
+    data[2].addColumn('string', 'Demand and Supply');
+    data[2].addColumn('number', 'Salesforce');
     data[2].addRows([
-      ["Client Demand", 21],
-      ["Current", 6],
-      ["1 Month", 12],
-      ["3 Months", 15],
+      ['Client Demand', 21],
+      ['Current', 6],
+      ['1 Month', 12],
+      ['3 Months', 15],
     ]);
     data[3] = new google.visualization.DataTable();
-    data[3].addColumn("string", "Demand and Supply");
-    data[3].addColumn("number", "Data");
+    data[3].addColumn('string', 'Demand and Supply');
+    data[3].addColumn('number', 'Data');
     data[3].addRows([
-      ["Client Demand", 16],
-      ["Current", 8],
-      ["1 Month", 6],
-      ["3 Months", 10],
+      ['Client Demand', 16],
+      ['Current', 8],
+      ['1 Month', 6],
+      ['3 Months', 10],
     ]);
     data[4] = new google.visualization.DataTable();
-    data[4].addColumn("string", "Demand and Supply");
-    data[4].addColumn("number", "Ai");
+    data[4].addColumn('string', 'Demand and Supply');
+    data[4].addColumn('number', 'Ai');
     data[4].addRows([
-      ["Client Demand", 4],
-      ["Current", 1],
-      ["1 Month", 3],
-      ["3 Months", 5],
+      ['Client Demand', 4],
+      ['Current', 1],
+      ['1 Month', 3],
+      ['3 Months', 5],
     ]);
 
     // Creates view with data?????????
@@ -155,7 +217,7 @@ export class ColumnChartTest extends React.Component<any, any> {
 
     // Labeling and styling
     var options: any = {
-      orientation: "horizontal",
+      orientation: 'horizontal',
       width: 900,
       column: 0,
       height: 500,
@@ -163,10 +225,10 @@ export class ColumnChartTest extends React.Component<any, any> {
         direction: 1,
       },
       vAxes: {
-        0: { title: "Amount of Associates" },
+        0: { title: 'Amount of Associates' },
       },
       hAxes: {
-        0: { title: "Demand and Supply" },
+        0: { title: 'Demand and Supply' },
       },
     };
     // myRef acts like .getElementById but for React

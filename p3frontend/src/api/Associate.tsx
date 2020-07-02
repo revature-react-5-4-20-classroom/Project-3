@@ -1,12 +1,12 @@
-import { Associate } from "../models/Associate";
-import FailedRequestException from "../exceptions/FailedRequestException";
-import FailedUpdateException from "../exceptions/FailedUpdateException";
-import { axiosClient } from "./axios";
-import FailedUpdate from "../exceptions/FailedUpdateException";
+import { Associate } from '../models/Associate';
+import FailedRequestException from '../exceptions/FailedRequestException';
+import FailedUpdateException from '../exceptions/FailedUpdateException';
+import { axiosClient } from './axios';
+import FailedUpdate from '../exceptions/FailedUpdateException';
 
 export async function getAllAssociates(): Promise<Associate[]> {
   try {
-    let response = await axiosClient.get("/associates");
+    let response = await axiosClient.get('/associates');
 
     return response.data.map((a: Associate) => {
       let {
@@ -36,19 +36,19 @@ export async function getAllAssociates(): Promise<Associate[]> {
 
 export async function getActiveAssociates(): Promise<Associate[]> {
   try {
-    let response = await axiosClient.get("/associates/get-active");
-    console.log("FROM API", response);
+    let response = await axiosClient.get('/associates/get-active');
+    console.log('FROM API', response);
     return response.data;
   } catch (error) {
-    throw new FailedRequestException("Failed to fetch active associates");
+    throw new FailedRequestException('Failed to fetch active associates');
   }
 }
 
 export async function updateAssociate(obj: Associate) {
   try {
-    const response = await axiosClient.patch("/associates", obj);
+    const response = await axiosClient.patch('/associates', obj);
   } catch (e) {
-    console.log("failed to assign associate to new batch", e.message);
+    console.log('failed to assign associate to new batch', e.message);
     //throw e;//we do not throw. we put the error into a nice alert component
   }
 }
