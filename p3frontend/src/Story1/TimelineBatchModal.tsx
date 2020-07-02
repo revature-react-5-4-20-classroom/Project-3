@@ -14,20 +14,17 @@ import {
   ButtonGroup,
   Container,
 } from "reactstrap";
-import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import "../../src/index.css";
 import ASTableModel from "./ASTableModel";
 import { connect } from 'react-redux';
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
 
-/*
-  <BatchModal currentBatch={aBatchObject}/>
+interface TimelineBatchModalProps {
+    
+}
 
-  The modal will look like a View button.
-  when that button is clicked the modal will pop up
-*/
-class BatchModal extends React.Component<any, any> 
+export class TimelineBatchModal extends React.Component<any, any> 
 {
   constructor(props: any)
   {
@@ -115,7 +112,5 @@ class BatchModal extends React.Component<any, any>
   }
 }
 
-export default BatchModal;
 
-
-export const ReduxBatchModal = connect(allTheMapStateToProps, allTheActionMappers)(BatchModal);
+export const ReduxBatchModal = connect(allTheMapStateToProps, allTheActionMappers)(TimelineBatchModal);

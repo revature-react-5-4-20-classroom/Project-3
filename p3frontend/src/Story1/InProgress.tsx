@@ -22,7 +22,7 @@ import { IState, allTheMapStateToProps } from "../redux/reducers";
 import {pseudoDataResponse}  from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
 import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
-import BatchModal from "./BatchModal";
+import BatchModal, { ReduxBatchModal } from "./BatchModal";
 import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
 
@@ -158,7 +158,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 									{/* we are looping over display batches. 
 									give the modal the batch from the server. 
 									the official batch object*/}
-									<BatchModal currentBatch={batch.batchFromServer}/>
+									<ReduxBatchModal currentBatch={batch.batchFromServer}/>
 								</td>
 								<td>{batch.id}</td>
 								{/* <td>{batch.name}</td> */}
@@ -183,7 +183,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 						})
 					}
 				</tbody>
-				{this.state.modalShow ? <BatchModal toggle={this.showModal} currentBatch={this.state.modalBatch}/> : null}
+				{/* {this.state.modalShow ? <BatchModal toggle={this.showModal} currentBatch={this.state.modalBatch}/> : null} */}
 			</Table>
 		)
 	}
@@ -268,7 +268,13 @@ And this data is shown as a table and a Calendar view</p><br/>
 		{
 			let dateStart=new Date(batch.startDate)//convert strings to Date objects
 			let dateEnd=new Date(batch.endDate)
-
+			
+			let dateStartUTC = Date.parse(batch.startDate)
+			let dateEndUTC = Date.parse(batch.endDate)
+			dateStart.setMilliseconds(dateStartUTC)
+			dateEnd.setMilliseconds(dateEndUTC)
+			// console.log(dateStart)
+			// console.log(batch.startDate)
 			let weekC=dateDifferenceWeeks(dateStart,new Date(Date.now()))	//calc current week we are on
 			let weekR=dateDifferenceWeeks(new Date(Date.now()),	dateEnd)	//calc weeks remaining
 
