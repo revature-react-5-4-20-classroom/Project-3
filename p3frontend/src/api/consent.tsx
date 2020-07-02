@@ -214,7 +214,7 @@ export async function getConsentByTrainerId(id: number): Promise<Consent[]> {
     console.log(e.message);
     throw e;
   }
-
+}
 
 export async function getEligibility(
   trainerId: number,
