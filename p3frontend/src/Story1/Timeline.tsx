@@ -29,6 +29,7 @@ interface TimelineComponentState {
   prevent: any;
   isOpen: boolean;
   toggle: any;
+  batchIsOpen: boolean;
 }
 
 export class TimelineComponent extends React.Component<
@@ -45,6 +46,7 @@ export class TimelineComponent extends React.Component<
       prevent: false,
       isOpen: false,
       toggle: false,
+      batchIsOpen: false,
     };
   }
 
@@ -139,7 +141,7 @@ export class TimelineComponent extends React.Component<
               this.displayBatchInfo(batch);
             },
 
-            onDoubleClick: () => {
+            onDoubleClick: (batch:any) => {
               alert("hello");
             },
           },
@@ -161,6 +163,17 @@ export class TimelineComponent extends React.Component<
     this.props.batchClickActionMapper(batch);
     this.setIsOpen();
   };
+
+  setBatchIsOpen = () => {
+      let batchIsOpen
+      this.setState({
+          
+      })
+  }
+  showBatchModal = (batch: Batch) => {
+    this.props.batchClickActionMapper(batch);
+
+  }
 
   render() {
     console.log(this.state.items);
