@@ -269,10 +269,10 @@ And this data is shown as a table and a Calendar view</p><br/>
 			let dateStart=new Date(batch.startDate)//convert strings to Date objects
 			let dateEnd=new Date(batch.endDate)
 			
-			let dateStartUTC = Date.parse(batch.startDate)
-			let dateEndUTC = Date.parse(batch.endDate)
-			dateStart.setMilliseconds(dateStartUTC)
-			dateEnd.setMilliseconds(dateEndUTC)
+			// let dateStartUTC = Date.parse(batch.startDate)
+			// let dateEndUTC = Date.parse(batch.endDate)
+			// dateStart.setMilliseconds(dateStartUTC)
+			// dateEnd.setMilliseconds(dateEndUTC)
 			// console.log(dateStart)
 			// console.log(batch.startDate)
 			let weekC=dateDifferenceWeeks(dateStart,new Date(Date.now()))	//calc current week we are on
