@@ -252,7 +252,7 @@ export class TimelineComponent extends React.Component<
   //   };
 
   render() {
-    if (this.state.items) {
+    //if (this.state.items) {
       return (
         <div>
           {/* <Button color="primary" onClick={this.toggle}>
@@ -281,9 +281,9 @@ export class TimelineComponent extends React.Component<
           )} */}
         </div>
       );
-    } else {
-      return <p>Loading...</p>;
-    }
+    // } else {
+    //   return <p>Loading...</p>;
+    // }
   }
 }
 
