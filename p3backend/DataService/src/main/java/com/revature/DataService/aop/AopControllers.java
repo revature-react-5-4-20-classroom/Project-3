@@ -52,45 +52,6 @@ public void afterThrow(JoinPoint jp,Throwable error) {
 	
 	
 }
-
-@Before(value="within(com.revature.DataService..*)")
-public void logBefore(JoinPoint jp) {
-// Commented out because it was interfering with the Batch controller, if I don't remember to add back let me know --> John A.
-//	logger.info(" Method "+jp.toShortString()+" called on "+jp.getTarget()+" args: "+Arrays.toString(jp.getArgs()));
-	
-	
-	
-}
-
-@AfterReturning(value="within(com.revature.DataService..*)", returning="result")
-public void after(JoinPoint jp, Object result) {
-	
-	
-	logger.info(" method "+jp.toShortString());
-//	if(result!=null) {
-//		logger.info(" method "+jp.toShortString()+"returned "+result.toString());
-//	}else {
-//		logger.info(" method "+jp.toShortString()+" returned "+" it returns null");
-//	}
-	
-}
-
-@AfterThrowing(value="within(com.revature.DataService..*)", throwing="error")
-public void afterThrow(JoinPoint jp,Throwable error) {
-	
-	logger.error(" method "+jp.toShortString()+" error "+error.getMessage());
-
-	
-	
-}
-
-
-
-
-
-
-
-	
 	
 
 }
