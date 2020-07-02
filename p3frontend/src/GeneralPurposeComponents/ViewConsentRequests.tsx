@@ -38,9 +38,6 @@ export class ViewConsentRequests extends React.Component<
   //   await denyConsentRequest(consentRequest);
   // };
 
-
-
-
   //   this.setState({
   //     consentRequests: consentRequests,
   //   });
@@ -78,17 +75,15 @@ export class ViewConsentRequests extends React.Component<
   //           //         <Col xs='auto'><img src={getImageUrl(this.state.itemList[i])} style={{height:"100px", width:"auto"}} /></Col>
   //           //         <Col xs='auto'><a href='#' onClick={this.toggleRedirect} id={i.toString()}>{item.item_name}</a></Col>
 
-
   //       this.setState({
   //           consentRequests : consentRequests
   //       })
-            
-        
+
   //   }
-    render(){
-        return(
-            <>
-            {/* <h6>View Consent Requests</h6>
+  render() {
+    return (
+      <>
+        {/* <h6>View Consent Requests</h6>
                     <ListGroup>
                             {this.state.consentRequests.map((consent: Consent, i) => {
                                 

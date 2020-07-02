@@ -277,4 +277,3 @@ export class TrainerAssignmentComponent extends React.Component<
     );
   }
 }
-

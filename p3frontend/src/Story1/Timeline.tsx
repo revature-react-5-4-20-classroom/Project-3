@@ -31,240 +31,225 @@ interface TimelineComponentState {
   toggle: any;
 }
 
+export class TimelineComponent extends React.Component<
+  any,
+  TimelineComponentState
+> {
+  //     constructor(props:any){
+  //         super(props)
+  //         this.state = {
+  //             //batches: null,
+  //             groups :null,
+  //             items : null,
 
-export class TimelineComponent extends React.Component<any,TimelineComponentState> {
-//     constructor(props:any){
-//         super(props)
-//         this.state = {
-//             //batches: null,
-//             groups :null,
-//             items : null,
+  //             prevent:false,
+  //            isOpen :false,
+  //          toggle:false
 
-//             prevent:false,
-//            isOpen :false,
-//          toggle:false
+  //         }
+  //     }
 
-//         }
-//     }
-    
-//     // itemRenderer = ({item, itemContext, getItemProps, getResizeProps }) => {
-//     //     <div {...getItemProps(item.itemProps)}> 
-//     //         <div className="rct-item-content">
-//     //             {item}
-//     //         </div>    
-//     //     </div>
-//     // }
+  //     // itemRenderer = ({item, itemContext, getItemProps, getResizeProps }) => {
+  //     //     <div {...getItemProps(item.itemProps)}>
+  //     //         <div className="rct-item-content">
+  //     //             {item}
+  //     //         </div>
+  //     //     </div>
+  //     // }
 
+  // //     setBatches  = async () => {
 
-   
+  // // let batches=await getAllBatches();
 
-// //     setBatches  = async () => {
-      
+  // //         this.setState({
+  // //             batches  : batches
+  // //         })
+  // //     }
 
-// // let batches=await getAllBatches();
+  // // componentWillReceiveProps=()=>{
+  // //     this.changeState();
+  // // }
 
-// //         this.setState({
-// //             batches  : batches
-// //         })
-// //     }
+  // componentDidUpdate=(prevProps:any)=>{
 
-// // componentWillReceiveProps=()=>{
-// //     this.changeState();
-// // }
+  //     if(prevProps.batches!==this.props.batches){
+  //         this.changeState();
+  //     }
 
+  // }
 
+  //  changeState=()=>{
+  //      console.log("hello")
+  //     let mappedGroups: any[] = [];
+  //     let mappedItems: any[] = [];
 
-// componentDidUpdate=(prevProps:any)=>{
-    
-//     if(prevProps.batches!==this.props.batches){
-//         this.changeState();
-//     }
+  //     this.props.batches && this.props.batches.map(  (batch:Batch, index:number) => {
+  //         let group = {
+  //             id: batch.batchId,
+  //             title: ` ${batch.location.locationName}`,
 
-// }
+  //         }
+  //         let item = {
+  //             id: batch.batchId,
+  //             group: batch.batchId,
+  //             title:`${batch.curriculum.name}` ,
+  //             start_time: new Date(batch.startDate),
+  //             end_time: new Date(batch.endDate),
+  //             canMove: false,
+  //             canResize: false,
+  //             canChangeGroup: false,
+  //             color: 'rgb(0, 14, 206)',
 
+  //             itemProps:{
+  //         onContextMenu:(event:any)=>{
+  //             this.displayBatchInfo(batch)
+  //         },
 
-//  changeState=()=>{
-//      console.log("hello")
-//     let mappedGroups: any[] = [];
-//     let mappedItems: any[] = [];
+  //                 onDoubleClick: () => {alert("hello")},
+  //             }
 
-//     this.props.batches && this.props.batches.map(  (batch:Batch, index:number) => {
-//         let group = {
-//             id: batch.batchId,
-//             title: ` ${batch.location.locationName}`,
-            
-//         }
-//         let item = {
-//             id: batch.batchId,
-//             group: batch.batchId,
-//             title:`${batch.curriculum.name}` ,
-//             start_time: new Date(batch.startDate),
-//             end_time: new Date(batch.endDate),
-//             canMove: false,
-//             canResize: false,
-//             canChangeGroup: false,
-//             color: 'rgb(0, 14, 206)',
-     
-//             itemProps:{
-//         onContextMenu:(event:any)=>{
-//             this.displayBatchInfo(batch)
-//         },
-                
+  //         }
 
-//                 onDoubleClick: () => {alert("hello")},
-//             }
+  //         mappedGroups.push(group);
+  //         mappedItems.push(item);
 
-//         }
+  //     })
+  //     console.log(mappedItems);
+  //     this.setGroupsAndItems(mappedGroups,mappedItems)
 
-//         mappedGroups.push(group);
-//         mappedItems.push(item);
-      
-//     })
-//     console.log(mappedItems);
-//     this.setGroupsAndItems(mappedGroups,mappedItems)
+  // }
 
+  // toggle=()=>{
+  //     let toggle=!this.state.toggle;
+  //     this.setState({
+  //         toggle:toggle
+  //     })
+  // }
 
+  //     setGroupsAndItems = (groups:any[],items:any[]) => {
+  //         this.setState({
+  //             groups : groups,
+  //             items : items,
+  //         })
+  //     }
+  //      componentDidMount() {
+  //         let timer:any;
+  //         let alreadyClicked=false;
+  //         //await this.setBatches();
+  //         let mappedGroups: any[] = [];
+  //         let mappedItems: any[] = [];
 
+  //         this.props.batches && this.props.batches.map(  (batch:Batch, index:number) => {
+  //             let group = {
+  //                 id: batch.batchId,
+  //                 title: ` ${batch.location.locationName}`,
 
+  //             }
+  //             let item = {
+  //                 id: batch.batchId,
+  //                 group: batch.batchId,
+  //                 title:`${batch.curriculum.name}` ,
+  //                 start_time: new Date(batch.startDate),
+  //                 end_time: new Date(batch.endDate),
+  //                 canMove: false,
+  //                 canResize: false,
+  //                 canChangeGroup: false,
+  //                 color: 'rgb(0, 14, 206)',
+  //                 // onItemClick:()=>{alert("sdf")},
+  //             //    onClick:()=>{alert("sfds")},
+  //                 // selectedBgColor: 'rgba(225, 166, 244, 1)',
+  //                 // bgColor : 'rgba(225, 166, 244, 0.6)',
+  //                 itemProps:{
 
-// }
+  //   setGroupsAndItems = (groups: any[], items: any[]) => {
+  //     this.setState({
+  //       groups: groups,
+  //       items: items,
+  //     });
+  //   };
+  //   async componentDidMount() {
+  //     let timer: any;
+  //     let alreadyClicked = false;
+  //     //await this.setBatches();
+  //     let mappedGroups: any[] = [];
+  //     let mappedItems: any[] = [];
 
+  //     this.props.batches &&
+  //       this.props.batches.map((batch: Batch, index: number) => {
+  //         let group = {
+  //           id: batch.batchId,
+  //           title: ` ${batch.location.locationName}`,
+  //         };
+  //         let item = {
+  //           id: batch.batchId,
+  //           group: batch.batchId,
+  //           title: `${batch.curriculum.name}`,
+  //           start_time: new Date(batch.startDate),
+  //           end_time: new Date(batch.endDate),
+  //           canMove: false,
+  //           canResize: false,
+  //           canChangeGroup: false,
+  //           color: "rgb(0, 14, 206)",
+  //           // onItemClick:()=>{alert("sdf")},
+  //           //    onClick:()=>{alert("sfds")},
+  //           // selectedBgColor: 'rgba(225, 166, 244, 1)',
+  //           // bgColor : 'rgba(225, 166, 244, 0.6)',
+  //           itemProps: {
+  //             //         onContextMenu:(event:any)=>{
+  //             //         console.log(event.target.id);
+  //             //         timer= setTimeout(()=>{
+  //             //               if(!alreadyClicked){
+  //             //                   alert("dfdfdsf");
+  //             //                  }
 
+  //             //                  alreadyClicked=false;
 
-// toggle=()=>{
-//     let toggle=!this.state.toggle;
-//     this.setState({
-//         toggle:toggle
-//     })
-// }
+  //             //          },100);
 
-//     setGroupsAndItems = (groups:any[],items:any[]) => {
-//         this.setState({
-//             groups : groups,
-//             items : items,
-//         })
-//     }
-//      componentDidMount() {
-//         let timer:any;
-//         let alreadyClicked=false;
-//         //await this.setBatches();
-//         let mappedGroups: any[] = [];
-//         let mappedItems: any[] = [];
+  //             //     },
 
-//         this.props.batches && this.props.batches.map(  (batch:Batch, index:number) => {
-//             let group = {
-//                 id: batch.batchId,
-//                 title: ` ${batch.location.locationName}`,
-                
-//             }
-//             let item = {
-//                 id: batch.batchId,
-//                 group: batch.batchId,
-//                 title:`${batch.curriculum.name}` ,
-//                 start_time: new Date(batch.startDate),
-//                 end_time: new Date(batch.endDate),
-//                 canMove: false,
-//                 canResize: false,
-//                 canChangeGroup: false,
-//                 color: 'rgb(0, 14, 206)',
-//                 // onItemClick:()=>{alert("sdf")},
-//             //    onClick:()=>{alert("sfds")},
-//                 // selectedBgColor: 'rgba(225, 166, 244, 1)',
-//                 // bgColor : 'rgba(225, 166, 244, 0.6)',
-//                 itemProps:{
+  //             //    },
 
+  //             onContextMenu: (event: any) => {
+  //               this.displayBatchInfo(batch);
+  //             },
 
-//   setGroupsAndItems = (groups: any[], items: any[]) => {
-//     this.setState({
-//       groups: groups,
-//       items: items,
-//     });
-//   };
-//   async componentDidMount() {
-//     let timer: any;
-//     let alreadyClicked = false;
-//     //await this.setBatches();
-//     let mappedGroups: any[] = [];
-//     let mappedItems: any[] = [];
+  //     displayBatchInfo = (batch:Batch) => {
+  //         this.props.batchClickActionMapper(batch);
+  //         this.setIsOpen();
+  //     }
 
-//     this.props.batches &&
-//       this.props.batches.map((batch: Batch, index: number) => {
-//         let group = {
-//           id: batch.batchId,
-//           title: ` ${batch.location.locationName}`,
-//         };
-//         let item = {
-//           id: batch.batchId,
-//           group: batch.batchId,
-//           title: `${batch.curriculum.name}`,
-//           start_time: new Date(batch.startDate),
-//           end_time: new Date(batch.endDate),
-//           canMove: false,
-//           canResize: false,
-//           canChangeGroup: false,
-//           color: "rgb(0, 14, 206)",
-//           // onItemClick:()=>{alert("sdf")},
-//           //    onClick:()=>{alert("sfds")},
-//           // selectedBgColor: 'rgba(225, 166, 244, 1)',
-//           // bgColor : 'rgba(225, 166, 244, 0.6)',
-//           itemProps: {
-//             //         onContextMenu:(event:any)=>{
-//             //         console.log(event.target.id);
-//             //         timer= setTimeout(()=>{
-//             //               if(!alreadyClicked){
-//             //                   alert("dfdfdsf");
-//             //                  }
+  //     render() {
 
-//             //                  alreadyClicked=false;
+  // console.log(this.state.items)
+  //         if(this.state.items){
+  //         return (
+  //             <div>
+  //                  <Button color="primary" onClick={this.toggle}>Click me</Button>
+  //                <br />
+  // <Toast isOpen={this.state.toggle}>
 
-//             //          },100);
+  // Double click to edit or right click to view information
 
-//             //     },
+  // </Toast>
+  // <br />
 
-//             //    },
+  //         mappedGroups.push(group);
+  //         mappedItems.push(item);
+  //       });
+  //     this.setGroupsAndItems(mappedGroups, mappedItems);
+  //   }
 
-//             onContextMenu: (event: any) => {
-//               this.displayBatchInfo(batch);
-//             },
+  //   setIsOpen = () => {
+  //     this.setState({
+  //       isOpen: !this.state.isOpen,
+  //     });
+  //   };
 
-
-//     displayBatchInfo = (batch:Batch) => {
-//         this.props.batchClickActionMapper(batch);
-//         this.setIsOpen();
-//     }
-
-//     render() {
-
-// console.log(this.state.items)
-//         if(this.state.items){
-//         return (
-//             <div>
-//                  <Button color="primary" onClick={this.toggle}>Click me</Button>
-//                <br />  
-// <Toast isOpen={this.state.toggle}>
-
-// Double click to edit or right click to view information
-
-// </Toast>
-// <br /> 
-                          
-
-//         mappedGroups.push(group);
-//         mappedItems.push(item);
-//       });
-//     this.setGroupsAndItems(mappedGroups, mappedItems);
-//   }
-
-//   setIsOpen = () => {
-//     this.setState({
-//       isOpen: !this.state.isOpen,
-//     });
-//   };
-
-//   displayBatchInfo = (batch: Batch) => {
-//     this.props.batchClickActionMapper(batch);
-//     this.setIsOpen();
-//   };
+  //   displayBatchInfo = (batch: Batch) => {
+  //     this.props.batchClickActionMapper(batch);
+  //     this.setIsOpen();
+  //   };
 
   render() {
     if (this.state.items) {

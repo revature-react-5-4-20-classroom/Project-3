@@ -8,7 +8,7 @@ export class BatchView extends React.Component<any, any> {
     super(props);
     this.state = {
       show: false,
-      response:[]
+      response: [],
     };
   }
 
@@ -30,9 +30,7 @@ export class BatchView extends React.Component<any, any> {
       <Container style={{ backgroundColor: "#fff" }}>
         <Row>
           <Col>
-            <h5 onClick={this.getgeneratedBatch}>
-              click
-            </h5>{" "}
+            <h5 onClick={this.getgeneratedBatch}>click</h5>{" "}
           </Col>
         </Row>
         <Row>

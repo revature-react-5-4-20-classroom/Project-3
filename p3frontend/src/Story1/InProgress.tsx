@@ -29,7 +29,6 @@ import BatchModal, { ReduxBatchModal } from "./BatchModal";
 import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
 
-
 const doPrnt = true; //prnt will work
 
 export class InProgress extends React.Component<any, any> {
@@ -388,7 +387,6 @@ export class InProgress extends React.Component<any, any> {
   componentDidMount() {
     this.fetchTheBatchData();
   }
-
 }
 
 //Create a redux version of InProgress
