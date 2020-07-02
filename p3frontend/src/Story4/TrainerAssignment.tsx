@@ -138,48 +138,48 @@ sleep = (milliseconds : any) => {
   }
 
 
-  getButton = (trainer: Trainer, i: number) => {
-    let jsxElement = (
-      <>
-        <h4>test</h4>
-      </>
-    );
-    if (trainer.isEligible) {
-      jsxElement = (
-        <Button
-          color='primary'
-          id={i.toString()}
-          onClick={() => this.assign(trainer.trainerId, 1)}
-        >
-          Assign
-        </Button>
-      );
-    } else {
-      jsxElement = (
-        <Button
-          color='primary'
-          id={i.toString()}
-          onClick={() => this.request(trainer.trainerId, 1)}
-        >
-          Request Consent
-        </Button>
-      );
+  // getButton = (trainer: Trainer, i: number) => {
+  //   let jsxElement = (
+  //     <>
+  //       <h4>test</h4>
+  //     </>
+  //   );
+  //   if (trainer.isEligible) {
+  //     jsxElement = (
+  //       <Button
+  //         color='primary'
+  //         id={i.toString()}
+  //         onClick={() => this.assign(trainer.trainerId, 1)}
+  //       >
+  //         Assign
+  //       </Button>
+  //     );
+  //   } else {
+  //     jsxElement = (
+  //       <Button
+  //         color='primary'
+  //         id={i.toString()}
+  //         onClick={() => this.request(trainer.trainerId, 1)}
+  //       >
+  //         Request Consent
+  //       </Button>
+  //     );
+  //   }
+  //   console.log(jsxElement);
+
+  //   return jsxElement;
+  // };
+  getButton = (trainer:Trainer, i:number, trainerId:number)  =>{
+    
+    let jsxElement =(<><h4>test</h4></>);
+    if(trainer.isEligible){
+      return <Button color="primary" id={i.toString()} onClick={()=>this.assign(trainerId, 8) }>Assign</Button>
+    }else{
+      return <Button color="primary" id={i.toString()} onClick={()=>this.request(trainerId, 8)}>Request Consent</Button>
     }
-    console.log(jsxElement);
-
-    return jsxElement;
-  };
-//   getButton = (trainer:Trainer, i:number, trainerId:number)  =>{
-    
-//     let jsxElement =(<><h4>test</h4></>);
-//     if(trainer.isEligible){
-//       return <Button color="primary" id={i.toString()} onClick={()=>this.assign(trainerId, 8) }>Assign</Button>
-//     }else{
-//       return <Button color="primary" id={i.toString()} onClick={()=>this.request(trainerId, 8)}>Request Consent</Button>
-//     }
     
 
-//     };
+    };
   
   
 
