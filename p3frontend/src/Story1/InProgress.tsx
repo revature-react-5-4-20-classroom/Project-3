@@ -24,6 +24,7 @@ import { getAllBatches } from "../api/batch";
 import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
 import BatchModal from "./BatchModal";
 import { timeStamp } from "console";
+import { FilterForm } from "./FilterForm";
 
 const doPrnt=true//prnt will work
 
@@ -33,19 +34,24 @@ export class InProgress extends React.Component<any,any>
 	{
 		super(props)
 		this.state={
-		programType:	'',		//EasyDropdown will set this to its first item during render
-		workType:   	'',
-		viewType:   	'',
-		sortAscend:		true,	  //sorts by ascending or decending
-		error:			  null,	  //holds an axios error object that will be displayed
-		errorMessage:	'',		  //holds an error message for other special cases
+		// programType:	'',		//EasyDropdown will set this to its first item during render
+		// workType:   	'',
+		// viewType:   	'',
+		// sortAscend:		true,	  //sorts by ascending or decending
+		// error:			  null,	  //holds an axios error object that will be displayed
+		 errorMessage:	'',		  //holds an error message for other special cases
+		programType:'(none)',		//EasyDropdown will set this to its first item during render
+		//workType:   '',
+		viewType:   '',
+		sortAscend:	true,		//sorts by ascending or decending
+		error:		null,		//holds an axios error object that will be displayed
 		batchDisplayData:[],	//holds the batch data formatted for display
 		batches: [], 			    // batch data to be passed as a prop
 		modalBatch:   	null,   //what batch will be shown in the modal?
 		modalShow:		false,	//do we show the modal?
 		filteredBatches: [],
 		client: '(none)',
-		curriculum: '',
+		curriculum: '(none)',
 		programTypesArray:[]
 		
 		}
@@ -75,7 +81,7 @@ And this data is shown as a table and a Calendar view</p><br/>
 					</Col>
 					<Col>
 						<b>program type</b>
-						<EasyDropdown onSelected={this.setProgramType}  items={['CF','ROCP',  'Standard', 'Spark']}/>
+						<EasyDropdown onSelected={this.setProgramType}  items={['(none)','CF','ROCP',  'Standard', 'Spark']}/>
 					</Col>
 
 					<Col>
@@ -85,13 +91,14 @@ And this data is shown as a table and a Calendar view</p><br/>
 
 					<Col>
 						<b>curriculum</b>
-						<EasyDropdown onSelected={this.setCurriculum} items={['curriculum1','curriculum2']} />
+						<EasyDropdown onSelected={this.setCurriculum} items={['(none)','curriculum1','curriculum2']} />
 					</Col>
 
 					<Col>
 						<b>view type:</b>
 						<EasyDropdown onSelected={this.setViewType}     items={['Table','Calendar']} />
 					</Col>
+					{/* <FilterForm setProgramType={this.setProgramType} setClient={this.setClient} setCurriculum={this.setCurriculum} applyFilters={this.applyFilters}/> */}
 				</Row>
 				<br/>
 				<br/>
@@ -362,40 +369,18 @@ And this data is shown as a table and a Calendar view</p><br/>
 	}
 
 	setProgramType=(value:string)=>    //filter
-	{
-	console.log(value);
-if(this.state.programTypesArray.indexOf(value)>-1){
-	let filtercurr=this.state.filteredBatches;
-	let filtered=filtercurr.filter((batch:Batch)=>{
-		return batch.programType===value;
-				  })
-				  console.log(filtered);
-		
-				this.setState({filteredBatches:filtered,
-					batchDisplayData: this.convertServerDataToDisplayData(filtered)})
-
-
-}
-
-
+	{	
+		console.log(`Setting program type: ${value}`);
+		this.setState({programType: value},this.applyFilters);
 	}
 
 	
 	setClient=(value:string)=> {
-		this.setState({client: value},this.filterBatchesByClient)
+		this.setState({client: value},this.applyFilters)
 	}
 
 	setCurriculum=(value:string)=> {   //filter
-		console.log(value);
-		let filtercurr=this.state.filteredBatches;
-		console.log(filtercurr)
-          let filtered=filtercurr.filter((batch:Batch)=>{
-return batch.curriculum.name==value;
-		  })
-		  console.log(filtered);
-
-		this.setState({filteredBatches:filtered,
-			batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+		this.setState({curriculum: value},this.applyFilters);
 	}
 
 	setViewType=(value:string)=>
@@ -403,10 +388,10 @@ return batch.curriculum.name==value;
 		this.setState({viewType:value})
 	}
 
-	filterBatchesByClient=() => {		// finds clients in batches, based on client demands regarding curricula
+	filterBatchesByClient=(batchesToFilter: Batch[]) => {		// finds clients in batches, based on client demands regarding curricula
 		if(this.state.client !== '(none)') {
 			let client = this.state.client;
-			let filteredBatches = this.state.batches.filter( (b: Batch) => {
+			let filteredBatches = batchesToFilter.filter( (b: Batch) => {
 				let clientDemands = b.curriculum.curriculumSkillset.clientDemands;
 				for(let cd of clientDemands) {
 					if(cd.client.name === client) {
@@ -415,17 +400,72 @@ return batch.curriculum.name==value;
 				}
 				return false;
 			} );
-			this.setState({
-				filteredBatches: filteredBatches,
-				batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
-			})
+			// this.setState({
+			// 	filteredBatches: filteredBatches,
+			// 	batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
+			// })
+			return filteredBatches;
 		} else {
-			let batches = this.state.batches;
-			this.setState({
-				filteredBatches: this.state.batches,
-				batchDisplayData: this.convertServerDataToDisplayData(batches),
-			})
+			// let batches = this.state.batches;
+			// this.setState({
+			// 	filteredBatches: this.state.batches,
+			// 	batchDisplayData: this.convertServerDataToDisplayData(batches),
+			// })
+			return batchesToFilter;
 		}
+	}
+
+	filterBatchesByCurriculum = (batchesToFilter: Batch[]) => {
+		if(this.state.curriculum !== '(none)') {
+			let filtercurr=batchesToFilter;
+			console.log(filtercurr)
+			let filtered=filtercurr.filter((batch:Batch)=>{
+				return batch.curriculum.name==this.state.curriculum;
+			})
+			console.log(filtered);
+
+			// this.setState({filteredBatches:filtered,
+			// 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+			return filtered;
+		} else {
+			return batchesToFilter;
+		}
+	}
+
+	filterBatchesByProgramType = (batchesToFilter: Batch[]) => {
+		if(this.state.programType !== '(none)') {
+			if(this.state.programTypesArray.indexOf(this.state.programType)>-1){
+				let filtercurr=batchesToFilter;
+				let filtered=filtercurr.filter((batch:Batch)=>{
+					return batch.programType===this.state.programType;
+							  })
+				console.log(filtered);
+	
+				// this.setState({filteredBatches:filtered,
+				// 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
+				return filtered;
+
+			
+			}	
+		 else {
+			return batchesToFilter;
+		}
+	} else {
+		return batchesToFilter;
+	}
+}
+
+	applyFilters = () => {
+		let batches = this.state.batches;
+		console.log(`Batches: ${batches}`);
+		console.log(batches);
+		let filteredBatches = this.filterBatchesByProgramType(batches);
+		filteredBatches = this.filterBatchesByCurriculum(filteredBatches);
+		filteredBatches = this.filterBatchesByClient(filteredBatches);
+		this.setState({
+			filteredBatches: filteredBatches,
+			batchDisplayData: this.convertServerDataToDisplayData(filteredBatches)
+		});
 	}
 
 	componentDidMount()
