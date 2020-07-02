@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: ${SPRING_PROFILE_ACTIVE}
   application:
     name: dataservice
   jpa:
