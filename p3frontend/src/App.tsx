@@ -17,11 +17,11 @@ import { OverviewTraining } from "./Story3/OverviewTraining";
 import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import BatchModal from "./Story1/ViewBatchModal";
+import {BatchViewModal} from "./Story1/BatchViewModal";
 import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
-import { TestASTableModel } from "./Story1/TestASTableModel";
+import { BatchAssocTableTester } from "./Story1/BatchAssocTableTester";
 import { FilterForm } from "./Story1/FilterForm";
 import { BatchPage } from "./Components/GenerateBatch/BatchPage";
 
@@ -81,7 +81,7 @@ export class App extends React.Component<any, any> {
             
             { end: "/BatchPage", name: "Gen batch", comp: <BatchPage /> },
             { end: "/test-convert", name: "TC", comp: <TestConvertToObject /> },
-            { end: "/test-ASTable", name: "TAST", comp: <TestASTableModel /> },
+            { end: "/test-ASTable", name: "TAST", comp: <BatchAssocTableTester /> },
           ])
         }
       </Container>

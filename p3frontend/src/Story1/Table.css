@@ -19,7 +19,7 @@ th:hover {
 
 .associate-table {
   border: 1px solid #eeccee;
-  /* max-height: 400px; */
+  max-height: 350px;
   overflow-y: scroll;
   width: 100%;
 }

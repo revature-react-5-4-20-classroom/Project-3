@@ -23,12 +23,11 @@ import { IState, allTheMapStateToProps } from "../redux/reducers";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
 import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
-import BatchModal, { ReduxBatchModal } from "./ViewBatchModal";
 import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
 import moment from "moment";
 import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
-import { BatchForDisplay } from "../models/BatchForDisplay";
+import { BatchForDisplay } from "./BatchForDisplay";
 
 const doPrnt = true; //prnt will work
 
@@ -37,12 +36,11 @@ export class InProgress extends React.Component<any, any> {
     super(props);
     this.state = {
       viewType: "",
-      batches: [], // batch data to be passed as a prop
+      batches: [], //the batches that were fetched from the server when In-progress mounted
       error: null, //holds an axios error object that will be displayed
       errorMessage: "", //holds an error message for other special cases
       //table data should be inside a table component
       sortAscend: true, //sorts by ascending or decending
-      batchDisplayData: [], //holds the batch data formatted for display
       //filters state should be inside the filters modal
       filteredBatches: [],
       programTypesArray: [],
@@ -87,7 +85,9 @@ export class InProgress extends React.Component<any, any> {
           <Col>
             <b>view type:</b>
             <EasyDropdown
-              onSelected={(item: string) => {this.setState({ viewType: item })}}
+              onSelected={(item: string) => {
+                this.setState({ viewType: item });
+              }}
               hoverText="Please enjoy viewing the batches in a table or calendar"
               items={["Table", "Calendar"]}
             />
@@ -105,13 +105,22 @@ export class InProgress extends React.Component<any, any> {
         <br />
         <>
           Total batches that are in the system:{" "}
-          <b>{this.state.batches.length}</b>
+          <b>{this.state.filteredBatches.length}</b>
         </>
         <br />
         <br />
-        {/* {	this.state.viewType==='Table'?this.displayTheDataAsATable():<TimelineComponent batches={this.state.batchDisplayData}/>	} */}
         {this.state.viewType === "Table" ? (
-          this.displayTheDataAsATable()
+          <Table bordered>
+            <tbody>
+              {this.state.filteredBatches.map((batch: Batch, index: number) => {
+                return (
+                  <tr>
+                    <BatchForDisplay batch={batch} parentTop={this} />
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         ) : (
           <TimelineRedux batches={this.state.filteredBatches} />
         )}
@@ -120,117 +129,42 @@ export class InProgress extends React.Component<any, any> {
     );
   }
 
-  // reset = () => {
-  //   console.log("helsf");
-  //   let batch = this.state.batches;
-  //   console.log(batch);
-  //   this.setState({
-  //     filteredBatches: batch,
-  //     batchDisplayData: this.convertServerDataToDisplayData(batch),
-  //   });
-  // };
-
-
-  displayTheDataAsATable = () => {
-    return (
-      <Table bordered>
-        <thead>
-          {/* <tr>
-            <th></th>
-            <th onClick={() => this.sortBatches("id")}>id</th>
-            <th onClick={() => this.sortBatches("isConfirmed")}>
-              Confirmed
-            </th>
-            <th onClick={() => this.sortBatches("programType")}>
-              Program Type
-            </th>
-            <th onClick={() => this.sortBatches("Client")}>
-              Client
-            </th>
-            <th onClick={() => this.sortBatches("Curriculum")}>
-              Curriculum
-            </th>
-            <th onClick={() => this.sortBatches("dateSortStart")}>
-              Start Date
-            </th>
-            <th onClick={() => this.sortBatches("dateSortEnd")}>End Date</th>
-            <th onClick={() => this.sortBatches("weekSortCurrent")}>
-              Current Week
-            </th>
-            <th onClick={() => this.sortBatches("weekSortRemaining")}>
-              Remaining Weeks
-            </th>
-            <th onClick={() => this.sortBatches("skillset")}>Skillset</th>
-            <th onClick={() => this.sortBatches("associatesActive")}>
-              Active Associates
-            </th>
-            <th onClick={() => this.sortBatches("associatesInactive")}>
-              Inactive Associates
-            </th>
-            <th onClick={() => this.sortBatches("trainer")}>Trainer</th>
-            <th onClick={() => this.sortBatches("location")}>Location</th>
-          </tr> */}
-        </thead>
-        <tbody>
-          {this.state.batchDisplayData.map((batchDis: BatchForDisplay, index: number) => {
-            return (
-              <tr>
-                  {batchDis.displayAsTableRow()}
-              </tr>
-            );
-          })}
-        </tbody>
-        {/* {this.state.modalShow ? <BatchModal toggle={this.showModal} currentBatch={this.state.modalBatch}/> : null} */}
-      </Table>
-    );
+  reset = () => {
+    console.log("helsf");
+    let batch = this.state.batches;
+    console.log(batch);
+    this.setState({
+      filteredBatches: batch,
+    });
   };
 
   //sorts batchDisplayData using the given object property. batchForDisplay['id']
   //order is ascending
-  sortBatches = (propertyAsKey: any) => {
-    prnt(doPrnt, `InProgress sortBatches() has been reached`);
+  // sortBatches = (propertyAsKey: any) => {
+  //   prnt(doPrnt, `InProgress sortBatches() has been reached`);
 
-    if (this.state.sortAscend) {
-      this.state.batchDisplayData.sort((a: any, b: any) => {
-        //compares numbers and strings. does not do date objects
-        if (a[propertyAsKey] < b[propertyAsKey]) {
-          return -1;
-        }
-        return 1;
-      });
-    } else {
-      this.state.batchDisplayData.sort((a: any, b: any) => {
-        if (a[propertyAsKey] < b[propertyAsKey]) {
-          return 1;
-        }
-        return -1;
-      });
-    }
+  //   if (this.state.sortAscend) {
+  //     this.state.batchDisplayData.sort((a: any, b: any) => {
+  //       //compares numbers and strings. does not do date objects
+  //       if (a[propertyAsKey] < b[propertyAsKey]) {
+  //         return -1;
+  //       }
+  //       return 1;
+  //     });
+  //   } else {
+  //     this.state.batchDisplayData.sort((a: any, b: any) => {
+  //       if (a[propertyAsKey] < b[propertyAsKey]) {
+  //         return 1;
+  //       }
+  //       return -1;
+  //     });
+  //   }
 
-    //prnt(doPrnt,`this.state.batchDisplayData=`,this.state.batchDisplayData)
-
-    this.setState({
-      //cause re-render as well
-      sortAscend: !this.state.sortAscend,
-    });
-  };
-
-  //puts pseudo data in when we do not have data from the server
-  // usePseudoData = () => {
   //   this.setState({
-  //     batches: pseudoDataResponse.data,
-  //     batchDisplayData: this.convertServerDataToDisplayData(
-  //       pseudoDataResponse.data
-  //     ),
+  //     //cause re-render as well
+  //     sortAscend: !this.state.sortAscend,
   //   });
   // };
-
-  //returns an array of batches that haven been transformed for easy display
-  convertServerDataToDisplayData = (batchesFromServer: Batch[]) => {
-    return batchesFromServer.map((batch: any) => {
-      return new BatchForDisplay(batch)
-    });
-  };
 
   //fetches batches from the server, converts it to display data, and set it. checks for error edge cases.
   fetchTheBatchData = async () => {
@@ -245,7 +179,6 @@ export class InProgress extends React.Component<any, any> {
         // Use this to get only unique values
         return self.indexOf(value) === index;
       });
-
 
       let curricula = batchData.map((batch: Batch) => {
         return batch.curriculum.name;
@@ -285,7 +218,6 @@ export class InProgress extends React.Component<any, any> {
         this.setState({
           batches: batchData,
           filteredBatches: batchData,
-          batchDisplayData: this.convertServerDataToDisplayData(batchData),
           programTypesArray: programtype,
           clientsArray: clients,
           curriculaArray: curricula,
@@ -313,6 +245,7 @@ export class InProgress extends React.Component<any, any> {
     this.setState({ curriculum: value }, this.applyFilters);
   };
 
+  //Returns an array of batches that have been filtered based on batch client type
   filterBatchesByClient = (batchesToFilter: Batch[]) => {
     // finds clients in batches, based on client demands regarding curricula
     if (this.state.client !== "(none)") {
@@ -328,19 +261,18 @@ export class InProgress extends React.Component<any, any> {
       });
       // this.setState({
       // 	filteredBatches: filteredBatches,
-      // 	batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
       // })
       return filteredBatches;
     } else {
       // let batches = this.state.batches;
       // this.setState({
       // 	filteredBatches: this.state.batches,
-      // 	batchDisplayData: this.convertServerDataToDisplayData(batches),
       // })
       return batchesToFilter;
     }
   };
 
+  //Returns an array of batches that have been filtered based on batch curriculum
   filterBatchesByCurriculum = (batchesToFilter: Batch[]) => {
     if (this.state.curriculum !== "(none)") {
       let filtercurr = batchesToFilter;
@@ -351,13 +283,13 @@ export class InProgress extends React.Component<any, any> {
       console.log(filtered);
 
       // this.setState({filteredBatches:filtered,
-      // 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
       return filtered;
     } else {
       return batchesToFilter;
     }
   };
 
+  //Returns an array of batches that have been filtered based on batch program type
   filterBatchesByProgramType = (batchesToFilter: Batch[]) => {
     if (this.state.programType !== "(none)") {
       if (this.state.programTypesArray.indexOf(this.state.programType) > -1) {
@@ -368,7 +300,6 @@ export class InProgress extends React.Component<any, any> {
         console.log(filtered);
 
         // this.setState({filteredBatches:filtered,
-        // 	batchDisplayData: this.convertServerDataToDisplayData(filtered)})
         return filtered;
       } else {
         return batchesToFilter;
@@ -378,6 +309,7 @@ export class InProgress extends React.Component<any, any> {
     }
   };
 
+  //Applies all the filters and sets state
   applyFilters = () => {
     let batches = this.state.batches;
     console.log(`Batches: ${batches}`);
@@ -386,8 +318,7 @@ export class InProgress extends React.Component<any, any> {
     filteredBatches = this.filterBatchesByCurriculum(filteredBatches);
     filteredBatches = this.filterBatchesByClient(filteredBatches);
     this.setState({
-      filteredBatches: filteredBatches,
-      batchDisplayData: this.convertServerDataToDisplayData(filteredBatches),
+      filteredBatches: filteredBatches
     });
   };
 

@@ -15,7 +15,7 @@ import {
   Container,
 } from "reactstrap";
 import "../../src/index.css";
-import ASTableModel from "./ASTableModel";
+import BatchAssocTable from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -120,7 +120,7 @@ export class TimelineBatchModal extends React.Component<any, any> {
                 <span>This is trainers stuff - </span>
               </>
             ) : (
-              <ASTableModel currentBatch={this.props.batch} />
+              <BatchAssocTable currentBatch={this.props.batch} parentTop={this}/>
             )}
           </ModalBody>
         </Modal>
