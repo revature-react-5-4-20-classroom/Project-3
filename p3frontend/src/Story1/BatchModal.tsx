@@ -20,6 +20,7 @@ import ASTableModel from "./ASTableModel";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
+import ConfirmBatchButton from "../Story6/ConfirmBatchButton";
 
 /*
   <BatchModal currentBatch={aBatchObject}/>
@@ -39,7 +40,7 @@ class BatchModal extends React.Component<any, any> {
   render() {
     const toggle = () => {
       this.setState({ showThis: !this.state.showThis });
-      //this.props.batchClickActionMapper(this.props.currentBatch);
+      this.props.batchClickActionMapper(this.props.currentBatch);
     };
 
     return (
@@ -130,6 +131,7 @@ class BatchModal extends React.Component<any, any> {
             ) : (
               <ASTableModel currentBatch={this.props.currentBatch} />
             )}
+            <ConfirmBatchButton />
           </ModalBody>
         </Modal>
       </>
