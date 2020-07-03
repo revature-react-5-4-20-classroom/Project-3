@@ -21,6 +21,10 @@ import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
 import ConfirmBatchButton from "../Story6/ConfirmBatchButton";
+import { Batch } from "../models/Batch";
+import { prnt } from "../GeneralPurposeHelpers/Prnt";
+import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
+import { axiosClient } from "../api/axios";
 
 /*
   <BatchModal currentBatch={aBatchObject}/>
@@ -28,12 +32,19 @@ import ConfirmBatchButton from "../Story6/ConfirmBatchButton";
   The modal will look like a View button.
   when that button is clicked the modal will pop up
 */
-class BatchModal extends React.Component<any, any> {
+
+interface IPViewBatchModal {
+  currentBatch: Batch;
+}
+
+class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
   constructor(props: any) {
     super(props);
     this.state = {
       showThis: false,
       showTrainers: false, //T to show trainers. F to show associates
+      errorObj: null,
+      errorMsg: "",
     };
   }
 
@@ -77,8 +88,39 @@ class BatchModal extends React.Component<any, any> {
                   : "no-curriculum"}
               </Col>
             </Row>
+            <Row>
+              <Col>
+                <b>Confirmed</b>
+              <br/>
+                <ButtonGroup>
+                  <Button
+                    color={this.props.currentBatch.isConfirmed?"primary":"secondary"}
+                    onClick={this.patchABatchChangeIsConfirmed}
+                  >
+                    Yes
+                  </Button>
+                  <Button
+                    color={this.props.currentBatch.isConfirmed?"secondary":"primary"}
+                    onClick={this.patchABatchChangeIsConfirmed}
+                  >
+                    No
+                  </Button>
+                </ButtonGroup>
+              </Col>
+            </Row>
+            <Row>
+              <ErrorAlert
+                error={this.state.errorObj}
+                message={this.state.errorMsg}
+              />
+            </Row>
             <br />
             <Row>
+              <Col>
+                <Button onClick={toggle} color="success" size="lg">
+                  OK
+                </Button>
+              </Col>
               <Col>
                 <Button
                   color={this.state.showTrainers ? "secondary" : "primary"}
@@ -103,25 +145,6 @@ class BatchModal extends React.Component<any, any> {
             <hr />
           </ModalBody>
 
-          {/* 
-            <ModalFooter>
-            <Navbar color='light' light expand='md'>
-              <Nav onClick={changeModalViewToTrainer}>
-                <NavItem
-                  activeClassName="active"
-                  className="modalNavItem trainerModalNav nav-link"
-                >
-                  Trainers
-                </NavItem>
-              </Nav>
-              <Nav onClick={changeModalViewToAssociate}>
-                <NavItem className="modalNavItem associatesModalNav nav-link">
-                  Associates
-                </NavItem>
-              </Nav>
-            </Navbar> 
-          </ModalFooter>*/}
-
           <ModalBody>
             {this.state.showTrainers ? (
               <>
@@ -137,11 +160,31 @@ class BatchModal extends React.Component<any, any> {
       </>
     );
   }
+
+  patchABatchChangeIsConfirmed = async () => {
+    this.props.currentBatch.isConfirmed = !this.props.currentBatch.isConfirmed;
+
+    try {
+      let request = { isConfirmed: this.props.currentBatch.isConfirmed };
+
+      await axiosClient.patch(
+        `/batches/${this.props.currentBatch.batchId}`,
+        request
+      );
+    } catch (e) {
+      this.setState({
+        errorObj: e,
+        errorMsg: "Could not change is confirmed",
+      });
+    }
+
+    this.setState({}); //re-render
+  };
 }
 
-export default BatchModal;
+export default ViewBatchModal;
 
 export const ReduxBatchModal = connect(
   allTheMapStateToProps,
   allTheActionMappers
-)(BatchModal);
+)(ViewBatchModal);

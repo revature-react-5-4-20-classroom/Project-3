@@ -19,41 +19,42 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping(path = "/associates")
 
-public class AssociateController {
+public class AssociateController
+{
   @Autowired
   AssociateService associateService;
 
 
   @CrossOrigin(origins = "*")
   @GetMapping
-  public List<Associate> getAssociate() {
+  public List<Associate> getAssociate()
+  {
 
     return associateService.getAll();
   }
 
   @GetMapping("/get-active")
-  public List<Associate> getActiveAssociates() {
+  public List<Associate> getActiveAssociates()
+  {
     return associateService.getAllActive();
   }
 
 
   @GetMapping("/{id}")
-  public Associate getAssociateById(@PathVariable Integer id) {
-    try {
+  public Associate getAssociateById(@PathVariable Integer id)
+  {
+    try
+    {
       return associateService.getById(id);
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
     }
   }
 
   @PatchMapping
-  public void updateAssociate(@RequestBody Associate a) {
-    try {
-      associateService.updateAssociate(a);
-    } catch (Exception e) {
-      throw new UpdateFailedException("Associate batch did not update");
-    }
-
+  public String updateAssociate(@RequestBody Associate a) {
+    return associateService.updateAssociate(a);
   }
 
 
