@@ -23,7 +23,7 @@ import { IState, allTheMapStateToProps } from "../redux/reducers";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import { getAllBatches } from "../api/batch";
 import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
-import BatchModal, { ReduxBatchModal } from "./ViewBatchModal";
+import ViewBatchModal from "./ViewBatchModal";
 import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
 import moment from "moment";

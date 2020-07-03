@@ -7,7 +7,7 @@ import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
 import React from "react";
 import { Batch } from "./Batch";
-import { ReduxBatchModal } from "../Story1/ViewBatchModal";
+import ViewBatchModal from "../Story1/ViewBatchModal";
 import { Col, Container, Row, Table } from "reactstrap";
 
 /*
@@ -81,7 +81,7 @@ export class BatchForDisplay {
     return (
       <>
         <td>
-          <ReduxBatchModal currentBatch={this.batch} />
+          <ViewBatchModal batchDisplayObj={this.batch} />
           <br />
           ID {this.batch.batchId}
         </td>

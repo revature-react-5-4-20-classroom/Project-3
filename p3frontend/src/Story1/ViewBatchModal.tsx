@@ -25,6 +25,7 @@ import { Batch } from "../models/Batch";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
+import IsConfirmedColumn from "../Story6/IsConfirmedColumn";
 
 /*
   <BatchModal currentBatch={aBatchObject}/>
@@ -34,7 +35,9 @@ import { axiosClient } from "../api/axios";
 */
 
 interface IPViewBatchModal {
-  currentBatch: Batch;
+  batch: Batch;
+  batchDisplayObj: Batch;
+  batchClickActionMapper: (batch: Batch) => void;
 }
 
 class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
@@ -48,43 +51,47 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
     };
   }
 
+  toggle = () => {
+    this.props.batchClickActionMapper(this.props.batchDisplayObj);
+    this.setState({ showThis: !this.state.showThis });
+  };
+
   render() {
-    const toggle = () => {
-      this.setState({ showThis: !this.state.showThis });
-      this.props.batchClickActionMapper(this.props.currentBatch);
-    };
+    console.log("ViewBatchModal Props: ", this.props);
+    
 
     return (
       <>
-        <Button onClick={toggle}>View</Button>
+        <Button onClick={this.toggle}>View</Button>
         <Modal
           isOpen={this.state.showThis}
           contentClassName="modalStyle"
           size="lg"
         >
-          <ModalHeader toggle={toggle}>
-            Batch {this.props.currentBatch.batchId}
+          <ModalHeader toggle={this.toggle}>
+            Batch {this.props.batchDisplayObj.batchId}
           </ModalHeader>
           <ModalBody>
+            <Container>
             <Row>
               <Col>
                 <b>Start Date:</b>
               </Col>
-              <Col>{this.props.currentBatch.startDate}</Col>
+              <Col>{this.props.batchDisplayObj.startDate}</Col>
             </Row>
             <Row>
               <Col>
                 <b>End Date: </b>
               </Col>
-              <Col>{this.props.currentBatch.endDate}</Col>
+              <Col>{this.props.batchDisplayObj.endDate}</Col>
             </Row>
             <Row>
               <Col>
                 <b>Curriculum Name:</b>
               </Col>
               <Col>
-                {this.props.currentBatch.curriculum
-                  ? this.props.currentBatch.curriculum.name
+                {this.props.batchDisplayObj.curriculum
+                  ? this.props.batchDisplayObj.curriculum.name
                   : "no-curriculum"}
               </Col>
             </Row>
@@ -92,21 +99,8 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
               <Col>
                 <b>Confirmed</b>
               <br/>
-                <ButtonGroup>
-                  <Button
-                    color={this.props.currentBatch.isConfirmed?"primary":"secondary"}
-                    onClick={this.patchABatchChangeIsConfirmed}
-                  >
-                    Yes
-                  </Button>
-                  <Button
-                    color={this.props.currentBatch.isConfirmed?"secondary":"primary"}
-                    onClick={this.patchABatchChangeIsConfirmed}
-                  >
-                    No
-                  </Button>
-                </ButtonGroup>
               </Col>
+              <IsConfirmedColumn />
             </Row>
             <Row>
               <ErrorAlert
@@ -117,7 +111,7 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
             <br />
             <Row>
               <Col>
-                <Button onClick={toggle} color="success" size="lg">
+                <Button onClick={this.toggle} color="success" size="lg">
                   OK
                 </Button>
               </Col>
@@ -142,6 +136,7 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
                 </Button>
               </Col>
             </Row>
+            </Container>
             <hr />
           </ModalBody>
 
@@ -152,39 +147,23 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
                 <span>This is trainers stuff - </span>
               </>
             ) : (
-              <ASTableModel currentBatch={this.props.currentBatch} />
+              <ASTableModel currentBatch={this.props.batchDisplayObj} />
             )}
-            <ConfirmBatchButton />
+            <Container>
+              <div className="row justify-content-center">
+                <div className="col-xs-12 confirm-batch-btn-col">
+                  <ConfirmBatchButton />
+                </div>
+              </div>
+            </Container>
           </ModalBody>
         </Modal>
       </>
     );
   }
-
-  patchABatchChangeIsConfirmed = async () => {
-    this.props.currentBatch.isConfirmed = !this.props.currentBatch.isConfirmed;
-
-    try {
-      let request = { isConfirmed: this.props.currentBatch.isConfirmed };
-
-      await axiosClient.patch(
-        `/batches/${this.props.currentBatch.batchId}`,
-        request
-      );
-    } catch (e) {
-      this.setState({
-        errorObj: e,
-        errorMsg: "Could not change is confirmed",
-      });
-    }
-
-    this.setState({}); //re-render
-  };
 }
 
-export default ViewBatchModal;
-
-export const ReduxBatchModal = connect(
+export default connect(
   allTheMapStateToProps,
   allTheActionMappers
 )(ViewBatchModal);

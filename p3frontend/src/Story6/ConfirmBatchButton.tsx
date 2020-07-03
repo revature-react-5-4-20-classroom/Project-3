@@ -51,13 +51,13 @@ class ConfirmBatchButton extends React.Component<
     console.log("BUTTON PROPS", this.props);
 
     return (
-      <Button onClick={this.handleClick}>
+      <button className="btn btn-secondary confirm-batch-btn" onClick={this.handleClick}>
         {this.props.batch
           ? this.props.batch.isConfirmed
             ? "Unconfirm"
             : "Confirm"
           : null}
-      </Button>
+      </button>
     );
   }
 }
