@@ -10,7 +10,12 @@ import React from "react";
 	message (optional): can be displayed if you do not have an errorObject
 */
 
-export function ErrorAlert(props: any) {
+interface IPErrorAlert{
+  error:any,
+  message:String
+}
+
+export function ErrorAlert(props: IPErrorAlert) {
   let jsxAlerts = <></>;
 
   if (props.error) {
