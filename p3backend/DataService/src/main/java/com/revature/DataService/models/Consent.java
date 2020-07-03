@@ -64,7 +64,10 @@ public class Consent {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3f21c518a7aa8b7890d2e6007245d988af818e56
   public Boolean getIsApprovedColumn() {
     return isApprovedColumn;
   }
