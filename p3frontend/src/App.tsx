@@ -17,7 +17,7 @@ import { OverviewTraining } from "./Story3/OverviewTraining";
 import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import BatchModal from "./Story1/BatchModal";
+import BatchModal from "./Story1/ViewBatchModal";
 import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
@@ -79,7 +79,7 @@ export class App extends React.Component<any, any> {
             },
 
             
-            { end: "/BatchPage", name: "Batch assign", comp: <BatchPage /> },
+            { end: "/BatchPage", name: "Gen batch", comp: <BatchPage /> },
             { end: "/test-convert", name: "TC", comp: <TestConvertToObject /> },
             { end: "/test-ASTable", name: "TAST", comp: <TestASTableModel /> },
           ])
