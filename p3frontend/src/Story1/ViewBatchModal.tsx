@@ -26,6 +26,7 @@ import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
 import IsConfirmedColumn from "../Story6/IsConfirmedColumn";
+import { getBatchById } from "../api/batch";
 
 /*
   <BatchModal currentBatch={aBatchObject}/>
@@ -51,8 +52,10 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
     };
   }
 
-  toggle = () => {
-    this.props.batchClickActionMapper(this.props.batchDisplayObj);
+  toggle = async () => {
+    const currentBatchId = this.props.batchDisplayObj.batchId;
+    const realBatch = await getBatchById(currentBatchId);
+    this.props.batchClickActionMapper(realBatch);
     this.setState({ showThis: !this.state.showThis });
   };
 
