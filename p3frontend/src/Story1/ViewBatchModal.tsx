@@ -24,7 +24,6 @@ import ConfirmBatchButton from "../Story6/ConfirmBatchButton";
 import { Batch } from "../models/Batch";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
-import { axiosClient } from "../api/axios";
 import IsConfirmedColumn from "../Story6/IsConfirmedColumn";
 import { getBatchById } from "../api/batch";
 
@@ -52,17 +51,26 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
     };
   }
 
+  revealError = (error: Error) => {
+    this.setState({
+      errorObj: error,
+      errorMsg: error.message,
+    });
+  };
+
   toggle = async () => {
-    const currentBatchId = this.props.batchDisplayObj.batchId;
-    const realBatch = await getBatchById(currentBatchId);
-    this.props.batchClickActionMapper(realBatch);
-    this.setState({ showThis: !this.state.showThis });
+    try {
+      const currentBatchId = this.props.batchDisplayObj.batchId;
+      const realBatch = await getBatchById(currentBatchId);
+      this.props.batchClickActionMapper(realBatch);
+    } catch (e) {
+      this.setState({ errorObj: e, errorMsg: e.message });
+    } finally {
+      this.setState({ showThis: !this.state.showThis });
+    }
   };
 
   render() {
-    console.log("ViewBatchModal Props: ", this.props);
-    
-
     return (
       <>
         <Button onClick={this.toggle}>View</Button>
@@ -76,69 +84,69 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
           </ModalHeader>
           <ModalBody>
             <Container>
-            <Row>
-              <Col>
-                <b>Start Date:</b>
-              </Col>
-              <Col>{this.props.batchDisplayObj.startDate}</Col>
-            </Row>
-            <Row>
-              <Col>
-                <b>End Date: </b>
-              </Col>
-              <Col>{this.props.batchDisplayObj.endDate}</Col>
-            </Row>
-            <Row>
-              <Col>
-                <b>Curriculum Name:</b>
-              </Col>
-              <Col>
-                {this.props.batchDisplayObj.curriculum
-                  ? this.props.batchDisplayObj.curriculum.name
-                  : "no-curriculum"}
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <b>Confirmed</b>
-              <br/>
-              </Col>
-              <IsConfirmedColumn />
-            </Row>
-            <Row>
-              <ErrorAlert
-                error={this.state.errorObj}
-                message={this.state.errorMsg}
-              />
-            </Row>
-            <br />
-            <Row>
-              <Col>
-                <Button onClick={this.toggle} color="success" size="lg">
-                  OK
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  color={this.state.showTrainers ? "secondary" : "primary"}
-                  onClick={() => {
-                    this.setState({ showTrainers: false });
-                  }}
-                >
-                  Associates
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  color={this.state.showTrainers ? "primary" : "secondary"}
-                  onClick={() => {
-                    this.setState({ showTrainers: true });
-                  }}
-                >
-                  Trainers
-                </Button>
-              </Col>
-            </Row>
+              <Row>
+                <Col>
+                  <b>Start Date:</b>
+                </Col>
+                <Col>{this.props.batchDisplayObj.startDate}</Col>
+              </Row>
+              <Row>
+                <Col>
+                  <b>End Date: </b>
+                </Col>
+                <Col>{this.props.batchDisplayObj.endDate}</Col>
+              </Row>
+              <Row>
+                <Col>
+                  <b>Curriculum Name:</b>
+                </Col>
+                <Col>
+                  {this.props.batchDisplayObj.curriculum
+                    ? this.props.batchDisplayObj.curriculum.name
+                    : "no-curriculum"}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <b>Confirmed</b>
+                  <br />
+                </Col>
+                <IsConfirmedColumn />
+              </Row>
+              <Row>
+                <ErrorAlert
+                  error={this.state.errorObj}
+                  message={this.state.errorMsg}
+                />
+              </Row>
+              <br />
+              <Row>
+                <Col>
+                  <Button onClick={this.toggle} color="success" size="lg">
+                    OK
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    color={this.state.showTrainers ? "secondary" : "primary"}
+                    onClick={() => {
+                      this.setState({ showTrainers: false });
+                    }}
+                  >
+                    Associates
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    color={this.state.showTrainers ? "primary" : "secondary"}
+                    onClick={() => {
+                      this.setState({ showTrainers: true });
+                    }}
+                  >
+                    Trainers
+                  </Button>
+                </Col>
+              </Row>
             </Container>
             <hr />
           </ModalBody>
@@ -155,7 +163,7 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
             <Container>
               <div className="row justify-content-center">
                 <div className="col-xs-12 confirm-batch-btn-col">
-                  <ConfirmBatchButton />
+                  <ConfirmBatchButton revealError={this.revealError} />
                 </div>
               </div>
             </Container>

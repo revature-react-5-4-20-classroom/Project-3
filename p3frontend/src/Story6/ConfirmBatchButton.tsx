@@ -13,17 +13,13 @@ interface IConfirmBatchButtonProps {
   batch: Batch | null;
   batchUpdateActionMapper: (batch: Batch) => void;
   batchClickActionMapper: (batch: Batch) => void;
+  revealError: (error: Error) => void;
 }
 
 class ConfirmBatchButton extends React.Component<
   IConfirmBatchButtonProps,
   any
 > {
-  // Adding a constructor did not help
-  constructor(props: IConfirmBatchButtonProps) {
-    super(props);
-  }
-
   handleClick = async () => {
     if (this.props.batch) {
       try {
@@ -40,7 +36,7 @@ class ConfirmBatchButton extends React.Component<
         this.props.batchUpdateActionMapper(newBatch);
         this.props.batchClickActionMapper(newBatch);
       } catch (e) {
-        console.log("Confirm click failed", e.message);
+        this.props.revealError(e);
       }
     } else {
       alert("No batch selected. Confirm click failed");
@@ -48,10 +44,11 @@ class ConfirmBatchButton extends React.Component<
   };
 
   render() {
-    console.log("BUTTON PROPS", this.props);
-
     return (
-      <button className="btn btn-secondary confirm-batch-btn" onClick={this.handleClick}>
+      <button
+        className="btn btn-secondary confirm-batch-btn"
+        onClick={this.handleClick}
+      >
         {this.props.batch
           ? this.props.batch.isConfirmed
             ? "Unconfirm"
