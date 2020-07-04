@@ -2,6 +2,15 @@ import React from 'react';
 import { getAllClientDemands } from '../api/clientDemand';
 import { getActiveAssociates } from '../api/Associate';
 import moment from 'moment';
+import {
+  Col,
+  Row,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
+import { EasyDropdown } from '../GeneralPurposeHelpers/EasyDropdown';
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -16,15 +25,18 @@ export class ColumnChartTest extends React.Component<any, any> {
       shouldRunInit: false,
       clientDemand: new Map(),
       supply: new Map(),
+      dropdownOptions: [],
+      dropdownOpen: false,
+      currentSelected: undefined,
     };
   }
 
   async componentDidMount() {
-    this.loadGoogle();
     this.setState({
       clientDemand: await this.getDemand(),
       supply: await this.getSupply(),
     });
+    this.loadGoogle();
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -34,8 +46,6 @@ export class ColumnChartTest extends React.Component<any, any> {
       });
       return true;
     } else {
-      console.log('demand: ', this.state.clientDemand);
-      console.log('supply: ', this.state.supply);
       return nextProps != this.props || this.state != nextProps.state;
     }
   }
@@ -68,14 +78,12 @@ export class ColumnChartTest extends React.Component<any, any> {
         );
       }
     });
-    console.log(clientDemandData);
     return clientDemandData;
   };
 
   getSupply = async () => {
     // 1) get data from api associate (skillset and batch graduation date) {associateId: 2, associateName: 'Tom', Skillset: {skillsetId: 1, name: 'Java/react'}}
     let supplyArr = await getActiveAssociates();
-    console.log(supplyArr);
     // 2) pass each associate through loop that says:   gd=graduation date [{java/react: current}, {java/react: onemonth}, {salesforce: current}]
     let supplyData = new Map();
     let today = moment().format('YYYY-MM-DD');
@@ -146,7 +154,6 @@ export class ColumnChartTest extends React.Component<any, any> {
         }
       }
     });
-    console.log('SUPPLY DATA MAP: ', supplyData);
     return supplyData;
   };
 
@@ -161,12 +168,13 @@ export class ColumnChartTest extends React.Component<any, any> {
     let supply = supplyArr;
     let demand = demandArr;
     let demKey = demand.keys();
+    this.setState({
+      dropdownOptions: Array.from(demand.keys()),
+    });
     let data: any[] = [];
     let view: any[] = [];
-    console.log('LENGTH', demand.size);
     for (let i = 0; i < demand.size; i++) {
       let thisDemKey = demKey.next().value;
-      console.log('demKey.next().value', thisDemKey);
       let supVals = supply.get(thisDemKey);
       data.push(new google.visualization.DataTable());
       data[i].addColumn('string', 'Demand and Supply');
@@ -191,84 +199,17 @@ export class ColumnChartTest extends React.Component<any, any> {
       data[i].addRows(dataRows);
       view[i] = new google.visualization.DataView(data[i]);
     }
-    console.log('DATA', data);
-    console.log('VIEW', view);
-    // let results = { data, view };
-    // return results;
+    let results = [data, view];
+    console.log('CreateTable Results: ', results);
+    return view;
   };
 
   // // Method to create a chart/table
   init = async () => {
-    let stateCurrent = this.state.current;
-    // Creating a data obj for our table
-    // // Number Columns represent each type of data - 5 total
-    // // String column represent a title
-    // Each array is a grouping of the above columns
-    var data: any = [];
-    data[0] = new google.visualization.DataTable();
-    data[0].addColumn('string', 'Demand and Supply');
-    data[0].addColumn('number', 'Total');
-    data[0].addColumn('number', 'Java/React');
-    data[0].addColumn('number', 'Salesforce');
-    data[0].addColumn('number', 'Data');
-    data[0].addColumn('number', 'Ai');
-    data[0].addRows([
-      ['Client Demand', 64, 23, 21, 16, 4],
-      ['Current', 19, 4, 6, 8, 1],
-      ['1 Month', 31, 10, 12, 6, 3],
-      ['3 Months', 50, 20, 15, 10, 5],
-    ]);
-    data[1] = new google.visualization.DataTable();
-    data[1].addColumn('string', 'Demand and Supply');
-    data[1].addColumn('number', 'Java/React');
-    data[1].addRows([
-      ['Client Demand', 23],
-      ['Current', 4],
-      ['1 Month', 10],
-      ['3 Months', 20],
-    ]);
-    data[2] = new google.visualization.DataTable();
-    data[2].addColumn('string', 'Demand and Supply');
-    data[2].addColumn('number', 'Salesforce');
-    data[2].addRows([
-      ['Client Demand', 21],
-      ['Current', 6],
-      ['1 Month', 12],
-      ['3 Months', 15],
-    ]);
-    data[3] = new google.visualization.DataTable();
-    data[3].addColumn('string', 'Demand and Supply');
-    data[3].addColumn('number', 'Data');
-    data[3].addRows([
-      ['Client Demand', 16],
-      ['Current', 8],
-      ['1 Month', 6],
-      ['3 Months', 10],
-    ]);
-    data[4] = new google.visualization.DataTable();
-    data[4].addColumn('string', 'Demand and Supply');
-    data[4].addColumn('number', 'Ai');
-    data[4].addRows([
-      ['Client Demand', 4],
-      ['Current', 1],
-      ['1 Month', 3],
-      ['3 Months', 5],
-    ]);
-    console.log(data);
-
-    // Creates view with data?????????
-    var view = [];
-    view[0] = new google.visualization.DataView(data[0]);
-    view[0].setRows([0, 1, 2, 3]);
-    view[1] = new google.visualization.DataView(data[1]);
-    view[1].setRows([0, 1, 2, 3]);
-    view[2] = new google.visualization.DataView(data[2]);
-    view[2].setRows([0, 1, 2, 3]);
-    view[3] = new google.visualization.DataView(data[3]);
-    view[3].setRows([0, 1, 2, 3]);
-    view[4] = new google.visualization.DataView(data[4]);
-    view[4].setRows([0, 1, 2, 3]);
-
+    let demArr = this.state.clientDemand;
+    let supArr = this.state.supply;
+    let googleView = this.createTableData(demArr, supArr);
+    console.log('DROPDOWNOPTIONS STATE, ', this.state.dropdownOptions);
     // Labeling and styling
     var options: any = {
       orientation: 'horizontal',
@@ -285,63 +226,77 @@ export class ColumnChartTest extends React.Component<any, any> {
         0: { title: 'Demand and Supply' },
       },
     };
-    // myRef acts like .getElementById but for React
-    var chart = new google.visualization.BarChart(this.myRef.current);
-    function drawChart() {
-      chart.draw(data[stateCurrent], options);
-    }
-    drawChart();
-
+    this.drawChart(googleView, options, this.state.current);
     // This is what actually creates the tables
-    // })
     // Updates componment once chart is drawn
     this.setState({
       shouldUpdate: true,
     });
-
-    let demArr = await this.getDemand();
-    let supArr = await this.getSupply();
-    this.createTableData(demArr, supArr);
   };
 
-  doSomething = (n: number) => {
+  drawChart = (view: any[], options: any, index: number) => {
+    // myRef acts like .getElementById but for React
+    var chart = new google.visualization.BarChart(this.myRef.current);
+    chart.draw(view[index], options);
+  };
+
+  setTableView = (skill: string) => {
     this.setState({
-      current: n,
+      current: skill,
       shouldRunInit: true,
       shouldUpdate: true,
     });
   };
 
+  toggle = (e: any) => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    });
+  };
+
+  setSelected = (e: any) => {
+    console.log('e.currentTarget.innerText', e.currentTarget.innerText);
+    this.setState({
+      currentSelected: e.currentTarget.innerText,
+    });
+  };
   render() {
     return (
       <>
-        <h6>Please enjoy the following data</h6>
-        <div ref={this.myRef} />
-        {/* <Button onClick={() => this.doSomething(0)} ref={this.myButton}>
-          All
-        </Button>
-
-        <Button onClick={() => this.doSomething(1)} ref={this.myButton}>
-          Java/React
-        </Button>
-
-        <Button onClick={() => this.doSomething(2)} ref={this.myButton}>
-          Salesforce
-        </Button>
-
-        <Button onClick={() => this.doSomething(3)} ref={this.myButton}>
-          Data
-        </Button>
-
-        <Button onClick={() => this.doSomething(4)} ref={this.myButton}>
-          AI
-        </Button> */}
+        <Col>
+          <Row>
+            <Col>
+              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                <DropdownToggle caret>
+                  {this.state.currentSelected
+                    ? this.state.currentSelected
+                    : 'Select Skillset'}
+                </DropdownToggle>
+                <DropdownMenu>
+                  {this.state.dropdownOptions &&
+                    this.state.dropdownOptions.map((s: any) => {
+                      return (
+                        <DropdownItem key={s} onClick={this.setSelected}>
+                          {s}
+                        </DropdownItem>
+                      );
+                    })}
+                </DropdownMenu>
+              </Dropdown>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div ref={this.myRef} />
+            </Col>
+          </Row>
+        </Col>
       </>
     );
   }
 }
 
-// Method to create a SINGLE chart/table
+// Method to create a SINGLE chart/table //
 // drawChart = () => {
 //   // Creating a data obj for our table
 //   var data = new google.visualization.DataTable();

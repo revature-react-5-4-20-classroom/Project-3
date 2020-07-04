@@ -1,14 +1,14 @@
-import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
-import { ColumnChartTest } from "./colGraphComponent";
+import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
+import { EasyDropdown } from '../GeneralPurposeHelpers/EasyDropdown';
+import { ColumnChartTest } from './colGraphComponent';
 
 export class OverviewClientDemand extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      curriculaTrack: "", //EasyDropdown will set this to the first item on component mount
-      when: "",
+      curriculaTrack: '', //EasyDropdown will set this to the first item on component mount
+      when: '',
     };
   }
 
@@ -26,25 +26,7 @@ export class OverviewClientDemand extends React.Component<any, any> {
         <br />
 
         <Row>
-          <Col>
-            <b>Curricula Track</b>
-            <EasyDropdown
-              onSelected={this.setCurriculaTrack}
-              items={["CF", "ROCP", "Standard", "Spark"]}
-            />
-          </Col>
-          <Col>
-            <b>When</b>
-            <EasyDropdown
-              onSelected={this.setWhen}
-              items={["Current", "1 Month", "3 Months"]}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ColumnChartTest />
-          </Col>
+          <ColumnChartTest />
         </Row>
       </Container>
     );
