@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 import React from 'react';
-import moment from 'moment';
-import { Button } from 'reactstrap';
 import { getAllClientDemands } from '../api/clientDemand';
-import { ClientDemands } from '../models/ClientDemands';
 import { getActiveAssociates } from '../api/Associate';
-import { batch } from 'react-redux';
-=======
-import React from "react";
-import { getAllClientDemands } from "../api/clientDemand";
-import { getActiveAssociates } from "../models/Associate";
->>>>>>> 3f21c518a7aa8b7890d2e6007245d988af818e56
+import moment from 'moment';
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -24,15 +15,16 @@ export class ColumnChartTest extends React.Component<any, any> {
       current: 0,
       shouldRunInit: false,
       clientDemand: new Map(),
+      supply: new Map(),
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.loadGoogle();
     this.setState({
-      clientDemand: this.getDemand(),
+      clientDemand: await this.getDemand(),
+      supply: await this.getSupply(),
     });
-    this.getSupply();
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -42,6 +34,8 @@ export class ColumnChartTest extends React.Component<any, any> {
       });
       return true;
     } else {
+      console.log('demand: ', this.state.clientDemand);
+      console.log('supply: ', this.state.supply);
       return nextProps != this.props || this.state != nextProps.state;
     }
   }
@@ -57,7 +51,6 @@ export class ColumnChartTest extends React.Component<any, any> {
 
   getDemand = async () => {
     let demandArr = await getAllClientDemands();
-    console.log(`DEMAND = `, demandArr);
     // Create client demand data that has skillsetname : #
     let clientDemandData = new Map();
     // map through array of demands to add skillset & quantity to obj
@@ -79,26 +72,6 @@ export class ColumnChartTest extends React.Component<any, any> {
     return clientDemandData;
   };
 
-  // supplyData = [{java/react: 2020-08-01}, {java/react: 2020-10-01}]
-
-  // groupData =
-  // [
-  // {Java/react: {current: 1, omon: 2, tmon: 5}},
-  // {saleseforce: {current: 3, omon: 2, tmon: 6}}
-  // ]
-
-  //      if Date(gd} <= date.now() -> object created with {skillset: 'current'}
-  // //    else if gd > date.now() && gd <= {onemonthfromnow} -> obj created with {skillset:'oneMonth'}
-  // //    else if gd > {onemonthfromnow} && gd <= {threemonthsfromnow} -> obj created with {skillset: 'threeMonth}
-
-  // // 3) map through array to create an array that graphs can work with [{java/react: {current: 3, onemonth: 6, threemonth: 23}}, {salesforce...}]
-
-  // // 5?) Data is now a array/map of objects with key of Skillsetname and value that is an object
-  // //     that has current/onemonth/threemonth with a # as a value that reps # of associates
-
-  // // Getting back api response and creating array of objects that
-  // // each contain an associates skillset and their graduation date
-  // // aka batch end date
   getSupply = async () => {
     // 1) get data from api associate (skillset and batch graduation date) {associateId: 2, associateName: 'Tom', Skillset: {skillsetId: 1, name: 'Java/react'}}
     let supplyArr = await getActiveAssociates();
@@ -115,38 +88,56 @@ export class ColumnChartTest extends React.Component<any, any> {
     supplyArr.map((a: any) => {
       let skillset = a.batch.curriculum.curriculumSkillset.skillSetName;
       let batchDate = moment(a.batch.endDate).format('YYYY-MM-DD');
-      if (batchDate <= today) {
-        if (!supplyData.has(skillset)) {
+      if (!supplyData.has(skillset)) {
+        // Skillset Name doesn't exist yet in supplyData Map
+        // If the batch end date associate is in is today or earlier, create
+        // an element in the Map for the skillset adding 1 to the count of 'current'
+        if (batchDate <= today) {
           supplyData.set(skillset, {
             current: 1,
+            oneMonth: 0,
+            threeMonths: 0,
           });
-        } else {
+          // If the batch end date associate is in is after today and within a month
+          // create an element in the Map for the skillset adding 1 to the count of 'oneMonth'
+        } else if (batchDate > today && batchDate <= oneMonthFromToday) {
+          supplyData.set(skillset, {
+            current: 0,
+            oneMonth: 1,
+            threeMonths: 0,
+          });
+          // If the batch end date associate is a month from now and within 3 months from now,
+          // create an element in the Map for the skillset adding 1 to the count of 'threeMonths'
+        } else if (
+          batchDate > oneMonthFromToday &&
+          batchDate <= threeMonthsFromToday
+        ) {
+          supplyData.set(skillset, {
+            current: 0,
+            oneMonth: 0,
+            threeMonths: 1,
+          });
+        }
+      } else {
+        // Skillset Name is already in the supplyData Map
+        // Depending on associate's batch's end date, add 1 to the count corresponding with their
+        // timeframe
+        if (batchDate <= today) {
           let timeObj = supplyData.get(skillset);
           supplyData.set(skillset, {
             ...timeObj,
             current: timeObj.current ? timeObj.current + 1 : 1,
           });
-        }
-      }
-      if (batchDate > today && batchDate <= oneMonthFromToday) {
-        if (!supplyData.has(skillset)) {
-          supplyData.set(skillset, {
-            oneMonth: 1,
-          });
-        } else {
+        } else if (batchDate > today && batchDate <= oneMonthFromToday) {
           let timeObj = supplyData.get(skillset);
           supplyData.set(skillset, {
             ...timeObj,
             oneMonth: timeObj.oneMonth ? timeObj.oneMonth + 1 : 1,
           });
-        }
-      }
-      if (batchDate > oneMonthFromToday && batchDate <= threeMonthsFromToday) {
-        if (!supplyData.has(skillset)) {
-          supplyData.set(skillset, {
-            threeMonths: 1,
-          });
-        } else {
+        } else if (
+          batchDate > oneMonthFromToday &&
+          batchDate <= threeMonthsFromToday
+        ) {
           let timeObj = supplyData.get(skillset);
           supplyData.set(skillset, {
             ...timeObj,
@@ -156,38 +147,8 @@ export class ColumnChartTest extends React.Component<any, any> {
       }
     });
     console.log('SUPPLY DATA MAP: ', supplyData);
-    return supplyArr;
+    return supplyData;
   };
-  // //   groupData = [
-  // //      {Java/react: {current: 1, omon: 2, tmon: 5}},
-  // //      {saleseforce: {current: 3, omon: 2, tmon: 6}}
-  // //   ]
-  // // supplyData = [{java/react: 2020-08-01}, {java/react: 2020-10-01}]
-  // // getting grouping of associate skillsets, & batchend date
-  // // and turning into Array of nested objects of skillsets and // quantities sorted by date
-  // groupByDate = async (arr: any[]) => {
-  //   let groupedSupply = new Map();
-  //   arr.map((a: any) => {
-  //     let key = Object.keys(a)[0]; // should be 'java/react'
-  //     let current = a.key.current; // should be a number for current
-  //     let oneMonth = a.key.oneMonth;
-  //     let threeMonth = a.key.threeMonth;
-  //     // // loop through groupedSupply to see if the key for a given
-  //     // // element of the supply data array already exists
-  //     for (let i = 0; i< Object.keys(groupedSupply).length; i++) {
-  //       if (key === Object.keys(groupedSupply)[i])	{
-  //         let skillObj = groupedSupply.get(key);
-  //         groupedSupply.set(key,
-  //           {
-  //           current: skillObj.current
-  //           }
-  //         )
-  //       }
-  //     }
-  //     //  if (a.batchEnddate <= date.now()) {
-  //   });
-  //   return groupedSupply;
-  // };
 
   // This initializes google charts
   loadGoogle = () => {
@@ -195,8 +156,49 @@ export class ColumnChartTest extends React.Component<any, any> {
     google.charts.setOnLoadCallback(this.init);
   };
 
+  // This can be used to loop through data to create all tables necessary
+  createTableData = (demandArr: any, supplyArr: any) => {
+    let supply = supplyArr;
+    let demand = demandArr;
+    let demKey = demand.keys();
+    let data: any[] = [];
+    let view: any[] = [];
+    console.log('LENGTH', demand.size);
+    for (let i = 0; i < demand.size; i++) {
+      let thisDemKey = demKey.next().value;
+      console.log('demKey.next().value', thisDemKey);
+      let supVals = supply.get(thisDemKey);
+      data.push(new google.visualization.DataTable());
+      data[i].addColumn('string', 'Demand and Supply');
+      data[i].addColumn('number', thisDemKey);
+      let dataRows: any = [];
+      dataRows.push(['Client Demand', demand.get(thisDemKey)]);
+      if (supVals !== undefined || (supVals && supVals.current !== 0)) {
+        dataRows.push(['Currently Available', supVals.current]);
+      } else {
+        dataRows.push(['Currently Available', 0]);
+      }
+      if (supVals !== undefined || (supVals && supVals.oneMonth !== 0)) {
+        dataRows.push(['Available in 1 Month', supVals.oneMonth]);
+      } else {
+        dataRows.push(['Available in 1 Month', 0]);
+      }
+      if (supVals !== undefined || (supVals && supVals.threeMonths !== 0)) {
+        dataRows.push(['Available in 3 Months', supVals.threeMonths]);
+      } else {
+        dataRows.push(['Available in 3 Months', 0]);
+      }
+      data[i].addRows(dataRows);
+      view[i] = new google.visualization.DataView(data[i]);
+    }
+    console.log('DATA', data);
+    console.log('VIEW', view);
+    // let results = { data, view };
+    // return results;
+  };
+
   // // Method to create a chart/table
-  init = () => {
+  init = async () => {
     let stateCurrent = this.state.current;
     // Creating a data obj for our table
     // // Number Columns represent each type of data - 5 total
@@ -252,6 +254,7 @@ export class ColumnChartTest extends React.Component<any, any> {
       ['1 Month', 3],
       ['3 Months', 5],
     ]);
+    console.log(data);
 
     // Creates view with data?????????
     var view = [];
@@ -295,6 +298,10 @@ export class ColumnChartTest extends React.Component<any, any> {
     this.setState({
       shouldUpdate: true,
     });
+
+    let demArr = await this.getDemand();
+    let supArr = await this.getSupply();
+    this.createTableData(demArr, supArr);
   };
 
   doSomething = (n: number) => {
@@ -304,25 +311,6 @@ export class ColumnChartTest extends React.Component<any, any> {
       shouldUpdate: true,
     });
   };
-
-  // This can be used to loop through data to create all tables necessary
-  // createTableData = (dataArray: any, viewArray: any, index: number, dataObj: any) => {
-  //   let data = dataArray;
-  //   data[index] = new google.visualization.DataTable();
-  //   data[index].addColumn('string', 'Demand and Supply');
-  //   data[index].addColumn('number', 'Java/React'); // Data.curriculumName
-  //   data[index].addRows([
-  //     ['Client Demand', 23], // data.total
-  //     ['Current', 4], // data.current
-  //     ['1 Month', 10], // data.oneMonth
-  //     ['3 Months', 20], // data.threeMonth
-  //   ]);
-  //   let view = viewArray;
-  //   view[index] = new google.visualization.DataView(data[index]);
-  //   view[index].setRows([0, 1, 2, 3]);
-  //   let results = {data, view};
-  //   return results;
-  // }
 
   render() {
     return (
