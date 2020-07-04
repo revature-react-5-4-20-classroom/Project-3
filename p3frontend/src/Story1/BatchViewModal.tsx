@@ -24,6 +24,7 @@ import { Batch } from "../models/Batch";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
+import BatchTrainersTable from "./BatchTrainersTable";
 
 /*
   <BatchViewModel currentBatch={aSvererBatch} parentState={this.state}/>
@@ -44,7 +45,7 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
     super(props);
     this.state = {
       showThis: false,
-      showTrainers: false, //T to show trainers. F to show associates
+      showTrainers: true, //T to show trainers. F to show associates
       errorObj: null,
       errorMsg: "",
     };
@@ -157,10 +158,10 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
 
           <ModalBody>
             {this.state.showTrainers ? (
-              <>
-                <span>This is trainers stuff - </span>
-                <span>This is trainers stuff - </span>
-              </>
+              <BatchTrainersTable
+                currentBatch={this.props.currentBatch}
+                parentTop={this.props.parentTop}
+              />
             ) : (
               <BatchAssocTable
                 currentBatch={this.props.currentBatch}

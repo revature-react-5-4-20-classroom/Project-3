@@ -21,7 +21,7 @@ import {BatchViewModal} from "./Story1/BatchViewModal";
 import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
-import { BatchAssocTableTester } from "./Story1/BatchAssocTableTester";
+import { BatchTableTester } from "./Story1/BatchAssocTableTester";
 import { FilterForm } from "./Story1/FilterForm";
 import { BatchPage } from "./Components/GenerateBatch/BatchPage";
 
@@ -80,8 +80,8 @@ export class App extends React.Component<any, any> {
 
             
             { end: "/BatchPage", name: "Gen batch", comp: <BatchPage /> },
-            { end: "/test-convert", name: "TC", comp: <TestConvertToObject /> },
-            { end: "/test-ASTable", name: "TAST", comp: <BatchAssocTableTester /> },
+            { end: "/test-convert", name: "TCO", comp: <TestConvertToObject /> },
+            { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
           ])
         }
       </Container>

@@ -13,7 +13,7 @@ import { batch } from "react-redux";
 const doPrnt = true; //prnt may be toggled
 
 /*
-  <ASTableModel currentBatch={aBatchObject}/>
+  <BatchAssocTable currentBatch={aBatchObject}/>
 
   Displays dual tables where associates can be assigned or removed form batches.
   Displays the associates assigned to the given batch object.
@@ -40,7 +40,7 @@ export default class BatchAssocTable extends React.Component<
   }
 
   componentDidMount = async () => {
-    console.log(`ASTableModel componentDidMount() has been reached`);
+    console.log(`BatchAssocTable componentDidMount() has been reached`);
 
     try {
       const allAssociates: Associate[] = await getAllAssociates();
@@ -64,13 +64,13 @@ export default class BatchAssocTable extends React.Component<
   };
 
   render() {
-    //prnt(doPrnt,`ASTableModel render() has been reached`)
+    //prnt(doPrnt,`BatchAssocTable render() has been reached`)
     //prnt(doPrnt,`this.state.associatesInBatch=`,this.state.associatesInBatch)
     //prnt(doPrnt,`this.props.currentBatch.associates=`,this.props.currentBatch.associates)
     //prnt(doPrnt,`this.props.currentBatch=`,this.props.currentBatch)
 
     if (this.props.currentBatch == null)
-      return <>ASTableModel this.props.currentBatch is null</>;
+      return <>BatchAssocTable this.props.currentBatch is null</>;
 
     return (
       <Container>
@@ -97,7 +97,7 @@ export default class BatchAssocTable extends React.Component<
             }
             headerRight={
               <>
-                Associates in batch{" "}
+                Associates in this batch{" "}
                 <b>{this.props.currentBatch.associates.length}</b>
               </>
             }
