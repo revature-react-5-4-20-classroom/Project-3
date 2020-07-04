@@ -226,7 +226,13 @@ export class ColumnChartTest extends React.Component<any, any> {
         0: { title: 'Demand and Supply' },
       },
     };
-    this.drawChart(googleView, options, 0);
+    this.drawChart(
+      googleView,
+      options,
+      this.state.current
+        ? this.state.dropdownOptions.indexOf(this.state.current)
+        : 0
+    );
     // This is what actually creates the tables
     // Updates componment once chart is drawn
     this.setState({
