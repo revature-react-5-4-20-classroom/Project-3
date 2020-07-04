@@ -1,12 +1,10 @@
 package com.revature.ReportsService.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.revature.ReportsService.DataGetterFeign;
 import com.revature.ReportsService.models.Associate;
 import com.revature.ReportsService.service.DataGeneratorService;
@@ -21,7 +19,7 @@ public class DataGeneratorController {
   DataGeneratorService dataGeneratorService;
 
   @GetMapping("datagetter/{interviewScore}/{quantity}")
-  public List<Associate> getData(@PathVariable int interviewScore, @PathVariable int quantity) {
+  public List<Associate> getData(@PathVariable Double interviewScore, @PathVariable int quantity) {
     List<Associate> associatesList = dataGetterFeign.getAssociates();
 
     return dataGeneratorService.generateBatch(interviewScore, quantity, associatesList);

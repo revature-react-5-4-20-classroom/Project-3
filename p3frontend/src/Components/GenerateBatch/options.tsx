@@ -2,14 +2,25 @@ import React from "react";
 import { Container, Input, Label, Button, InputGroup } from "reactstrap";
 import { getgeneratedBatch } from "../../api/generateBatch";
 import { BatchView } from "./BatchView";
+import { connect } from "react-redux";
+import { allTheMapStateToProps } from "../../redux/reducers";
+import { allTheActionMappers } from "../../redux/action-mapper";
+import { Associate } from "../../models/Associate";
 //new Date().toISOString().substring(0, 10),
-export class Options extends React.Component<any, any> {
+interface IOptionAssociatesList{
+  associatesList:Associate[],
+  quantity:number,
+  interview: number,
+  flaeeg:boolean,
+}
+
+class Options extends React.Component<any, IOptionAssociatesList> {
   constructor(props: any) {
     super(props);
     this.state = {
       quantity: 0,
       interview: 0,
-      response: "any",
+      associatesList: [],
       flaeeg: false,
     };
   }
@@ -20,44 +31,35 @@ export class Options extends React.Component<any, any> {
     });
   };
 
+  // getgeneratedBatch = async (e: any) => {
+  //   e.preventDefault();
+  //   console.log(this.state.quantity, this.state.interview);
+
+  //   this.setState({
+  //     flaeeg: true,
+  //   });
+  //   // console.log(this.state.response);
+  // };
+
   getgeneratedBatch = async (e: any) => {
     e.preventDefault();
     console.log(this.state.quantity, this.state.interview);
 
     this.setState({
+      associatesList: await getgeneratedBatch(
+        this.state.interview,
+        this.state.quantity
+      ),
       flaeeg: true,
     });
-    // console.log(this.state.response);
+    console.log(this.state.associatesList);
   };
+
   render() {
     return (
-      <Container style={{ backgroundColor: "#474c55" }}>
-        <h4>Options</h4>
-        <InputGroup>
-          <Label>something: </Label>
-          <Input></Input>
-          <Button>Submit</Button>
-        </InputGroup>
+      <Container style={{ backgroundColor: "#C0C0C0" }}>
         <br />
-        <InputGroup>
-          <Label>Start Date: </Label>
-          <Input
-            type="date"
-            name="startDate"
-            id="startDate"
-            onChange={this.bindInputChangeToState}
-          ></Input>
-        </InputGroup>
-        <br />
-        <InputGroup>
-          <Label>End Date: </Label>
-          <Input
-            type="date"
-            name="endDate"
-            id="endDate"
-            onChange={this.bindInputChangeToState}
-          ></Input>
-        </InputGroup>
+        <h4>Select Associates</h4>
         <br />
         <InputGroup>
           <Label>No of Associates: </Label>
@@ -67,6 +69,7 @@ export class Options extends React.Component<any, any> {
             name="quantity"
           ></Input>
         </InputGroup>
+        <br />
         <InputGroup>
           <Label>Interview Score limit: </Label>
           <Input
@@ -78,16 +81,24 @@ export class Options extends React.Component<any, any> {
         <br />
         <Button onClick={this.getgeneratedBatch}> Generate Batches</Button>
         <br />
-        <div style={{ display: this.state.flaeeg ? "block" : "none" }}>
-          {" "}
-          <h4>fsengjn;a</h4>
-          <BatchView
-            quantity={this.state.quantity}
-            interview={this.state.interview}
-          ></BatchView>
-        </div>
-        <h3>kawhi</h3>
       </Container>
     );
   }
 }
+
+export {Options};
+
+const mapStateToProps = (state: IOptionAssociatesList) => {
+  return {
+    ...state,
+  };
+};
+
+const mapDispatchToProps = {
+  allTheActionMappers,
+};
+export const ReduxBatchModal = connect(
+  allTheMapStateToProps,
+  allTheActionMappers
+)(Options);
+

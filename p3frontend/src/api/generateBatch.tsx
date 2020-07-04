@@ -6,6 +6,9 @@ export const axiosClient = axios.create({
   withCredentials: false, // we should probably change this later
 });
 
+
+
+
 export async function getgeneratedBatch(
   interviewScore: number,
   quantity: number
@@ -26,6 +29,8 @@ export async function getgeneratedBatch(
       assignedBatchId,
     } = associatesObj;
     // console.log('COMMENTOBJ ', commentObj);
+    // console.log("fjjftktt",response);
+    
     return new Associate(
       associateId,
       firstName,

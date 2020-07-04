@@ -5,7 +5,7 @@ spring:
   application:
     name: registryservice
 server:
-  port: 8762
+  port: 8761
 
 #  Eureka Config
 eureka:

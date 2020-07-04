@@ -2,6 +2,10 @@ import React from "react";
 import { Container, Row, Col, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { getgeneratedBatch } from "../../api/generateBatch";
+import { connect } from "react-redux";
+import { allTheMapStateToProps } from "../../redux/reducers";
+import { allTheActionMappers } from "../../redux/action-mapper";
+import { Associate } from "../../models/Associate";
 
 export class BatchView extends React.Component<any, any> {
   constructor(props: any) {
@@ -11,39 +15,40 @@ export class BatchView extends React.Component<any, any> {
       response: [],
     };
   }
+ 
 
-  getgeneratedBatch = async (e: any) => {
-    e.preventDefault();
-    console.log(this.props.quantity, this.props.interview);
-
-    this.setState({
-      response: await getgeneratedBatch(
-        this.props.interview,
-        this.props.quantity
-      ),
-      show: true,
-    });
-    console.log(this.state.response);
-  };
   render() {
     return (
-      <Container style={{ backgroundColor: "#fff" }}>
+      <Container style={{ backgroundColor: "#fff" }} className="associate-table">
         <Row>
           <Col>
-            <h5 onClick={this.getgeneratedBatch}>click</h5>{" "}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ul style={{ display: this.state.show ? "block" : "none" }}>
-              {this.state.response.map((obj: any, index: number) => {
+            <h5>Associates</h5>
+            {/* <ul >
+            {/* style={{ display: this.state.show ? "block" : "none" }} 
+              {this.props.assciates.map((obj: any, index: number) => {
                 return (
                   <li key={obj.associateId}>
-                    {obj.firstName} {obj.lastName}
+                    {obj.firstName}, {obj.lastName}, {obj.interviewScore}
                   </li>
                 );
               })}
-            </ul>
+            </ul> */}
+
+            {/* {this.props.assciates.map((obj: any, index: number) => {
+              return (
+                <tr key={obj.associateId}>
+                  <td>
+                    {obj.firstName}, {obj.lastName}, {obj.interviewScore}
+                  </td>
+                  <td>
+                    <Button
+                      onClick={() => this.associateAdd(obj, index)}>
+                      add
+                    </Button>
+                  </td>
+                </tr>
+              ); 
+            })}*/}
             {/* <h3> {this.props.batchObj[0].firstName}</h3> */}
           </Col>
         </Row>
@@ -51,3 +56,8 @@ export class BatchView extends React.Component<any, any> {
     );
   }
 }
+
+export const ReduxBatchModal = connect(
+  allTheMapStateToProps,
+  allTheActionMappers
+)(BatchView);
