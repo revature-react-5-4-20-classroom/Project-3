@@ -226,7 +226,7 @@ export class ColumnChartTest extends React.Component<any, any> {
         0: { title: 'Demand and Supply' },
       },
     };
-    this.drawChart(googleView, options, this.state.current);
+    this.drawChart(googleView, options, 0);
     // This is what actually creates the tables
     // Updates componment once chart is drawn
     this.setState({
@@ -258,6 +258,9 @@ export class ColumnChartTest extends React.Component<any, any> {
     console.log('e.currentTarget.innerText', e.currentTarget.innerText);
     this.setState({
       currentSelected: e.currentTarget.innerText,
+      current: e.currentTarget.innerText,
+      shouldRunInit: true,
+      shouldUpdate: true,
     });
   };
   render() {
