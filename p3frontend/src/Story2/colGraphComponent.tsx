@@ -1,8 +1,10 @@
 import React from 'react';
+import moment from 'moment';
 import { Button } from 'reactstrap';
 import { getAllClientDemands } from '../api/clientDemand';
 import { ClientDemands } from '../models/ClientDemands';
 import { getActiveAssociates } from '../api/Associate';
+import { batch } from 'react-redux';
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -24,8 +26,7 @@ export class ColumnChartTest extends React.Component<any, any> {
     this.setState({
       clientDemand: this.getDemand(),
     });
-    // this.getSupply();
-    this.getData();
+    this.getSupply();
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -80,13 +81,6 @@ export class ColumnChartTest extends React.Component<any, any> {
   // {saleseforce: {current: 3, omon: 2, tmon: 6}}
   // ]
 
-  // 1) get data from api associate (skillset and batch graduation date) {associateId: 2, associateName: 'Tom', Skillset: {skillsetId: 1, name: 'Java/react'}}
-  getData = async () => {
-    let abc = await getActiveAssociates();
-    console.log('get all associates:', abc);
-    return abc;
-  };
-  // 2) pass each associate through loop that says:   gd=graduation date [{java/react: current}, {java/react: onemonth}, {salesforce: current}]
   //      if Date(gd} <= date.now() -> object created with {skillset: 'current'}
   // //    else if gd > date.now() && gd <= {onemonthfromnow} -> obj created with {skillset:'oneMonth'}
   // //    else if gd > {onemonthfromnow} && gd <= {threemonthsfromnow} -> obj created with {skillset: 'threeMonth}
@@ -99,16 +93,65 @@ export class ColumnChartTest extends React.Component<any, any> {
   // // Getting back api response and creating array of objects that
   // // each contain an associates skillset and their graduation date
   // // aka batch end date
-  // getSupply = async () => {
-  //   let supplyArr = await getActiveAssociates();
-  //   let supplyData = [{}];
-  //   supplyArr.map((a: any) => {
-  //     let skillset = a.skillset;
-  //     let batchDate = a.batchDate;
-  //     supplyData.push({ skillset, batchDate });
-  //   });
-  //   return supplyData;
-  // };
+  getSupply = async () => {
+    // 1) get data from api associate (skillset and batch graduation date) {associateId: 2, associateName: 'Tom', Skillset: {skillsetId: 1, name: 'Java/react'}}
+    let supplyArr = await getActiveAssociates();
+    console.log(supplyArr);
+    // 2) pass each associate through loop that says:   gd=graduation date [{java/react: current}, {java/react: onemonth}, {salesforce: current}]
+    let supplyData = new Map();
+    let today = moment().format('YYYY-MM-DD');
+    let oneMonthFromToday = moment()
+      .month(moment().month() + 1)
+      .format('YYYY-MM-DD');
+    let threeMonthsFromToday = moment()
+      .month(moment().month() + 3)
+      .format('YYYY-MM-DD');
+    supplyArr.map((a: any) => {
+      let skillset = a.batch.curriculum.curriculumSkillset.skillSetName;
+      let batchDate = moment(a.batch.endDate).format('YYYY-MM-DD');
+      if (batchDate <= today) {
+        if (!supplyData.has(skillset)) {
+          supplyData.set(skillset, {
+            current: 1,
+          });
+        } else {
+          let timeObj = supplyData.get(skillset);
+          supplyData.set(skillset, {
+            ...timeObj,
+            current: timeObj.current ? timeObj.current + 1 : 1,
+          });
+        }
+      }
+      if (batchDate > today && batchDate <= oneMonthFromToday) {
+        if (!supplyData.has(skillset)) {
+          supplyData.set(skillset, {
+            oneMonth: 1,
+          });
+        } else {
+          let timeObj = supplyData.get(skillset);
+          supplyData.set(skillset, {
+            ...timeObj,
+            oneMonth: timeObj.oneMonth ? timeObj.oneMonth + 1 : 1,
+          });
+        }
+      }
+      if (batchDate > oneMonthFromToday && batchDate <= threeMonthsFromToday) {
+        if (!supplyData.has(skillset)) {
+          supplyData.set(skillset, {
+            threeMonths: 1,
+          });
+        } else {
+          let timeObj = supplyData.get(skillset);
+          supplyData.set(skillset, {
+            ...timeObj,
+            threeMonths: timeObj.threeMonths ? timeObj.threeMonths + 1 : 1,
+          });
+        }
+      }
+    });
+    console.log('SUPPLY DATA MAP: ', supplyData);
+    return supplyArr;
+  };
   // //   groupData = [
   // //      {Java/react: {current: 1, omon: 2, tmon: 5}},
   // //      {saleseforce: {current: 3, omon: 2, tmon: 6}}
