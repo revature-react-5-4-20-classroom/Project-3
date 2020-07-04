@@ -10,8 +10,10 @@ export function prnt(debug: boolean, text: string, dataJson?: any) {
     if (dataJson) {
       try {
         console.log(`${text} ${JSON.stringify(dataJson)}`);
+        //console.log(text)
+        //console.log(dataJson)
       } catch (e) {
-        console.log(`prnt error ${e.message}`);
+        console.log(`prnt() catch(e) ${e.message}`);
       }
     } else console.log(text);
   }

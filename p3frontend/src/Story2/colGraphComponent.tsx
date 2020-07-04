@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import moment from 'moment';
 import { Button } from 'reactstrap';
@@ -5,6 +6,11 @@ import { getAllClientDemands } from '../api/clientDemand';
 import { ClientDemands } from '../models/ClientDemands';
 import { getActiveAssociates } from '../api/Associate';
 import { batch } from 'react-redux';
+=======
+import React from "react";
+import { getAllClientDemands } from "../api/clientDemand";
+import { getActiveAssociates } from "../models/Associate";
+>>>>>>> 3f21c518a7aa8b7890d2e6007245d988af818e56
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;

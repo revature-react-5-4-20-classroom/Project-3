@@ -1,12 +1,13 @@
 import React from "react";
-import { Table, Button, Container, Row, Col } from "reactstrap";
+import { Table, Button, Container, Row, Col, Spinner } from "reactstrap";
 import { Associate } from "../models/Associate";
-import { getAllAssociates, updateAssociate } from "../api/Associate";
+import { getAllAssociates, updateAssociate } from "../models/Associate";
 import { getBatchById } from "../api/batch";
 import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { axiosClient } from "../api/axios";
+import { DualTables } from "./DualTables";
 
 const doPrnt = true; //prnt may be toggled
 
@@ -38,45 +39,27 @@ export default class ASTableModel extends React.Component<
   constructor(props: IASTableModelProps) {
     super(props);
     this.state = {
-      //currentBatchId : 9,
-      associates: [], //everybody that comes from the backend
       eligibleAssociates: [], //interview score >70 and no assigned batch yet
-      associatesInBatch: [], //associates chosen for the current batch
-      associatesLoaded: false,
+      associatesLoaded: false, //have we fetched the associates from the backend?
       errorObject: null, //when set to an axios error object, it will display the network error nicely
       errorMessage: "", //when set a message it will be displayed, possibly with a network error
     };
   }
 
   componentDidMount = async () => {
+    console.log(`ASTableModel componentDidMount() has been reached`);
+
     try {
-      console.log(`ASTableModel componentDidMount() has been reached`);
+      const allAssociates: Associate[] = await getAllAssociates();
+      //prnt(doPrnt, `associateArray=`, allAssociates)
 
-      let assocInBatch = this.props.currentBatch.associates;
-      prnt(doPrnt, `assocInBatch A=`, assocInBatch);
-
-      const associateArray: Associate[] = await getAllAssociates();
-
-      //console.log(`ComponentDidMount ${JSON.stringify(associateArray)}`);
-
-      const eligibleAssociateArray = associateArray.filter(function (a) {
-        return a.interviewScore >= 70 && a.batch === null;
+      const eligibleAssociateArray = allAssociates.filter((assoc) => {
+        return assoc.interviewScore >= 70 && assoc.active === false;
+        //return assoc.interviewScore >= 70 && assoc.batchId <=0;
       });
 
-      // const associatesInBatch=associateArray.filter((a) =>
-      // {
-      //   if (a.batch === null) return false
-
-      //   return a.interviewScore >= 70 && a.batch.batchId === this.props.currentBatch.batchId
-      //   //this.state.currentBatchId
-      // });
-
-      //prnt(doPrnt,`assocInBatch B=`,assocInBatch)
-
       this.setState({
-        associates: associateArray,
         eligibleAssociates: eligibleAssociateArray,
-        associatesInBatch: assocInBatch,
         associatesLoaded: true,
       });
     } catch (e) {
@@ -88,9 +71,13 @@ export default class ASTableModel extends React.Component<
   };
 
   render() {
-    // prnt(doPrnt,`ASTableModel render() has been reached`)
-    // prnt(doPrnt,`this.state.associatesInBatch=`,this.state.associatesInBatch)
+    //prnt(doPrnt,`ASTableModel render() has been reached`)
+    //prnt(doPrnt,`this.state.associatesInBatch=`,this.state.associatesInBatch)
     //prnt(doPrnt,`this.props.currentBatch.associates=`,this.props.currentBatch.associates)
+    //prnt(doPrnt,`this.props.currentBatch=`,this.props.currentBatch)
+
+    if (this.props.currentBatch == null)
+      return <>ASTableModel this.props.currentBatch is null</>;
 
     return (
       <Container>
@@ -98,95 +85,74 @@ export default class ASTableModel extends React.Component<
           error={this.state.errorObject}
           message={this.state.errorMessage}
         />
-        <Row>
-          <Col>
-            <h6>All Available Associates</h6>
-            {this.displayTable(
-              this.state.eligibleAssociates,
-              "No eligible associates left.",
-              "Add",
-              this.associateAdd
-            )}
-          </Col>
-          <Col>
-            <h6>Batch Associates</h6>
-            {this.displayTable(
-              this.state.associatesInBatch,
-              "No associates currently assigned to this batch.",
-              "Remove",
-              this.associateRemove
-            )}
-          </Col>
-        </Row>
+
+        {this.state.associatesLoaded ? (
+          <DualTables
+            onMoveToLeft={(item) => this.patchTheAssoc(item, false)}
+            onMoveToRight={(item) => this.patchTheAssoc(item, true)}
+            arrayLeft={this.state.eligibleAssociates}
+            messageLeft="None in the system"
+            messageRight="None assigned to this batch"
+            arrayRight={this.props.currentBatch.associates}
+            headerLeft={
+              <>
+                All eligible associates{" "}
+                <b>{this.state.eligibleAssociates.length}</b>
+              </>
+            }
+            headerRight={
+              <>
+                Associates in batch{" "}
+                <b>{this.props.currentBatch.associates.length}</b>
+              </>
+            }
+          />
+        ) : (
+          <Spinner />
+        )}
       </Container>
     );
   }
 
-  async patchTheAssoc(assoc: Associate) {
+  /*
+    patchTheAssoc(assoc,moveToBatch)
+
+    patches the assoc object.
+    when moveToBatch is:
+      true, the assoc is assigned to the currentBatch object
+      false, the assoc is assigned to no batch at all. null
+  */
+  patchTheAssoc = async (assoc: Associate, moveToBatch: boolean) => {
     prnt(doPrnt, `ASTableModel patchTheAssoc() has been reached`);
-    prnt(doPrnt, `assoc=`, assoc);
+    prnt(doPrnt, `assoc before=`, assoc);
+
+    //send an associate and its batch object that is a non-circular data structure
+    //Assoc->Batch->Associate[]->Batch was breaking when being sent
+    //we want to send this data to the server for it to save directly into the repo
+    const nonCircularAssocPatch = {
+      associateId: assoc.associateId, //copy over all fields. typescript prevents easier copying
+      firstName: assoc.firstName,
+      lastName: assoc.lastName,
+      email: assoc.email,
+      active: moveToBatch, //set active to true or false
+      interviewScore: assoc.interviewScore,
+      batch: moveToBatch ? this.props.currentBatch : null, //assign to a batch.
+      //we have to watch out because this batch has an array of
+      //associates and associates have batches and we get circular json errors when sending
+      //this is why express exists
+    };
+
+    prnt(doPrnt, `nonCircularAssocPatch=`, nonCircularAssocPatch);
+    //prnt(doPrnt, `assoc.batch=`, assoc.batch);
+    //prnt(doPrnt, `this.props.currentBatch=`, this.props.currentBatch);
 
     try {
-      await axiosClient.patch("/associates", assoc);
+      await axiosClient.patch("/associates", nonCircularAssocPatch);
     } catch (e) {
       this.setState({
         errorObject: e,
         errorMessage: "Could not patch associate",
       });
     }
-  }
-
-  associateAdd = async (assoc: Associate, i: number) => {
-    this.state.associatesInBatch.push(assoc);
-    this.state.eligibleAssociates.splice(i, 1);
-    assoc.batch = this.props.currentBatch; //await getBatchById(this.state.currentBatchId);
-    console.log(assoc.batch);
-    console.log(assoc);
-
-    await this.patchTheAssoc(assoc);
-
-    this.setState({});
-  };
-
-  associateRemove = async (assoc: Associate, i: number) => {
-    this.state.associatesInBatch.splice(i, 1);
-    this.state.eligibleAssociates.push(assoc);
-    assoc.batch = this.state.eligibleAssociates[0].batch;
-    console.log(assoc.batch);
-    console.log(assoc);
-    await this.patchTheAssoc(assoc);
-    this.setState({});
-  };
-
-  displayTable = (
-    array: Associate[],
-    message: String,
-    displayText: String,
-    itemClick: any
-  ) => {
-    if (array.length === 0) return <>{message}</>;
-
-    return (
-      <div className="associate-table">
-        <Table striped>
-          <tbody>
-            {array.map((obj: any, index: number) => {
-              return (
-                <tr key={index}>
-                  <td>
-                    {obj.firstName}, {obj.lastName}, {obj.interviewScore}
-                  </td>
-                  <td>
-                    <Button onClick={() => itemClick(obj, index)}>
-                      {displayText}
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
-    );
   };
 }

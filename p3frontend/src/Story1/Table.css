@@ -16,3 +16,10 @@ th:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.associate-table {
+  border: 1px solid #eeccee;
+  /* max-height: 400px; */
+  overflow-y: scroll;
+  width: 100%;
+}
