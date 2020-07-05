@@ -3,6 +3,7 @@ import { Table, Button, Row, Col } from "reactstrap";
 
 /*
 	<DualTables 
+    parent=       {this}
 		arrayLeft=		{anArray} 	
     arrayRight=		{anotherArray}
     messageLeft=	"displayed on left when array is empty"
@@ -27,15 +28,16 @@ import { Table, Button, Row, Col } from "reactstrap";
 	arrayLeft[1](ADD)	|		arrayRight[1](REMOVE)
 */
 
-interface IPDualTables{
-  arrayLeft:any[]
-  arrayRight:any[]
-  messageLeft:any //could be a string or jsx
-  messageRight:any //could be a string or jsx
-  headerLeft:any //could be a string or jsx
-  headerRight:any //could be a string or jsx
-  onMoveToLeft: (item: any) => void //called when an item is moved. onMoveToLeft(item)
-  onMoveToRight: (item: any) => void
+interface IPDualTables {
+  parentTop: any; //the highest level parent so a full re-render can be achieved
+  arrayLeft: any[]; //the array to display in the left table
+  arrayRight: any[]; //and on the right
+  messageLeft: any; //will be displayed when a table is empty
+  messageRight: any; //could be a string or jsx
+  headerLeft: any; //will be displayed above each table
+  headerRight: any; //could be a string or jsx
+  onMoveToLeft: (item: any) => void; //called when an item is moved. onMoveToLeft(item)
+  onMoveToRight: (item: any) => void;
 }
 
 export class DualTables extends React.Component<IPDualTables, any> {
@@ -69,17 +71,17 @@ export class DualTables extends React.Component<IPDualTables, any> {
   }
 
   moveToRightTable = (item: any, i: number) => {
-    this.props.arrayRight.push(item);//move the item within the arrays
+    this.props.arrayRight.push(item); //move the item within the arrays
     this.props.arrayLeft.splice(i, 1);
-    this.props.onMoveToRight(item);//use a callback so things can be done outside this component
-    this.setState({});
+    this.props.onMoveToRight(item); //use a callback so things can be done outside this component
+    this.props.parentTop.setState({}); //re-render
   };
 
   moveToLeftTable = (item: any, i: number) => {
     this.props.arrayRight.splice(i, 1);
     this.props.arrayLeft.push(item);
     this.props.onMoveToLeft(item);
-    this.setState({});
+    this.props.parentTop.setState({}); //re-render
   };
 
   displayTable = (

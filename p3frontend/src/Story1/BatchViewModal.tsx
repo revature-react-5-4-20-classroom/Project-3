@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import {
   Button,
   Modal,
@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import "../../src/index.css";
-import ASTableModel from "./ASTableModel";
+import BatchAssocTable from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -24,24 +24,28 @@ import { Batch } from "../models/Batch";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
+import BatchTrainersTable from "./BatchTrainersTable";
 
 /*
-  <BatchModal currentBatch={aBatchObject}/>
+  <BatchViewModel currentBatch={aSvererBatch} parentState={this.state}/>
 
   The modal will look like a View button.
-  when that button is clicked the modal will pop up
+  when that button is clicked the modal will pop up.
+
+  This modal will access parentState.batch
 */
 
-interface IPViewBatchModal {
+interface IPBatchViewModal {
   currentBatch: Batch;
+  parentTop: any;
 }
 
-class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
+export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
   constructor(props: any) {
     super(props);
     this.state = {
       showThis: false,
-      showTrainers: false, //T to show trainers. F to show associates
+      showTrainers: true, //T to show trainers. F to show associates
       errorObj: null,
       errorMsg: "",
     };
@@ -90,16 +94,24 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
             <Row>
               <Col>
                 <b>Confirmed</b>
-              <br/>
+                <br />
                 <ButtonGroup>
                   <Button
-                    color={this.props.currentBatch.isConfirmed?"primary":"secondary"}
+                    color={
+                      this.props.currentBatch.isConfirmed
+                        ? "primary"
+                        : "secondary"
+                    }
                     onClick={this.patchABatchChangeIsConfirmed}
                   >
                     Yes
                   </Button>
                   <Button
-                    color={this.props.currentBatch.isConfirmed?"secondary":"primary"}
+                    color={
+                      this.props.currentBatch.isConfirmed
+                        ? "secondary"
+                        : "primary"
+                    }
                     onClick={this.patchABatchChangeIsConfirmed}
                   >
                     No
@@ -146,12 +158,15 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
 
           <ModalBody>
             {this.state.showTrainers ? (
-              <>
-                <span>This is trainers stuff - </span>
-                <span>This is trainers stuff - </span>
-              </>
+              <BatchTrainersTable
+                currentBatch={this.props.currentBatch}
+                parentTop={this.props.parentTop}
+              />
             ) : (
-              <ASTableModel currentBatch={this.props.currentBatch} />
+              <BatchAssocTable
+                currentBatch={this.props.currentBatch}
+                parentTop={this.props.parentTop}
+              />
             )}
           </ModalBody>
         </Modal>
@@ -160,6 +175,7 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
   }
 
   patchABatchChangeIsConfirmed = async () => {
+    //change the batch model which is not a react component. just js object
     this.props.currentBatch.isConfirmed = !this.props.currentBatch.isConfirmed;
 
     try {
@@ -172,17 +188,12 @@ class ViewBatchModal extends React.Component<IPViewBatchModal, any> {
     } catch (e) {
       this.setState({
         errorObj: e,
-        errorMsg: "Could not change is confirmed",
+        errorMsg: `Could not change isConfirmed to ${
+          this.props.currentBatch.isConfirmed ? "Yes" : "No"
+        }`,
       });
     }
 
-    this.setState({}); //re-render
+    this.props.parentTop.setState({}); //re-render
   };
 }
-
-export default ViewBatchModal;
-
-export const ReduxBatchModal = connect(
-  allTheMapStateToProps,
-  allTheActionMappers
-)(ViewBatchModal);

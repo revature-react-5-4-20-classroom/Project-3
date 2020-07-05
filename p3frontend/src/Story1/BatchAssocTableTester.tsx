@@ -1,9 +1,10 @@
 import React from "react";
-import ASTableModel from "./ASTableModel";
+import BatchAssocTable from "./BatchAssocTable";
 import { getBatchById } from "../api/batch";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
+import BatchTrainersTable from "./BatchTrainersTable";
 
-export class TestASTableModel extends React.Component<any, any> {
+export class BatchTableTester extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
@@ -26,7 +27,8 @@ export class TestASTableModel extends React.Component<any, any> {
     return (
       <>
         {/* aBatch={JSON.stringify(this.state.aBatch)}<br/> */}
-        <ASTableModel currentBatch={this.state.aBatch} />
+        {/* <BatchAssocTable currentBatch={this.state.aBatch} parentTop={this}/> */}
+        <BatchTrainersTable currentBatch={this.state.aBatch} parentTop={this}/>
       </>
     );
   }
