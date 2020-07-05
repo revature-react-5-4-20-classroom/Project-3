@@ -69,8 +69,8 @@ public class Batch {
 
   @ManyToMany(cascade = CascadeType.MERGE)
   @JoinTable(name = "trainerbatch", schema = "project3",
-      joinColumns = @JoinColumn(name = "batch_id"),
-      inverseJoinColumns = @JoinColumn(name = "trainer_id"))
+              joinColumns = @JoinColumn(name = "batch_id"),
+              inverseJoinColumns = @JoinColumn(name = "trainer_id"))
   private List<Trainer> trainers;
 
 
