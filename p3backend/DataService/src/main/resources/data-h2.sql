@@ -1264,8 +1264,8 @@ INSERT INTO project3.batch VALUES
 	(default,'2020-05-27','2020-08-05',true,70,'Spark',3,3),
 	(default,'2020-06-17','2020-08-26',false,70,'Standard',4,4),
 	(default,'2020-04-29','2020-07-08',true,90,'ROCP',5,1),
-	(default,'2020-04-20','2020-07-05',true,70,'ROCP',5,1),
-	(default,'2020-03-20','2020-05-05',true,70,'Standard',5,1),
+	(default,'2020-04-02','2020-07-02',true,70,'ROCP',5,1),
+	(default,'2020-06-01','2020-09-01',true,70,'Standard',5,1),
 	(default,'2020-01-20','2020-03-05',true,70,'Spark',5,1),
 	(default,'2020-06-10','2020-08-19',false,80,'CF',1,4);
 
