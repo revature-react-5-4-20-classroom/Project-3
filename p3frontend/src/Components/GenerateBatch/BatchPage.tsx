@@ -13,19 +13,12 @@ import {
   NavLink,
   Table,
 } from "reactstrap";
-import AssociateList from "./associateList";
-import UpdateBatch from "./updateBatch";
-import { BatchList } from "./batchList";
-import { Options } from "./options";
-import { allTheActionMappers } from "../../redux/action-mapper";
-import { allTheMapStateToProps } from "../../redux/reducers";
-import { connect } from "react-redux";
+
 import { getAllBatches } from "../../api/batch";
 import { Batch } from "../../models/Batch";
 import { Associate } from "../../models/Associate";
 import { getgeneratedBatch } from "../../api/generateBatch";
-import ASTableModel from "../../Story1/ASTableModel";
-import { BatchView } from "./BatchView";
+
 import { getAllAssociates } from "../../api/Associate";
 
 interface IBatchPageState {
@@ -71,7 +64,7 @@ export class BatchPage extends React.Component<any, any> {
   componentDidMount = async () => {
     const associateArray: Associate[] = await getAllAssociates();
     const eligibleAssociateArray = associateArray.filter(function (a) {
-      return a.interviewScore >= 70 && a.batch === null ;
+      return a.interviewScore >= 70 && a.batch === null;
     });
     this.setState({
       batches: await getAllBatches(),
@@ -224,7 +217,10 @@ export class BatchPage extends React.Component<any, any> {
                   ></Input>
                 </InputGroup>
                 <br />
-                <Button onClick={this.getgeneratedBatch}>
+                <Button
+                  onClick={this.getgeneratedBatch}
+                  disabled={!this.state.data}
+                >
                   {" "}
                   Generate Batch
                 </Button>
@@ -275,7 +271,7 @@ export class BatchPage extends React.Component<any, any> {
                       <Row style={{ backgroundColor: "#474c55" }}>
                         <Col>
                           <h3>Possible Batches</h3>
-                          <Nav pills>
+                          <Nav tabs>
                             {this.state.notConfirmedBatches.map(
                               (obj: any, index: number) => {
                                 return (
@@ -304,6 +300,28 @@ export class BatchPage extends React.Component<any, any> {
                             >
                               <Row>
                                 <Col>
+                                  <h5>
+                                    Batch Id: {this.state.currentBatch1.batchId}
+                                  </h5>
+                                  <h5>
+                                    Program Type:{" "}
+                                    {this.state.currentBatch1.programmType}
+                                  </h5>
+                                  <h5>
+                                    Batch Location:{" "}
+                                    {
+                                      this.state.currentBatch1.location
+                                        .locationName
+                                    }
+                                  </h5>
+                                  <h5>
+                                    Technologies:{" "}
+                                    {
+                                      this.state.currentBatch1.curriculum
+                                        .curriculumSkillset.skillSetName
+                                    }
+                                  </h5>
+                                  <hr />
                                   <h5>Associates</h5>
                                   {/* <ul >
                                 {/* style={{ display: this.state.show ? "block" : "none" }} 
@@ -354,9 +372,6 @@ export class BatchPage extends React.Component<any, any> {
               </Row>
             </Col>
           </Row>{" "}
-
-
-
           <Row>
             <Button onClick={this.confirmBatch}>Confirm</Button>
           </Row>
@@ -365,24 +380,9 @@ export class BatchPage extends React.Component<any, any> {
     );
   }
 
-  confirmBatch=(e:any)=>{
-    e.preventDefault()
+  confirmBatch = (e: any) => {
+    e.preventDefault();
     // patch request to batch
     //for loop to patch all associates assigned to batch
-  }
-}
-
-const mapStateToProps = (state: IBatchPageState) => {
-  return {
-    ...state,
   };
-};
-
-const mapDispatchToProps = {
-  allTheActionMappers,
-};
-
-export const ReduxInProgress = connect(
-  allTheMapStateToProps,
-  allTheActionMappers
-)(BatchPage);
+}
