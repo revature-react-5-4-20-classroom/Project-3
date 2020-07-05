@@ -94,8 +94,8 @@ export default class BatchTrainersTable extends React.Component<
         {this.state.isLoaded ? (
           <DualTables
             parentTop={this.props.parentTop}
-            onMoveToLeft={(item) => this.patchTheTrainer(item, false)}
-            onMoveToRight={(item) => this.patchTheTrainer(item, true)}
+            onMoveToLeft={(item) => this.updateTraierBatch(item, false)}
+            onMoveToRight={(item) => this.updateTraierBatch(item, true)}
             messageLeft="None in the system"
             messageRight="None assigned to this batch"
             // arrayLeft={this.state.allTrainers}
@@ -121,34 +121,43 @@ export default class BatchTrainersTable extends React.Component<
   }
 
   /*
-    patchTheTrainer(assoc,moveToBatch)
+    updateTraierBatch(trainer,moveToBatch)
 
-    patches the assoc object.
+    updates the trainer in the currentBatch. 
+    either adds a new training <--> batch assignment or removes one.
+
+    does not handle any consent stuff, just basic add/remove. 
+    this does not completly work on back end because the jump table will not go larger than 5 assignments.
+
     when moveToBatch is:
       true, the assoc is assigned to the currentBatch object
       false, the assoc is assigned to no batch at all. null
   */
-  patchTheTrainer = async (train: Trainer, moveToBatch: boolean) => {
-    prnt(doPrnt, `BatchTrainersTable patchTheTrainer() has been reached`);
+  updateTraierBatch = async (train: Trainer, moveToBatch: boolean) => {
+    prnt(doPrnt, `BatchTrainersTable updateTraierBatch() has been reached`);
 
     try {
       if (moveToBatch) {
-        await axiosClient.patch("/trainerBatch/0", {
+        let request={
           trainerId: train.trainerId,
           batchId: this.props.currentBatch.batchId,
-        });
+        }
+
+        prnt(doPrnt,`patch request=`,request)
+
+        await axiosClient.post("/trainerBatch",request);
       } else {
-        //axios can not send a delete request and a body.
-        //we can store a body in a patch. /123456789 tells it to delete.
-        //I'm not really proud of this
-        await axiosClient.patch("/trainerBatch/123456789", 
+
+        let request={
         
-          {
+            data:{
               trainerId: train.trainerId,
               batchId: this.props.currentBatch.batchId,
             }
-        
-        );
+        }
+        prnt(doPrnt,`delete request=`,request)
+
+        await axiosClient.delete("/trainerBatch", request);
       }
     } catch (e) {
       this.setState({

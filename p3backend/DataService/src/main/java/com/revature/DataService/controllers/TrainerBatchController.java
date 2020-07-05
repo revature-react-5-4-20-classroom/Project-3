@@ -38,22 +38,42 @@ public class TrainerBatchController {
    * TrainerBatch looks like this {trainerId,batchId}
    */
   //@JsonIgnoreProperties({})
-  @PatchMapping("/trainerBatch/{del}")
-  public String trainerPatch(@RequestBody TrainerBatch tb,@PathVariable Integer del)
+  @PatchMapping("/trainerBatch")
+  public String trainerPatch(@RequestBody TrainerBatch tb)
   {
     try
     {
-      if(del==123456789)
-      {
-        tbr.delete(tb);
-        return "TrainerBatch has been DELETED!";
-      }
-      else
-      {
-        tbr.save(tb);
-        return "TrainerBatch has been SAVED!";
-       
-      }
+      System.out.println();
+      System.out.println();
+      System.out.println();
+      System.out.println();
+       System.out.print("TrainerBatch Patch tb=");
+       System.out.println(tb);
+      tbr.save(tb);
+       //trainerBatchService.save(tb);
+        return "TrainerBatch has been patched!";
+    } catch (Exception e)
+    {
+      return e.getMessage();
+      //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+    }
+  }
+  
+  
+  
+  @DeleteMapping("/trainerBatch")
+  public String trainerDel(@RequestBody TrainerBatch tb) {
+    try
+    {
+      System.out.println();
+      System.out.println();
+      System.out.println();
+      System.out.println();
+      System.out.print("TrainerBatch Delete tb=");
+      System.out.println(tb);
+      tbr.delete(tb);
+      //trainerBatchService.delete(tb);
+      return "TrainerBatch has been deleted!";
     } catch (Exception e)
     {
       return e.getMessage();
@@ -65,22 +85,18 @@ public class TrainerBatchController {
   public String trainerPost(@RequestBody TrainerBatch tb) {
     try
     {
+      System.out.println();
+      System.out.println();
+      System.out.println();
+      System.out.println();
+       System.out.print("TrainerBatch Post tb=");
+       System.out.println(tb);
+       
+       //This will not add more than 5 rows into the trainerbatch for some reason
+       //I assume there is some kind of limitation imposed on it by the database
+       //maybe there is some business logic I do not know about
       tbr.save(tb);
       return "TrainerBatch has been posted!";
-    } catch (Exception e)
-    {
-      return e.getMessage();
-      //throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-    }
-  }
-  
-  //Could not send a body in axios delete on frontend
-  @DeleteMapping("/trainerBatch")
-  public String trainerDel(@RequestBody TrainerBatch tb) {
-    try
-    {
-      tbr.delete(tb);
-      return "TrainerBatch has been removed!";
     } catch (Exception e)
     {
       return e.getMessage();

@@ -129,6 +129,7 @@ export default class BatchAssocTable extends React.Component<
     //send an associate and its batch object that is a non-circular data structure
     //Assoc->Batch->Associate[]->Batch was breaking when being sent
     //we want to send this data to the server for it to save directly into the repo
+    //I think @JsonIgnore on the back end could make this simpler
     const nonCircularAssocPatch = {
       associateId: assoc.associateId, //copy over all fields. typescript prevents easier copying
       firstName: assoc.firstName,
