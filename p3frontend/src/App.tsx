@@ -125,7 +125,7 @@ export class App extends React.Component<any, any> {
           </Switch>
         </Router>
         <div className="associate-table" >
-          <ASTableModel currentBatch={allTheMapStateToProps} />
+          <ASTableModel />
         </div> 
       </Container>
     );

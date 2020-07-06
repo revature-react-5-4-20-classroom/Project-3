@@ -3,15 +3,16 @@ import { Table, Button, Container, Row, Col } from "reactstrap";
 import { Associate } from "../models/Associate";
 import { getAllAssociates, updateAssociate } from "../api/Associate";
 import { getBatchById } from "../api/batch";
-import { connect } from "react-redux";
-import { allTheMapStateToProps } from "../redux/reducers";
-import { Batch } from "../models/Batch";
+// import { connect } from "react-redux";
+// import { allTheMapStateToProps } from "../redux/reducers";
+// import { Batch } from "../models/Batch";
 
-interface IASTableModelProps {
-  currentBatch: Batch;
-}
+// interface IASTableModelProps {
+//   currentBatch: Batch;
+// }
 
 interface IASTableModelState {
+  currentBatchId: number;
   associates: Associate[];
   eligibleAssociates: Associate[];
   associatesInBatch: Associate[];
@@ -19,12 +20,13 @@ interface IASTableModelState {
 }
 
 export class ASTableModel extends React.Component<
-  IASTableModelProps,
+  any,
   IASTableModelState
 > {
-  constructor(props: IASTableModelProps) {
+  constructor(props: any) {
     super(props);
     this.state = {
+      currentBatchId: 3,
       associates: [], //everybody that comes from the backend
       eligibleAssociates: [], //interview score >70 and no assigned batch yet
       associatesInBatch: [], //associates chosen for the current batch
@@ -41,7 +43,7 @@ export class ASTableModel extends React.Component<
     const associatesInBatch = associateArray.filter((a) => {
       if (a.batch === null) return false;
 
-      return a.interviewScore >= 70 && a.batch === this.props.currentBatch;
+      return a.interviewScore >= 70 && a.batch.batchId === this.state.currentBatchId;
     });
 
     this.setState({
@@ -135,5 +137,4 @@ export class ASTableModel extends React.Component<
   };
 }
 
-//Create a redux version of ASTableModel
-export const ReduxMSTableModel = connect(allTheMapStateToProps)(ASTableModel);
+
