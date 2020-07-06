@@ -200,6 +200,12 @@ export class ColumnChartTest extends React.Component<any, any> {
     let dataa: any = [];
     dataa.push(
       ['Total Demand', totalsObj.demandTotal],
+      [
+        'Total Supply',
+        totalsObj.currTotal +
+          totalsObj.oneMonthTotal +
+          totalsObj.threeMonthTotal,
+      ],
       ['Total Currently Available', totalsObj.currTotal],
       ['Total Available in 1 Month', totalsObj.oneMonthTotal],
       ['Total Available in 3 Months', totalsObj.threeMonthTotal]
