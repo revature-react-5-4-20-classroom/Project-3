@@ -19,6 +19,7 @@ import { Batch } from "../models/Batch";
 import { Associate } from "../models/Associate";
 import { getgeneratedBatch } from "../api/generateBatch";
 import { getAllAssociates, updateAssociate } from "../api/Associate";
+import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 
 interface IBatchPageState {
   // currentBatch: Batch,
@@ -55,17 +56,19 @@ export class OverviewTraining extends React.Component<any, any> {
       associatesLoaded: false,
       errorObject: null,
       errorMessage: "",
+      allEligibleAssociates: [],
     };
   }
   componentDidMount = async () => {
     const associateArray: Associate[] = await getAllAssociates();
-    const eligibleAssociateArray = associateArray.filter(function (a) {
-      return a.batch==null && a.active == true;
+    const eligibleAssociateArray = associateArray.filter(function (assoc) {
+      return assoc.interviewScore >= 70 && assoc.batch == null;
     });
     this.setState({
       batches: await getAllBatches(),
       batchFlag: true,
       associates: associateArray,
+      allEligibleAssociates: eligibleAssociateArray,
       eligibleAssociates: eligibleAssociateArray,
 
       associatesLoaded: true,
@@ -79,8 +82,6 @@ export class OverviewTraining extends React.Component<any, any> {
     this.setState({
       notConfirmedBatches: tempBatchses,
     });
-
-    console.log("fsekghseg", this.state.batches);
   };
   bindInputChangeToState = (changeEvent: any) => {
     //@ts-ignore
@@ -91,26 +92,25 @@ export class OverviewTraining extends React.Component<any, any> {
 
   getgeneratedBatch = async (e: any) => {
     e.preventDefault();
-    console.log(this.state.quantity, this.state.interview);
-
     this.setState({
       associatesList: await getgeneratedBatch(
         this.state.interview,
         this.state.quantity
       ),
+      eligibleAssociates: this.state.allEligibleAssociates,
       flaeeg: true,
     });
 
-    const newArray = this.state.eligibleAssociates.filter( ( item:any ) =>{
-      return this.state.associatesList.filter( function( item2:any ){
-        return item.associateId == item2.associateId;
-      }).length == 0;
+    const newArray = this.state.eligibleAssociates.filter((item: any) => {
+      return (
+        this.state.associatesList.filter(function (item2: any) {
+          return item.associateId == item2.associateId;
+        }).length == 0
+      );
     });
     this.setState({
-      eligibleAssociates:newArray
-    })
-
-    console.log(newArray);
+      eligibleAssociates: newArray,
+    });
   };
   batchData = (e: any) => {
     // e.preventDefault();
@@ -121,6 +121,7 @@ export class OverviewTraining extends React.Component<any, any> {
       interview: 0,
       currentBatch1: e,
       data: true,
+      eligibleAssociates: this.state.allEligibleAssociates,
     });
   };
 
@@ -159,27 +160,20 @@ export class OverviewTraining extends React.Component<any, any> {
     this.state.associatesInBatch.splice(i, 1);
     this.state.eligibleAssociates.push(assoc);
     assoc.batch = this.state.eligibleAssociates[0].batch;
-    console.log(assoc.batch);
-    console.log(assoc);
-    // await this.patchTheAssoc(assoc);
     this.setState({});
   };
 
   associateAdd2 = async (assoc: Associate, i: number) => {
     this.state.associatesInBatch.push(assoc);
     this.state.associatesList.splice(i, 1);
-    assoc.batch = this.props.currentBatch; //await getBatchById(this.state.currentBatchId);
-    console.log(assoc.batch);
-    console.log(assoc);
+    assoc.batch = this.props.currentBatch;
     this.setState({});
   };
 
   associateAdd = async (assoc: Associate, i: number) => {
     this.state.associatesInBatch.push(assoc);
     this.state.eligibleAssociates.splice(i, 1);
-    assoc.batch = this.props.currentBatch; //await getBatchById(this.state.currentBatchId);
-    console.log(assoc.batch);
-    console.log(assoc);
+    assoc.batch = this.props.currentBatch; 
     this.setState({});
   };
   render() {
@@ -237,10 +231,10 @@ export class OverviewTraining extends React.Component<any, any> {
                         <Col>
                           {this.state.data ? (
                             <Container>
-                              {/* <ErrorAlert
+                              <ErrorAlert
                                 error={this.state.errorObject}
                                 message={this.state.errorMessage}
-                              /> */}
+                              />
                               <Row>
                                 <Col>
                                   <h6>All Available Associates</h6>
@@ -362,6 +356,10 @@ export class OverviewTraining extends React.Component<any, any> {
           </Row>{" "}
           <Row>
             <Button onClick={this.confirmBatch}>Confirm</Button>
+            <ErrorAlert
+              error={this.state.errorObject}
+              message={this.state.errorMessage}
+            />
           </Row>
         </Container>
       </>
@@ -374,16 +372,24 @@ export class OverviewTraining extends React.Component<any, any> {
       try {
         for (const i of this.state.associatesInBatch) {
           i.batchId = this.state.currentBatch1.batchId;
-          // await updateAssociate(i);
-          console.log(i);
+          await updateAssociate(i);
+          // console.log(i);
         }
-        // const newBatch = await updateBatch(this.props.batch.batchId, true);
+        const newBatch = await updateBatch(this.props.batch.batchId, true);
         // this.props.batchUpdateActionMapper(newBatch);
       } catch (e) {
-        console.log("Confirm click failed", e.message);
+        // console.log("Confirm click failed", e.message);
+        this.setState({
+          errorObject: e,
+          errorMessage: "Could not patch associate",
+        });
       }
     } else {
-      alert("No batch selected. Confirm click failed");
+      // alert("No batch selected. Confirm click failed");
+      this.setState({
+        errorObject: e,
+        errorMessage: "Could not patch associate",
+      });
     }
   };
 }
