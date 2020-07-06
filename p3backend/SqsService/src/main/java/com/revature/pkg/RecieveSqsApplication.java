@@ -1,13 +1,13 @@
-package com.revature.SqsService;
+package com.revature.pkg;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SqsServiceApplication {
+public class RecieveSqsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SqsServiceApplication.class, args);
+		SpringApplication.run(RecieveSqsApplication.class, args);
 	}
 
 }
