@@ -108,6 +108,7 @@ export class InProgress extends React.Component<any, any> {
             <p>{this.state.curriculum}</p>
           </Col>
           <Col>
+            {/* first shows up as a button, when clicked a modal appears. Requires functions that change filter values on the state, as well as filter selections. See FilterForm. */}
             <FilterForm
               setProgramType={this.setProgramType}
               setClient={this.setClient}
@@ -188,6 +189,7 @@ export class InProgress extends React.Component<any, any> {
     try {
       let batchData = await getAllBatches();
 
+      // getting the selections for the filters from the batches
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
       });
@@ -205,6 +207,7 @@ export class InProgress extends React.Component<any, any> {
         return self.indexOf(value) === index;
       });
 
+      // For clients, we're getting values based on client demands with skillsets that correspond to batch curricula
       let clientDemandLists = batchData.map((batch: Batch) => {
         return batch.curriculum.curriculumSkillset.clientDemands;
       });
@@ -257,8 +260,8 @@ export class InProgress extends React.Component<any, any> {
     this.setState({ client: value });
   };
 
+  // For this to work properly, this should be called last when applying multiple filters at once. It's a bit of a shortcut, but it works.
   setCurriculum = (value: string) => {
-    //filter
     this.setState({ curriculum: value }, this.applyFilters);
   };
 
