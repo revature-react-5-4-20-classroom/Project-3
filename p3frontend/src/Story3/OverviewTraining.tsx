@@ -60,7 +60,7 @@ export class OverviewTraining extends React.Component<any, any> {
     };
   }
   componentDidMount = async () => {
-    const associateArray: Associate[] = await getAllAssociates();
+    const associateArray: any[] = await getAllAssociates();
     const eligibleAssociateArray = associateArray.filter(function (assoc) {
       return assoc.interviewScore >= 70 && assoc.batch == null;
     });
@@ -156,21 +156,21 @@ export class OverviewTraining extends React.Component<any, any> {
       </div>
     );
   };
-  associateRemove = async (assoc: Associate, i: number) => {
+  associateRemove = async (assoc: any, i: number) => {
     this.state.associatesInBatch.splice(i, 1);
     this.state.eligibleAssociates.push(assoc);
     assoc.batch = this.state.eligibleAssociates[0].batch;
     this.setState({});
   };
 
-  associateAdd2 = async (assoc: Associate, i: number) => {
+  associateAdd2 = async (assoc: any, i: number) => {
     this.state.associatesInBatch.push(assoc);
     this.state.associatesList.splice(i, 1);
     assoc.batch = this.props.currentBatch;
     this.setState({});
   };
 
-  associateAdd = async (assoc: Associate, i: number) => {
+  associateAdd = async (assoc: any, i: number) => {
     this.state.associatesInBatch.push(assoc);
     this.state.eligibleAssociates.splice(i, 1);
     assoc.batch = this.props.currentBatch; 
