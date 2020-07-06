@@ -12,7 +12,7 @@ import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeek
 import React from "react";
 import { Batch } from "../models/Batch";
 import { Col, Container, Row, Table } from "reactstrap";
-import { BatchViewModal } from "./BatchViewModal";
+import { BatchViewModal, BatchViewModalRedux } from "./BatchViewModal";
 
 /*
   This batch has additional information for display on the front end.
@@ -81,7 +81,7 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
     return (
       <>
         <td>
-          <BatchViewModal
+          <BatchViewModalRedux
             currentBatch={this.state.batch}
             parentTop={this.props.parentTop}
           />
