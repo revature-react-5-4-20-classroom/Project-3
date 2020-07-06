@@ -32,8 +32,8 @@ interface IPBatchAssocTable {
   currentBatch: Batch; //we must give this component a batch for it to work
   parentTop: any;
 
-  addAssociateToBatchActionMapper: (batch: Batch, associate: any) => void;
-  removeAssociateFromBatchActionMapper: (batch: Batch, associate: any) => void;
+  // addAssociateToBatchActionMapper: (batch: Batch, associate: any) => void;
+  // removeAssociateFromBatchActionMapper: (batch: Batch, associate: any) => void;
 }
 
 export default class BatchAssocTable extends React.Component<
@@ -158,49 +158,53 @@ export default class BatchAssocTable extends React.Component<
 
     try {
       await axiosClient.patch("/associates", nonCircularAssocPatch);
-      let associate = null;
-      nonCircularAssocPatch.batch
-        ? (associate = new Associate(
-            nonCircularAssocPatch.associateId,
-            nonCircularAssocPatch.firstName,
-            nonCircularAssocPatch.lastName,
-            nonCircularAssocPatch.email,
-            nonCircularAssocPatch.active,
-            nonCircularAssocPatch.interviewScore,
-            nonCircularAssocPatch.batch.batchId
-          ))
-        : new Associate(
-            nonCircularAssocPatch.associateId,
-            nonCircularAssocPatch.firstName,
-            nonCircularAssocPatch.lastName,
-            nonCircularAssocPatch.email,
-            nonCircularAssocPatch.active,
-            nonCircularAssocPatch.interviewScore,
-            undefined
-          );
-      if (moveToBatch) {
-        console.log(store.getState().batch.batch);
-        this.props.addAssociateToBatchActionMapper(
-          store.getState().batch.batch,
-          nonCircularAssocPatch
-        );
-      } else {
-        this.props.removeAssociateFromBatchActionMapper(
-          store.getState().batch.batch,
-          nonCircularAssocPatch
-        );
-      }
+      // let associate = null;
+      // nonCircularAssocPatch.batch
+      //   ? (associate = new Associate(
+      //       nonCircularAssocPatch.associateId,
+      //       nonCircularAssocPatch.firstName,
+      //       nonCircularAssocPatch.lastName,
+      //       nonCircularAssocPatch.email,
+      //       nonCircularAssocPatch.active,
+      //       nonCircularAssocPatch.interviewScore,
+      //       nonCircularAssocPatch.batch.batchId
+      //     ))
+      //   : new Associate(
+      //       nonCircularAssocPatch.associateId,
+      //       nonCircularAssocPatch.firstName,
+      //       nonCircularAssocPatch.lastName,
+      //       nonCircularAssocPatch.email,
+      //       nonCircularAssocPatch.active,
+      //       nonCircularAssocPatch.interviewScore,
+      //       undefined
+      //     );
+
+
+      // if (moveToBatch) {
+      //   console.log(store.getState().batch.batch);
+      //   this.props.addAssociateToBatchActionMapper(
+      //     store.getState().batch.batch,
+      //     nonCircularAssocPatch
+      //   );
+      // } else {
+      //   this.props.removeAssociateFromBatchActionMapper(
+      //     store.getState().batch.batch,
+      //     nonCircularAssocPatch
+      //   );
+      // }
+
+
     } catch (e) {
       this.setState({
         errorObject: e,
         errorMessage: "Could not patch associate",
       });
-      this.props.parentTop.setState({}); //re-render
     }
+    this.props.parentTop.setState({}); //re-render
   };
 }
 
-export const BatchAssocTableRedux = connect(
-  allTheMapStateToProps,
-  allTheActionMappers
-)(BatchAssocTable);
+// export const BatchAssocTableRedux = connect(
+//   allTheMapStateToProps,
+//   allTheActionMappers
+// )(BatchAssocTable);

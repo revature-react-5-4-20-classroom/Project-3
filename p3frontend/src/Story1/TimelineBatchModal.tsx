@@ -15,14 +15,15 @@ import {
   Container,
 } from "reactstrap";
 import "../../src/index.css";
-import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
 import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
-import { BatchTrainersTableRedux } from "./BatchTrainersTable";
+//import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 import { axiosClient } from "../api/axios";
+import {BatchTrainersTable} from "./BatchTrainersTable";
+import BatchAssocTable from "./BatchAssocTable";
 
 interface IPBatchViewModal {
   currentBatch: Batch;
@@ -163,12 +164,12 @@ export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
 
           <ModalBody>
             {this.state.showTrainers ? (
-              <BatchTrainersTableRedux
+              <BatchTrainersTable
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />
             ) : (
-              <BatchAssocTableRedux
+              <BatchAssocTable
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />

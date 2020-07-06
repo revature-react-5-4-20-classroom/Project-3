@@ -1,23 +1,12 @@
 import React from "react";
 import { Table, Button, Container, Row, Col, Spinner } from "reactstrap";
-import { Associate } from "../models/Associate";
-import { getAllAssociates, updateAssociate } from "../models/Associate";
-import { getBatchById } from "../api/batch";
 import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { axiosClient } from "../api/axios";
 import { DualTables } from "./DualTables";
-import { batch, connect } from "react-redux";
 import { Trainer } from "../models/Trainer";
 import { getAllTrainers } from "../api/consent";
-import { allTheMapStateToProps } from "../redux/reducers";
-import {
-  allTheActionMappers,
-  addTrainerToBatchActionMapper,
-  removeTrainerFromBatchActionMapper,
-} from "../redux/action-mapper";
-import { store } from "../redux/store";
 
 const doPrnt = true; //prnt may be toggled
 
@@ -33,11 +22,11 @@ interface IPBatchTrainersTable {
   currentBatch: Batch; //we must give this component a batch for it to work
   parentTop: any;
 
-  addTrainerToBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
-  removeTrainerFromBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
+  // addTrainerToBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
+  // removeTrainerFromBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
 }
 
-export default class BatchTrainersTable extends React.Component<
+export class BatchTrainersTable extends React.Component<
   IPBatchTrainersTable,
   any
 > {
@@ -156,10 +145,10 @@ export default class BatchTrainersTable extends React.Component<
         prnt(doPrnt, `patch request=`, request);
 
         await axiosClient.post("/trainerBatch", request);
-        this.props.addTrainerToBatchActionMapper(
-          store.getState().batch.batch,
-          train
-        );
+        // this.props.addTrainerToBatchActionMapper(
+        //   store.getState().batch.batch,
+        //   train
+        // );
       } else {
         let request = {
           data: {
@@ -170,22 +159,22 @@ export default class BatchTrainersTable extends React.Component<
         prnt(doPrnt, `delete request=`, request);
 
         await axiosClient.delete("/trainerBatch", request);
-        this.props.removeTrainerFromBatchActionMapper(
-          store.getState().batch.batch,
-          train
-        );
+        // this.props.removeTrainerFromBatchActionMapper(
+        //   store.getState().batch.batch,
+        //   train
+        // );
       }
     } catch (e) {
       this.setState({
         errorObject: e,
         errorMessage: "Could not update trainer",
       });
-      this.props.parentTop.setState({}); //re-render
     }
+    this.props.parentTop.setState({}); //re-render
   };
 }
 
-export const BatchTrainersTableRedux = connect(
-  allTheMapStateToProps,
-  allTheActionMappers
-)(BatchTrainersTable);
+// export const BatchTrainersTableRedux = connect(
+//   allTheMapStateToProps,
+//   allTheActionMappers
+// )(BatchTrainersTable);

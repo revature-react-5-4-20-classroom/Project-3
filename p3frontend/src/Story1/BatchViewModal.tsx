@@ -16,7 +16,6 @@ import {
 } from "reactstrap";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import "../../src/index.css";
-import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -24,10 +23,9 @@ import { Batch } from "../models/Batch";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
-import BatchTrainersTable, {
-  BatchTrainersTableRedux,
-} from "./BatchTrainersTable";
+import {BatchTrainersTable} from "./BatchTrainersTable";
 import { store } from "../redux/store";
+import BatchAssocTable from "./BatchAssocTable";
 
 /*
   <BatchViewModel currentBatch={aSvererBatch} parentState={this.state}/>
@@ -42,8 +40,9 @@ interface IPBatchViewModal {
   currentBatch: Batch;
   parentTop: any;
 
-  batchClickActionMapper: (batch: Batch) => void;
-  batchUpdateActionMapper: (batch: Batch) => void;
+  //Redux breaks stuff
+  // batchClickActionMapper: (batch: Batch) => void;
+  // batchUpdateActionMapper: (batch: Batch) => void;
 }
 
 export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
@@ -60,15 +59,15 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
   render() {
     const toggle = () => {
       this.setState({ showThis: !this.state.showThis });
-      if (
-        store.getState().batch.batch &&
-        store.getState().batch.batch.batchId === this.props.currentBatch.batchId
-      ) {
-        //  this.props.batchClickActionMapper(store.getState().batch.batch)
-        return;
-      } else {
-        this.props.batchClickActionMapper(this.props.currentBatch);
-      }
+      // if (
+      //   store.getState().batch.batch &&
+      //   store.getState().batch.batch.batchId === this.props.currentBatch.batchId
+      // ) {
+      //   //  this.props.batchClickActionMapper(store.getState().batch.batch)
+      //   return;
+      // } else {
+      //   this.props.batchClickActionMapper(this.props.currentBatch);
+      // }
     };
 
     return (
@@ -172,12 +171,12 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
 
           <ModalBody>
             {this.state.showTrainers ? (
-              <BatchTrainersTableRedux
+              <BatchTrainersTable
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />
             ) : (
-              <BatchAssocTableRedux
+              <BatchAssocTable
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />
@@ -200,7 +199,7 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
         request
       );
 
-      this.props.batchUpdateActionMapper(this.props.currentBatch);
+      //this.props.batchUpdateActionMapper(this.props.currentBatch);
     } catch (e) {
       this.setState({
         errorObj: e,

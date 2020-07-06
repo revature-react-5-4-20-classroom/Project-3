@@ -81,21 +81,24 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
     return (
       <>
         <td>
-          <BatchViewModalRedux
+          <BatchViewModal
             currentBatch={this.state.batch}
             parentTop={this.props.parentTop}
           />
-          <br />
+          {/* <br />
           ID {this.state.batch.batchId}
-          <br />C {this.state.batch.isConfirmed ? "Y" : "N"}
           <br />
-          AT {this.state.batch.associates.length}
+          C {this.state.batch.isConfirmed ? "Y" : "N"}
+          <br />
+          AT {this.state.batch.associates.length} */}
         </td>
 
         <td>
           <i>Confirmed</i>
           <br />
           <i>ProgramType</i>
+          <br />
+          <i>Curriculum</i>
           <br />
           <i>AssociatesActive</i>
           <br />
@@ -106,6 +109,8 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
           {this.state.batch.isConfirmed ? "Yes" : "No"}
           <br />
           {this.state.batch.programType}
+          <br />
+          {this.state.batch.curriculum?this.state.batch.curriculum.name:"no-curriculum"}
           <br />
           {associatesGetActiveTotal(this.state.batch.associates, true)}
           <br />
