@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllClientDemands } from '../api/clientDemand';
+import { getAllCurrentClientDemands } from '../api/clientDemand';
 import { getActiveAssociates } from '../api/Associate';
 import moment from 'moment';
 import {
@@ -14,18 +14,16 @@ import { EasyDropdown } from '../GeneralPurposeHelpers/EasyDropdown';
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
-  private myButton: any;
   constructor(props: any) {
     super(props);
     this.myRef = React.createRef();
-    this.myButton = React.createRef();
     this.state = {
       shouldUpdate: false,
       current: 0,
       shouldRunInit: false,
       clientDemand: new Map(),
       supply: new Map(),
-      dropdownOptions: [],
+      dropdownOptions: ['Total'],
       dropdownOpen: false,
       currentSelected: undefined,
     };
@@ -60,7 +58,7 @@ export class ColumnChartTest extends React.Component<any, any> {
   }
 
   getDemand = async () => {
-    let demandArr = await getAllClientDemands();
+    let demandArr = await getAllCurrentClientDemands();
     // Create client demand data that has skillsetname : #
     let clientDemandData = new Map();
     // map through array of demands to add skillset & quantity to obj
@@ -163,17 +161,60 @@ export class ColumnChartTest extends React.Component<any, any> {
     google.charts.setOnLoadCallback(this.init);
   };
 
+  createTotal = (dem: any, sup: any) => {
+    let totals = {
+      demandTotal: 0,
+      currTotal: 0,
+      oneMonthTotal: 0,
+      threeMonthTotal: 0,
+    };
+    sup.forEach((v: any, k: any, m: any) => {
+      totals.currTotal = totals.currTotal + v.current;
+      totals.oneMonthTotal = totals.oneMonthTotal + v.oneMonth;
+      totals.threeMonthTotal = totals.threeMonthTotal + v.threeMonths;
+    });
+
+    dem.forEach((v: any, k: any, m: any) => {
+      totals.demandTotal = totals.demandTotal + v;
+    });
+    console.log('Totals obj: ', totals);
+    return totals;
+  };
+
   // This can be used to loop through data to create all tables necessary
   createTableData = (demandArr: any, supplyArr: any) => {
     let supply = supplyArr;
     let demand = demandArr;
+    let totalsObj = this.createTotal(demand, supply);
     let demKey = demand.keys();
     this.setState({
-      dropdownOptions: Array.from(demand.keys()),
+      dropdownOptions: ['Total', ...Array.from(demand.keys())],
     });
     let data: any[] = [];
     let view: any[] = [];
-    for (let i = 0; i < demand.size; i++) {
+
+    ////////////////////////
+    data.push(new google.visualization.DataTable());
+    data[0].addColumn('string', 'Demand and Supply');
+    data[0].addColumn('number', 'Total');
+    let dataa: any = [];
+    dataa.push(
+      ['Total Demand', totalsObj.demandTotal],
+      [
+        'Total Supply',
+        totalsObj.currTotal +
+          totalsObj.oneMonthTotal +
+          totalsObj.threeMonthTotal,
+      ],
+      ['Total Currently Available', totalsObj.currTotal],
+      ['Total Available in 1 Month', totalsObj.oneMonthTotal],
+      ['Total Available in 3 Months', totalsObj.threeMonthTotal]
+    );
+    data[0].addRows(dataa);
+    view[0] = new google.visualization.DataView(data[0]);
+    //////////////////////////////
+
+    for (let i = 1; i < demand.size + 1; i++) {
       let thisDemKey = demKey.next().value;
       let supVals = supply.get(thisDemKey);
       data.push(new google.visualization.DataTable());
@@ -199,8 +240,6 @@ export class ColumnChartTest extends React.Component<any, any> {
       data[i].addRows(dataRows);
       view[i] = new google.visualization.DataView(data[i]);
     }
-    let results = [data, view];
-    console.log('CreateTable Results: ', results);
     return view;
   };
 
@@ -209,11 +248,10 @@ export class ColumnChartTest extends React.Component<any, any> {
     let demArr = this.state.clientDemand;
     let supArr = this.state.supply;
     let googleView = this.createTableData(demArr, supArr);
-    console.log('DROPDOWNOPTIONS STATE, ', this.state.dropdownOptions);
     // Labeling and styling
     var options: any = {
       orientation: 'horizontal',
-      width: 900,
+      width: 1000,
       column: 0,
       height: 500,
       hAxis: {
@@ -223,7 +261,7 @@ export class ColumnChartTest extends React.Component<any, any> {
         0: { title: 'Amount of Associates' },
       },
       hAxes: {
-        0: { title: 'Demand and Supply' },
+        0: { title: 'Demand and Supply Timeline' },
       },
     };
     this.drawChart(
@@ -261,7 +299,6 @@ export class ColumnChartTest extends React.Component<any, any> {
   };
 
   setSelected = (e: any) => {
-    console.log('e.currentTarget.innerText', e.currentTarget.innerText);
     this.setState({
       currentSelected: e.currentTarget.innerText,
       current: e.currentTarget.innerText,
@@ -295,7 +332,7 @@ export class ColumnChartTest extends React.Component<any, any> {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col className='center-items-div'>
               <div ref={this.myRef} />
             </Col>
           </Row>
