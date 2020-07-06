@@ -4,15 +4,15 @@ import java.time.LocalDate;
 
 public class Batch {
 
-	private Integer batchId;
-	private Integer curriculumId;
-	private LocalDate startDate;
-	private LocalDate endDate;
-	private Boolean isConfirmed;
-	private Integer interviewScoreLower;
-	private Integer locationId;
+  private Integer batchId;
+  private Integer curriculumId;
+  private LocalDate startDate;
+  private LocalDate endDate;
+  private Boolean isConfirmed;
+  private Integer interviewScoreLower;
+  private Integer locationId;
 
-	public Batch(Integer batchId, Integer curriculumId, LocalDate startDate, LocalDate endDate,
+  public Batch(Integer batchId, Integer curriculumId, LocalDate startDate, LocalDate endDate,
       Boolean isConfirmed, Integer interviewScoreLower, Integer locationId) {
     super();
     this.batchId = batchId;
@@ -25,60 +25,60 @@ public class Batch {
   }
 
   public Integer getBatchId() {
-		return batchId;
-	}
+    return batchId;
+  }
 
-	public void setBatchId(Integer batchId) {
-		this.batchId = batchId;
-	}
+  public void setBatchId(Integer batchId) {
+    this.batchId = batchId;
+  }
 
-	public Integer getCurriculumId() {
-		return curriculumId;
-	}
+  public Integer getCurriculumId() {
+    return curriculumId;
+  }
 
-	public void setCurriculumId(Integer curriculumId) {
-		this.curriculumId = curriculumId;
-	}
+  public void setCurriculumId(Integer curriculumId) {
+    this.curriculumId = curriculumId;
+  }
 
-	public LocalDate getStartDate() {
-		return startDate;
-	}
+  public LocalDate getStartDate() {
+    return startDate;
+  }
 
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
+  public void setStartDate(LocalDate startDate) {
+    this.startDate = startDate;
+  }
 
-	public LocalDate getEndDate() {
-		return endDate;
-	}
+  public LocalDate getEndDate() {
+    return endDate;
+  }
 
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
+  public void setEndDate(LocalDate endDate) {
+    this.endDate = endDate;
+  }
 
-	public Boolean getIsConfirmed() {
-		return isConfirmed;
-	}
+  public Boolean getIsConfirmed() {
+    return isConfirmed;
+  }
 
-	public void setIsConfirmed(Boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
-	}
+  public void setIsConfirmed(Boolean isConfirmed) {
+    this.isConfirmed = isConfirmed;
+  }
 
-	public Integer getInterviewScoreLower() {
-		return interviewScoreLower;
-	}
+  public Integer getInterviewScoreLower() {
+    return interviewScoreLower;
+  }
 
-	public void setInterviewScoreLower(Integer interviewScoreLower) {
-		this.interviewScoreLower = interviewScoreLower;
-	}
+  public void setInterviewScoreLower(Integer interviewScoreLower) {
+    this.interviewScoreLower = interviewScoreLower;
+  }
 
-	public Integer getLocationId() {
-		return locationId;
-	}
+  public Integer getLocationId() {
+    return locationId;
+  }
 
-	public void setLocationId(Integer locationId) {
-		this.locationId = locationId;
-	}
+  public void setLocationId(Integer locationId) {
+    this.locationId = locationId;
+  }
 
 
 

@@ -13,7 +13,7 @@ public class ClientService {
     // return openfigen grab to the dataserve endpoint for all
     return new MockClient().getClients();
   }
-  
+
   public Client getById(Integer id) {
     // return openfeign grab to the dataservde endpoint for one
     return new MockClient().getClientById(id);

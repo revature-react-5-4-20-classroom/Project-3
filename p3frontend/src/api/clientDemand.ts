@@ -2,8 +2,20 @@ import { axiosClient } from './axios';
 import { ClientDemands } from '../models/ClientDemands';
 
 const buildCliDem = (res: any): ClientDemands => {
-  const { clientDemandId, quantity, deadline, clientId } = res;
-  return new ClientDemands(clientDemandId, quantity, deadline, clientId);
+  const {
+    clientDemandId,
+    quantity,
+    deadline,
+    client,
+    clientDemandSkillset,
+  } = res;
+  return new ClientDemands(
+    clientDemandId,
+    quantity,
+    deadline,
+    client.clientId,
+    clientDemandSkillset.skillSetName
+  );
 };
 
 export async function getAllClientDemands(): Promise<ClientDemands[]> {

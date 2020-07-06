@@ -1,10 +1,9 @@
-export class Skill{
+export class Skill {
+  skillId: number;
+  skillName: string;
 
-    skillId:number;
-    skillName:string;
-
-    constructor(skillId:number, skillName:string){
-        this.skillId = skillId;
-        this.skillName = skillName;
-    }
+  constructor(skillId: number, skillName: string) {
+    this.skillId = skillId;
+    this.skillName = skillName;
+  }
 }

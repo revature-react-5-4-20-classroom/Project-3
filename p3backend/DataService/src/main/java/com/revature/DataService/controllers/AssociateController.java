@@ -15,42 +15,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(path="/associates")
 
-public class AssociateController {
-	@Autowired
-	AssociateService associateService;
-	
+@RequestMapping(path = "/associates")
 
-	@CrossOrigin(origins = "*")
-	@GetMapping 
-	public List<Associate> getAssociate() {
-		
-		return associateService.getAll();
-	}
-	
-	@CrossOrigin(origins = "*")
-	@GetMapping("/{id}")
-	public Associate getAssociateById(@PathVariable Integer id) {
-		try {
-			return associateService.getById(id);
-		} catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
-		}
-	}
-	
-	@PatchMapping
-	public void updateAssociate(@RequestBody Associate a) {
-		try {
-			associateService.updateAssociate(a);
-		} catch (Exception e) {
-			throw new UpdateFailedException("Associate batch did not update");
-		}
-		
-	}
+public class AssociateController
+{
+  @Autowired
+  AssociateService associateService;
 
-	
+
+  @CrossOrigin(origins = "*")
+  @GetMapping
+  public List<Associate> getAssociate()
+  {
+
+    return associateService.getAll();
+  }
+
+  @GetMapping("/get-active")
+  public List<Associate> getActiveAssociates()
+  {
+    return associateService.getAllActive();
+  }
+
+
+  @GetMapping("/{id}")
+  public Associate getAssociateById(@PathVariable Integer id)
+  {
+    try
+    {
+      return associateService.getById(id);
+    } catch (Exception e)
+    {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+    }
+  }
+
+  @PatchMapping
+  public String updateAssociate(@RequestBody Associate a) {
+    return associateService.updateAssociate(a);
+  }
+
+
+
 }

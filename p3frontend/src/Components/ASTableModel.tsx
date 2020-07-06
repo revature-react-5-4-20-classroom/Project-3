@@ -38,12 +38,12 @@ export class ASTableModel extends React.Component<
     const associateArray: Associate[] = await getAllAssociates();
     //console.log(`ComponentDidMount ${JSON.stringify(associateArray)}`);
     const eligibleAssociateArray = associateArray.filter(function (a) {
-      return a.interviewScore >= 70 && a.batch === null;
+      return a.interviewScore >= 70 && a.batchId === null;
     });
     const associatesInBatch = associateArray.filter((a) => {
-      if (a.batch === null) return false;
+      if (a.batchId === null) return false;
 
-      return a.interviewScore >= 70 && a.batch.batchId === this.state.currentBatchId;
+      return a.interviewScore >= 70 && a.batchId === this.state.currentBatchId;
     });
 
     this.setState({
@@ -59,8 +59,7 @@ export class ASTableModel extends React.Component<
   associateAdd = async (obj: Associate, i: number) => {
     this.state.associatesInBatch.push(obj);
     this.state.eligibleAssociates.splice(i, 1);
-    obj.batch = await getBatchById(this.props.currentBatch.batchId);
-    console.log(obj.batch);
+    console.log(obj.batchId);
     console.log(obj);
     obj.active = true;
     await updateAssociate(obj);
@@ -70,9 +69,9 @@ export class ASTableModel extends React.Component<
   associateRemove = async (obj: Associate, i: number) => {
     this.state.associatesInBatch.splice(i, 1);
     this.state.eligibleAssociates.push(obj);
-    obj.batch = this.state.eligibleAssociates[0].batch;
+    obj.batchId= this.state.eligibleAssociates[0].batchId;
     obj.active = false;
-    console.log(obj.batch);
+    console.log(obj.batchId);
     console.log(obj);
     await updateAssociate(obj);
     this.setState({});
