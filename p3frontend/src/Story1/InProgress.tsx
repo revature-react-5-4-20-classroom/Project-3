@@ -48,6 +48,9 @@ export class InProgress extends React.Component<any, any> {
       curriculaArray: [],
       modalBatch: null, //what batch will be shown in the modal?
       modalShow: false, //do we show the modal?
+      programType: "(none)",
+      client: "(none)",
+      curriculum: "(none)",
     };
   }
 
@@ -92,14 +95,28 @@ export class InProgress extends React.Component<any, any> {
               items={["Table", "Calendar"]}
             />
           </Col>
-          <FilterForm
-            setProgramType={this.setProgramType}
-            setClient={this.setClient}
-            setCurriculum={this.setCurriculum}
-            programTypeSelection={this.state.programTypesArray}
-            clientSelection={this.state.clientsArray}
-            curriculumSelection={this.state.curriculaArray}
-          />
+          <Col>
+            <b>Program Type Filter:</b>
+            <p>{this.state.programType}</p>
+          </Col>
+          <Col>
+            <b>Client Filter:</b>
+            <p>{this.state.client}</p>
+          </Col>
+          <Col>
+            <b>Curriculum Filter:</b>
+            <p>{this.state.curriculum}</p>
+          </Col>
+          <Col>
+            <FilterForm
+              setProgramType={this.setProgramType}
+              setClient={this.setClient}
+              setCurriculum={this.setCurriculum}
+              programTypeSelection={this.state.programTypesArray}
+              clientSelection={this.state.clientsArray}
+              curriculumSelection={this.state.curriculaArray}
+            />
+          </Col>
         </Row>
         <br />
         <br />

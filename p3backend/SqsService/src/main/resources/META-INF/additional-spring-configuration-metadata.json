@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "cloud.aws.sqs.url",
+    "type": "java.lang.String",
+    "description": "A description for 'cloud.aws.sqs.url'"
+  },
+  {
+    "name": "cloud.aws.end-point.url",
+    "type": "java.lang.String",
+    "description": "A description for 'cloud.aws.end-point.url'"
+  }
+]}
