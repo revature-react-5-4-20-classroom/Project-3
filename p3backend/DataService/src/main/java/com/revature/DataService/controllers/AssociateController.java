@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*")
 @RestController
+
 @RequestMapping(path = "/associates")
 
 public class AssociateController
@@ -56,6 +57,7 @@ public class AssociateController
   public String updateAssociate(@RequestBody Associate a) {
     return associateService.updateAssociate(a);
   }
+
 
 
 }
