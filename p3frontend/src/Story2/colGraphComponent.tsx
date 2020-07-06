@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllClientDemands } from '../api/clientDemand';
+import { getAllCurrentClientDemands } from '../api/clientDemand';
 import { getActiveAssociates } from '../api/Associate';
 import moment from 'moment';
 import {
@@ -60,7 +60,7 @@ export class ColumnChartTest extends React.Component<any, any> {
   }
 
   getDemand = async () => {
-    let demandArr = await getAllClientDemands();
+    let demandArr = await getAllCurrentClientDemands();
     // Create client demand data that has skillsetname : #
     let clientDemandData = new Map();
     // map through array of demands to add skillset & quantity to obj
@@ -200,7 +200,6 @@ export class ColumnChartTest extends React.Component<any, any> {
       view[i] = new google.visualization.DataView(data[i]);
     }
     let results = [data, view];
-    console.log('CreateTable Results: ', results);
     return view;
   };
 
@@ -209,7 +208,6 @@ export class ColumnChartTest extends React.Component<any, any> {
     let demArr = this.state.clientDemand;
     let supArr = this.state.supply;
     let googleView = this.createTableData(demArr, supArr);
-    console.log('DROPDOWNOPTIONS STATE, ', this.state.dropdownOptions);
     // Labeling and styling
     var options: any = {
       orientation: 'horizontal',
@@ -261,7 +259,6 @@ export class ColumnChartTest extends React.Component<any, any> {
   };
 
   setSelected = (e: any) => {
-    console.log('e.currentTarget.innerText', e.currentTarget.innerText);
     this.setState({
       currentSelected: e.currentTarget.innerText,
       current: e.currentTarget.innerText,

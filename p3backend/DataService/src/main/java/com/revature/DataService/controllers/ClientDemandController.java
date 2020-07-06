@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.revature.DataService.models.ClientDemand;
 import com.revature.DataService.repositories.ClientDemandRepo;
@@ -25,6 +26,14 @@ public class ClientDemandController {
     return clientDemandRepo.findAll();
   }
 
+  // get all the clientDemand where deadline is today or after
+  @GetMapping("/client-demand/{date}")
+  public List<ClientDemand> findAllCurrent(@PathVariable String date) {
+    LocalDate currTime = LocalDate.parse(date);
+    return clientDemandRepo.findCurrentClientDemands(currTime);
+  }
+  
+  
   // get all clientDemand by clientDemandId
   // @CrossOrigin(origins = "*")
   // @GetMapping("/clientDemand/{id}")
