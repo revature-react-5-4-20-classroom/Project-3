@@ -57,8 +57,15 @@ export class ViewConsentRequests extends React.Component<
 
     
   render() {
-    return (
-     
+    if(this.state.consentRequests.length==0)
+    {
+      return (
+      <h6>There are 0 consent requests to view</h6>)
+    }
+
+    return (<>
+      <h6>View Consent Requests</h6>
+
         <ListGroup>
           {this.state.consentRequests.map((consent: Consent, i) => {
             //trying to use the same item display everywhere
@@ -84,7 +91,7 @@ export class ViewConsentRequests extends React.Component<
           
           
          </ListGroup>
-          )
+    </>)
     
 }
 

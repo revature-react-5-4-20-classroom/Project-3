@@ -26,8 +26,10 @@ public class Consent {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer consentId;
 
+
   @Column(name = "consent_approved", nullable=true)
   private Boolean isApprovedColumn;
+
 
   
   // Working
@@ -58,9 +60,6 @@ public class Consent {
     this.consentId = consentId;
   }
 
- 
-
-
 
   public Boolean getIsApprovedColumn() {
     return isApprovedColumn;
@@ -85,7 +84,6 @@ public class Consent {
   public void setTrainer(Trainer trainer) {
     this.trainer = trainer;
   }
-
 
 
   public Consent(Integer consentId, Boolean isApprovedColumn, Batch batch, Trainer trainer) {

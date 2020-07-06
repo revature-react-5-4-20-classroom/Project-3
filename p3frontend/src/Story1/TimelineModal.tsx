@@ -4,6 +4,8 @@ import { Batch } from "../models/Batch";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
 import { associatesGetActiveTotal } from "../models/Associate";
 import { Trainer } from "../models/Trainer";
+import moment from "moment";
+import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 
 interface TimelineModalProps {
   isOpen: boolean;
@@ -17,14 +19,17 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
   }
   render() {
     let currentWeek = dateDifferenceWeeks(
-      new Date(this.props.batch.startDate),
-      new Date(Date.now())
+      convertDateToUTC(this.props.batch.startDate),
+      convertDateToUTC()
     );
     let remainingWeeks = dateDifferenceWeeks(
-      new Date(Date.now()),
-      new Date(this.props.batch.endDate)
+      convertDateToUTC(),
+      convertDateToUTC(this.props.batch.endDate)
     );
-
+    let alreadyHappened = "";
+    if (remainingWeeks === -1) {
+      alreadyHappened = "Already happened";
+    }
     let activeAssociates = associatesGetActiveTotal(
       this.props.batch.associates,
       true
@@ -42,16 +47,24 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
             <p>{`Start Date: ${this.props.batch.startDate}`}</p>
             <p>{`End Date: ${this.props.batch.endDate}`}</p>
             <p>{`Current Week: ${currentWeek}`}</p>
-            <p>{`Remaining Weeks: ${remainingWeeks}`}</p>
-            <p>{`Skillset: ${this.props.batch.curriculum.name}`}</p>
+            <p>{`Remaining Weeks: ${
+              alreadyHappened ? alreadyHappened : remainingWeeks
+            }`}</p>
+            <p>{`Skillset: ${this.props.batch.curriculum.curriculumSkillset.skillSetName}`}</p>
+            <p>{`Program Type: ${this.props.batch.programType}`}</p>
             <p>{`Active Associates: ${activeAssociates}`}</p>
             <p>{`Inactive Associates: ${inactiveAssociates}`}</p>
-            {/* <div>
-                             {this.props.batch.trainers.map((trainer:Trainer,index) => {
-                                return (<p>{`Trainer ${index+1}: ${trainer.firstName} ${trainer.lastName}`}</p>)
-                            })} 
-                        </div> */}
+            <div>
+              {this.props.batch.trainers.map((trainer: Trainer, index) => {
+                return (
+                  <p>{`Trainer ${index + 1}: ${trainer.firstName} ${
+                    trainer.lastName
+                  }`}</p>
+                );
+              })}
+            </div>
             <p>{`Location: ${this.props.batch.location.locationName}`}</p>
+            <p>{`Confirmed: ${this.props.batch.isConfirmed ? "Yes" : "No"}`}</p>
           </ModalBody>
         </Container>
       </Modal>
