@@ -16,7 +16,7 @@ export async function getAllAssociates(): Promise<Associate[]> {
         email,
         active,
         interviewScore,
-        batchId,
+        batchId
       } = a;
 
       return new Associate(
