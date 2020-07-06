@@ -1,5 +1,7 @@
 import React, { ComponentElement } from "react";
 import { Trainer } from "../models/Trainer";
+import {Batch} from '../models/Batch';
+import {getBatchById} from '../api/batch'
 
 import {
   getAllTrainers,
@@ -25,11 +27,13 @@ import {
 import { Consent } from "../models/Consent";
 import { assignTrainer } from "../api/batch";
 
+
 interface IAssignmentComponentState {
   trainers: Trainer[];
   eligibleTrainers: Trainer[];
   updateArray: Trainer[];
   buttonArray: any[];
+  batch: Batch | null;
 }
 
 export class TrainerAssignmentComponent extends React.Component<
@@ -43,6 +47,7 @@ export class TrainerAssignmentComponent extends React.Component<
       eligibleTrainers: [],
       updateArray: [],
       buttonArray: [],
+      batch: null
     };
   }
 
@@ -56,6 +61,8 @@ export class TrainerAssignmentComponent extends React.Component<
     
 
     let allTrainers : Trainer[] = await getAllTrainers();
+
+    let batch = await  getBatchById(2);
     
     // this.setState({
     //   trainers:allTrainers
@@ -101,7 +108,8 @@ export class TrainerAssignmentComponent extends React.Component<
     })
     this.setState({
       trainers:allTrainers,
-      eligibleTrainers:eligibleTrainers
+      eligibleTrainers:eligibleTrainers,
+      batch:batch
     })
    
 
@@ -132,9 +140,9 @@ sleep = (milliseconds : any) => {
   // request = async (trainer: Trainer, batchId: number) => {
   //   await createConsentRequest(trainer.trainerId, null, batchId);
   // };
-  request = async(trainerId:number, batchId:number)=>{
+  request = async(trainer:Trainer, batchId:number)=>{
       
-      await createConsentRequest(trainerId, null, 8);
+      await createConsentRequest(trainer.trainerId, null, 2);
   }
 
 
@@ -175,7 +183,7 @@ sleep = (milliseconds : any) => {
     if(trainer.isEligible){
       return <Button color="primary" id={i.toString()} onClick={()=>this.assign(trainerId, 8) }>Assign</Button>
     }else{
-      return <Button color="primary" id={i.toString()} onClick={()=>this.request(trainerId, 8)}>Request Consent</Button>
+      return <Button color="primary" id={i.toString()} onClick={()=>this.request(trainer, 8)}>Request Consent</Button>
     }
     
 
