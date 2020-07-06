@@ -15,18 +15,23 @@ export class OverviewClientDemand extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        <h6>Story 2. "Overview"</h6>
-        <br />
-        <p>
-          Given that there is a Client Demand for engineers with a given
-          Curricula Track When I navigate to the `Overview` view Then I see
-          graphics depicting the Quantity Demanded vs Quantity Supplied by
-          Curricula Track (Current, in 1 month, in 3 months)
-        </p>
-        <br />
-
+        <Row>
+          <Col>
+            <h3>Client Demands vs Revature Supply</h3>
+          </Col>
+        </Row>
         <Row>
           <ColumnChartTest />
+        </Row>
+        <Row>
+          <Col>
+            <p>
+              The above chart compares all current client demand for any given
+              skillset vs what Revature has available to place today, what
+              Revature expects to have coming in 1 month, and what is expect in
+              3 months time.
+            </p>
+          </Col>
         </Row>
       </Container>
     );
