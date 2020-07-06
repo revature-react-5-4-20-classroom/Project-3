@@ -8,7 +8,15 @@ import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { axiosClient } from "../api/axios";
 import { DualTables } from "./DualTables";
-import { batch } from "react-redux";
+import { batch, connect } from "react-redux";
+import {
+  addAssociateToBatchActionMapper,
+  removeAssociateFromBatchActionMapper,
+  allTheActionMappers,
+} from "../redux/action-mapper";
+import { store } from "../redux/store";
+import { getActiveAssociates } from "../api/Associate";
+import { allTheMapStateToProps } from "../redux/reducers";
 
 const doPrnt = true; //prnt may be toggled
 
@@ -23,6 +31,9 @@ const doPrnt = true; //prnt may be toggled
 interface IPBatchAssocTable {
   currentBatch: Batch; //we must give this component a batch for it to work
   parentTop: any;
+
+  addAssociateToBatchActionMapper: (batch: Batch, associate: any) => void;
+  removeAssociateFromBatchActionMapper: (batch: Batch, associate: any) => void;
 }
 
 export default class BatchAssocTable extends React.Component<
@@ -43,11 +54,10 @@ export default class BatchAssocTable extends React.Component<
     console.log(`BatchAssocTable componentDidMount() has been reached`);
 
     try {
-      const allAssociates: Associate[] = await getAllAssociates();
-      //prnt(doPrnt, `associateArray=`, allAssociates)
+      const allAssociates: any[] = await getActiveAssociates();
 
       const eligibleAssociateArray = allAssociates.filter((assoc) => {
-        return assoc.interviewScore >= 70 && assoc.active === false;
+        return assoc.interviewScore >= 70 && assoc.batch == null;
         //return assoc.interviewScore >= 70 && assoc.batchId <=0;
       });
 
@@ -117,12 +127,12 @@ export default class BatchAssocTable extends React.Component<
       true, the assoc is assigned to the currentBatch object
       false, the assoc is assigned to no batch at all. null
   */
-  patchTheAssoc = async (assoc: Associate, moveToBatch: boolean) => {
+  patchTheAssoc = async (assoc: any, moveToBatch: boolean) => {
     prnt(doPrnt, `ASTableModel patchTheAssoc() has been reached`);
     prnt(doPrnt, `assoc before=`, assoc);
 
     //associate is a model and not a react component
-    assoc.active = moveToBatch; //set this client side assoc to active or in-active
+    //assoc.active = moveToBatch; //set this client side assoc to active or in-active
 
     //this.props.currentBatch.associates.
 
@@ -135,7 +145,7 @@ export default class BatchAssocTable extends React.Component<
       firstName: assoc.firstName,
       lastName: assoc.lastName,
       email: assoc.email,
-      active: moveToBatch, //set active to true or false
+      active: assoc.active, //set active to true or false
       interviewScore: assoc.interviewScore,
       batch: moveToBatch ? this.props.currentBatch : null, //assign to a batch.
       //we have to watch out because this batch has an array of
@@ -148,6 +158,38 @@ export default class BatchAssocTable extends React.Component<
 
     try {
       await axiosClient.patch("/associates", nonCircularAssocPatch);
+      let associate = null;
+      nonCircularAssocPatch.batch
+        ? (associate = new Associate(
+            nonCircularAssocPatch.associateId,
+            nonCircularAssocPatch.firstName,
+            nonCircularAssocPatch.lastName,
+            nonCircularAssocPatch.email,
+            nonCircularAssocPatch.active,
+            nonCircularAssocPatch.interviewScore,
+            nonCircularAssocPatch.batch.batchId
+          ))
+        : new Associate(
+            nonCircularAssocPatch.associateId,
+            nonCircularAssocPatch.firstName,
+            nonCircularAssocPatch.lastName,
+            nonCircularAssocPatch.email,
+            nonCircularAssocPatch.active,
+            nonCircularAssocPatch.interviewScore,
+            undefined
+          );
+      if (moveToBatch) {
+        console.log(store.getState().batch.batch);
+        this.props.addAssociateToBatchActionMapper(
+          store.getState().batch.batch,
+          nonCircularAssocPatch
+        );
+      } else {
+        this.props.removeAssociateFromBatchActionMapper(
+          store.getState().batch.batch,
+          nonCircularAssocPatch
+        );
+      }
     } catch (e) {
       this.setState({
         errorObject: e,
@@ -157,3 +199,8 @@ export default class BatchAssocTable extends React.Component<
     }
   };
 }
+
+export const BatchAssocTableRedux = connect(
+  allTheMapStateToProps,
+  allTheActionMappers
+)(BatchAssocTable);
