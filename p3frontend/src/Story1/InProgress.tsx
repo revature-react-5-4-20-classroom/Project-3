@@ -139,7 +139,10 @@ export class InProgress extends React.Component<any, any> {
             </tbody>
           </Table>
         ) : (
-          <TimelineRedux batches={this.state.filteredBatches} />
+          <TimelineRedux
+            batches={this.state.filteredBatches}
+            parentTop={this}
+          />
         )}
         {/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
       </Container>
@@ -187,6 +190,27 @@ export class InProgress extends React.Component<any, any> {
   fetchTheBatchData = async () => {
     try {
       let batchData = await getAllBatches();
+
+      let activebatches=batchData.filter((batch:Batch)=>{
+     
+        let dateEnd = convertDateToUTC(batch.endDate);
+       
+
+        return (Date.now() <= dateEnd.getTime());
+      })
+      batchData=activebatches;
+
+      let sortedbatch=batchData.sort((batch:Batch, batch1:Batch)=>{
+        let x=batch.location.locationName;
+        let y=batch1.location.locationName;
+        if(x<y){return -1};
+        if(x>y){ return 1}
+        return 0;
+      
+      });
+
+      console.log(sortedbatch)
+      batchData=sortedbatch;
 
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
@@ -335,7 +359,7 @@ export class InProgress extends React.Component<any, any> {
     filteredBatches = this.filterBatchesByCurriculum(filteredBatches);
     filteredBatches = this.filterBatchesByClient(filteredBatches);
     this.setState({
-      filteredBatches: filteredBatches
+      filteredBatches: filteredBatches,
     });
   };
 
