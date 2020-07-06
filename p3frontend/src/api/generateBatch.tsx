@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { Associate } from "../models/Associate";
 // import { AssociateList } from '../Components/GenerateBatch/associateList';
-const axiosClient = axios.create({
-  baseURL: "http://localhost:1111",
+export const axiosClient = axios.create({
+  baseURL: 'http://3.235.74.191:8212/reports',
   withCredentials: false, // we should probably change this later
 });
 
