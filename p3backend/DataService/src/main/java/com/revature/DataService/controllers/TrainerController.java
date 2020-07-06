@@ -89,6 +89,23 @@ public class TrainerController {
   //
   //
   // }
+  
+  // 7/6/20
+  @CrossOrigin(origins = "*")
+  @GetMapping("/trainer/email/{email}")
+  public Trainer getTrainerByEmail(@PathVariable String email) {
+    try {
+      Trainer trainerWithEmail;
+      trainerWithEmail = trainerService.getByEmail(email);
+      return trainerWithEmail;
+    } catch (Exception e) {
+      System.out.println(e);
+      throw new RuntimeException(e);
+    }
+  }
+  // 7/6/20 Next go to trainer Service
+  
+  
   @CrossOrigin(origins = "*")
   @GetMapping("/trainer/eligible/{batchId}")
   public List<Trainer> getTrainersByEligibility(@PathVariable Integer batchId) {
