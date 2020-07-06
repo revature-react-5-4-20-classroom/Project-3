@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { EasyDropdown } from '../GeneralPurposeHelpers/EasyDropdown';
 import { ColumnChartTest } from './colGraphComponent';
+import './style.css';
 
 export class OverviewClientDemand extends React.Component<any, any> {
   constructor(props: any) {
@@ -16,16 +17,16 @@ export class OverviewClientDemand extends React.Component<any, any> {
     return (
       <Container>
         <Row>
-          <Col>
-            <h3>Client Demands vs Revature Supply</h3>
+          <Col className='center-items-div'>
+            <h3 className='center-text'>Client Demands vs Revature Supply</h3>
           </Col>
         </Row>
-        <Row>
+        <Row className='center-items-div'>
           <ColumnChartTest />
         </Row>
         <Row>
-          <Col>
-            <p>
+          <Col className='center-items-div'>
+            <p className='center-text'>
               The above chart compares all current client demand for any given
               skillset vs what Revature has available to place today, what
               Revature expects to have coming in 1 month, and what is expect in
