@@ -26,7 +26,10 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
       convertDateToUTC(),
       convertDateToUTC(this.props.batch.endDate)
     );
-
+    let alreadyHappened = "";
+    if (remainingWeeks === -1) {
+      alreadyHappened = "Already happened";
+    }
     let activeAssociates = associatesGetActiveTotal(
       this.props.batch.associates,
       true
@@ -44,8 +47,11 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
             <p>{`Start Date: ${this.props.batch.startDate}`}</p>
             <p>{`End Date: ${this.props.batch.endDate}`}</p>
             <p>{`Current Week: ${currentWeek}`}</p>
-            <p>{`Remaining Weeks: ${remainingWeeks}`}</p>
-            <p>{`Skillset: ${this.props.batch.curriculum.name}`}</p>
+            <p>{`Remaining Weeks: ${
+              alreadyHappened ? alreadyHappened : remainingWeeks
+            }`}</p>
+            <p>{`Skillset: ${this.props.batch.curriculum.curriculumSkillset.skillSetName}`}</p>
+            <p>{`Program Type: ${this.props.batch.programType}`}</p>
             <p>{`Active Associates: ${activeAssociates}`}</p>
             <p>{`Inactive Associates: ${inactiveAssociates}`}</p>
             <div>
@@ -58,6 +64,7 @@ export class TimelineModal extends React.Component<TimelineModalProps> {
               })}
             </div>
             <p>{`Location: ${this.props.batch.location.locationName}`}</p>
+            <p>{`Confirmed: ${this.props.batch.isConfirmed ? "Yes" : "No"}`}</p>
           </ModalBody>
         </Container>
       </Modal>

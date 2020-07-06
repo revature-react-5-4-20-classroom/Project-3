@@ -19,19 +19,26 @@ CREATE TABLE project3.trainer (
 trainer_id serial PRIMARY KEY,
 first_name TEXT,
 last_name TEXT,
-email TEXT,
-is_eligible BOOLEAN default false
+-- Added 7/3/20
+email varchar(250),
+is_eligible BOOLEAN default false,
+UNIQUE(email)
 );
 
 CREATE TABLE project3.associate (
 associate_id serial PRIMARY KEY,
 first_name TEXT,
 last_name TEXT,
-email TEXT,
+-- Added 7/3/20
+email varchar(250),
 active boolean default false,
-interview_score decimal
---assigned_batch_id integer --references batch table batch id,
+interview_score decimal,
+UNIQUE(email)
 );
+-- Added 7/3/2020
+alter table project3.associate 
+alter column interview_score type double precision;
+-- alter table email unique
 
 create table project3.consent (
 consent_id serial primary key,
@@ -39,6 +46,9 @@ trainer_id integer REFERENCES project3.trainer(trainer_id),
 batch_id integer REFERENCES project3.batch(batch_id),
 consent_approved boolean
 );
+-- Added 7/6/2020
+-- alter table project3.consent
+-- alter column consent_approved type varchar(150);
 
 CREATE TABLE project3.curriculum (
 curriculum_id serial PRIMARY KEY,

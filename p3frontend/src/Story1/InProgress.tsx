@@ -139,7 +139,10 @@ export class InProgress extends React.Component<any, any> {
             </tbody>
           </Table>
         ) : (
-          <TimelineRedux batches={this.state.filteredBatches} />
+          <TimelineRedux
+            batches={this.state.filteredBatches}
+            parentTop={this}
+          />
         )}
         {/* {this.state.viewType!=='Table'&&<TimelineComponent/>} */}
       </Container>
@@ -356,7 +359,7 @@ export class InProgress extends React.Component<any, any> {
     filteredBatches = this.filterBatchesByCurriculum(filteredBatches);
     filteredBatches = this.filterBatchesByClient(filteredBatches);
     this.setState({
-      filteredBatches: filteredBatches
+      filteredBatches: filteredBatches,
     });
   };
 
