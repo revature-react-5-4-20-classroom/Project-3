@@ -62,7 +62,7 @@ export class TimelineComponent extends React.Component<
     }
   };
 
-  changeState = () => {
+  changeState = () => {  //sets the groups and items for the timeline component
     console.log("hello");
     let mappedGroups: any[] = [];
     let mappedItems: any[] = [];
@@ -141,7 +141,7 @@ export class TimelineComponent extends React.Component<
           // onItemClick:()=>{alert("sdf")},
           //    onClick:()=>{alert("sfds")},
           // selectedBgColor: 'rgba(225, 166, 244, 1)',
-          // bgColor : 'rgba(225, 166, 244, 0.6)',
+        
           itemProps: {
             onContextMenu: (event: any) => {
               this.displayBatchInfo(batch);
@@ -196,20 +196,22 @@ export class TimelineComponent extends React.Component<
     if (this.state.items && this.state.items.length > 0) {
       return (
         <div>
-          <Button color="primary" onClick={this.toggle}>
-            Click me
-          </Button>
+          {/* <Button color="" onClick={this.toggle} id="info">
+          <i className="fas fa-info-circle"></i>
+          </Button> */}
+             <i className="fas fa-info-circle "  onClick={this.toggle} id="info"></i>
           <br />
           <Toast isOpen={this.state.toggle}>
-            Double click to edit or right click to view information
+
+            Double click on the batch item to edit or right click to view information.
           </Toast>
           <br />
 
           <Timeline
             groups={this.state.groups}
             items={this.state.items}
-            defaultTimeStart={moment().add(-1, "year")}
-            defaultTimeEnd={moment().add(1, "year")}
+            defaultTimeStart={moment().add(-4, "months")}
+            defaultTimeEnd={moment().add(2, "months")}
           ></Timeline>
           {this.state.isOpen ? (
             <TimelineModal

@@ -3,6 +3,7 @@ import { axiosClient } from "../api/axios";
 import { FailedRequestException } from "../exceptions/FailedRequestException";
 
 export class Associate {
+  
   associateId: number;
   firstName: string;
   lastName: string;
