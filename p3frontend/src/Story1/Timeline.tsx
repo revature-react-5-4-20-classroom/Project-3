@@ -222,9 +222,10 @@ export class TimelineComponent extends React.Component<
           )}
           {this.state.batchIsOpen ? (
             <ReduxTimelineBatchModal
-              batch={store.getState().batch.batch}
+              currentBatch={store.getState().batch.batch}
               isOpen={this.state.batchIsOpen}
               toggle={this.setBatchIsOpen}
+              parentTop={this.props.parentTop}
             />
           ) : (
             <></>
