@@ -22,27 +22,30 @@ export class ViewConsentRequests extends React.Component<
     };
   }
 
-  // componentDidMount() {
-  //   this.getConsentRequests();
-  // }
+  componentDidMount() {
+    this.getConsentRequests();
+  }
 
   accept = async (id: number) => {
     let consentRequest: Consent = this.state.consentRequests[id];
     consentRequest.isApproved = true;
     await approveConsentRequest(consentRequest);
+    this.getConsentRequests();
   };
 
   decline = async (id: number) => {
     let consentRequest: Consent = this.state.consentRequests[id];
     consentRequest.isApproved = false;
     await denyConsentRequest(consentRequest);
+    this.getConsentRequests();
   };
 
   
 
 
   getConsentRequests = async () =>{
-    let consentRequests : Consent[] = await getConsentByTrainerId(1);
+    let consentRequests : Consent[] = await getConsentByTrainerId(4);
+    console.log(consentRequests);
     this.setState({
       consentRequests: consentRequests,
     });
