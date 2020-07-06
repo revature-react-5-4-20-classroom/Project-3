@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faRedoAlt } from '@fortawesome/free-solid-svg-icons'
 import {
   Form,
   FormGroup,
@@ -95,16 +97,17 @@ export class FilterForm extends React.Component<
   render() {
     return (
       <>
-        <Button onClick={this.toggle}>Set Filters</Button>
+        <Button onClick={this.toggle}>Set Filters &nbsp;<FontAwesomeIcon icon={faBars}/></Button>
         <Modal isOpen={this.state.isOpen} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Set Batch Filters</ModalHeader>
           <Jumbotron>
-            <Button onClick={this.reset}>Reset Selection</Button>
+            <Button onClick={this.reset} color="info"><FontAwesomeIcon icon={faRedoAlt}/>&nbsp;Reset Selection</Button>
+            <br/><br/>
             <Form onSubmit={this.applyAllFilters}>
               <Row form>
                 <Col lg={'auto'}>
                   <FormGroup>
-                    <Label for="selectProgramType">Program Type</Label>
+                    <Label for="selectProgramType"><b>Program Type</b></Label>
                     <UncontrolledDropdown id="selectProgramType">
                       <DropdownToggle caret>
                         {this.state.programType}
@@ -135,7 +138,7 @@ export class FilterForm extends React.Component<
                 </Col>
                 <Col lg={'auto'}>
                   <FormGroup>
-                    <Label for="selectClient">Client</Label>
+                    <Label for="selectClient"><b>Client</b></Label>
                     <UncontrolledDropdown id="selectClient">
                       <DropdownToggle caret>{this.state.client}</DropdownToggle>
                       <DropdownMenu>
@@ -161,7 +164,7 @@ export class FilterForm extends React.Component<
                 </Col>
                 <Col lg={'auto'}>
                   <FormGroup>
-                    <Label for="selectCurriculum">Curriculum</Label>
+                    <Label for="selectCurriculum"><b>Curriculum</b></Label>
                     <UncontrolledDropdown id="selectCurriculum">
                       <DropdownToggle caret>
                         {this.state.curriculum}
@@ -191,6 +194,7 @@ export class FilterForm extends React.Component<
                   </FormGroup>
                 </Col>
               </Row>
+              <br/>
               <Button color="primary">Apply Filters</Button>
             </Form>
           </Jumbotron>
