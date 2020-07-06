@@ -18,7 +18,6 @@ import { getAllBatches } from "../../api/batch";
 import { Batch } from "../../models/Batch";
 import { Associate } from "../../models/Associate";
 import { getgeneratedBatch } from "../../api/generateBatch";
-
 import { getAllAssociates } from "../../api/Associate";
 
 interface IBatchPageState {
@@ -323,17 +322,6 @@ export class BatchPage extends React.Component<any, any> {
                                   </h5>
                                   <hr />
                                   <h5>Associates</h5>
-                                  {/* <ul >
-                                {/* style={{ display: this.state.show ? "block" : "none" }} 
-                                  {this.props.assciates.map((obj: any, index: number) => {
-                                    return (
-                                      <li key={obj.associateId}>
-                                        {obj.firstName}, {obj.lastName}, {obj.interviewScore}
-                                      </li>
-                                    );
-                                  })}
-                                </ul> */}
-
                                   {this.state.associatesList.map(
                                     (obj: any, index: number) => {
                                       return (

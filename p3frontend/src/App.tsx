@@ -21,7 +21,6 @@ import BatchModal from "./Story1/BatchModal";
 import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
-import { BatchPage } from "./Components/GenerateBatch/BatchPage";
 // import ASTableModel from "./Story1/ASTableModel";
 import { TestASTableModel } from "./Story1/TestASTableModel";
 
@@ -160,11 +159,6 @@ export class App extends React.Component<any, any> {
               comp: <ReduxInProgress />,
             },
             {
-              end: "/batch",
-              name: "batch",
-              comp: <BatchPage />,
-            },
-            {
               end: "/overview-demand",
               name: "S2 Overview Demand",
               comp: <OverviewClientDemand />,
@@ -185,7 +179,6 @@ export class App extends React.Component<any, any> {
               comp: <ViewConsentRequests />,
             },
             { end: "/test-convert", name: "TC", comp: <TestConvertToObject /> },
-            { end: "/test-ASTable", name: "TAST", comp: <TestASTableModel /> },
           ])
         }
       </Container>

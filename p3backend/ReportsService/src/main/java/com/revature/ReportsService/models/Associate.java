@@ -8,7 +8,7 @@ public class Associate {
   private String email;
   private Boolean active;
   private Double interviewScore;
-  private Batch batch;
+  public Batch batch;
 
   public Associate(Integer associateId, String firstName, String lastName, String email,
       Boolean active, Double interviewScore, Batch assignedBatchId) {
