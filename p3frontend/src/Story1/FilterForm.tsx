@@ -35,6 +35,7 @@ interface FilterFormState {
   isOpen: boolean;
 }
 
+// The FilterForm is a component which renders as a button. When clicked, a form will pop up, which will allow the user to select filters for the InProgress component
 export class FilterForm extends React.Component<
   FilterFormProps,
   FilterFormState
@@ -49,8 +50,7 @@ export class FilterForm extends React.Component<
     };
   }
 
-  getSelections = () => {};
-
+  // Setting values to filter for on programType, client, and curriculum
   setProgramType = (e: any) => {
     console.log(`Setting program type in FilterForm: ${e.value}`);
     console.log(e);
@@ -71,12 +71,14 @@ export class FilterForm extends React.Component<
     });
   };
 
+  // toggles the modal on or off
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen,
     });
   };
 
+  // applies the filters using passed in functions. For the page to render appropriately, setCurriculum should also have a callback function in this.setState
   applyAllFilters = (e: any) => {
     e.preventDefault();
     console.log("In applyAllFilters");
@@ -86,6 +88,7 @@ export class FilterForm extends React.Component<
     this.toggle();
   };
 
+  // sets all filters to "(none)"
   reset = () => {
     this.setState({
       programType: "(none)",
@@ -195,6 +198,7 @@ export class FilterForm extends React.Component<
                 </Col>
               </Row>
               <br/>
+              {/* Clicking this button submits the form, calls the applyAllFilters function */}
               <Button color="primary">Apply Filters</Button>
             </Form>
           </Jumbotron>
