@@ -1292,10 +1292,10 @@ INSERT INTO project3.trainerbatch VALUES (2,1),
 ;
 
 INSERT INTO project3.consent VALUES
-(DEFAULT,1,1,true),
-(DEFAULT,2,2,true),
-(DEFAULT,3,3,true),
-(DEFAULT,4,4,true);
+(DEFAULT,1,1,false),
+(DEFAULT,2,2,false),
+(DEFAULT,3,3,false),
+(DEFAULT,4,4,false);
 
 -- Associating associates with batch
 UPDATE project3.associate SET
