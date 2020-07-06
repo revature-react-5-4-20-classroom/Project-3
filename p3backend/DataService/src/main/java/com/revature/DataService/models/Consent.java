@@ -61,9 +61,6 @@ public class Consent {
     this.consentId = consentId;
   }
 
-
-
-
   public Boolean getIsApprovedColumn() {
     return isApprovedColumn;
   }
