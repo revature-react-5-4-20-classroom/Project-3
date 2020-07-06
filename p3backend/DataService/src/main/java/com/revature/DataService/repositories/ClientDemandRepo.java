@@ -1,7 +1,9 @@
 package com.revature.DataService.repositories;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.revature.DataService.models.ClientDemand;
 import com.revature.DataService.models.Skillset;
@@ -14,6 +16,9 @@ public interface ClientDemandRepo extends JpaRepository<ClientDemand, Integer> {
 
   List<ClientDemand> findByClientDemandId(Integer clientDemandId);
 
+  @Query("Select c from ClientDemand c where deadline >= :date")
+  List<ClientDemand> findCurrentClientDemands(LocalDate date);
+  
   // I don't believe this is working
   // List<ClientDemand> findByClientId(Integer clientId);
 
