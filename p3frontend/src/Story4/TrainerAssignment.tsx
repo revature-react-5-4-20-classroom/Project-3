@@ -26,7 +26,7 @@ import {
 } from "reactstrap";
 import { Consent } from "../models/Consent";
 import { assignTrainer } from "../api/batch";
-import { BatchList } from "../Components/Batch/batchList";
+
 
 interface IAssignmentComponentState {
   trainers: Trainer[];
