@@ -15,7 +15,7 @@ import {
   Container,
 } from "reactstrap";
 import "../../src/index.css";
-import BatchAssocTable from "./BatchAssocTable";
+import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -168,7 +168,7 @@ export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
                 parentTop={this.props.parentTop}
               />
             ) : (
-              <BatchAssocTable
+              <BatchAssocTableRedux
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />

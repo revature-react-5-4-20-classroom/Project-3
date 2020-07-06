@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import "../../src/index.css";
-import BatchAssocTable from "./BatchAssocTable";
+import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -177,7 +177,7 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
                 parentTop={this.props.parentTop}
               />
             ) : (
-              <BatchAssocTable
+              <BatchAssocTableRedux
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />

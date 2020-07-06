@@ -66,7 +66,7 @@ export const removeTrainerFromBatchActionMapper = (
 
 export const addAssociateToBatchActionMapper = (
   batch: Batch,
-  associate: Associate
+  associate: any
 ) => {
   return {
     type: clickTypes.ADD_ASSOCIATE_BATCH,
@@ -79,7 +79,7 @@ export const addAssociateToBatchActionMapper = (
 
 export const removeAssociateFromBatchActionMapper = (
   batch: Batch,
-  associate: Associate
+  associate: any
 ) => {
   return {
     type: clickTypes.REMOVE_ASSOCIATE_BATCH,

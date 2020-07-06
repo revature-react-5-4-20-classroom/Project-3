@@ -2,6 +2,7 @@ import { AnyAction, combineReducers, bindActionCreators } from "redux";
 import { clickTypes } from "./action-mapper";
 import { Batch } from "../models/Batch";
 import { Trainer } from "../models/Trainer";
+import { Associate } from "../models/Associate";
 
 interface IBatchState {
   batch: Batch | null;
@@ -44,6 +45,7 @@ export const batchReducer = (
       let trainer: Trainer = action.payload.trainer;
       let trainers: Trainer[] = batch.trainers;
       let exists: boolean = false;
+      console.log(batch);
       for (let t of trainers) {
         if (t.trainerId === trainer.trainerId) {
           exists = true;
@@ -71,6 +73,37 @@ export const batchReducer = (
       };
     }
 
+    case clickTypes.ADD_ASSOCIATE_BATCH: {
+      let batch: Batch = action.payload.batch;
+      let associate: any = action.payload.associate;
+      let associates: Associate[] = batch.associates;
+      let exists: boolean = false;
+      for (let a of associates) {
+        if (a.associateId === associate.associateId) {
+          exists = true;
+        }
+      }
+      if (!exists) {
+        associates.push(associate);
+        batch.associates = associates;
+      }
+      return {
+        batch: batch,
+      };
+    }
+
+    case clickTypes.REMOVE_ASSOCIATE_BATCH: {
+      let batch: Batch = action.payload.batch;
+      let associate: any = action.payload.associate;
+      let associates: Associate[] = batch.associates;
+      let updatedAssociates: Associate[] = associates.filter((a) => {
+        return a.associateId !== associate.associateId;
+      });
+      batch.associates = updatedAssociates;
+      return {
+        batch: batch,
+      };
+    }
     default: {
       return state;
     }

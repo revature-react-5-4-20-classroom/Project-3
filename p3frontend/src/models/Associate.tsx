@@ -1,6 +1,6 @@
-import { Batch } from './Batch';
-import { axiosClient } from '../api/axios';
-import { FailedRequestException } from '../exceptions/FailedRequestException';
+import { Batch } from "./Batch";
+import { axiosClient } from "../api/axios";
+import { FailedRequestException } from "../exceptions/FailedRequestException";
 
 export class Associate {
   associateId: number;
@@ -9,7 +9,7 @@ export class Associate {
   email: string;
   active: boolean;
   interviewScore: number;
-  batchId: number; //causes circular structure. Batch->Associate->Batch->Associate->...
+  batchId: number | undefined; //causes circular structure. Batch->Associate->Batch->Associate->...
 
   constructor(
     associateId: number,
@@ -18,7 +18,7 @@ export class Associate {
     email: string,
     active: boolean,
     interviewScore: number,
-    batchId: number
+    batchId?: number
   ) {
     this.associateId = associateId;
     this.firstName = firstName;
@@ -62,7 +62,7 @@ export function associatesGetActiveTotal(
 
 export async function getAllAssociates(): Promise<Associate[]> {
   try {
-    let response = await axiosClient.get('/associates');
+    let response = await axiosClient.get("/associates");
 
     return response.data.map((a: Associate) => {
       return new Associate(
@@ -82,9 +82,9 @@ export async function getAllAssociates(): Promise<Associate[]> {
 
 export async function updateAssociate(obj: Associate) {
   try {
-    const response = await axiosClient.patch('/associates', obj);
+    const response = await axiosClient.patch("/associates", obj);
   } catch (e) {
-    console.log('failed to assign associate to new batch', e.message);
+    console.log("failed to assign associate to new batch", e.message);
     //throw e;//we do not throw. we put the error into a nice alert component
   }
 }
@@ -94,9 +94,9 @@ export async function updateAssociate(obj: Associate) {
 */
 export async function getActiveAssociates(): Promise<Associate[]> {
   try {
-    let response = await axiosClient.get('/associates/get-active');
+    let response = await axiosClient.get("/associates/get-active");
     return response.data;
   } catch (error) {
-    throw new FailedRequestException('Failed to fetch active associates');
+    throw new FailedRequestException("Failed to fetch active associates");
   }
 }
