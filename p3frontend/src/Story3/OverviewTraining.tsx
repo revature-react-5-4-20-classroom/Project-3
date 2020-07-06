@@ -375,7 +375,7 @@ export class OverviewTraining extends React.Component<any, any> {
           await updateAssociate(i);
           // console.log(i);
         }
-        const newBatch = await updateBatch(this.props.batch.batchId, true);
+        const newBatch = await updateBatch(this.state.currentBatch1.batchId, true);
         // this.props.batchUpdateActionMapper(newBatch);
       } catch (e) {
         // console.log("Confirm click failed", e.message);
