@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, Input, Label, Button, InputGroup } from "reactstrap";
+import { Container, Input, Label, Button, InputGroup, InputGroupText } from "reactstrap";
 import { getgeneratedBatch } from "../../api/generateBatch";
 import { BatchView } from "./BatchView";
+import { smallBtnStyles, sharpEdge, btnStyles } from "../../Styles/generateBatchStlyes";
 //new Date().toISOString().substring(0, 10),
 export class Options extends React.Component<any, any> {
   constructor(props: any) {
@@ -30,53 +31,61 @@ export class Options extends React.Component<any, any> {
     // console.log(this.state.response);
   };
   render() {
+
     return (
-      <Container style={{ backgroundColor: "#474c55" }}>
-        <h4>Options</h4>
+      <div id="options-div">
+        <h4 style={{color: "white", fontSize: "1.2rem"}}>Options</h4>
         <InputGroup>
-          <Label>something: </Label>
-          <Input></Input>
-          <Button>Submit</Button>
+          {/* <Label>something: </Label> */}
+          <Input placeholder="something (text)"></Input>
+          <Button style={smallBtnStyles}>Submit</Button>
         </InputGroup>
         <br />
+        
         <InputGroup>
-          <Label>Start Date: </Label>
+        
           <Input
             type="date"
             name="startDate"
             id="startDate"
             onChange={this.bindInputChangeToState}
           ></Input>
+          <InputGroupText style={sharpEdge}><Label>Start Date</Label></InputGroupText>
         </InputGroup>
         <br />
+
         <InputGroup>
-          <Label>End Date: </Label>
+        
           <Input
             type="date"
             name="endDate"
             id="endDate"
             onChange={this.bindInputChangeToState}
           ></Input>
+          <InputGroupText style={sharpEdge}><Label>End Date</Label></InputGroupText>
         </InputGroup>
         <br />
         <InputGroup>
-          <Label>No of Associates: </Label>
+
           <Input
             type="number"
             onChange={this.bindInputChangeToState}
             name="quantity"
+            placeholder="number of associates"
           ></Input>
         </InputGroup>
+        <br />
         <InputGroup>
-          <Label>Interview Score limit: </Label>
+          
           <Input
             type="number"
             onChange={this.bindInputChangeToState}
             name="interview"
+            placeholder="interview score limit"
           ></Input>
         </InputGroup>
         <br />
-        <Button onClick={this.getgeneratedBatch}> Generate Batches</Button>
+        <Button onClick={this.getgeneratedBatch} style={btnStyles}> Generate Batches</Button>
         <br />
         <div style={{ display: this.state.flaeeg ? "block" : "none" }}>
           {" "}
@@ -86,8 +95,7 @@ export class Options extends React.Component<any, any> {
             interview={this.state.interview}
           ></BatchView>
         </div>
-        <h3>kawhi</h3>
-      </Container>
+      </div>
     );
   }
 }

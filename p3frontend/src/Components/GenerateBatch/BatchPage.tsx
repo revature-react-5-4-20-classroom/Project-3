@@ -4,6 +4,7 @@ import { AssociateList } from "./associateList";
 import { UpdateBatch } from "./updateBatch";
 import { BatchList } from "./batchList";
 import { Options } from "./options";
+import { PageTitleBar } from "./PageTitleBar";
 
 export class BatchPage extends React.Component<any, any> {
   render() {
@@ -11,12 +12,12 @@ export class BatchPage extends React.Component<any, any> {
       <>
         <Container>
           <Row>
-            <Container style={{ backgroundColor: "#f26925" }}>
-              <h3>Generate Batch</h3>
+            <Container>
+              <PageTitleBar pageTitle={"Generate Batch"} />
             </Container>
           </Row>
           <Row>
-            <Col md={4}>
+            <Col md={4} id="gen-batch-options-menu">
               <Options></Options>
             </Col>
             <Col md={8}>

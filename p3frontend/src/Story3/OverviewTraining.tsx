@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 export class OverviewTraining extends React.Component<any, any> {
   constructor(props: any) {
@@ -14,17 +15,7 @@ export class OverviewTraining extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        <h6>Story 3. "Training Overview"</h6>
-        <br />
-        <p>
-          Given that there is a Client Demand for engineers with a given
-          Curricula Track And Recruitment Team publishes information about
-          individuals that pass the Technical Screening When I navigate to the
-          `Training Overview` view Then I generate scenarios about possible
-          Batch placements
-        </p>
-        <br />
-
+        <PageTitleBar pageTitle={"Training Overview"} />
         <Row>
           <Col>
             <b>Curricula Track</b>
