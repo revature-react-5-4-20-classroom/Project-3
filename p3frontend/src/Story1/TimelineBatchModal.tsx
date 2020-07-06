@@ -15,37 +15,43 @@ import {
   Container,
 } from "reactstrap";
 import "../../src/index.css";
-import ASTableModel from "./ASTableModel";
+import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
+import { Batch } from "../models/Batch";
+import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
+import { BatchTrainersTableRedux } from "./BatchTrainersTable";
+import { axiosClient } from "../api/axios";
 
-interface TimelineBatchModalProps {}
+interface IPBatchViewModal {
+  currentBatch: Batch;
+  parentTop: any;
+  isOpen: boolean;
+  toggle: () => void;
 
-export class TimelineBatchModal extends React.Component<any, any> {
+  batchClickActionMapper: (batch: Batch) => void;
+  batchUpdateActionMapper: (batch: Batch) => void;
+}
+
+export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      showThis: false,
-      showTrainers: false, //T to show trainers. F to show associates
+      errorObj: null,
+      errorMsg: "",
     };
   }
 
   render() {
-    const toggle = () => {
-      this.setState({ showThis: !this.state.showThis });
-      this.props.batchClickActionMapper(this.props.currentBatch);
-    };
-
     return (
       <>
-        <Button onClick={toggle}>View</Button>
         <Modal
-          isOpen={this.state.showThis}
+          isOpen={this.props.isOpen}
           contentClassName="modalStyle"
           size="lg"
         >
-          <ModalHeader toggle={toggle}>
+          <ModalHeader toggle={this.props.toggle}>
             Batch {this.props.currentBatch.batchId}
           </ModalHeader>
           <ModalBody>
@@ -71,8 +77,47 @@ export class TimelineBatchModal extends React.Component<any, any> {
                   : "no-curriculum"}
               </Col>
             </Row>
+            <Row>
+              <Col>
+                <b>Confirmed</b>
+                <br />
+                <ButtonGroup>
+                  <Button
+                    color={
+                      this.props.currentBatch.isConfirmed
+                        ? "primary"
+                        : "secondary"
+                    }
+                    onClick={this.patchABatchChangeIsConfirmed}
+                  >
+                    Yes
+                  </Button>
+                  <Button
+                    color={
+                      this.props.currentBatch.isConfirmed
+                        ? "secondary"
+                        : "primary"
+                    }
+                    onClick={this.patchABatchChangeIsConfirmed}
+                  >
+                    No
+                  </Button>
+                </ButtonGroup>
+              </Col>
+            </Row>
+            <Row>
+              <ErrorAlert
+                error={this.state.errorObj}
+                message={this.state.errorMsg}
+              />
+            </Row>
             <br />
             <Row>
+              <Col>
+                <Button onClick={this.props.toggle} color="success" size="lg">
+                  OK
+                </Button>
+              </Col>
               <Col>
                 <Button
                   color={this.state.showTrainers ? "secondary" : "primary"}
@@ -118,21 +163,48 @@ export class TimelineBatchModal extends React.Component<any, any> {
 
           <ModalBody>
             {this.state.showTrainers ? (
-              <>
-                <span>This is trainers stuff - </span>
-                <span>This is trainers stuff - </span>
-              </>
+              <BatchTrainersTableRedux
+                currentBatch={this.props.currentBatch}
+                parentTop={this.props.parentTop}
+              />
             ) : (
-              <ASTableModel currentBatch={this.props.currentBatch} />
+              <BatchAssocTableRedux
+                currentBatch={this.props.currentBatch}
+                parentTop={this.props.parentTop}
+              />
             )}
           </ModalBody>
         </Modal>
       </>
     );
   }
-}
 
-export const ReduxBatchModal = connect(
+  patchABatchChangeIsConfirmed = async () => {
+    //change the batch model which is not a react component. just js object
+    this.props.currentBatch.isConfirmed = !this.props.currentBatch.isConfirmed;
+
+    try {
+      let request = { isConfirmed: this.props.currentBatch.isConfirmed };
+
+      await axiosClient.patch(
+        `/batches/${this.props.currentBatch.batchId}`,
+        request
+      );
+
+      this.props.batchUpdateActionMapper(this.props.currentBatch);
+    } catch (e) {
+      this.setState({
+        errorObj: e,
+        errorMsg: `Could not change isConfirmed to ${
+          this.props.currentBatch.isConfirmed ? "Yes" : "No"
+        }`,
+      });
+    }
+
+    this.props.parentTop.setState({}); //re-render
+  };
+}
+export const ReduxTimelineBatchModal = connect(
   allTheMapStateToProps,
   allTheActionMappers
 )(TimelineBatchModal);

@@ -37,9 +37,4 @@
   }
 }
 
-.associate-table {
-  border: 1px solid #eeccee;
-  max-height: 300px;
-  overflow-y: scroll;
-  width: 100%;
-}
+

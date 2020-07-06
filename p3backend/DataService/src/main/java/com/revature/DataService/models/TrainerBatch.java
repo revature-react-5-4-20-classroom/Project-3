@@ -11,10 +11,9 @@ import javax.persistence.Table;
 @Table(schema = "project3", name = "trainerbatch")
 public class TrainerBatch {
 
-
   @Id
   @Column(name = "trainer_id")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //@GeneratedValue(strategy = GenerationType.IDENTITY)//caused: could not insert trainerId into jump table.
   private Integer trainerId;
 
   @Column(name = "batch_id")
