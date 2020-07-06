@@ -27,7 +27,7 @@ public class Consent {
   private Integer consentId;
 
   @Column(name = "consent_approved")
-  private String isApprovedColumn;
+  private Boolean isApprovedColumn;
 
   // @Column(name = "trainer_id")
   // private Integer trainerId;
@@ -61,15 +61,13 @@ public class Consent {
     this.consentId = consentId;
   }
 
-  public String getIsApprovedColumn() {
+  public Boolean getIsApprovedColumn() {
     return isApprovedColumn;
   }
 
-  public void setIsApprovedColumn(String isApprovedColumn) {
+  public void setIsApprovedColumn(Boolean isApprovedColumn) {
     this.isApprovedColumn = isApprovedColumn;
   }
-
-
 
   public Batch getBatch() {
     return batch;
@@ -87,7 +85,7 @@ public class Consent {
     this.trainer = trainer;
   }
 
-  public Consent(Integer consentId, String isApprovedColumn, Batch batch, Trainer trainer) {
+  public Consent(Integer consentId, Boolean isApprovedColumn, Batch batch, Trainer trainer) {
     super();
     this.consentId = consentId;
     this.isApprovedColumn = isApprovedColumn;

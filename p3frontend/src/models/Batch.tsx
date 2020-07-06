@@ -4,6 +4,9 @@ import { Associate } from "./Associate";
 import { Consent } from "./Consent";
 import { Location } from "./Location";
 
+/*
+  This batch is a clone of what is on the server
+*/
 export class Batch {
   batchId: number;
   startDate: string;

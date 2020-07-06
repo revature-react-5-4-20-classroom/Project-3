@@ -16,7 +16,11 @@ public class TrainerBatchService {
   @Autowired
   TrainerBatchRepository trainerBatchRepository;
 
-  public TrainerBatch create(TrainerBatch trainerBatch) {
+  public TrainerBatch save(TrainerBatch trainerBatch) {
     return trainerBatchRepository.save(trainerBatch);
+  }
+  
+  public void delete(TrainerBatch trainerBatch) {
+    trainerBatchRepository.delete(trainerBatch);
   }
 }
