@@ -1,5 +1,7 @@
 package com.revature.pkg.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,9 +16,15 @@ public interface TrainerbatchRepository extends JpaRepository<Trainerbatch, Inte
 
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select * from trainerbatch",
+	  @Query(value = "insert into proj3.trainerbatch values(:trainerid,:batchid)",
 		      nativeQuery = true)
-	Trainerbatch select();
+	void createTrainerBatch(Integer trainerid, Integer batchid);
+	
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	  @Query(value = "select * from  proj3.trainerbatch where trainer_id=:trainerid and batch_id=:batchid",
+		      nativeQuery = true)
+	List<Trainerbatch> checkTrainerBatch(Integer trainerid, Integer batchid);
 	  
 
 }

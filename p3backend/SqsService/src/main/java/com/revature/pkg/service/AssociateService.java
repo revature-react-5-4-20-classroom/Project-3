@@ -11,5 +11,9 @@ public class AssociateService {
 
   @Autowired
   AssociateRepository associatedData;
+  
+  public Boolean checkAssociate(String email) {
+	    return associatedData.checkAssociate(email).size() > 0;
+	  }
 
 }
