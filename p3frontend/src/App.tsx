@@ -40,12 +40,14 @@ export class App extends React.Component<any, any> {
   toggleBatches = () => {
     this.setState({
       isBatchOpen: !this.state.isBatchOpen,
+      isTrainerOpen: false,
     });
   };
 
   toggleTrainers = () => {
     this.setState({
       isTrainerOpen: !this.state.isTrainerOpen,
+      isBatchOpen: false,
     });
   };
 
