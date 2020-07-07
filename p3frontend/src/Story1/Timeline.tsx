@@ -9,7 +9,11 @@ import { connect } from "react-redux";
 import { Toast } from "reactstrap";
 import { TimelineModal } from "./TimelineModal";
 import { store } from "../redux/store";
-import { ReduxTimelineBatchModal } from "./TimelineBatchModal";
+import {
+  ReduxTimelineBatchModal,
+  TimelineBatchModal,
+} from "./TimelineBatchModal";
+import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
 
 interface TimelineComponentProps {
   batches: Batch[];
@@ -190,12 +194,9 @@ export class TimelineComponent extends React.Component<
           {/* <Button color="" onClick={this.toggle} id="info">
           <i className="fas fa-info-circle"></i>
           </Button> */}
-          <i
-            className="fas fa-info-circle "
-            onClick={this.toggle}
-            id="info"
-          ></i>
-          <br />
+          <i className="fas fa-info-circle " onClick={this.toggle} id="info"></i>
+
+          <EasyTooltip target={'info'} displayText='Double click batch to edit or right click to view information.' />
 
           {/* <Toast isOpen={this.state.toggle}>
             Double click batch to edit or right click to view information.

@@ -76,7 +76,7 @@ export class App extends React.Component<any, any> {
           <Nav className="mr-auto" navbar>
             <UncontrolledDropdown
               isOpen={this.state.isBatchOpen}
-              onClick={this.toggleBatches}
+              toggle={this.toggleBatches}
               nav
               inNavbar
             >
@@ -103,7 +103,7 @@ export class App extends React.Component<any, any> {
             </UncontrolledDropdown>
             <UncontrolledDropdown
               isOpen={this.state.isTrainerOpen}
-              onClick={this.toggleTrainers}
+              toggle={this.toggleTrainers}
               nav
               inNavbar
             >
@@ -167,17 +167,17 @@ export class App extends React.Component<any, any> {
             },
             {
               end: "/batch/in-progress",
-              name: "In Progress",
+              name: "Batches in Progress",
               comp: <ReduxInProgress />,
             },
             {
               end: "/batch/demand-overview",
-              name: "Supply & Demand Overview",
+              name: "Supply & Demand",
               comp: <OverviewClientDemand />,
             },
             {
               end: "/batch/training-overview",
-              name: "Training Overview",
+              name: "Generate Batches",
               comp: <OverviewTraining />,
             },
             {
