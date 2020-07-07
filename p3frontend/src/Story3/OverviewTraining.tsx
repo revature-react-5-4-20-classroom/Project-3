@@ -193,13 +193,13 @@ export class OverviewTraining extends React.Component<any, any> {
     try {
       for (const i of this.state.associatesInBatch) {
         i.batchId = this.state.currentBatch1.batchId;
-        // await updateAssociate(i);
+        await updateAssociate(i);
         // console.log(i);
       }
-      // const newBatch = await updateBatch(
-      //   this.state.currentBatch1.batchId,
-      //   true
-      // );
+      const newBatch = await updateBatch(
+        this.state.currentBatch1.batchId,
+        true
+      );
       this.state.notConfirmedBatches.splice(this.state.currentBatchIndex, 1);
       console.log(this.state.notConfirmedBatches);
       this.setState({
