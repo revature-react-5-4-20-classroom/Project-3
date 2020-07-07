@@ -11,7 +11,15 @@ import {
 } from 'react-router-dom';
 
 import { ReduxInProgress } from './Story1/InProgress';
-import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+import {
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem,
+  Container,
+  Row,
+  Col,
+} from 'reactstrap';
 import { TestConvertToObject } from './GeneralPurposeHelpers/convertToObject';
 import { OverviewClientDemand } from './Story2/OverviewClientDemand';
 import { OverviewTraining } from './Story3/OverviewTraining';
@@ -137,6 +145,18 @@ function createRoutesAndNavbar(toggler: any, array: any) {
           </Route>
         </Provider>
       </Switch>
+      <div className='page-footer '>
+        <Row className='footer-row'>
+          <Col xs={4} className='offset-4'>
+            <p className='center-footer-text'>&copy; 2020 Revature</p>
+          </Col>
+          <Col xs={4} className=''>
+            <a className='end-footer-text' href='' target='_blank'>
+              Privacy Policy
+            </a>
+          </Col>
+        </Row>
+      </div>
     </Router>
   );
 }

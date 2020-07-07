@@ -21,8 +21,6 @@ export class HomePage extends React.Component<any, any> {
             </Jumbotron>
           </Col>
         </Row>
-
-        <CardFooter>Footer</CardFooter>
       </Container>
     );
   }
