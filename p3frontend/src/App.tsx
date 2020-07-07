@@ -7,9 +7,10 @@ import {
   Switch,
   BrowserRouter,
   NavLink,
+  Redirect,
 } from "react-router-dom";
 
-import { ReduxInProgress } from "./Story1/InProgress";
+import { InProgress, ReduxInProgress } from "./Story1/InProgress";
 import { Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
 import { TestConvertToObject } from "./GeneralPurposeHelpers/convertToObject";
 import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
@@ -23,6 +24,7 @@ import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
 import { BatchTableTester } from "./Story1/BatchAssocTableTester";
 import { FilterForm } from "./Story1/FilterForm";
+import { Home } from "./Home";
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -41,6 +43,9 @@ export class App extends React.Component<any, any> {
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         />
+        <Router>
+        {/* Goto the home page when the page is loaded for te first time */}
+        <Redirect to="/home"></Redirect>
 
         {
           /*
@@ -52,18 +57,23 @@ export class App extends React.Component<any, any> {
           */
           createRoutesAndNavbar(this.toggleNavbar, [
             {
+              end: "/home",
+              name: "Home",
+              comp: <Home />,
+            },
+            {
               end: "/in-progress",
-              name: "S1 In Progress",
+              name: "In Progress",
               comp: <ReduxInProgress />,
             },
             {
               end: "/overview-demand",
-              name: "S2 Overview Demand",
+              name: "Demand vs Supply",
               comp: <OverviewClientDemand />,
             },
             {
               end: "/overview-training",
-              name: "S3 Overview Training",
+              name: "Generate Batch",
               comp: <OverviewTraining />,
             },
             {
@@ -77,11 +87,11 @@ export class App extends React.Component<any, any> {
               comp: <ViewConsentRequests />,
             },
 
-
-            { end: "/test-convert", name: "TCO", comp: <TestConvertToObject /> },
-            { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
+            // { end: "/test-convert", name: "TCO", comp: <TestConvertToObject /> },
+            // { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
           ])
         }
+        </Router>
       </Container>
     );
   }
@@ -93,7 +103,7 @@ export class App extends React.Component<any, any> {
 */
 function createRoutesAndNavbar(toggler: any, array: any) {
   return (
-    <Router>
+      <>
       <Navbar color="light" light expand="md">
         <NavbarToggler onClick={toggler} />
         <Nav className="mr-auto" tabs>
@@ -119,7 +129,7 @@ function createRoutesAndNavbar(toggler: any, array: any) {
           })}
         </Provider>
       </Switch>
-    </Router>
+      </>
   );
 }
 

@@ -15,6 +15,7 @@ import {
 } from "../redux/action-mapper";
 import { store } from "../redux/store";
 import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
+import { connect } from "react-redux";
 
 const doPrnt = true; //prnt may be toggled
 
@@ -30,8 +31,8 @@ interface IPBatchTrainersTable {
   currentBatch: Batch; //we must give this component a batch for it to work
   parentTop: any;
 
-  // addTrainerToBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
-  // removeTrainerFromBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
+  addTrainerToBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
+  removeTrainerFromBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
 }
 
 export class BatchTrainersTable extends React.Component<
@@ -154,10 +155,10 @@ export class BatchTrainersTable extends React.Component<
         prnt(doPrnt, `patch request=`, request);
 
         await axiosClient.post("/trainerBatch", request);
-        // this.props.addTrainerToBatchActionMapper(
-        //   store.getState().batch.batch,
-        //   train
-        // );
+        this.props.addTrainerToBatchActionMapper(
+          store.getState().batch.batch,
+          train
+        );
       } else {
         let request = {
           data: {
@@ -168,11 +169,12 @@ export class BatchTrainersTable extends React.Component<
         prnt(doPrnt, `delete request=`, request);
 
         await axiosClient.delete("/trainerBatch", request);
-        // this.props.removeTrainerFromBatchActionMapper(
-        //   store.getState().batch.batch,
-        //   train
-        // );
+        this.props.removeTrainerFromBatchActionMapper(
+          store.getState().batch.batch,
+          train
+        );
       }
+      this.setState({});
     } catch (e) {
       this.setState({
         errorObject: e,
@@ -183,7 +185,7 @@ export class BatchTrainersTable extends React.Component<
   };
 }
 
-// export const BatchTrainersTableRedux = connect(
-//   allTheMapStateToProps,
-//   allTheActionMappers
-// )(BatchTrainersTable);
+export const BatchTrainersTableRedux = connect(
+  allTheMapStateToProps,
+  allTheActionMappers
+)(BatchTrainersTable);

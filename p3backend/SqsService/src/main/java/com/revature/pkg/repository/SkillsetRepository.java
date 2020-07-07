@@ -1,5 +1,7 @@
 package com.revature.pkg.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,11 +14,18 @@ import com.revature.pkg.model.Skillset;
 public interface SkillsetRepository extends JpaRepository<Skillset, Integer>{
 
 
+	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select * from skillset",
+	  @Query(value = "select * from proj3.skillset where name=:name",
 		      nativeQuery = true)
-	Skillset select();
+	List<Skillset> checkSkillset(String name);
+	
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	  @Query(value = "insert into proj3.skillset values(default,:name)",
+		      nativeQuery = true)
+	void createSkillset(String name);
 	  
 
 }

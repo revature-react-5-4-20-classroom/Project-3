@@ -85,9 +85,9 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
             currentBatch={this.state.batch}
             parentTop={this.props.parentTop}
           />
-          {/* <br />
-          ID {this.state.batch.batchId}
           <br />
+          ID {this.state.batch.batchId}
+          {/* <br />
           C {this.state.batch.isConfirmed ? "Y" : "N"}
           <br />
           AT {this.state.batch.associates.length} */}
