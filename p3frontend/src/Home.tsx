@@ -13,7 +13,7 @@ export class Home extends React.Component<any,any>
 		return(<>
 			<h6>Welcome to the Reservoir batch tracking system</h6>
 			<i>
-				Please put your component here Steven
+				Somone please put nice content here
 			</i>
 		</>)
 	}

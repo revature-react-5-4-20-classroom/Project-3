@@ -22,8 +22,8 @@ import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 //import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 import { axiosClient } from "../api/axios";
-import {BatchTrainersTable} from "./BatchTrainersTable";
-import BatchAssocTable from "./BatchAssocTable";
+import {BatchTrainersTable, BatchTrainersTableRedux} from "./BatchTrainersTable";
+import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
 
 interface IPBatchViewModal {
   currentBatch: Batch;
@@ -164,12 +164,12 @@ export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
 
           <ModalBody>
             {this.state.showTrainers ? (
-              <BatchTrainersTable
+              <BatchTrainersTableRedux
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />
             ) : (
-              <BatchAssocTable
+              <BatchAssocTableRedux
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />

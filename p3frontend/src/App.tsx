@@ -18,7 +18,7 @@ import { OverviewTraining } from "./Story3/OverviewTraining";
 import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import {BatchViewModal} from "./Story1/BatchViewModal";
+import { BatchViewModal } from "./Story1/BatchViewModal";
 import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
@@ -44,53 +44,53 @@ export class App extends React.Component<any, any> {
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         />
         <Router>
-        {/* Goto the home page when the page is loaded for te first time */}
-        <Redirect to="/home"></Redirect>
+          {/* Goto the home page when the page is loaded for te first time */}
+          <Redirect to="/home"></Redirect>
 
-        {
-          /*
+          {
+            /*
             Generate all the navbar items and routes from the given json
 
             end:  is the /endpoint in the url
             name: is displayed in the navbar to look nice
             comp: is the component to display within the route
           */
-          createRoutesAndNavbar(this.toggleNavbar, [
-            {
-              end: "/home",
-              name: "Home",
-              comp: <Home />,
-            },
-            {
-              end: "/in-progress",
-              name: "In Progress",
-              comp: <ReduxInProgress />,
-            },
-            {
-              end: "/overview-demand",
-              name: "Demand vs Supply",
-              comp: <OverviewClientDemand />,
-            },
-            {
-              end: "/overview-training",
-              name: "Generate Batch",
-              comp: <OverviewTraining />,
-            },
-            {
-              end: "/trainer-assign",
-              name: "Trainer assignment",
-              comp: <TrainerAssignmentComponent />,
-            },
-            {
-              end: "/consent-requests",
-              name: "Consent requests",
-              comp: <ViewConsentRequests />,
-            },
+            createRoutesAndNavbar(this.toggleNavbar, [
+              {
+                end: "/home",
+                name: "Home",
+                comp: <Home />,
+              },
+              {
+                end: "/in-progress",
+                name: "In Progress",
+                comp: <ReduxInProgress />,
+              },
+              {
+                end: "/overview-demand",
+                name: "Demand vs Supply",
+                comp: <OverviewClientDemand />,
+              },
+              {
+                end: "/overview-training",
+                name: "Generate Batch",
+                comp: <OverviewTraining />,
+              },
+              {
+                end: "/trainer-assign",
+                name: "Trainer assignment",
+                comp: <TrainerAssignmentComponent />,
+              },
+              {
+                end: "/consent-requests",
+                name: "Consent requests",
+                comp: <ViewConsentRequests />,
+              },
 
-            // { end: "/test-convert", name: "TCO", comp: <TestConvertToObject /> },
-            // { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
-          ])
-        }
+              // { end: "/test-convert", name: "TCO", comp: <TestConvertToObject /> },
+              // { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
+            ])
+          }
         </Router>
       </Container>
     );
@@ -103,7 +103,7 @@ export class App extends React.Component<any, any> {
 */
 function createRoutesAndNavbar(toggler: any, array: any) {
   return (
-      <>
+    <>
       <Navbar color="light" light expand="md">
         <NavbarToggler onClick={toggler} />
         <Nav className="mr-auto" tabs>
@@ -129,7 +129,7 @@ function createRoutesAndNavbar(toggler: any, array: any) {
           })}
         </Provider>
       </Switch>
-      </>
+    </>
   );
 }
 
