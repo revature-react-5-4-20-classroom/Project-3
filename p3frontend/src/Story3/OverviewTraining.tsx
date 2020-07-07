@@ -20,6 +20,7 @@ import { Associate } from "../models/Associate";
 import { getgeneratedBatch } from "../api/generateBatch";
 import { getAllAssociates, updateAssociate } from "../api/Associate";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 interface IBatchPageState {
   // currentBatch: Batch,
@@ -180,6 +181,7 @@ export class OverviewTraining extends React.Component<any, any> {
     return (
       <>
         <Container>
+        <PageTitleBar pageTitle={"Training Overview"} />
           <Row>
             <Container style={{ backgroundColor: "#f26925" }}>
               <h3>Generate Batch</h3>
@@ -192,7 +194,7 @@ export class OverviewTraining extends React.Component<any, any> {
                 <h4>Select Associates</h4>
                 <br />
                 <InputGroup>
-                  <Label>No of Associates: </Label>
+                  <Label>No. of Associates: </Label>
                   <Input
                     type="number"
                     value={this.state.quantity}
@@ -202,7 +204,7 @@ export class OverviewTraining extends React.Component<any, any> {
                 </InputGroup>
                 <br />
                 <InputGroup>
-                  <Label>Interview Score limit: </Label>
+                  <Label>Interview Score Limit: </Label>
                   <Input
                     type="number"
                     value={this.state.interview}

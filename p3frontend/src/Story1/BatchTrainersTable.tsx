@@ -7,6 +7,14 @@ import { axiosClient } from "../api/axios";
 import { DualTables } from "./DualTables";
 import { Trainer } from "../models/Trainer";
 import { getAllTrainers } from "../api/consent";
+import { allTheMapStateToProps } from "../redux/reducers";
+import {
+  allTheActionMappers,
+  addTrainerToBatchActionMapper,
+  removeTrainerFromBatchActionMapper,
+} from "../redux/action-mapper";
+import { store } from "../redux/store";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 const doPrnt = true; //prnt may be toggled
 
@@ -85,6 +93,7 @@ export class BatchTrainersTable extends React.Component<
 
     return (
       <Container>
+        <PageTitleBar pageTitle="Batch Trainers" />
         <ErrorAlert
           error={this.state.errorObject}
           message={this.state.errorMessage}

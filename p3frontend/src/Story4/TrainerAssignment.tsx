@@ -23,9 +23,12 @@ import {
   ListGroupItem,
   ListGroup,
   Row,
+  Container,
 } from "reactstrap";
 import { Consent } from "../models/Consent";
 import { assignTrainer } from "../api/batch";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
+import { smallBtnStyles } from "../Styles/generateBatchStlyes";
 
 
 interface IAssignmentComponentState {
@@ -181,9 +184,9 @@ sleep = (milliseconds : any) => {
     
     let jsxElement =(<><h4>test</h4></>);
     if(trainer.isEligible){
-      return <Button color="primary" id={i.toString()} onClick={()=>this.assign(trainerId, 8) }>Assign</Button>
+      return <Button color="primary" style={smallBtnStyles} id={i.toString()} onClick={()=>this.assign(trainerId, 8) }>Assign</Button>
     }else{
-      return <Button color="primary" id={i.toString()} onClick={()=>this.request(trainer, 8)}>Request Consent</Button>
+      return <Button color="primary" style={smallBtnStyles} id={i.toString()} onClick={()=>this.request(trainer, 8)}>Request Consent</Button>
     }
     
 
@@ -277,7 +280,7 @@ sleep = (milliseconds : any) => {
     })
     return (
       <>
-        <h6>Trainer assignment component</h6>
+        <Container><PageTitleBar pageTitle={"Trainer Assignment"}/></Container>
         <ListGroup>
           {this.state.trainers.map((trainer: Trainer, i) => {
             //trying to use the same item display everywhere

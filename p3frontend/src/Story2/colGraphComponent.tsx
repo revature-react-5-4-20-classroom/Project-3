@@ -92,63 +92,65 @@ export class ColumnChartTest extends React.Component<any, any> {
       .month(moment().month() + 3)
       .format('YYYY-MM-DD');
     supplyArr.map((a: any) => {
-      let skillset = a.batch.curriculum.curriculumSkillset.skillSetName;
-      let batchDate = moment(a.batch.endDate).format('YYYY-MM-DD');
-      if (!supplyData.has(skillset)) {
-        // Skillset Name doesn't exist yet in supplyData Map
-        // If the batch end date associate is in is today or earlier, create
-        // an element in the Map for the skillset adding 1 to the count of 'current'
-        if (batchDate <= today) {
-          supplyData.set(skillset, {
-            current: 1,
-            oneMonth: 0,
-            threeMonths: 0,
-          });
-          // If the batch end date associate is in is after today and within a month
-          // create an element in the Map for the skillset adding 1 to the count of 'oneMonth'
-        } else if (batchDate > today && batchDate <= oneMonthFromToday) {
-          supplyData.set(skillset, {
-            current: 0,
-            oneMonth: 1,
-            threeMonths: 0,
-          });
-          // If the batch end date associate is a month from now and within 3 months from now,
-          // create an element in the Map for the skillset adding 1 to the count of 'threeMonths'
-        } else if (
-          batchDate > oneMonthFromToday &&
-          batchDate <= threeMonthsFromToday
-        ) {
-          supplyData.set(skillset, {
-            current: 0,
-            oneMonth: 0,
-            threeMonths: 1,
-          });
-        }
-      } else {
-        // Skillset Name is already in the supplyData Map
-        // Depending on associate's batch's end date, add 1 to the count corresponding with their
-        // timeframe
-        if (batchDate <= today) {
-          let timeObj = supplyData.get(skillset);
-          supplyData.set(skillset, {
-            ...timeObj,
-            current: timeObj.current ? timeObj.current + 1 : 1,
-          });
-        } else if (batchDate > today && batchDate <= oneMonthFromToday) {
-          let timeObj = supplyData.get(skillset);
-          supplyData.set(skillset, {
-            ...timeObj,
-            oneMonth: timeObj.oneMonth ? timeObj.oneMonth + 1 : 1,
-          });
-        } else if (
-          batchDate > oneMonthFromToday &&
-          batchDate <= threeMonthsFromToday
-        ) {
-          let timeObj = supplyData.get(skillset);
-          supplyData.set(skillset, {
-            ...timeObj,
-            threeMonths: timeObj.threeMonths ? timeObj.threeMonths + 1 : 1,
-          });
+      if(a.batch != null){
+        let skillset = a.batch.curriculum.curriculumSkillset.skillSetName;
+        let batchDate = moment(a.batch.endDate).format('YYYY-MM-DD');
+        if (!supplyData.has(skillset)) {
+          // Skillset Name doesn't exist yet in supplyData Map
+          // If the batch end date associate is in is today or earlier, create
+          // an element in the Map for the skillset adding 1 to the count of 'current'
+          if (batchDate <= today) {
+            supplyData.set(skillset, {
+              current: 1,
+              oneMonth: 0,
+              threeMonths: 0,
+            });
+            // If the batch end date associate is in is after today and within a month
+            // create an element in the Map for the skillset adding 1 to the count of 'oneMonth'
+          } else if (batchDate > today && batchDate <= oneMonthFromToday) {
+            supplyData.set(skillset, {
+              current: 0,
+              oneMonth: 1,
+              threeMonths: 0,
+            });
+            // If the batch end date associate is a month from now and within 3 months from now,
+            // create an element in the Map for the skillset adding 1 to the count of 'threeMonths'
+          } else if (
+            batchDate > oneMonthFromToday &&
+            batchDate <= threeMonthsFromToday
+          ) {
+            supplyData.set(skillset, {
+              current: 0,
+              oneMonth: 0,
+              threeMonths: 1,
+            });
+          }
+        } else {
+          // Skillset Name is already in the supplyData Map
+          // Depending on associate's batch's end date, add 1 to the count corresponding with their
+          // timeframe
+          if (batchDate <= today) {
+            let timeObj = supplyData.get(skillset);
+            supplyData.set(skillset, {
+              ...timeObj,
+              current: timeObj.current ? timeObj.current + 1 : 1,
+            });
+          } else if (batchDate > today && batchDate <= oneMonthFromToday) {
+            let timeObj = supplyData.get(skillset);
+            supplyData.set(skillset, {
+              ...timeObj,
+              oneMonth: timeObj.oneMonth ? timeObj.oneMonth + 1 : 1,
+            });
+          } else if (
+            batchDate > oneMonthFromToday &&
+            batchDate <= threeMonthsFromToday
+          ) {
+            let timeObj = supplyData.get(skillset);
+            supplyData.set(skillset, {
+              ...timeObj,
+              threeMonths: timeObj.threeMonths ? timeObj.threeMonths + 1 : 1,
+            });
+          }
         }
       }
     });
