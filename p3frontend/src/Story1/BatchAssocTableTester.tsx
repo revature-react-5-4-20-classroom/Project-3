@@ -1,6 +1,5 @@
 import React from "react";
 import { getBatchById } from "../api/batch";
-import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 
 export class BatchTableTester extends React.Component<any, any> {
   constructor(props: any) {
@@ -25,10 +24,10 @@ export class BatchTableTester extends React.Component<any, any> {
       <>
         {/* aBatch={JSON.stringify(this.state.aBatch)}<br/> */}
         {/* <BatchAssocTable currentBatch={this.state.aBatch} parentTop={this}/> */}
-        <BatchTrainersTableRedux
+        {/* <BatchTrainersTableRedux
           currentBatch={this.state.aBatch}
           parentTop={this}
-        />
+        /> */}
       </>
     );
   }

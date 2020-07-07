@@ -31,7 +31,7 @@ interface IPBatchTrainersTable {
   removeTrainerFromBatchActionMapper: (batch: Batch, trainer: Trainer) => void;
 }
 
-export default class BatchTrainersTable extends React.Component<
+export class BatchTrainersTable extends React.Component<
   IPBatchTrainersTable,
   any
 > {
@@ -148,9 +148,11 @@ export default class BatchTrainersTable extends React.Component<
           batchId: this.props.currentBatch.batchId,
         };
 
-        prnt(doPrnt, `patch request=`, request);
+        prnt(doPrnt, `post request=`, request);
 
-        await axiosClient.post("/trainerBatch", request);
+        let response = await axiosClient.post("/trainerBatch", request);
+        prnt(doPrnt, `response.data=${response.data}`);
+
         this.props.addTrainerToBatchActionMapper(
           store.getState().batch.batch,
           train
@@ -164,7 +166,9 @@ export default class BatchTrainersTable extends React.Component<
         };
         prnt(doPrnt, `delete request=`, request);
 
-        await axiosClient.delete("/trainerBatch", request);
+        let response = await axiosClient.delete("/trainerBatch", request);
+        prnt(doPrnt, `response.data=${response.data}`);
+
         this.props.removeTrainerFromBatchActionMapper(
           store.getState().batch.batch,
           train

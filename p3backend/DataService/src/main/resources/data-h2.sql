@@ -1284,12 +1284,11 @@ INSERT INTO project3.trainerskills VALUES  (1,2),
 (4,6),
 (5,7);
 
-INSERT INTO project3.trainerbatch VALUES (2,1),
-(1,2),
-(3,3),
-(4,4),
-(5,4)
-;
+--INSERT INTO project3.trainerbatch VALUES (2,1),
+--(1,2),
+--(3,3),
+--(4,4),
+--(5,4);
 
 INSERT INTO project3.consent VALUES
 (DEFAULT,1,1,false),

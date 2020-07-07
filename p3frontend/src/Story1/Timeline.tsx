@@ -196,9 +196,10 @@ export class TimelineComponent extends React.Component<
             id="info"
           ></i>
           <br />
-          <Toast isOpen={this.state.toggle}>
+
+          {/* <Toast isOpen={this.state.toggle}>
             Double click batch to edit or right click to view information.
-          </Toast>
+          </Toast> */}
           <br />
 
           <Timeline

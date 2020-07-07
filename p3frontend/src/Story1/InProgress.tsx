@@ -1,7 +1,7 @@
 import React from "react";
 import "./Calendar.css";
 import "./Table.css";
-import { Row, Col, Table, Container, Button } from "reactstrap";
+import { Row, Col, Table, Container } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { TimelineRedux } from "./Timeline";
@@ -56,11 +56,12 @@ export class InProgress extends React.Component<any, any> {
   render() {
     return (
       <Container>
+        <PageTitleBar pageTitle={"Batches In Progress"} />
+
         <ErrorAlert
           message={this.state.errorMessage}
           error={this.state.error}
         />
-        <PageTitleBar pageTitle={"In Progress"} />
 
         <Row>
           <Col>
