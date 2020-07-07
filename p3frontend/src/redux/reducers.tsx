@@ -1,4 +1,4 @@
-import { AnyAction, combineReducers, bindActionCreators } from "redux";
+import { AnyAction, combineReducers } from "redux";
 import { clickTypes } from "./action-mapper";
 import { Batch } from "../models/Batch";
 import { Trainer } from "../models/Trainer";

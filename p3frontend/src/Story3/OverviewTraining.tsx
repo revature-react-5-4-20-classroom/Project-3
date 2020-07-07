@@ -12,16 +12,21 @@ import {
   Nav,
   NavLink,
   Table,
+  Alert,
 } from "reactstrap";
 
 import { getAllBatches, updateBatch } from "../api/batch";
 import { Batch } from "../models/Batch";
 import { Associate } from "../models/Associate";
 import { getgeneratedBatch } from "../api/generateBatch";
-import { getAllAssociates, updateAssociate } from "../api/Associate";
+import {
+  getAllAssociates,
+  updateAssociate,
+  getActiveAssociates,
+} from "../api/Associate";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
-
+import "./overviewtraining.css";
 interface IBatchPageState {
   // currentBatch: Batch,
   batches: Batch[];
@@ -41,7 +46,7 @@ export class OverviewTraining extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      batches: [],
+      // batches: [],
       notConfirmedBatches: [],
       batchFlag: false,
       quantity: 0,
@@ -57,33 +62,34 @@ export class OverviewTraining extends React.Component<any, any> {
       associatesLoaded: false,
       errorObject: null,
       errorMessage: "",
+      currentBatchIndex: undefined,
       allEligibleAssociates: [],
+      success: false,
     };
   }
   componentDidMount = async () => {
-    const associateArray: any[] = await getAllAssociates();
+    const associateArray: any[] = await getActiveAssociates();
+    // console.log(associateArray);
+    const batches = await getAllBatches();
     const eligibleAssociateArray = associateArray.filter(function (assoc) {
       return assoc.interviewScore >= 70 && assoc.batch == null;
     });
-    this.setState({
-      batches: await getAllBatches(),
-      batchFlag: true,
-      associates: associateArray,
-      allEligibleAssociates: eligibleAssociateArray,
-      eligibleAssociates: eligibleAssociateArray,
-
-      associatesLoaded: true,
-    });
     const tempBatchses = [];
-    for (const batch of this.state.batches) {
+    for (const batch of batches) {
       if (!batch.isConfirmed) {
         tempBatchses.push(batch);
       }
     }
     this.setState({
+      batchFlag: true,
+      associates: associateArray,
+      allEligibleAssociates: eligibleAssociateArray,
+      eligibleAssociates: eligibleAssociateArray,
+      associatesLoaded: true,
       notConfirmedBatches: tempBatchses,
     });
   };
+
   bindInputChangeToState = (changeEvent: any) => {
     //@ts-ignore
     this.setState({
@@ -113,7 +119,8 @@ export class OverviewTraining extends React.Component<any, any> {
       eligibleAssociates: newArray,
     });
   };
-  batchData = (e: any) => {
+
+  batchData = (e: any, i: number) => {
     // e.preventDefault();
     this.setState({
       associatesList: [],
@@ -122,8 +129,10 @@ export class OverviewTraining extends React.Component<any, any> {
       interview: 0,
       currentBatch1: e,
       data: true,
+      currentBatchIndex: i,
       eligibleAssociates: this.state.allEligibleAssociates,
     });
+    console.log(e);
   };
 
   displayTable = (
@@ -135,7 +144,7 @@ export class OverviewTraining extends React.Component<any, any> {
     if (array.length === 0) return <>{message}</>;
 
     return (
-      <div className="associate-table">
+      <div className="overview-table">
         <Table striped>
           <tbody>
             {array.map((obj: any, index: number) => {
@@ -157,6 +166,7 @@ export class OverviewTraining extends React.Component<any, any> {
       </div>
     );
   };
+
   associateRemove = async (assoc: any, i: number) => {
     this.state.associatesInBatch.splice(i, 1);
     this.state.eligibleAssociates.push(assoc);
@@ -174,22 +184,48 @@ export class OverviewTraining extends React.Component<any, any> {
   associateAdd = async (assoc: any, i: number) => {
     this.state.associatesInBatch.push(assoc);
     this.state.eligibleAssociates.splice(i, 1);
-    assoc.batch = this.props.currentBatch; 
+    assoc.batch = this.props.currentBatch;
     this.setState({});
   };
+
+  confirmBatch = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      for (const i of this.state.associatesInBatch) {
+        i.batchId = this.state.currentBatch1.batchId;
+        await updateAssociate(i);
+        // console.log(i);
+      }
+      const newBatch = await updateBatch(
+        this.state.currentBatch1.batchId,
+        true
+      );
+      this.state.notConfirmedBatches.splice(this.state.currentBatchIndex, 1);
+      console.log(this.state.notConfirmedBatches);
+      this.setState({
+        success: true,
+        data: false,
+      });
+
+      // this.props.batchUpdateActionMapper(newBatch);
+    } catch (e) {
+      this.setState({
+        errorObject: e,
+        errorMessage: "Could not patch associate",
+      });
+    }
+  };
+
   render() {
     return (
       <>
         <Container>
-        <PageTitleBar pageTitle={"Training Overview"} />
+          <PageTitleBar pageTitle={"Training Overview"} />
+
           <Row>
-            <Container style={{ backgroundColor: "#f26925" }}>
-              <h3>Generate Batch</h3>
-            </Container>
-          </Row>
-          <Row>
-            <Col md={4}>
-              <Container style={{ backgroundColor: "#C0C0C0" }}>
+            <Col md={3}>
+              <Container className="overview-option">
                 <br />
                 <h4>Select Associates</h4>
                 <br />
@@ -204,7 +240,7 @@ export class OverviewTraining extends React.Component<any, any> {
                 </InputGroup>
                 <br />
                 <InputGroup>
-                  <Label>Interview Score Limit: </Label>
+                  <Label>Lower Interview Score: </Label>
                   <Input
                     type="number"
                     value={this.state.interview}
@@ -224,174 +260,158 @@ export class OverviewTraining extends React.Component<any, any> {
               </Container>
             </Col>
             <Col md={8}>
-              <Row></Row>
-              <Row>
-                <Col md={12}>
-                  {this.state.batchFlag ? (
-                    <Container>
-                      <Row>
-                        <Col>
-                          {this.state.data ? (
-                            <Container>
-                              <ErrorAlert
-                                error={this.state.errorObject}
-                                message={this.state.errorMessage}
-                              />
-                              <Row>
-                                <Col>
-                                  <h6>All Available Associates</h6>
-                                  {this.displayTable(
-                                    this.state.eligibleAssociates,
-                                    "No eligible associates left.",
-                                    "Add",
-                                    this.associateAdd
-                                  )}
-                                </Col>
-                                <Col>
-                                  <h6>Batch Associates</h6>
-                                  {this.displayTable(
-                                    this.state.associatesInBatch,
-                                    "No associates currently assigned to this batch.",
-                                    "Remove",
-                                    this.associateRemove
-                                  )}
-                                </Col>
-                              </Row>
-                            </Container>
-                          ) : (
-                            <></>
-                          )}
-                        </Col>
-                      </Row>
-                      <br />
-                      <Row style={{ backgroundColor: "#474c55" }}>
-                        <Col>
-                          <h3>Possible Batches</h3>
-                          <Nav tabs>
-                            {this.state.notConfirmedBatches.map(
-                              (obj: any, index: number) => {
-                                return (
-                                  <NavItem>
-                                    <NavLink
-                                      href="#"
-                                      onClick={(e) => {
-                                        this.batchData(obj);
-                                      }}
-                                    >
-                                      {obj.batchId}
-                                    </NavLink>
-                                  </NavItem>
-                                );
-                              }
-                            )}
-                          </Nav>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                          {this.state.data ? (
-                            <Container
-                              style={{ backgroundColor: "#fff" }}
-                              className="associate-table"
-                            >
-                              <Row>
-                                <Col>
-                                  <h5>
-                                    Batch Id: {this.state.currentBatch1.batchId}
-                                  </h5>
-                                  <h5>
-                                    Program Type:{" "}
-                                    {this.state.currentBatch1.programmType}
-                                  </h5>
-                                  <h5>
-                                    Batch Location:{" "}
-                                    {
-                                      this.state.currentBatch1.location
-                                        .locationName
-                                    }
-                                  </h5>
-                                  <h5>
-                                    Technologies:{" "}
-                                    {
-                                      this.state.currentBatch1.curriculum
-                                        .curriculumSkillset.skillSetName
-                                    }
-                                  </h5>
-                                  <hr />
-                                  <h5>Associates</h5>
-                                  {this.state.associatesList.map(
-                                    (obj: any, index: number) => {
-                                      return (
-                                        <tr key={obj.associateId}>
-                                          <td>
-                                            {obj.firstName}, {obj.lastName},{" "}
-                                            {obj.interviewScore}
-                                          </td>
-                                          <td>
-                                            <Button
-                                              onClick={() =>
-                                                this.associateAdd2(obj, index)
-                                              }
-                                            >
-                                              add
-                                            </Button>
-                                          </td>
-                                        </tr>
-                                      );
-                                    }
-                                  )}
-                                </Col>
-                              </Row>
-                            </Container>
-                          ) : (
-                            <></>
-                          )}
-                        </Col>
-                      </Row>
-                    </Container>
+              {this.state.batchFlag ? (
+                <Container>
+                  {this.state.success ? (
+                    <Alert color="success">Batch Successfully Confirmed</Alert>
                   ) : (
-                    <Spinner></Spinner>
-                  )}{" "}
-                </Col>
-              </Row>
+                    <></>
+                  )}
+
+                  <Row>
+                    <Col>
+                      {this.state.data ? (
+                        <Container style={{ height: "300px" }}>
+                          <ErrorAlert
+                            error={this.state.errorObject}
+                            message={this.state.errorMessage}
+                          />
+                          <Row>
+                            <Col>
+                              <h6>All Available Associates</h6>
+                              {this.displayTable(
+                                this.state.eligibleAssociates,
+                                "No eligible associates left.",
+                                "Add",
+                                this.associateAdd
+                              )}
+                            </Col>
+                            <Col>
+                              <h6>Batch Associates</h6>
+                              {this.displayTable(
+                                this.state.associatesInBatch,
+                                "No associates currently assigned to this batch.",
+                                "Remove",
+                                this.associateRemove
+                              )}
+                            </Col>
+                          </Row>
+                        </Container>
+                      ) : (
+                        <></>
+                      )}
+                    </Col>
+                  </Row>
+                  {this.state.notConfirmedBatches.length != 0 ? (
+                    <Row className="overview-nav">
+                      <Col>
+                        <h4>Possible Batches</h4>
+                        <Nav pills>
+                          {this.state.notConfirmedBatches.map(
+                            (obj: any, index: number) => {
+                              return (
+                                <NavItem>
+                                  <NavLink
+                                    style={{ color: "#fff" }}
+                                    href="#"
+                                    onClick={(e) => {
+                                      this.batchData(obj, index);
+                                    }}
+                                  >
+                                    Batch {obj.batchId}
+                                  </NavLink>
+                                </NavItem>
+                              );
+                            }
+                          )}
+                        </Nav>
+                      </Col>
+                    </Row>
+                  ) : (
+                    <h3>No batch available</h3>
+                  )}
+                  <Row>
+                    <Col>
+                      {this.state.data ? (
+                        <Container className="overview-table">
+                          <Row>
+                            <Col>
+                              <Row>
+                                <Col>
+                                  <b>Batch Id:</b>{" "}
+                                  {this.state.currentBatch1.batchId}
+                                  <br />
+                                  <b>Program Type:</b>{" "}
+                                  {this.state.currentBatch1.programType}
+                                </Col>
+                                <Col>
+                                  <b>Batch Location:</b>{" "}
+                                  {
+                                    this.state.currentBatch1.location
+                                      .locationName
+                                  }
+                                  <br />
+                                  <b>Technologies:</b>{" "}
+                                  {
+                                    this.state.currentBatch1.curriculum
+                                      .curriculumSkillset.skillSetName
+                                  }
+                                </Col>
+                              </Row>
+
+                              <hr />
+                              <h6>Associates:</h6>
+                              <Table
+                                style={{ width: "00px" }}
+                                className="overview-table"
+                              >
+                                {this.state.associatesList.map(
+                                  (obj: any, index: number) => {
+                                    return (
+                                      <tr key={obj.associateId}>
+                                        <td>
+                                          {obj.firstName}, {obj.lastName},{" "}
+                                          {obj.interviewScore}
+                                        </td>
+                                        <td>
+                                          <Button
+                                            onClick={() =>
+                                              this.associateAdd2(obj, index)
+                                            }
+                                          >
+                                            add
+                                          </Button>
+                                        </td>
+                                      </tr>
+                                    );
+                                  }
+                                )}
+                              </Table>
+                            </Col>
+                          </Row>
+                        </Container>
+                      ) : (
+                        <></>
+                      )}
+                    </Col>
+                  </Row>
+                </Container>
+              ) : (
+                <Spinner></Spinner>
+              )}{" "}
+            </Col>{" "}
+            {/* <Row style={{float:"right"}}>
+         
+          </Row> */}
+            <Col md={1}>
+              <Button onClick={this.confirmBatch} disabled={!this.state.data}>
+                Confirm
+              </Button>
             </Col>
-          </Row>{" "}
-          <Row>
-            <Button onClick={this.confirmBatch}>Confirm</Button>
-            <ErrorAlert
-              error={this.state.errorObject}
-              message={this.state.errorMessage}
-            />
           </Row>
+          {/* <footer></footer> */}
         </Container>
       </>
     );
   }
-
-  confirmBatch = async (e: any) => {
-    e.preventDefault();
-    if (this.state.currentBatch1) {
-      try {
-        for (const i of this.state.associatesInBatch) {
-          i.batchId = this.state.currentBatch1.batchId;
-          await updateAssociate(i);
-          // console.log(i);
-        }
-        const newBatch = await updateBatch(this.state.currentBatch1.batchId, true);
-        // this.props.batchUpdateActionMapper(newBatch);
-      } catch (e) {
-        // console.log("Confirm click failed", e.message);
-        this.setState({
-          errorObject: e,
-          errorMessage: "Could not patch associate",
-        });
-      }
-    } else {
-      // alert("No batch selected. Confirm click failed");
-      this.setState({
-        errorObject: e,
-        errorMessage: "Could not patch associate",
-      });
-    }
-  };
 }

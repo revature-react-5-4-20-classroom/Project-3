@@ -1,29 +1,21 @@
-import React, { useState, Component } from "react";
+import React from "react";
 import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  NavItem,
-  Nav,
-  Navbar,
   Row,
   Col,
-  NavbarToggler,
   ButtonGroup,
-  Container,
 } from "reactstrap";
-import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import "../../src/index.css";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
 import { Batch } from "../models/Batch";
-import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
-import {BatchTrainersTable, BatchTrainersTableRedux} from "./BatchTrainersTable";
+import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 import { store } from "../redux/store";
 import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
 import {TrainerAssignmentRedux} from "../Story4/TrainerAssignment"

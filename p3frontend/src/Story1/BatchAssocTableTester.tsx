@@ -1,7 +1,5 @@
 import React from "react";
-import BatchAssocTable from "./BatchAssocTable";
 import { getBatchById } from "../api/batch";
-import { prnt } from "../GeneralPurposeHelpers/Prnt";
 
 export class BatchTableTester extends React.Component<any, any> {
   constructor(props: any) {
@@ -14,7 +12,6 @@ export class BatchTableTester extends React.Component<any, any> {
 
   async componentDidMount() {
     let ab = await getBatchById(1);
-
     //prnt(true,`TestASTableModel componentDidMount() ab=`,ab)
 
     this.setState({

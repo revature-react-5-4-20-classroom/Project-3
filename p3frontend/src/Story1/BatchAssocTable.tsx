@@ -1,25 +1,18 @@
 import React from "react";
-import { Table, Button, Container, Row, Col, Spinner } from "reactstrap";
+import { Container, Spinner } from "reactstrap";
 import { Associate } from "../models/Associate";
-import { getAllAssociates, updateAssociate } from "../models/Associate";
-import { getBatchById } from "../api/batch";
 import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { axiosClient } from "../api/axios";
 import { DualTables } from "./DualTables";
-import { batch, connect } from "react-redux";
-import {
-  addAssociateToBatchActionMapper,
-  removeAssociateFromBatchActionMapper,
-  allTheActionMappers,
-} from "../redux/action-mapper";
+import { connect } from "react-redux";
+import { allTheActionMappers } from "../redux/action-mapper";
 import { store } from "../redux/store";
 import { getActiveAssociates } from "../api/Associate";
 import { allTheMapStateToProps } from "../redux/reducers";
 
 const doPrnt = true; //prnt may be toggled
-
 /*
   <BatchAssocTable currentBatch={aBatchObject}/>
 

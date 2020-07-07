@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  BrowserRouter,
-  NavLink,
   Redirect,
   Link,
 } from "react-router-dom";
@@ -14,29 +12,19 @@ import {
 import { ReduxInProgress } from "./Story1/InProgress";
 import {
   Navbar,
-  NavbarToggler,
   Nav,
-  NavItem,
   Container,
   NavbarBrand,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  Collapse,
-  DropdownItem,
 } from "reactstrap";
-import { TestConvertToObject } from "./GeneralPurposeHelpers/convertToObject";
 import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
 import { OverviewTraining } from "./Story3/OverviewTraining";
-import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import { BatchViewModal } from "./Story1/BatchViewModal";
-import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
-import { BatchTableTester } from "./Story1/BatchAssocTableTester";
-import { FilterForm } from "./Story1/FilterForm";
 import { HomePage } from "./Homepage";
 import { PageFooter } from "./Footer";
 import { trackPromise } from 'react-promise-tracker';
@@ -54,12 +42,14 @@ export class App extends React.Component<any, any> {
   toggleBatches = () => {
     this.setState({
       isBatchOpen: !this.state.isBatchOpen,
+      isTrainerOpen: false,
     });
   };
 
   toggleTrainers = () => {
     this.setState({
       isTrainerOpen: !this.state.isTrainerOpen,
+      isBatchOpen: false,
     });
   };
 
@@ -72,25 +62,25 @@ export class App extends React.Component<any, any> {
   createRoutesAndNavbar = (array: any) => {
     return (
       <Router>
-        <Navbar color='light' light expand='md'>
+        <Navbar color="light" light expand="md">
           {array.map((navEnd: any) => {
             if (navEnd.end === "/home") {
               return (
                 <NavbarBrand
                   key={navEnd.name}
                   href={navEnd.end}
-                  className='nav-link'
-                  activeClassName='active'
+                  className="nav-link"
+                  activeClassName="active"
                 >
                   {navEnd.name}
                 </NavbarBrand>
               );
             }
           })}
-          <Nav className='mr-auto' navbar>
+          <Nav className="mr-auto" navbar>
             <UncontrolledDropdown
               isOpen={this.state.isBatchOpen}
-              onClick={this.toggleBatches}
+              toggle={this.toggleBatches}
               nav
               inNavbar
             >
@@ -104,7 +94,7 @@ export class App extends React.Component<any, any> {
                       <>
                         <Link
                           to={navEnd.end}
-                          className='nav-link'
+                          className="nav-link"
                           key={navEnd.end}
                         >
                           {navEnd.name}
@@ -117,7 +107,7 @@ export class App extends React.Component<any, any> {
             </UncontrolledDropdown>
             <UncontrolledDropdown
               isOpen={this.state.isTrainerOpen}
-              onClick={this.toggleTrainers}
+              toggle={this.toggleTrainers}
               nav
               inNavbar
             >
@@ -130,7 +120,7 @@ export class App extends React.Component<any, any> {
                     return (
                       <Link
                         to={navEnd.end}
-                        className='nav-link'
+                        className="nav-link"
                         key={navEnd.end}
                       >
                         {navEnd.name}
@@ -145,14 +135,14 @@ export class App extends React.Component<any, any> {
         <Switch>
           <Provider store={store}>
             <Container>
-              <Route exact path='/'>
-                <Redirect to='/home' />
+              <Route exact path="/">
+                <Redirect to="/home" />
               </Route>
               {array.map((navEnd: any) => {
                 return <Route path={navEnd.end}>{navEnd.comp}</Route>;
               })}
-              <Route exact path='*'>
-                <Redirect to='/home' />
+              <Route exact path="*">
+                <Redirect to="/home" />
               </Route>
             </Container>
           </Provider>
@@ -181,17 +171,17 @@ export class App extends React.Component<any, any> {
             },
             {
               end: "/batch/in-progress",
-              name: "In Progress",
+              name: "Batches in Progress",
               comp: <ReduxInProgress />,
             },
             {
               end: "/batch/demand-overview",
-              name: "Supply & Demand Overview",
+              name: "Supply & Demand",
               comp: <OverviewClientDemand />,
             },
             {
               end: "/batch/training-overview",
-              name: "Training Overview",
+              name: "Generate Batches",
               comp: <OverviewTraining />,
             },
             // {

@@ -10,41 +10,47 @@ import React from "react";
 	message (optional): can be displayed if you do not have an errorObject
 */
 
-interface IPErrorAlert{
-  error:any,
-  message:String
+interface IPErrorAlert {
+  error: any;
+  message: String;
 }
 
 export function ErrorAlert(props: IPErrorAlert) {
-  let jsxAlerts = <></>;
-
-  if (props.error) {
-    jsxAlerts = (
-      <Alert color="danger">
-        {/* {JSON.stringify(props.error)} */}
-        {props.error.name}&nbsp;
-        {props.error.message}&nbsp;
-        {props.error.config ? (
-          <>
-            {props.error.config.method}&nbsp;
-            {props.error.config.baseURL}
-            {props.error.config.url}
-          </>
-        ) : (
-          <></>
-        )}
-      </Alert>
-    );
+  if ((props.message==null || props.message=="") && (props.error==null || props.error=="")) {
+    return <></>;
   }
 
-  if (props.message) {
+  let jsxAlerts = <></>;
+
+  if (props.message) {//checking for nulls, woo!
     jsxAlerts = (
       <>
         {jsxAlerts}
-        <Alert color="danger">{props.message}</Alert>
+        {props.message}
       </>
     );
   }
 
-  return jsxAlerts;
+  if (props.error) {
+    jsxAlerts = (
+      <>
+        {/* {JSON.stringify(props.error)} */}
+        {props.error.name}&nbsp;
+        {props.error.message}&nbsp;
+      </>
+    );
+
+    if (props.error.config) {
+      jsxAlerts = (
+        <>
+          {jsxAlerts}
+          {props.error.config.method}&nbsp;
+          {props.error.config.baseURL}
+          {props.error.config.url}
+        </>
+      );
+    }
+  }
+
+  return <Alert color="danger">{jsxAlerts}</Alert>;
 }

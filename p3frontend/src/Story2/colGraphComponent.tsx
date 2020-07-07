@@ -1,7 +1,7 @@
-import React from 'react';
-import { getAllCurrentClientDemands } from '../api/clientDemand';
-import { getActiveAssociates } from '../api/Associate';
-import moment from 'moment';
+import React from "react";
+import { getAllCurrentClientDemands } from "../api/clientDemand";
+import { getActiveAssociates } from "../api/Associate";
+import moment from "moment";
 import {
   Col,
   Row,
@@ -9,8 +9,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-} from 'reactstrap';
-import { EasyDropdown } from '../GeneralPurposeHelpers/EasyDropdown';
+} from "reactstrap";
 
 export class ColumnChartTest extends React.Component<any, any> {
   private myRef: any;
@@ -23,7 +22,7 @@ export class ColumnChartTest extends React.Component<any, any> {
       shouldRunInit: false,
       clientDemand: new Map(),
       supply: new Map(),
-      dropdownOptions: ['Total'],
+      dropdownOptions: ["Total"],
       dropdownOpen: false,
       currentSelected: undefined,
     };
@@ -84,17 +83,17 @@ export class ColumnChartTest extends React.Component<any, any> {
     let supplyArr = await getActiveAssociates();
     // 2) pass each associate through loop that says:   gd=graduation date [{java/react: current}, {java/react: onemonth}, {salesforce: current}]
     let supplyData = new Map();
-    let today = moment().format('YYYY-MM-DD');
+    let today = moment().format("YYYY-MM-DD");
     let oneMonthFromToday = moment()
       .month(moment().month() + 1)
-      .format('YYYY-MM-DD');
+      .format("YYYY-MM-DD");
     let threeMonthsFromToday = moment()
       .month(moment().month() + 3)
-      .format('YYYY-MM-DD');
+      .format("YYYY-MM-DD");
     supplyArr.map((a: any) => {
-      if(a.batch != null){
+      if (a.batch != null) {
         let skillset = a.batch.curriculum.curriculumSkillset.skillSetName;
-        let batchDate = moment(a.batch.endDate).format('YYYY-MM-DD');
+        let batchDate = moment(a.batch.endDate).format("YYYY-MM-DD");
         if (!supplyData.has(skillset)) {
           // Skillset Name doesn't exist yet in supplyData Map
           // If the batch end date associate is in is today or earlier, create
@@ -159,7 +158,7 @@ export class ColumnChartTest extends React.Component<any, any> {
 
   // This initializes google charts
   loadGoogle = () => {
-    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.load("current", { packages: ["corechart", "bar"] });
     google.charts.setOnLoadCallback(this.init);
   };
 
@@ -179,7 +178,7 @@ export class ColumnChartTest extends React.Component<any, any> {
     dem.forEach((v: any, k: any, m: any) => {
       totals.demandTotal = totals.demandTotal + v;
     });
-    console.log('Totals obj: ', totals);
+    console.log("Totals obj: ", totals);
     return totals;
   };
 
@@ -190,27 +189,27 @@ export class ColumnChartTest extends React.Component<any, any> {
     let totalsObj = this.createTotal(demand, supply);
     let demKey = demand.keys();
     this.setState({
-      dropdownOptions: ['Total', ...Array.from(demand.keys())],
+      dropdownOptions: ["Total", ...Array.from(demand.keys())],
     });
     let data: any[] = [];
     let view: any[] = [];
 
     ////////////////////////
     data.push(new google.visualization.DataTable());
-    data[0].addColumn('string', 'Demand and Supply');
-    data[0].addColumn('number', 'Total');
+    data[0].addColumn("string", "Demand and Supply");
+    data[0].addColumn("number", "Total");
     let dataa: any = [];
     dataa.push(
-      ['Total Demand', totalsObj.demandTotal],
+      ["Total Demand", totalsObj.demandTotal],
       [
-        'Total Supply',
+        "Total Supply",
         totalsObj.currTotal +
           totalsObj.oneMonthTotal +
           totalsObj.threeMonthTotal,
       ],
-      ['Total Currently Available', totalsObj.currTotal],
-      ['Total Available in 1 Month', totalsObj.oneMonthTotal],
-      ['Total Available in 3 Months', totalsObj.threeMonthTotal]
+      ["Total Currently Available", totalsObj.currTotal],
+      ["Total Available in 1 Month", totalsObj.oneMonthTotal],
+      ["Total Available in 3 Months", totalsObj.threeMonthTotal]
     );
     data[0].addRows(dataa);
     view[0] = new google.visualization.DataView(data[0]);
@@ -220,24 +219,24 @@ export class ColumnChartTest extends React.Component<any, any> {
       let thisDemKey = demKey.next().value;
       let supVals = supply.get(thisDemKey);
       data.push(new google.visualization.DataTable());
-      data[i].addColumn('string', 'Demand and Supply');
-      data[i].addColumn('number', thisDemKey);
+      data[i].addColumn("string", "Demand and Supply");
+      data[i].addColumn("number", thisDemKey);
       let dataRows: any = [];
-      dataRows.push(['Client Demand', demand.get(thisDemKey)]);
+      dataRows.push(["Client Demand", demand.get(thisDemKey)]);
       if (supVals !== undefined || (supVals && supVals.current !== 0)) {
-        dataRows.push(['Currently Available', supVals.current]);
+        dataRows.push(["Currently Available", supVals.current]);
       } else {
-        dataRows.push(['Currently Available', 0]);
+        dataRows.push(["Currently Available", 0]);
       }
       if (supVals !== undefined || (supVals && supVals.oneMonth !== 0)) {
-        dataRows.push(['Available in 1 Month', supVals.oneMonth]);
+        dataRows.push(["Available in 1 Month", supVals.oneMonth]);
       } else {
-        dataRows.push(['Available in 1 Month', 0]);
+        dataRows.push(["Available in 1 Month", 0]);
       }
       if (supVals !== undefined || (supVals && supVals.threeMonths !== 0)) {
-        dataRows.push(['Available in 3 Months', supVals.threeMonths]);
+        dataRows.push(["Available in 3 Months", supVals.threeMonths]);
       } else {
-        dataRows.push(['Available in 3 Months', 0]);
+        dataRows.push(["Available in 3 Months", 0]);
       }
       data[i].addRows(dataRows);
       view[i] = new google.visualization.DataView(data[i]);
@@ -252,7 +251,7 @@ export class ColumnChartTest extends React.Component<any, any> {
     let googleView = this.createTableData(demArr, supArr);
     // Labeling and styling
     var options: any = {
-      orientation: 'horizontal',
+      orientation: "horizontal",
       width: 1000,
       column: 0,
       height: 500,
@@ -260,10 +259,10 @@ export class ColumnChartTest extends React.Component<any, any> {
         direction: 1,
       },
       vAxes: {
-        0: { title: 'Amount of Associates' },
+        0: { title: "Amount of Associates" },
       },
       hAxes: {
-        0: { title: 'Demand and Supply Timeline' },
+        0: { title: "Demand and Supply Timeline" },
       },
     };
     this.drawChart(
@@ -318,7 +317,7 @@ export class ColumnChartTest extends React.Component<any, any> {
                 <DropdownToggle caret>
                   {this.state.currentSelected
                     ? this.state.currentSelected
-                    : 'Select Skillset'}
+                    : "Select Skillset"}
                 </DropdownToggle>
                 <DropdownMenu>
                   {this.state.dropdownOptions &&
@@ -334,7 +333,7 @@ export class ColumnChartTest extends React.Component<any, any> {
             </Col>
           </Row>
           <Row>
-            <Col className='center-items-div'>
+            <Col className="center-items-div">
               <div ref={this.myRef} />
             </Col>
           </Row>
