@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useState } from 'react';
+import './App.css';
 
 import {
   BrowserRouter as Router,
@@ -7,23 +7,25 @@ import {
   Switch,
   BrowserRouter,
   NavLink,
-} from "react-router-dom";
+  Redirect,
+} from 'react-router-dom';
 
-import { ReduxInProgress } from "./Story1/InProgress";
-import { Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
-import { TestConvertToObject } from "./GeneralPurposeHelpers/convertToObject";
-import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
-import { OverviewTraining } from "./Story3/OverviewTraining";
-import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
-import {BatchViewModal} from "./Story1/BatchViewModal";
-import { ColumnChartTest } from "./Story2/colGraphComponent";
-import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
-import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
-import { BatchTableTester } from "./Story1/BatchAssocTableTester";
-import { FilterForm } from "./Story1/FilterForm";
-import { BatchPage } from "./Components/GenerateBatch/BatchPage";
+import { ReduxInProgress } from './Story1/InProgress';
+import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
+import { TestConvertToObject } from './GeneralPurposeHelpers/convertToObject';
+import { OverviewClientDemand } from './Story2/OverviewClientDemand';
+import { OverviewTraining } from './Story3/OverviewTraining';
+import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import { BatchViewModal } from './Story1/BatchViewModal';
+import { ColumnChartTest } from './Story2/colGraphComponent';
+import { TrainerAssignmentComponent } from './Story4/TrainerAssignment';
+import { ViewConsentRequests } from './GeneralPurposeComponents/ViewConsentRequests';
+import { BatchTableTester } from './Story1/BatchAssocTableTester';
+import { FilterForm } from './Story1/FilterForm';
+import { BatchPage } from './Components/GenerateBatch/BatchPage';
+import { HomePage } from './Homepage';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -39,8 +41,8 @@ export class App extends React.Component<any, any> {
     return (
       <Container>
         <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          rel='stylesheet'
+          href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         />
 
         {
@@ -53,35 +55,43 @@ export class App extends React.Component<any, any> {
           */
           createRoutesAndNavbar(this.toggleNavbar, [
             {
-              end: "/in-progress",
-              name: "S1 In Progress",
+              end: '/home',
+              name: 'Home',
+              comp: <HomePage />,
+            },
+            {
+              end: '/in-progress',
+              name: 'S1 In Progress',
               comp: <ReduxInProgress />,
             },
             {
-              end: "/overview-demand",
-              name: "S2 Overview Demand",
+              end: '/overview-demand',
+              name: 'S2 Overview Demand',
               comp: <OverviewClientDemand />,
             },
             {
-              end: "/overview-training",
-              name: "S3 Overview Training",
+              end: '/overview-training',
+              name: 'S3 Overview Training',
               comp: <OverviewTraining />,
             },
             {
-              end: "/trainer-assign",
-              name: "Trainer assignment",
+              end: '/trainer-assign',
+              name: 'Trainer assignment',
               comp: <TrainerAssignmentComponent />,
             },
             {
-              end: "/consent-requests",
-              name: "Consent requests",
+              end: '/consent-requests',
+              name: 'Consent requests',
               comp: <ViewConsentRequests />,
             },
 
-            
-            { end: "/BatchPage", name: "Gen batch", comp: <BatchPage /> },
-            { end: "/test-convert", name: "TCO", comp: <TestConvertToObject /> },
-            { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
+            { end: '/BatchPage', name: 'Gen batch', comp: <BatchPage /> },
+            {
+              end: '/test-convert',
+              name: 'TCO',
+              comp: <TestConvertToObject />,
+            },
+            { end: '/test-ASTable', name: 'BTT', comp: <BatchTableTester /> },
           ])
         }
       </Container>
@@ -96,16 +106,16 @@ export class App extends React.Component<any, any> {
 function createRoutesAndNavbar(toggler: any, array: any) {
   return (
     <Router>
-      <Navbar color="light" light expand="md">
+      <Navbar color='light' light expand='md'>
         <NavbarToggler onClick={toggler} />
-        <Nav className="mr-auto" tabs>
+        <Nav className='mr-auto' tabs>
           {array.map((navEnd: any) => {
             return (
               <NavItem>
                 <NavLink
                   to={navEnd.end}
-                  className="nav-link"
-                  activeClassName="active"
+                  className='nav-link'
+                  activeClassName='active'
                 >
                   {navEnd.name}
                 </NavLink>
@@ -116,9 +126,15 @@ function createRoutesAndNavbar(toggler: any, array: any) {
       </Navbar>
       <Switch>
         <Provider store={store}>
+          <Route exact path='/'>
+            <Redirect to='/home' />
+          </Route>
           {array.map((navEnd: any) => {
             return <Route path={navEnd.end}>{navEnd.comp}</Route>;
           })}
+          <Route exact path='*'>
+            <Redirect to='/home' />
+          </Route>
         </Provider>
       </Switch>
     </Router>
