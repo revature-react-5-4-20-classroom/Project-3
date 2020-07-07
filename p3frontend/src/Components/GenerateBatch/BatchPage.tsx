@@ -31,7 +31,7 @@ export class BatchPage extends React.Component<any, any> {
               </Row>
               <Row>
                 <Col md={12}>
-                  {/* <BatchList></BatchList> */}
+                  <BatchList></BatchList>
                 </Col>
               </Row>
             </Col>
