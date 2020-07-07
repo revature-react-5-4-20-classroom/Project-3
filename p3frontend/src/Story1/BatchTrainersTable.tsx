@@ -18,6 +18,7 @@ import {
   removeTrainerFromBatchActionMapper,
 } from "../redux/action-mapper";
 import { store } from "../redux/store";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 const doPrnt = true; //prnt may be toggled
 
@@ -96,6 +97,7 @@ export default class BatchTrainersTable extends React.Component<
 
     return (
       <Container>
+        <PageTitleBar pageTitle="Batch Trainers" />
         <ErrorAlert
           error={this.state.errorObject}
           message={this.state.errorMessage}
@@ -175,13 +177,14 @@ export default class BatchTrainersTable extends React.Component<
           train
         );
       }
+      this.setState({});
     } catch (e) {
       this.setState({
         errorObject: e,
         errorMessage: "Could not update trainer",
       });
-      this.props.parentTop.setState({}); //re-render
     }
+    this.props.parentTop.setState({}); //re-render
   };
 }
 

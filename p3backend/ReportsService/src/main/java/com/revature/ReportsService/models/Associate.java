@@ -7,11 +7,11 @@ public class Associate {
   private String lastName;
   private String email;
   private Boolean active;
-  private Integer interviewScore;
-  private Batch batch;
+  private Double interviewScore;
+  public Batch batch;
 
   public Associate(Integer associateId, String firstName, String lastName, String email,
-      Boolean active, Integer interviewScore, Batch assignedBatchId) {
+      Boolean active, Double interviewScore, Batch assignedBatchId) {
     super();
     this.associateId = associateId;
     this.firstName = firstName;
@@ -62,11 +62,11 @@ public class Associate {
     this.active = active;
   }
 
-  public Integer getInterviewScore() {
+  public Double getInterviewScore() {
     return interviewScore;
   }
 
-  public void setInterviewScore(Integer interviewScore) {
+  public void setInterviewScore(Double interviewScore) {
     this.interviewScore = interviewScore;
   }
 

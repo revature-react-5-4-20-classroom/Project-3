@@ -24,7 +24,6 @@ import { TrainerAssignmentComponent } from './Story4/TrainerAssignment';
 import { ViewConsentRequests } from './GeneralPurposeComponents/ViewConsentRequests';
 import { BatchTableTester } from './Story1/BatchAssocTableTester';
 import { FilterForm } from './Story1/FilterForm';
-import { BatchPage } from './Components/GenerateBatch/BatchPage';
 import { HomePage } from './Homepage';
 import { PageFooter } from './Footer';
 
@@ -86,7 +85,6 @@ export class App extends React.Component<any, any> {
               comp: <ViewConsentRequests />,
             },
 
-            { end: '/BatchPage', name: 'Gen batch', comp: <BatchPage /> },
             {
               end: '/test-convert',
               name: 'TCO',

@@ -1,6 +1,7 @@
 import { Consent } from "../models/Consent";
 import { Trainer } from "../models/Trainer";
 import { axiosClient } from "./axios";
+import { Batch } from "../models/Batch";
 
 export async function getAllEligibleTrainers(
   batchId: number
@@ -93,11 +94,13 @@ export async function getAllTrainers(): Promise<Trainer[]> {
 
 export async function createConsentRequest(
   trainerId: number,
-  isApproved: null,
+  isApproved:boolean| null,
   batchId: number
 ) {
+ 
   try {
     console.log(trainerId);
+    console.log(batchId);
     const response = await axiosClient.post("/consent", {
       trainerId: trainerId,
       batchId: batchId,
@@ -130,7 +133,7 @@ export async function createConsentRequest(
 
 export async function createTrainerBatch(trainerId: number, batchId: number) {
   try {
-    console.log(trainerId);
+    
     const response = await axiosClient.post("/trainerbatch", {
       trainerId: trainerId,
       batchId: batchId,
@@ -143,15 +146,15 @@ export async function createTrainerBatch(trainerId: number, batchId: number) {
 }
 
 export async function approveConsentRequest(consent: Consent) {
+  console.log(consent.isApproved);
   try {
-    await axiosClient.patch("/consent", {
-      consentId: consent.consentId,
+    await axiosClient.patch(`/consent/${consent.consentId}`, {
       batchId: consent.batch.batchId,
       trainerId: consent.trainer.trainerId,
       isApprovedColumn: consent.isApproved,
     });
 
-    await createTrainerBatch(consent.trainer.trainerId, consent.batch.batchId);
+    //await createTrainerBatch(consent.trainer.trainerId, consent.batch.batchId);
   } catch (e) {
     console.log(e);
   }
@@ -174,8 +177,7 @@ export async function approveConsentRequest(consent: Consent) {
 
 export async function denyConsentRequest(consent: Consent) {
   try {
-    await axiosClient.patch("/consent", {
-      consentId: consent.consentId,
+    await axiosClient.patch(`/consent/${consent.consentId}`, {
       batchId: consent.batch.batchId,
       trainerId: consent.trainer.trainerId,
       isApprovedColumn: consent.isApproved,
@@ -203,6 +205,7 @@ export async function denyConsentRequest(consent: Consent) {
 export async function getConsentByTrainerId(id: number): Promise<Consent[]> {
   try {
     const response = await axiosClient.get(`/consent/${id}`);
+    console.log(response);
 
     return response.data.map((itemObj: Consent) => {
 

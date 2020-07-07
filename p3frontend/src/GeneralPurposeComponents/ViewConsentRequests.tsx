@@ -3,9 +3,11 @@ import {
   approveConsentRequest,
   denyConsentRequest,
   getConsentByTrainerId,
+  createTrainerBatch,
 } from "../api/consent";
 import { Consent } from "../models/Consent";
-import { ListGroup, ListGroupItem, Button } from "reactstrap";
+import { ListGroup, ListGroupItem, Button, Container } from "reactstrap";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 interface IViewConsentRequestsState {
   consentRequests: Consent[];
@@ -22,27 +24,32 @@ export class ViewConsentRequests extends React.Component<
     };
   }
 
-  // componentDidMount() {
-  //   this.getConsentRequests();
-  // }
+  componentDidMount() {
+    this.getConsentRequests();
+  }
 
   accept = async (id: number) => {
     let consentRequest: Consent = this.state.consentRequests[id];
     consentRequest.isApproved = true;
     await approveConsentRequest(consentRequest);
+    await createTrainerBatch(consentRequest.trainer.trainerId, consentRequest.batch.batchId)
+    this.getConsentRequests();
   };
 
   decline = async (id: number) => {
     let consentRequest: Consent = this.state.consentRequests[id];
     consentRequest.isApproved = false;
     await denyConsentRequest(consentRequest);
+   
+    this.getConsentRequests();
   };
 
   
 
 
   getConsentRequests = async () =>{
-    let consentRequests : Consent[] = await getConsentByTrainerId(1);
+    let consentRequests : Consent[] = await getConsentByTrainerId(4);
+    console.log(consentRequests);
     this.setState({
       consentRequests: consentRequests,
     });
@@ -57,11 +64,14 @@ export class ViewConsentRequests extends React.Component<
     if(this.state.consentRequests.length==0)
     {
       return (
-      <h6>There are 0 consent requests to view</h6>)
+        <>
+        <Container><PageTitleBar pageTitle={"Consent Requests"}/></Container>
+      <h6>There are 0 consent requests to view</h6>
+      </>
+      )
     }
 
     return (<>
-      <h6>View Consent Requests</h6>
 
         <ListGroup>
           {this.state.consentRequests.map((consent: Consent, i) => {

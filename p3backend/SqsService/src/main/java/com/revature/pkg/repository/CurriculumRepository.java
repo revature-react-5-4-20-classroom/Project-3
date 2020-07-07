@@ -1,5 +1,7 @@
 package com.revature.pkg.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,11 +14,19 @@ import com.revature.pkg.model.Curriculum;
 public interface CurriculumRepository extends JpaRepository<Curriculum, Integer>{
 
 
+	
+	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select * from curriculum",
+	  @Query(value = "select * from proj3.curriculum where name=:name",
 		      nativeQuery = true)
-	Curriculum select();
+	List<Curriculum> checkCurriculum(String name);
+	
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	  @Query(value = "insert into proj3.curriculum values(default,:name,:id)",
+		      nativeQuery = true)
+	void createCurriculum(String name,Integer id);
 	  
 
 }

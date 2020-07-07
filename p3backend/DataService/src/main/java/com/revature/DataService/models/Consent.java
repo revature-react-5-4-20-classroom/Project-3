@@ -26,13 +26,12 @@ public class Consent {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer consentId;
 
+
   @Column(name = "consent_approved")
   private Boolean isApprovedColumn;
 
-  // @Column(name = "trainer_id")
-  // private Integer trainerId;
 
-
+  
   // Working
   // Changing at Nick's request
   @JsonIgnoreProperties({"consent", "trainers"})
@@ -61,6 +60,7 @@ public class Consent {
     this.consentId = consentId;
   }
 
+
   public Boolean getIsApprovedColumn() {
     return isApprovedColumn;
   }
@@ -84,6 +84,7 @@ public class Consent {
   public void setTrainer(Trainer trainer) {
     this.trainer = trainer;
   }
+
 
   public Consent(Integer consentId, Boolean isApprovedColumn, Batch batch, Trainer trainer) {
     super();

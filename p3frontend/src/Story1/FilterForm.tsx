@@ -35,6 +35,7 @@ interface FilterFormState {
   isOpen: boolean;
 }
 
+// The FilterForm is a component which renders as a button. When clicked, a form will pop up, which will allow the user to select filters for the InProgress component
 export class FilterForm extends React.Component<
   FilterFormProps,
   FilterFormState
@@ -49,8 +50,7 @@ export class FilterForm extends React.Component<
     };
   }
 
-  getSelections = () => {};
-
+  // Setting values to filter for on programType, client, and curriculum
   setProgramType = (e: any) => {
     console.log(`Setting program type in FilterForm: ${e.value}`);
     console.log(e);
@@ -71,12 +71,14 @@ export class FilterForm extends React.Component<
     });
   };
 
+  // toggles the modal on or off
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen,
     });
   };
 
+  // applies the filters using passed in functions. For the page to render appropriately, setCurriculum should also have a callback function in this.setState
   applyAllFilters = (e: any) => {
     e.preventDefault();
     console.log("In applyAllFilters");
@@ -86,6 +88,7 @@ export class FilterForm extends React.Component<
     this.toggle();
   };
 
+  // sets all filters to "(none)"
   reset = () => {
     this.setState({
       programType: "(none)",
@@ -99,9 +102,9 @@ export class FilterForm extends React.Component<
       <>
         <Button onClick={this.toggle}>Set Filters &nbsp;<FontAwesomeIcon icon={faBars}/></Button>
         <Modal isOpen={this.state.isOpen} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Set Batch Filters</ModalHeader>
-          <Jumbotron>
-            <Button onClick={this.reset} color="info"><FontAwesomeIcon icon={faRedoAlt}/>&nbsp;Reset Selection</Button>
+          <ModalHeader toggle={this.toggle} style={{backgroundColor:"#474c55", color:"#ffffff"}}>Set Batch Filters</ModalHeader>
+          <Jumbotron style={{backgroundColor:"#ffffff"}}>
+            <Button onClick={this.reset}><FontAwesomeIcon icon={faRedoAlt}/>&nbsp;Reset Selection</Button>
             <br/><br/>
             <Form onSubmit={this.applyAllFilters}>
               <Row form>
@@ -195,7 +198,8 @@ export class FilterForm extends React.Component<
                 </Col>
               </Row>
               <br/>
-              <Button color="primary">Apply Filters</Button>
+              {/* Clicking this button submits the form, calls the applyAllFilters function */}
+              <Button style={{backgroundColor:"#f26925"}}>Apply Filters</Button>
             </Form>
           </Jumbotron>
         </Modal>
