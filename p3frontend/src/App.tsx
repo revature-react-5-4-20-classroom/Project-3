@@ -23,17 +23,20 @@ import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
 import { BatchTableTester } from "./Story1/BatchAssocTableTester";
 import { FilterForm } from "./Story1/FilterForm";
+import {approveConsentRequest, denyConsentRequest,getConsentByTrainerId} from "../src/api/consent";
+import { trackPromise } from 'react-promise-tracker';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
+    this.state = {
+      update : []
+    }
   }
-
   toggleNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     setIsOpen(!isOpen);
   };
-
   render() {
     return (
       <Container>
@@ -66,11 +69,11 @@ export class App extends React.Component<any, any> {
               name: "S3 Overview Training",
               comp: <OverviewTraining />,
             },
-            {
-              end: "/trainer-assign",
-              name: "Trainer assignment",
-              comp: <TrainerAssignmentComponent />,
-            },
+            // {
+            //   end: "/trainer-assign",
+            //   name: "Trainer assignment",
+            //   comp: <TrainerAssignmentComponent />,
+            // },
             {
               end: "/consent-requests",
               name: "Consent requests",

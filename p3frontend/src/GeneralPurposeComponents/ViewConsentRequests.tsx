@@ -8,6 +8,7 @@ import {
 import { Consent } from "../models/Consent";
 import { ListGroup, ListGroupItem, Button, Container } from "reactstrap";
 import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
+import { trainerGetName } from "../models/Trainer";
 
 interface IViewConsentRequestsState {
   consentRequests: Consent[];
@@ -56,10 +57,6 @@ export class ViewConsentRequests extends React.Component<
 
   }
 
-
-
-
-    
   render() {
     if(this.state.consentRequests.length==0)
     {
@@ -78,7 +75,7 @@ export class ViewConsentRequests extends React.Component<
             //trying to use the same item display everywhere
             return (
               <ListGroupItem key={i}>
-                {consent.batch.batchId}
+                {consent.batch.batchId + ' - ' + consent.batch.curriculum.name + ' - ' + consent.trainer.firstName + ' ' + consent.trainer.lastName + ' '}
                 <Button
                   color="primary"
                   id={i.toString()}

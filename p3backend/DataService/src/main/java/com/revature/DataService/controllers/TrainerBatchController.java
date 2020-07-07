@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.revature.DataService.models.Associate;
 import com.revature.DataService.models.TrainerBatch;
+import com.revature.DataService.models.TrainerBatchIdentity;
+import com.revature.DataService.models.TrainerBatchPost;
 import com.revature.DataService.repositories.TrainerBatchRepository;
 import com.revature.DataService.services.TrainerBatchService;
 
@@ -49,7 +51,7 @@ public class TrainerBatchController {
       System.out.println();
        System.out.print("TrainerBatch Patch tb=");
        System.out.println(tb);
-      tbr.save(tb);
+      trainerBatchService.save(tb);
        //trainerBatchService.save(tb);
         return "TrainerBatch has been patched!";
     } catch (Exception e)
@@ -81,21 +83,18 @@ public class TrainerBatchController {
     }
   }
   
-  @PostMapping("/trainerBatch")
-  public String trainerPost(@RequestBody TrainerBatch tb) {
+  @PostMapping("/trainerbatch")
+  public String trainerPost(@RequestBody TrainerBatchPost tb) {
     try
     {
-      System.out.println();
-      System.out.println();
-      System.out.println();
-      System.out.println();
-       System.out.print("TrainerBatch Post tb=");
-       System.out.println(tb);
+      
+       TrainerBatchIdentity tbi = new TrainerBatchIdentity(tb.getTrainerId(), tb.getBatchId());
+       TrainerBatch tbNew = new TrainerBatch(tbi);
        
        //This will not add more than 5 rows into the trainerbatch for some reason
        //I assume there is some kind of limitation imposed on it by the database
        //maybe there is some business logic I do not know about
-      tbr.save(tb);
+       trainerBatchService.save(tbNew);
       return "TrainerBatch has been posted!";
     } catch (Exception e)
     {

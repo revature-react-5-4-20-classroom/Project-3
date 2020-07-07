@@ -28,6 +28,7 @@ import BatchTrainersTable, {
   BatchTrainersTableRedux,
 } from "./BatchTrainersTable";
 import { store } from "../redux/store";
+import { TrainerAssignmentRedux } from "../Story4/TrainerAssignment";
 
 /*
   <BatchViewModel currentBatch={aSvererBatch} parentState={this.state}/>
@@ -172,7 +173,7 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
 
           <ModalBody>
             {this.state.showTrainers ? (
-              <BatchTrainersTableRedux
+              <TrainerAssignmentRedux
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />
