@@ -9,7 +9,6 @@ import {
   ButtonGroup,
 } from "reactstrap";
 import "../../src/index.css";
-import { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -18,6 +17,8 @@ import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
 import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 import { store } from "../redux/store";
+import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
+import {TrainerAssignmentRedux} from "../Story4/TrainerAssignment"
 
 /*
   <BatchViewModel currentBatch={aSvererBatch} parentState={this.state}/>
@@ -162,7 +163,7 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
 
           <ModalBody>
             {this.state.showTrainers ? (
-              <BatchTrainersTableRedux
+              <TrainerAssignmentRedux
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />

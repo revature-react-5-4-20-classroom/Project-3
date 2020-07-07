@@ -1,6 +1,7 @@
 package com.revature.DataService.models;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 
 public class TrainerBatch {
 
+
   @Id
   @Column(name = "trainer_id")
   //@GeneratedValue(strategy = GenerationType.IDENTITY)//caused: could not insert trainerId into jump table.
@@ -22,11 +24,6 @@ public class TrainerBatch {
   @Id
   @Column(name = "batch_id")
   private Integer batchId;
-
-  public TrainerBatch() {
-    super();
-  }
-
 
   public Integer getTrainerId() {
     return trainerId;
@@ -44,16 +41,33 @@ public class TrainerBatch {
     this.batchId = batchId;
   }
 
-  @Override
-  public String toString() {
-    return "TrainerBatch [trainerId=" + trainerId + ", batchId=" + batchId + "]";
-  }
-
   public TrainerBatch(Integer trainerId, Integer batchId) {
     super();
     this.trainerId = trainerId;
     this.batchId = batchId;
   }
+  
+  public TrainerBatch() {
+    super();
+    
+  }
+
+  @Override
+  public String toString() {
+    return "TrainerBatch [trainerId=" + trainerId + ", batchId=" + batchId + "]";
+  }
+  
+  
+  
+  
+
+
+ 
+
+  
+
+
+  
 
 
 

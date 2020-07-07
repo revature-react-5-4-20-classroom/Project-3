@@ -27,6 +27,8 @@ import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
 import { HomePage } from "./Homepage";
 import { PageFooter } from "./Footer";
+import { trackPromise } from 'react-promise-tracker';
+import {getConsentByTrainerId} from '../src/api/consent';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -50,6 +52,8 @@ export class App extends React.Component<any, any> {
       isBatchOpen: false,
     });
   };
+
+ 
 
   /*  
     returns a jsx component with the navbar and endpoint routes.
@@ -180,11 +184,11 @@ export class App extends React.Component<any, any> {
               name: "Generate Batches",
               comp: <OverviewTraining />,
             },
-            {
-              end: "/trainers/trainer-assign",
-              name: "Trainer assignment",
-              comp: <TrainerAssignmentComponent />,
-            },
+            // {
+            //   end: "/trainer-assign",
+            //   name: "Trainer assignment",
+            //   comp: <TrainerAssignmentComponent />,
+            // },
             {
               end: "/trainers/consent-requests",
               name: "Consent requests",

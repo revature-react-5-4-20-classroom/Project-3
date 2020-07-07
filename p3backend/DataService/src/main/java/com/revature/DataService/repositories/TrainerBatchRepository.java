@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.DataService.models.Skills;
 import com.revature.DataService.models.TrainerBatch;
 
+
 @Repository
 public interface TrainerBatchRepository extends JpaRepository<TrainerBatch, Integer> {
   

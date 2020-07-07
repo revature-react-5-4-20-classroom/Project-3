@@ -18,7 +18,11 @@ import com.revature.DataService.models.Associate;
 import com.revature.DataService.models.Batch;
 import com.revature.DataService.models.Trainer;
 import com.revature.DataService.models.TrainerBatch;
+
+import com.revature.DataService.models.TrainerBatchPost;
+
 import com.revature.DataService.repositories.BatchRepository;
+
 import com.revature.DataService.repositories.TrainerBatchRepository;
 import com.revature.DataService.repositories.TrainerRepository;
 import com.revature.DataService.services.TrainerBatchService;
@@ -60,7 +64,7 @@ public class TrainerBatchController {
       System.out.println();
        System.out.print("TrainerBatch Patch tb=");
        System.out.println(tb);
-      tbr.save(tb);
+      trainerBatchService.save(tb);
        //trainerBatchService.save(tb);
         return "TrainerBatch has been patched!";
     } catch (Exception e)
@@ -92,17 +96,12 @@ public class TrainerBatchController {
     }
   }
   
-  @PostMapping("/trainerBatch")
-  public String trainerPost(@RequestBody TrainerBatch tb) {
+  @PostMapping("/trainerbatch")
+  public String trainerPost(@RequestBody TrainerBatchPost tb) {
     try
     {
-      System.out.println();
-      System.out.println();
-      System.out.println();
-      System.out.println();
-       System.out.print("TrainerBatch Post tb=");
-       System.out.println(tb);
-       
+      
+ 
        int total=tbr.getTotalTrainerBatches(tb.getTrainerId(), tb.getBatchId());
        
        if(total==0)//if the tb pair is not already in the join table
@@ -114,6 +113,7 @@ public class TrainerBatchController {
        {
          return "TrainerBatch pair already exists and another was not posted. total="+total;
        }
+
     } catch (Exception e)
     {
       return e.getMessage();
