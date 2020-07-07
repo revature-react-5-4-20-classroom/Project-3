@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Tooltip, UncontrolledTooltip } from "reactstrap";
+import React from "react";
+import { UncontrolledTooltip } from "reactstrap";
 
 /*
 	<EasyTooltip target={'anotherComponentId'} displayText='The Text to display when anotherComponent is hovered over' />
@@ -29,7 +29,6 @@ export class EasyTooltip extends React.Component<IPropsEasyTooltip, any> {
         </>
       );
     }
-
     return <></>;
   }
 }

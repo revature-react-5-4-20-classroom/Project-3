@@ -3,17 +3,10 @@ import Timeline from "react-calendar-timeline";
 import moment from "moment";
 import "./Timeline.css";
 import { Batch } from "../models/Batch";
-import { getAllBatches } from "../api/batch";
-import { Trainer } from "../models/Trainer";
-import { TrainerSkills } from "../models/TrainerSkills";
-import { Skill } from "../models/Skill";
-import { Location } from "../models/Location";
-import { Curriculum } from "../models/Curriculum";
-import { Associate } from "../models/Associate";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
 import { connect } from "react-redux";
-import { Modal, Toast, Button } from "reactstrap";
+import { Toast } from "reactstrap";
 import { TimelineModal } from "./TimelineModal";
 import { store } from "../redux/store";
 import {
@@ -63,7 +56,8 @@ export class TimelineComponent extends React.Component<
     }
   };
 
-  changeState = () => {  //sets the groups and items for the timeline component
+  changeState = () => {
+    //sets the groups and items for the timeline component
     console.log("hello");
     let mappedGroups: any[] = [];
     let mappedItems: any[] = [];
@@ -142,7 +136,7 @@ export class TimelineComponent extends React.Component<
           // onItemClick:()=>{alert("sdf")},
           //    onClick:()=>{alert("sfds")},
           // selectedBgColor: 'rgba(225, 166, 244, 1)',
-        
+
           itemProps: {
             onContextMenu: (event: any) => {
               this.displayBatchInfo(batch);

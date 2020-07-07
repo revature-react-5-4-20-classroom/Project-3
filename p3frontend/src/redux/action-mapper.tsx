@@ -1,6 +1,5 @@
 import { Batch } from "../models/Batch";
 import { Trainer } from "../models/Trainer";
-import { Associate } from "../models/Associate";
 
 export const clickTypes = {
   BATCH_CLICK: "BATCH_CLICK",

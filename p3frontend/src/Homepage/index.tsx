@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Jumbotron, CardFooter } from "reactstrap";
+import { Container, Row, Col, Jumbotron } from "reactstrap";
 
 export class HomePage extends React.Component<any, any> {
   constructor(props: any) {

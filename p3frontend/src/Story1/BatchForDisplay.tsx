@@ -1,18 +1,11 @@
-import { Trainer } from "../models/Trainer";
-import { Curriculum } from "../models/Curriculum";
-import {
-  Associate,
-  associatesGetActiveTotal,
-  associatesGetActive,
-} from "../models/Associate";
-import { Consent } from "../models/Consent";
-import { Location, locationGetName } from "../models/Location";
+import { associatesGetActiveTotal } from "../models/Associate";
+import { locationGetName } from "../models/Location";
 import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
 import React from "react";
 import { Batch } from "../models/Batch";
-import { Col, Container, Row, Table } from "reactstrap";
-import { BatchViewModal, BatchViewModalRedux } from "./BatchViewModal";
+import { Col, Container, Row } from "reactstrap";
+import { BatchViewModalRedux } from "./BatchViewModal";
 
 /*
   This batch has additional information for display on the front end.
@@ -71,7 +64,6 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
 
   // This is to make sure the component will update its state properly whenever the props change
   componentWillReceiveProps(newProps: any) {
-    
     let dateStart = convertDateToUTC(newProps.batch.startDate); //convert strings to Date objects
     let dateEnd = convertDateToUTC(newProps.batch.endDate);
 

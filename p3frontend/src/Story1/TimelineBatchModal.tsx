@@ -1,20 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  NavItem,
-  Nav,
-  Navbar,
   Row,
   Col,
-  NavbarToggler,
   ButtonGroup,
-  Container,
 } from "reactstrap";
 import "../../src/index.css";
+import { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -22,8 +17,7 @@ import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 //import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 import { axiosClient } from "../api/axios";
-import {BatchTrainersTable, BatchTrainersTableRedux} from "./BatchTrainersTable";
-import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
+import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 
 interface IPBatchViewModal {
   currentBatch: Batch;
