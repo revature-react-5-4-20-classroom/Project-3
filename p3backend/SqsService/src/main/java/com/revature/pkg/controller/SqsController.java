@@ -276,7 +276,7 @@ public class SqsController {
 	
 	
 	
-	@JmsListener(destination = "sqs",containerFactory = "jmsListenerContainerFactory")
+	@JmsListener(destination = "${SQS_ENDPOINT}",containerFactory = "jmsListenerContainerFactory")
 	public void receive(@Payload String message) {
 		try {
 			JsonObject jsonObject = new JsonParser().parse(message).getAsJsonObject();
