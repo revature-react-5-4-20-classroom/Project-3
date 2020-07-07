@@ -1,5 +1,7 @@
 import { Associate } from "../models/Associate";
 import React from "react";
+import { Container } from "reactstrap";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 export class TestConvertToObject extends React.Component<any, any> {
   constructor(props: any) {
@@ -22,7 +24,8 @@ export class TestConvertToObject extends React.Component<any, any> {
     let typeOfAssoc = typeof assocAsAssoc;
 
     return (
-      <>
+      <Container>
+        <PageTitleBar pageTitle="Object Conversion Test" />
         <h6>Trying to convert json to a valid typescript object</h6>
         typeOfJson={assocAsJson.toString()}
         <br />
@@ -33,7 +36,7 @@ export class TestConvertToObject extends React.Component<any, any> {
         <br />
         {JSON.stringify(assocAsAssoc)}
         <br />
-      </>
+      </Container>
     );
   }
 }

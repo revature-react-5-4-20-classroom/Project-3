@@ -38,3 +38,30 @@ code {
   position: fixed;
   left: 5%;
 }
+
+.page-title-bar {
+  height: 30px;
+  color: white;
+  background-color: #474C55;
+  margin-bottom: 6px;
+  line-height: 1.53rem;
+    font-size: 1.2rem;
+}
+
+.middle-text {
+  margin-bottom: 0px;
+}
+
+#gen-batch-options-menu {
+  background-color: #474C55;
+}
+
+#options-div {
+  color: "white";
+  padding-bottom: 8px;
+  padding-top: 2px;
+}
+
+.form-control {
+  border-radius: 0px !important;
+}

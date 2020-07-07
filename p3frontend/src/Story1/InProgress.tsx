@@ -28,6 +28,7 @@ import { FilterForm } from "./FilterForm";
 import moment from "moment";
 import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 import { BatchForDisplay } from "./BatchForDisplay";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 const doPrnt = true; //prnt will work
 
@@ -73,17 +74,9 @@ export class InProgress extends React.Component<any, any> {
           message={this.state.errorMessage}
           error={this.state.error}
         />
-        <h6>Story 1. "In Progress"</h6>
-        <br />
-        <p>
-          Given that batches are currently in operation When I navigate to the
-          'In Progress' view And I optionally select Program Type (ROCP, CF,
-          Standard, Spark) or Curricula or client Then I see current week, weeks
-          remaining, number of active/inactive associates, trainer, location
-          filtered by criteria And this data is shown as a table and a Calendar
-          view
-        </p>
-        <br />
+        
+        <PageTitleBar pageTitle={'In Progress'} />
+
         <Row>
           <Col>
             <b>view type:</b>
