@@ -18,7 +18,7 @@ public interface CurriculumRepository extends JpaRepository<Curriculum, Integer>
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select * from proj3.curriculum where name=:name",
+	  @Query(value = "select * from project3.curriculum where name=:name",
 		      nativeQuery = true)
 	List<Curriculum> checkCurriculum(String name);
 	

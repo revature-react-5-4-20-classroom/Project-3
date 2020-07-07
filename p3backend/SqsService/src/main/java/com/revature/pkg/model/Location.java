@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(schema="proj3", name = "location")
+@Table(schema="project3", name = "location")
 public class Location {
 
 	
