@@ -190,13 +190,14 @@ export default class BatchAssocTable extends React.Component<
           nonCircularAssocPatch
         );
       }
+      this.setState({});
     } catch (e) {
       this.setState({
         errorObject: e,
         errorMessage: "Could not patch associate",
       });
-      this.props.parentTop.setState({}); //re-render
     }
+    this.props.parentTop.setState({}); //re-render
   };
 }
 
