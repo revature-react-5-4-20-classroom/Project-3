@@ -1,11 +1,19 @@
 .overview-training .nav {
-  color: "#fff";
+  color: #fff;
 }
 
 .table {
-    border: 1px solid #eeccee;
-    max-height: 250px;
-    overflow-y: scroll;
-    width: 100%;
-    /* background-color: black; */
-  }
+  border: 1px solid #eeccee;
+  max-height: 250px;
+  overflow-y: scroll;
+  width: 100%;
+  /* background-color: black; */
+}
+.option {
+  height: 250px;
+  background-color: #c0c0c0;
+  text-align: center;
+}
+.container{
+  height: 300px;
+}

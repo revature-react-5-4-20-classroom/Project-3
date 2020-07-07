@@ -64,7 +64,7 @@ export class OverviewTraining extends React.Component<any, any> {
       errorMessage: "",
       currentBatchIndex: undefined,
       allEligibleAssociates: [],
-      success:false,
+      success: false,
     };
   }
   componentDidMount = async () => {
@@ -203,9 +203,10 @@ export class OverviewTraining extends React.Component<any, any> {
       this.state.notConfirmedBatches.splice(this.state.currentBatchIndex, 1);
       console.log(this.state.notConfirmedBatches);
       this.setState({
-        success:true,
+        success: true,
+        data:false
       });
-      
+
       // this.props.batchUpdateActionMapper(newBatch);
     } catch (e) {
       this.setState({
@@ -223,7 +224,7 @@ export class OverviewTraining extends React.Component<any, any> {
 
           <Row>
             <Col md={3}>
-              <Container style={{ backgroundColor: "#C0C0C0" }}>
+              <Container  className="option" >
                 <br />
                 <h4>Select Associates</h4>
                 <br />
@@ -238,7 +239,7 @@ export class OverviewTraining extends React.Component<any, any> {
                 </InputGroup>
                 <br />
                 <InputGroup>
-                  <Label>Interview Score Limit: </Label>
+                  <Label>Lower Interview Score: </Label>
                   <Input
                     type="number"
                     value={this.state.interview}
@@ -269,7 +270,7 @@ export class OverviewTraining extends React.Component<any, any> {
                   <Row>
                     <Col>
                       {this.state.data ? (
-                        <Container>
+                        <Container class="container">
                           <ErrorAlert
                             error={this.state.errorObject}
                             message={this.state.errorMessage}
@@ -394,6 +395,7 @@ export class OverviewTraining extends React.Component<any, any> {
               </Button>
             </Col>
           </Row>
+          {/* <footer></footer> */}
         </Container>
       </>
     );
