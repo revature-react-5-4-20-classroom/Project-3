@@ -6,14 +6,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.revature.DataService.models.Batch;
-
+import com.revature.DataService.models.Trainer;
 import com.revature.DataService.repositories.BatchRepository;
+import com.revature.DataService.repositories.TrainerRepository;
 
 @Service
 public class BatchService {
 
   @Autowired
   BatchRepository batchRepository;
+  
+  @Autowired
+  TrainerRepository trainerRepository;
 
   public List<Batch> getAll() {
     try {
@@ -60,5 +64,24 @@ public class BatchService {
     List<Batch> existingBatch = batchRepository.getBatchByClient(id);
     return existingBatch;
 
+  }
+  
+  public Batch batchtrain(Integer trainerId, Integer batchId) throws Exception {
+    
+    Optional<Batch> existingBatch = batchRepository.findById(batchId);
+    Optional<Trainer> trainer = trainerRepository.findById(trainerId);
+       
+    
+    if (existingBatch.isPresent()) {
+     Batch batch=existingBatch.get();
+     Trainer trainers=trainer.get();
+     batch.setTrainerOne(trainers); //pushes a trainer into the list
+     return batchRepository.save(batch);
+     
+     
+    } else {
+      throw new Exception("batch failed to update");
+    }
+    
   }
 }

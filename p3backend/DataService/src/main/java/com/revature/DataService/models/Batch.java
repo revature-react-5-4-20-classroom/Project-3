@@ -165,6 +165,10 @@ public class Batch {
     this.trainers = trainers;
   }
 
+  
+  public void setTrainerOne(Trainer trainer) {
+    trainers.add(trainer);
+  }
 
 
   public Location getLocation() {
