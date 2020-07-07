@@ -146,15 +146,15 @@ export async function createTrainerBatch(trainerId: number, batchId: number) {
 }
 
 export async function approveConsentRequest(consent: Consent) {
+  console.log(consent.isApproved);
   try {
-    await axiosClient.patch("/consent", {
-      consentId: consent.consentId,
+    await axiosClient.patch(`/consent/${consent.consentId}`, {
       batchId: consent.batch.batchId,
       trainerId: consent.trainer.trainerId,
       isApprovedColumn: consent.isApproved,
     });
 
-    await createTrainerBatch(consent.trainer.trainerId, consent.batch.batchId);
+    //await createTrainerBatch(consent.trainer.trainerId, consent.batch.batchId);
   } catch (e) {
     console.log(e);
   }
@@ -177,8 +177,7 @@ export async function approveConsentRequest(consent: Consent) {
 
 export async function denyConsentRequest(consent: Consent) {
   try {
-    await axiosClient.patch("/consent", {
-      consentId: consent.consentId,
+    await axiosClient.patch(`/consent/${consent.consentId}`, {
       batchId: consent.batch.batchId,
       trainerId: consent.trainer.trainerId,
       isApprovedColumn: consent.isApproved,

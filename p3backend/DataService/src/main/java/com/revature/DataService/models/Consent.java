@@ -27,7 +27,7 @@ public class Consent {
   private Integer consentId;
 
 
-  @Column(name = "consent_approved", nullable=true)
+  @Column(name = "consent_approved")
   private Boolean isApprovedColumn;
 
 
