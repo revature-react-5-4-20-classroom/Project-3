@@ -60,7 +60,6 @@ export class InProgress extends React.Component<any, any> {
           message={this.state.errorMessage}
           error={this.state.error}
         />
-
         <PageTitleBar pageTitle={"In Progress"} />
 
         <Row>
@@ -70,7 +69,7 @@ export class InProgress extends React.Component<any, any> {
               onSelected={(item: string) => {
                 this.setState({ viewType: item });
               }}
-              hoverText='Please enjoy viewing the batches in a table or calendar format.'
+              hoverText="Please enjoy viewing the batches in a table or calendar format."
               items={["Table", "Calendar"]}
             />
           </Col>

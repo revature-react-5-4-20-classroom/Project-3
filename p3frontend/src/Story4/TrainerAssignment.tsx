@@ -168,7 +168,7 @@ export class TrainerAssignmentComponent extends React.Component<
     if (trainer.isEligible) {
       return (
         <Button
-          color='primary'
+          color="primary"
           style={smallBtnStyles}
           id={i.toString()}
           onClick={() => this.assign(trainerId, 8)}
@@ -179,7 +179,7 @@ export class TrainerAssignmentComponent extends React.Component<
     } else {
       return (
         <Button
-          color='primary'
+          color="primary"
           style={smallBtnStyles}
           id={i.toString()}
           onClick={() => this.request(trainer, 8)}

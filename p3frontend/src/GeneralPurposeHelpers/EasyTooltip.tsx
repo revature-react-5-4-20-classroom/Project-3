@@ -23,13 +23,12 @@ export class EasyTooltip extends React.Component<IPropsEasyTooltip, any> {
     if (this.props.displayText) {
       return (
         <>
-          <UncontrolledTooltip placement='right' target={this.props.target}>
+          <UncontrolledTooltip placement="right" target={this.props.target}>
             {this.props.displayText}
           </UncontrolledTooltip>
         </>
       );
     }
-
     return <></>;
   }
 }

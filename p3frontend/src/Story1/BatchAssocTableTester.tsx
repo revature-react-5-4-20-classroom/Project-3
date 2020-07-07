@@ -13,7 +13,6 @@ export class BatchTableTester extends React.Component<any, any> {
 
   async componentDidMount() {
     let ab = await getBatchById(1);
-
     //prnt(true,`TestASTableModel componentDidMount() ab=`,ab)
 
     this.setState({

@@ -13,7 +13,6 @@ import { getActiveAssociates } from "../api/Associate";
 import { allTheMapStateToProps } from "../redux/reducers";
 
 const doPrnt = true; //prnt may be toggled
-
 /*
   <BatchAssocTable currentBatch={aBatchObject}/>
 
@@ -88,8 +87,8 @@ export default class BatchAssocTable extends React.Component<
             parentTop={this.props.parentTop}
             onMoveToLeft={(item) => this.patchTheAssoc(item, false)}
             onMoveToRight={(item) => this.patchTheAssoc(item, true)}
-            messageLeft='None in the system'
-            messageRight='None assigned to this batch'
+            messageLeft="None in the system"
+            messageRight="None assigned to this batch"
             // arrayRight={this.props.currentBatch.associates}
             arrayLeft={this.state.eligibleAssociates}
             arrayRight={this.props.currentBatch.associates}

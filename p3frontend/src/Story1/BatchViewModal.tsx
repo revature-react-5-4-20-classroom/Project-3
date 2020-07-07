@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React from "react";
 import {
   Button,
   Modal,
@@ -66,8 +66,8 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
         <Button onClick={toggle}>View</Button>
         <Modal
           isOpen={this.state.showThis}
-          contentClassName='modalStyle'
-          size='lg'
+          contentClassName="modalStyle"
+          size="lg"
         >
           <ModalHeader toggle={toggle}>
             Batch {this.props.currentBatch.batchId}
@@ -132,7 +132,7 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
             <br />
             <Row>
               <Col>
-                <Button onClick={toggle} color='success' size='lg'>
+                <Button onClick={toggle} color="success" size="lg">
                   OK
                 </Button>
               </Col>

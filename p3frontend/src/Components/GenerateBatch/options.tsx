@@ -31,24 +31,23 @@ export class Options extends React.Component<any, any> {
     this.setState({
       flaeeg: true,
     });
-    // console.log(this.state.response);
   };
   render() {
     return (
-      <div id='options-div'>
+      <div id="options-div">
         <h4 style={{ color: "white", fontSize: "1.2rem" }}>Options</h4>
         <InputGroup>
           {/* <Label>something: </Label> */}
-          <Input placeholder='something (text)'></Input>
+          <Input placeholder="something (text)"></Input>
           <Button style={smallBtnStyles}>Submit</Button>
         </InputGroup>
         <br />
 
         <InputGroup>
           <Input
-            type='date'
-            name='startDate'
-            id='startDate'
+            type="date"
+            name="startDate"
+            id="startDate"
             onChange={this.bindInputChangeToState}
           ></Input>
           <InputGroupText style={sharpEdge}>
@@ -59,9 +58,9 @@ export class Options extends React.Component<any, any> {
 
         <InputGroup>
           <Input
-            type='date'
-            name='endDate'
-            id='endDate'
+            type="date"
+            name="endDate"
+            id="endDate"
             onChange={this.bindInputChangeToState}
           ></Input>
           <InputGroupText style={sharpEdge}>
@@ -71,19 +70,19 @@ export class Options extends React.Component<any, any> {
         <br />
         <InputGroup>
           <Input
-            type='number'
+            type="number"
             onChange={this.bindInputChangeToState}
-            name='quantity'
-            placeholder='No. of Associates'
+            name="quantity"
+            placeholder="No. of Associates"
           ></Input>
         </InputGroup>
         <br />
         <InputGroup>
           <Input
-            type='number'
+            type="number"
             onChange={this.bindInputChangeToState}
-            name='interview'
-            placeholder='Interview Score Limit'
+            name="interview"
+            placeholder="Interview Score Limit"
           ></Input>
         </InputGroup>
         <br />

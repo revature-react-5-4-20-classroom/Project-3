@@ -90,7 +90,7 @@ export default class BatchTrainersTable extends React.Component<
 
     return (
       <Container>
-        <PageTitleBar pageTitle='Batch Trainers' />
+        <PageTitleBar pageTitle="Batch Trainers" />
         <ErrorAlert
           error={this.state.errorObject}
           message={this.state.errorMessage}
@@ -101,8 +101,8 @@ export default class BatchTrainersTable extends React.Component<
             parentTop={this.props.parentTop}
             onMoveToLeft={(item) => this.updateTraierBatch(item, false)}
             onMoveToRight={(item) => this.updateTraierBatch(item, true)}
-            messageLeft='None in the system'
-            messageRight='None assigned to this batch'
+            messageLeft="None in the system"
+            messageRight="None assigned to this batch"
             // arrayLeft={this.state.allTrainers}
             arrayLeft={trains}
             arrayRight={this.props.currentBatch.trainers}

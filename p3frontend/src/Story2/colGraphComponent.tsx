@@ -333,7 +333,7 @@ export class ColumnChartTest extends React.Component<any, any> {
             </Col>
           </Row>
           <Row>
-            <Col className='center-items-div'>
+            <Col className="center-items-div">
               <div ref={this.myRef} />
             </Col>
           </Row>

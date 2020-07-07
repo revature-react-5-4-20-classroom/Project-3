@@ -42,8 +42,8 @@ export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
       <>
         <Modal
           isOpen={this.props.isOpen}
-          contentClassName='modalStyle'
-          size='lg'
+          contentClassName="modalStyle"
+          size="lg"
         >
           <ModalHeader toggle={this.props.toggle}>
             Batch {this.props.currentBatch.batchId}
@@ -108,7 +108,7 @@ export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
             <br />
             <Row>
               <Col>
-                <Button onClick={this.props.toggle} color='success' size='lg'>
+                <Button onClick={this.props.toggle} color="success" size="lg">
                   OK
                 </Button>
               </Col>

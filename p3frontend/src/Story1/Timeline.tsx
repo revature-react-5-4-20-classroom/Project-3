@@ -191,9 +191,9 @@ export class TimelineComponent extends React.Component<
           <i className="fas fa-info-circle"></i>
           </Button> */}
           <i
-            className='fas fa-info-circle '
+            className="fas fa-info-circle "
             onClick={this.toggle}
-            id='info'
+            id="info"
           ></i>
           <br />
           <Toast isOpen={this.state.toggle}>

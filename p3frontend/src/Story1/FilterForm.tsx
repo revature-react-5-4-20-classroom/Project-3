@@ -120,16 +120,16 @@ export class FilterForm extends React.Component<
               <Row form>
                 <Col lg={"auto"}>
                   <FormGroup>
-                    <Label for='selectProgramType'>
+                    <Label for="selectProgramType">
                       <b>Program Type</b>
                     </Label>
-                    <UncontrolledDropdown id='selectProgramType'>
+                    <UncontrolledDropdown id="selectProgramType">
                       <DropdownToggle caret>
                         {this.state.programType}
                       </DropdownToggle>
                       <DropdownMenu>
                         <DropdownItem
-                          value='(none)'
+                          value="(none)"
                           onClick={this.setProgramType}
                         >
                           (none)
@@ -153,13 +153,13 @@ export class FilterForm extends React.Component<
                 </Col>
                 <Col lg={"auto"}>
                   <FormGroup>
-                    <Label for='selectClient'>
+                    <Label for="selectClient">
                       <b>Client</b>
                     </Label>
-                    <UncontrolledDropdown id='selectClient'>
+                    <UncontrolledDropdown id="selectClient">
                       <DropdownToggle caret>{this.state.client}</DropdownToggle>
                       <DropdownMenu>
-                        <DropdownItem value='(none)' onClick={this.setClient}>
+                        <DropdownItem value="(none)" onClick={this.setClient}>
                           (none)
                         </DropdownItem>
                         {this.props.clientSelection.map(
@@ -181,16 +181,16 @@ export class FilterForm extends React.Component<
                 </Col>
                 <Col lg={"auto"}>
                   <FormGroup>
-                    <Label for='selectCurriculum'>
+                    <Label for="selectCurriculum">
                       <b>Curriculum</b>
                     </Label>
-                    <UncontrolledDropdown id='selectCurriculum'>
+                    <UncontrolledDropdown id="selectCurriculum">
                       <DropdownToggle caret>
                         {this.state.curriculum}
                       </DropdownToggle>
                       <DropdownMenu>
                         <DropdownItem
-                          value='(none)'
+                          value="(none)"
                           onClick={this.setCurriculum}
                         >
                           (none)

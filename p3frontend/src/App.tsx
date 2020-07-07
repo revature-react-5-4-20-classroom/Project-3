@@ -56,22 +56,22 @@ export class App extends React.Component<any, any> {
   createRoutesAndNavbar = (array: any) => {
     return (
       <Router>
-        <Navbar color='light' light expand='md'>
+        <Navbar color="light" light expand="md">
           {array.map((navEnd: any) => {
             if (navEnd.end === "/home") {
               return (
                 <NavbarBrand
                   key={navEnd.name}
                   href={navEnd.end}
-                  className='nav-link'
-                  activeClassName='active'
+                  className="nav-link"
+                  activeClassName="active"
                 >
                   {navEnd.name}
                 </NavbarBrand>
               );
             }
           })}
-          <Nav className='mr-auto' navbar>
+          <Nav className="mr-auto" navbar>
             <UncontrolledDropdown
               isOpen={this.state.isBatchOpen}
               onClick={this.toggleBatches}
@@ -88,7 +88,7 @@ export class App extends React.Component<any, any> {
                       <>
                         <Link
                           to={navEnd.end}
-                          className='nav-link'
+                          className="nav-link"
                           key={navEnd.end}
                         >
                           {navEnd.name}
@@ -114,7 +114,7 @@ export class App extends React.Component<any, any> {
                     return (
                       <Link
                         to={navEnd.end}
-                        className='nav-link'
+                        className="nav-link"
                         key={navEnd.end}
                       >
                         {navEnd.name}
@@ -129,14 +129,14 @@ export class App extends React.Component<any, any> {
         <Switch>
           <Provider store={store}>
             <Container>
-              <Route exact path='/'>
-                <Redirect to='/home' />
+              <Route exact path="/">
+                <Redirect to="/home" />
               </Route>
               {array.map((navEnd: any) => {
                 return <Route path={navEnd.end}>{navEnd.comp}</Route>;
               })}
-              <Route exact path='*'>
-                <Redirect to='/home' />
+              <Route exact path="*">
+                <Redirect to="/home" />
               </Route>
             </Container>
           </Provider>
