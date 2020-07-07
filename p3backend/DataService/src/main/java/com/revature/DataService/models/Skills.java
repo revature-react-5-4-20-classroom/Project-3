@@ -17,56 +17,61 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(schema = "project3", name = "skills")
 public class Skills {
 
-	@Id
-	@Column(name = "skill_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer skillId;
+  @Id
+  @Column(name = "skill_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer skillId;
 
-	@Column(name = "skill_name")
-	private String skillName;
+  @Column(name = "skill_name")
+  private String skillName;
 
-	@JsonIgnoreProperties({ "skills", "trainers", "curriculum", "clientDemand" })
-	@ManyToMany(mappedBy = "skills", cascade = CascadeType.ALL)
-	private List<Skillset> skillSets;
+  @JsonIgnoreProperties({"skills", "trainers", "curriculum", "clientDemand"})
+  @ManyToMany(mappedBy = "skills", cascade = CascadeType.ALL)
+  private List<Skillset> skillSets;
 
-	public Integer getSkillId() {
-		return skillId;
-	}
+  public Integer getSkillId() {
+    return skillId;
+  }
 
-	public void setSkillId(Integer skillId) {
-		this.skillId = skillId;
-	}
+  public void setSkillId(Integer skillId) {
+    this.skillId = skillId;
+  }
 
-	public String getSkillName() {
-		return skillName;
-	}
+  public String getSkillName() {
+    return skillName;
+  }
 
-	public void setSkillName(String skillName) {
-		this.skillName = skillName;
-	}
+  public void setSkillName(String skillName) {
+    this.skillName = skillName;
+  }
 
-	public Skills() {
+  public Skills() {
 
-	}
+  }
 
-	public List<Skillset> getSkillSets() {
-		return skillSets;
-	}
+  public List<Skillset> getSkillSets() {
+    return skillSets;
+  }
 
-	public void setSkillSets(List<Skillset> skillSets) {
-		this.skillSets = skillSets;
-	}
+  public void setSkillSets(List<Skillset> skillSets) {
+    this.skillSets = skillSets;
+  }
 
-	@Override
-	public String toString() {
-		return "Skills [skillId=" + skillId + ", skillName=" + skillName + ", skillSets=" + skillSets + "]";
-	}
 
-	public Skills(Integer skillId, String skillName, List<Skillset> skillSets) {
-		super();
-		this.skillId = skillId;
-		this.skillName = skillName;
-		this.skillSets = skillSets;
-	}
+
+ 
+
+  @Override
+  public String toString() {
+    return "Skills [skillId=" + skillId + ", skillName=" + skillName + ", skillSets=" + skillSets
+        + "]";
+  }
+
+  public Skills(Integer skillId, String skillName, List<Skillset> skillSets) {
+    super();
+    this.skillId = skillId;
+    this.skillName = skillName;
+    this.skillSets = skillSets;
+  }
 
 }

@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class UpdateBatchDto {
-  
+
   private Boolean isConfirmed;
-  
+
   public UpdateBatchDto() {
     super();
   }
@@ -23,8 +23,7 @@ public class UpdateBatchDto {
   public void setIsConfirmed(Boolean isConfirmed) {
     this.isConfirmed = isConfirmed;
   }
-  
-  
-  
-  
+
+
+
 }

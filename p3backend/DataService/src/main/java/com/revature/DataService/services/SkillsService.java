@@ -14,47 +14,46 @@ import com.revature.DataService.repositories.SkillsRepository;
 
 @Service
 public class SkillsService {
-	
-	
-	
-	@Autowired
-	SkillsRepository skillsRepository;
-	
-	
-	
-	
-	public List<Skills> getAll() {
-		return skillsRepository.findAll();
-	}
-	
-	public Skills getbyId(Integer id) {
-		Optional<Skills> existing=skillsRepository.findById(id);
-		if(existing.isPresent()) {
-			return existing.get();
-		}else {
-			throw new RuntimeException("no id");
-		}
-	}
-	
-	
-	public Skills save(Skills skill) {
-		skill.setSkillId(0);
-		return skillsRepository.save(skill);
-	}
-	
-	
-	public Skills update(Skills skill) {
-	Optional<Skills> existing=skillsRepository.findById(skill.getSkillId());
-	if(existing.isPresent()) {
-		return skillsRepository.save(skill);
-	}else {
-		throw new RuntimeException("skill not found");
-	}
-	
-		
-		
-	}
-	
+
+
+
+  @Autowired
+  SkillsRepository skillsRepository;
+
+
+
+  public List<Skills> getAll() {
+    return skillsRepository.findAll();
+  }
+
+  public Skills getbyId(Integer id) {
+    Optional<Skills> existing = skillsRepository.findById(id);
+    if (existing.isPresent()) {
+      return existing.get();
+    } else {
+      throw new RuntimeException("no id");
+    }
+  }
+
+
+  public Skills save(Skills skill) {
+    skill.setSkillId(0);
+    return skillsRepository.save(skill);
+  }
+
+
+  public Skills update(Skills skill) {
+    Optional<Skills> existing = skillsRepository.findById(skill.getSkillId());
+    if (existing.isPresent()) {
+      return skillsRepository.save(skill);
+    } else {
+      throw new RuntimeException("skill not found");
+    }
+
+
+
+  }
+
 
 }
 

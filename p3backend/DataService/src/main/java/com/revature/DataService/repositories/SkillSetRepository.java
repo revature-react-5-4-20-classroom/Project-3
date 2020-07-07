@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.revature.DataService.models.Skillset;
 
 @Repository
-public interface SkillSetRepository extends JpaRepository<Skillset, Integer>{
+public interface SkillSetRepository extends JpaRepository<Skillset, Integer> {
 
 }

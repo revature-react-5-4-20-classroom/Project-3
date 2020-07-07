@@ -11,48 +11,48 @@ import com.revature.DataService.repositories.LocationRepository;
 
 @Service
 public class LocationService {
-	
-	
-	
-	@Autowired
-	LocationRepository locationRepository;
-	
-	
-	
-	//get all
-	public List<Location> getAll(){
-//		throw new RuntimeException("testing aspect");
-	return 	locationRepository.findAll();
-		
-		
-	}
-	
-	//save 
-	public Location saveOne(Location location) {
-		location.setLocationId(0);
-		return locationRepository.save(location);
-	}
-	
-	//update
-	public Location update(Location location) {
-		Optional<Location> existing=locationRepository.findById(location.getLocationId());
-		if(existing.isPresent()) {
-			return locationRepository.save(location);
-		}else {
-			throw new RuntimeException("the location doesnt exist");
-		}
-	}
-	
-	public Location getById(Integer id) {
-		
-		Optional<Location> existing=locationRepository.findById(id);
-		if(existing.isPresent()) {
-			return existing.get();
-		}else {
-			throw new RuntimeException("no id");
-		}
-	}
-	
-	
+
+
+
+  @Autowired
+  LocationRepository locationRepository;
+
+
+
+  // get all
+  public List<Location> getAll() {
+    // throw new RuntimeException("testing aspect");
+    return locationRepository.findAll();
+
+
+  }
+
+  // save
+  public Location saveOne(Location location) {
+    location.setLocationId(0);
+    return locationRepository.save(location);
+  }
+
+  // update
+  public Location update(Location location) {
+    Optional<Location> existing = locationRepository.findById(location.getLocationId());
+    if (existing.isPresent()) {
+      return locationRepository.save(location);
+    } else {
+      throw new RuntimeException("the location doesnt exist");
+    }
+  }
+
+  public Location getById(Integer id) {
+
+    Optional<Location> existing = locationRepository.findById(id);
+    if (existing.isPresent()) {
+      return existing.get();
+    } else {
+      throw new RuntimeException("no id");
+    }
+  }
+
+
 
 }

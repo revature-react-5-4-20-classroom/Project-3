@@ -1,0 +1,31 @@
+server:
+  port: 8050  
+cloud:
+  aws:
+    region:
+      static: ${region}
+    stack:
+      auto: false
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+    sqs:
+      url: https://sqs.us-east-1.amazonaws.com/273001999516/sqs
+    end-point:
+      url : ${url}
+   
+spring:
+  datasource:
+    url: jdbc:postgresql://${HOST}:5432/${DATABASE_NAME}
+    password: ${DATABASE_PASSWORD}
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      
+
+      
+ #AKIAREVATURET7ESHREVATUREADOWBP5SOSHAREVATUREDOWBTSRNSHADOREVATUREWCONTHEENDMXSHADOWnOnSHADOWrJCNFSHADOWGjuXREVATUREZtSHADOWj+KcXtSHADOWbAiJu2SHADREVATUREOWQP9NSHAREVATUREDOWrGjQPqP+
+      
