@@ -132,6 +132,7 @@ export class OverviewTraining extends React.Component<any, any> {
       currentBatchIndex: i,
       eligibleAssociates: this.state.allEligibleAssociates,
     });
+    console.log(e);
   };
 
   displayTable = (
@@ -143,7 +144,7 @@ export class OverviewTraining extends React.Component<any, any> {
     if (array.length === 0) return <>{message}</>;
 
     return (
-      <div className="table">
+      <div className="overview-table">
         <Table striped>
           <tbody>
             {array.map((obj: any, index: number) => {
@@ -204,7 +205,7 @@ export class OverviewTraining extends React.Component<any, any> {
       console.log(this.state.notConfirmedBatches);
       this.setState({
         success: true,
-        data:false
+        data: false,
       });
 
       // this.props.batchUpdateActionMapper(newBatch);
@@ -224,7 +225,7 @@ export class OverviewTraining extends React.Component<any, any> {
 
           <Row>
             <Col md={3}>
-              <Container  className="option" >
+              <Container className="overview-option">
                 <br />
                 <h4>Select Associates</h4>
                 <br />
@@ -270,7 +271,7 @@ export class OverviewTraining extends React.Component<any, any> {
                   <Row>
                     <Col>
                       {this.state.data ? (
-                        <Container class="container">
+                        <Container style={{ height: "300px" }}>
                           <ErrorAlert
                             error={this.state.errorObject}
                             message={this.state.errorMessage}
@@ -301,78 +302,91 @@ export class OverviewTraining extends React.Component<any, any> {
                       )}
                     </Col>
                   </Row>
-
-                  <Row style={{ backgroundColor: "#474c55", color: "#fff" }}>
-                    <Col>
-                      <h4>Possible Batches</h4>
-                      <Nav pills>
-                        {this.state.notConfirmedBatches.map(
-                          (obj: any, index: number) => {
-                            return (
-                              <NavItem>
-                                <NavLink
-                                  style={{ color: "#fff" }}
-                                  href="#"
-                                  onClick={(e) => {
-                                    this.batchData(obj, index);
-                                  }}
-                                >
-                                  {obj.batchId}
-                                </NavLink>
-                              </NavItem>
-                            );
-                          }
-                        )}
-                      </Nav>
-                    </Col>
-                  </Row>
+                  {this.state.notConfirmedBatches.length != 0 ? (
+                    <Row className="overview-nav">
+                      <Col>
+                        <h4>Possible Batches</h4>
+                        <Nav pills>
+                          {this.state.notConfirmedBatches.map(
+                            (obj: any, index: number) => {
+                              return (
+                                <NavItem>
+                                  <NavLink
+                                    style={{ color: "#fff" }}
+                                    href="#"
+                                    onClick={(e) => {
+                                      this.batchData(obj, index);
+                                    }}
+                                  >
+                                    Batch {obj.batchId}
+                                  </NavLink>
+                                </NavItem>
+                              );
+                            }
+                          )}
+                        </Nav>
+                      </Col>
+                    </Row>
+                  ) : (
+                    <h3>No batch available</h3>
+                  )}
                   <Row>
                     <Col>
                       {this.state.data ? (
-                        <Container className="table">
+                        <Container className="overview-table">
                           <Row>
                             <Col>
-                              <h6>
-                                Batch Id: {this.state.currentBatch1.batchId}
-                              </h6>
-                              <h6>
-                                Program Type:{" "}
-                                {this.state.currentBatch1.programmType}
-                              </h6>
-                              <h6>
-                                Batch Location:{" "}
-                                {this.state.currentBatch1.location.locationName}
-                              </h6>
-                              <h6>
-                                Technologies:{" "}
-                                {
-                                  this.state.currentBatch1.curriculum
-                                    .curriculumSkillset.skillSetName
-                                }
-                              </h6>
+                              <Row>
+                                <Col>
+                                  <b>Batch Id:</b>{" "}
+                                  {this.state.currentBatch1.batchId}
+                                  <br />
+                                  <b>Program Type:</b>{" "}
+                                  {this.state.currentBatch1.programType}
+                                </Col>
+                                <Col>
+                                  <b>Batch Location:</b>{" "}
+                                  {
+                                    this.state.currentBatch1.location
+                                      .locationName
+                                  }
+                                  <br />
+                                  <b>Technologies:</b>{" "}
+                                  {
+                                    this.state.currentBatch1.curriculum
+                                      .curriculumSkillset.skillSetName
+                                  }
+                                </Col>
+                              </Row>
+
                               <hr />
-                              <h6>Associates</h6>
-                              {this.state.associatesList.map(
-                                (obj: any, index: number) => {
-                                  return (
-                                    <tr key={obj.associateId}>
-                                      <td>
-                                        {obj.firstName}, {obj.lastName},{" "}
-                                        {obj.interviewScore}
-                                      </td>
-                                      <td>
-                                        <Button
-                                          onClick={() =>
-                                            this.associateAdd2(obj, index)
-                                          }
-                                        >
-                                          add
-                                        </Button>
-                                      </td>
-                                    </tr>
-                                  );
-                                }
-                              )}
+                              <h6>Associates:</h6>
+                              <Table
+                                style={{ width: "00px" }}
+                                className="overview-table"
+                              >
+                                {this.state.associatesList.map(
+                                  (obj: any, index: number) => {
+                                    return (
+                                      <tr key={obj.associateId}>
+                                        <td>
+                                          {obj.firstName}, {obj.lastName},{" "}
+                                          {obj.interviewScore}
+                                        </td>
+                                        <td>
+                                          <Button
+                                            onClick={() =>
+                                              this.associateAdd2(obj, index)
+                                            }
+                                          >
+                                            add
+                                          </Button>
+                                        </td>
+                                      </tr>
+                                    );
+                                  }
+                                )}
+                              </Table>
                             </Col>
                           </Row>
                         </Container>
