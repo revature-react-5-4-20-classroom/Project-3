@@ -5,8 +5,6 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  BrowserRouter,
-  NavLink,
   Redirect,
   Link,
 } from "react-router-dom";
@@ -14,29 +12,19 @@ import {
 import { ReduxInProgress } from "./Story1/InProgress";
 import {
   Navbar,
-  NavbarToggler,
   Nav,
-  NavItem,
   Container,
   NavbarBrand,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  Collapse,
-  DropdownItem,
 } from "reactstrap";
-import { TestConvertToObject } from "./GeneralPurposeHelpers/convertToObject";
 import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
 import { OverviewTraining } from "./Story3/OverviewTraining";
-import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import { BatchViewModal } from "./Story1/BatchViewModal";
-import { ColumnChartTest } from "./Story2/colGraphComponent";
 import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
-import { BatchTableTester } from "./Story1/BatchAssocTableTester";
-import { FilterForm } from "./Story1/FilterForm";
 import { HomePage } from "./Homepage";
 import { PageFooter } from "./Footer";
 

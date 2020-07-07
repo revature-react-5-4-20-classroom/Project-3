@@ -1,11 +1,10 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faRedoAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faRedoAlt } from "@fortawesome/free-solid-svg-icons";
 import {
   Form,
   FormGroup,
   Label,
-  Input,
   Button,
   Modal,
   ModalHeader,
@@ -99,24 +98,38 @@ export class FilterForm extends React.Component<
   render() {
     return (
       <>
-        <Button onClick={this.toggle}>Set Filters &nbsp;<FontAwesomeIcon icon={faBars}/></Button>
+        <Button onClick={this.toggle}>
+          Set Filters &nbsp;
+          <FontAwesomeIcon icon={faBars} />
+        </Button>
         <Modal isOpen={this.state.isOpen} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle} style={{backgroundColor:"#474c55", color:"#ffffff"}}>Set Batch Filters</ModalHeader>
-          <Jumbotron style={{backgroundColor:"#ffffff"}}>
-            <Button onClick={this.reset}><FontAwesomeIcon icon={faRedoAlt}/>&nbsp;Reset Selection</Button>
-            <br/><br/>
+          <ModalHeader
+            toggle={this.toggle}
+            style={{ backgroundColor: "#474c55", color: "#ffffff" }}
+          >
+            Set Batch Filters
+          </ModalHeader>
+          <Jumbotron style={{ backgroundColor: "#ffffff" }}>
+            <Button onClick={this.reset}>
+              <FontAwesomeIcon icon={faRedoAlt} />
+              &nbsp;Reset Selection
+            </Button>
+            <br />
+            <br />
             <Form onSubmit={this.applyAllFilters}>
               <Row form>
-                <Col lg={'auto'}>
+                <Col lg={"auto"}>
                   <FormGroup>
-                    <Label for="selectProgramType"><b>Program Type</b></Label>
-                    <UncontrolledDropdown id="selectProgramType">
+                    <Label for='selectProgramType'>
+                      <b>Program Type</b>
+                    </Label>
+                    <UncontrolledDropdown id='selectProgramType'>
                       <DropdownToggle caret>
                         {this.state.programType}
                       </DropdownToggle>
                       <DropdownMenu>
                         <DropdownItem
-                          value="(none)"
+                          value='(none)'
                           onClick={this.setProgramType}
                         >
                           (none)
@@ -138,13 +151,15 @@ export class FilterForm extends React.Component<
                     </UncontrolledDropdown>
                   </FormGroup>
                 </Col>
-                <Col lg={'auto'}>
+                <Col lg={"auto"}>
                   <FormGroup>
-                    <Label for="selectClient"><b>Client</b></Label>
-                    <UncontrolledDropdown id="selectClient">
+                    <Label for='selectClient'>
+                      <b>Client</b>
+                    </Label>
+                    <UncontrolledDropdown id='selectClient'>
                       <DropdownToggle caret>{this.state.client}</DropdownToggle>
                       <DropdownMenu>
-                        <DropdownItem value="(none)" onClick={this.setClient}>
+                        <DropdownItem value='(none)' onClick={this.setClient}>
                           (none)
                         </DropdownItem>
                         {this.props.clientSelection.map(
@@ -164,16 +179,18 @@ export class FilterForm extends React.Component<
                     </UncontrolledDropdown>
                   </FormGroup>
                 </Col>
-                <Col lg={'auto'}>
+                <Col lg={"auto"}>
                   <FormGroup>
-                    <Label for="selectCurriculum"><b>Curriculum</b></Label>
-                    <UncontrolledDropdown id="selectCurriculum">
+                    <Label for='selectCurriculum'>
+                      <b>Curriculum</b>
+                    </Label>
+                    <UncontrolledDropdown id='selectCurriculum'>
                       <DropdownToggle caret>
                         {this.state.curriculum}
                       </DropdownToggle>
                       <DropdownMenu>
                         <DropdownItem
-                          value="(none)"
+                          value='(none)'
                           onClick={this.setCurriculum}
                         >
                           (none)
@@ -196,9 +213,11 @@ export class FilterForm extends React.Component<
                   </FormGroup>
                 </Col>
               </Row>
-              <br/>
+              <br />
               {/* Clicking this button submits the form, calls the applyAllFilters function */}
-              <Button style={{backgroundColor:"#f26925"}}>Apply Filters</Button>
+              <Button style={{ backgroundColor: "#f26925" }}>
+                Apply Filters
+              </Button>
             </Form>
           </Jumbotron>
         </Modal>

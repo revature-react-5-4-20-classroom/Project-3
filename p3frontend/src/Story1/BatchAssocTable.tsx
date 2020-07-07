@@ -1,19 +1,13 @@
 import React from "react";
-import { Table, Button, Container, Row, Col, Spinner } from "reactstrap";
+import { Container, Spinner } from "reactstrap";
 import { Associate } from "../models/Associate";
-import { getAllAssociates, updateAssociate } from "../models/Associate";
-import { getBatchById } from "../api/batch";
 import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { axiosClient } from "../api/axios";
 import { DualTables } from "./DualTables";
-import { batch, connect } from "react-redux";
-import {
-  addAssociateToBatchActionMapper,
-  removeAssociateFromBatchActionMapper,
-  allTheActionMappers,
-} from "../redux/action-mapper";
+import { connect } from "react-redux";
+import { allTheActionMappers } from "../redux/action-mapper";
 import { store } from "../redux/store";
 import { getActiveAssociates } from "../api/Associate";
 import { allTheMapStateToProps } from "../redux/reducers";
@@ -94,8 +88,8 @@ export default class BatchAssocTable extends React.Component<
             parentTop={this.props.parentTop}
             onMoveToLeft={(item) => this.patchTheAssoc(item, false)}
             onMoveToRight={(item) => this.patchTheAssoc(item, true)}
-            messageLeft="None in the system"
-            messageRight="None assigned to this batch"
+            messageLeft='None in the system'
+            messageRight='None assigned to this batch'
             // arrayRight={this.props.currentBatch.associates}
             arrayLeft={this.state.eligibleAssociates}
             arrayRight={this.props.currentBatch.associates}

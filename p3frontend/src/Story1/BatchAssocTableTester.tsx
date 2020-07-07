@@ -1,10 +1,6 @@
 import React from "react";
-import BatchAssocTable from "./BatchAssocTable";
 import { getBatchById } from "../api/batch";
-import { prnt } from "../GeneralPurposeHelpers/Prnt";
-import BatchTrainersTable, {
-  BatchTrainersTableRedux,
-} from "./BatchTrainersTable";
+import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 
 export class BatchTableTester extends React.Component<any, any> {
   constructor(props: any) {

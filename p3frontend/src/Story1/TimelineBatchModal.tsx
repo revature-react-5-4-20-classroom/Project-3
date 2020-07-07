@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  NavItem,
-  Nav,
-  Navbar,
   Row,
   Col,
-  NavbarToggler,
   ButtonGroup,
-  Container,
 } from "reactstrap";
 import "../../src/index.css";
-import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
+import { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -48,8 +42,8 @@ export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
       <>
         <Modal
           isOpen={this.props.isOpen}
-          contentClassName="modalStyle"
-          size="lg"
+          contentClassName='modalStyle'
+          size='lg'
         >
           <ModalHeader toggle={this.props.toggle}>
             Batch {this.props.currentBatch.batchId}
@@ -114,7 +108,7 @@ export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
             <br />
             <Row>
               <Col>
-                <Button onClick={this.props.toggle} color="success" size="lg">
+                <Button onClick={this.props.toggle} color='success' size='lg'>
                   OK
                 </Button>
               </Col>

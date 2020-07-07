@@ -1,22 +1,15 @@
 import React from "react";
-import { Table, Button, Container, Row, Col, Spinner } from "reactstrap";
-import { Associate } from "../models/Associate";
-import { getAllAssociates, updateAssociate } from "../models/Associate";
-import { getBatchById } from "../api/batch";
+import { Container, Spinner } from "reactstrap";
 import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { axiosClient } from "../api/axios";
 import { DualTables } from "./DualTables";
-import { batch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { Trainer } from "../models/Trainer";
 import { getAllTrainers } from "../api/consent";
 import { allTheMapStateToProps } from "../redux/reducers";
-import {
-  allTheActionMappers,
-  addTrainerToBatchActionMapper,
-  removeTrainerFromBatchActionMapper,
-} from "../redux/action-mapper";
+import { allTheActionMappers } from "../redux/action-mapper";
 import { store } from "../redux/store";
 import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
@@ -97,7 +90,7 @@ export default class BatchTrainersTable extends React.Component<
 
     return (
       <Container>
-        <PageTitleBar pageTitle="Batch Trainers" />
+        <PageTitleBar pageTitle='Batch Trainers' />
         <ErrorAlert
           error={this.state.errorObject}
           message={this.state.errorMessage}
@@ -108,8 +101,8 @@ export default class BatchTrainersTable extends React.Component<
             parentTop={this.props.parentTop}
             onMoveToLeft={(item) => this.updateTraierBatch(item, false)}
             onMoveToRight={(item) => this.updateTraierBatch(item, true)}
-            messageLeft="None in the system"
-            messageRight="None assigned to this batch"
+            messageLeft='None in the system'
+            messageRight='None assigned to this batch'
             // arrayLeft={this.state.allTrainers}
             arrayLeft={trains}
             arrayRight={this.props.currentBatch.trainers}

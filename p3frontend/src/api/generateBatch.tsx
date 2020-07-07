@@ -1,13 +1,10 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { Associate } from "../models/Associate";
 // import { AssociateList } from '../Components/GenerateBatch/associateList';
 export const axiosClient = axios.create({
-  baseURL: 'http://3.235.74.191:8212/reports',
+  baseURL: "http://3.235.74.191:8212/reports",
   withCredentials: false, // we should probably change this later
 });
-
-
-
 
 export async function getgeneratedBatch(
   interviewScore: number,
@@ -30,7 +27,7 @@ export async function getgeneratedBatch(
     } = associatesObj;
     // console.log('COMMENTOBJ ', commentObj);
     // console.log("fjjftktt",response);
-    
+
     return new Associate(
       associateId,
       firstName,

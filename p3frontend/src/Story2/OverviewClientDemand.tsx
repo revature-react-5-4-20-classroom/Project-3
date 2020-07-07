@@ -1,23 +1,22 @@
-import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { EasyDropdown } from '../GeneralPurposeHelpers/EasyDropdown';
-import { ColumnChartTest } from './colGraphComponent';
-import './style.css';
-import { PageTitleBar } from '../Components/GenerateBatch/PageTitleBar';
+import React from "react";
+import { Container, Row, Col } from "reactstrap";
+import { ColumnChartTest } from "./colGraphComponent";
+import "./style.css";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 export class OverviewClientDemand extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      curriculaTrack: '', //EasyDropdown will set this to the first item on component mount
-      when: '',
+      curriculaTrack: "", //EasyDropdown will set this to the first item on component mount
+      when: "",
     };
   }
 
   render() {
     return (
       <Container>
-        <PageTitleBar pageTitle={"Client Demand Overview"}/>
+        <PageTitleBar pageTitle={"Client Demand Overview"} />
         <Row>
           <Col className='center-items-div'>
             <h3 className='center-text'>Client Demands vs Revature Supply</h3>

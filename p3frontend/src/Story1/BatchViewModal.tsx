@@ -4,29 +4,19 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  NavItem,
-  Nav,
-  Navbar,
   Row,
   Col,
-  NavbarToggler,
   ButtonGroup,
-  Container,
 } from "reactstrap";
-import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import "../../src/index.css";
-import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
+import { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
 import { Batch } from "../models/Batch";
-import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
-import BatchTrainersTable, {
-  BatchTrainersTableRedux,
-} from "./BatchTrainersTable";
+import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 import { store } from "../redux/store";
 
 /*
@@ -76,8 +66,8 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
         <Button onClick={toggle}>View</Button>
         <Modal
           isOpen={this.state.showThis}
-          contentClassName="modalStyle"
-          size="lg"
+          contentClassName='modalStyle'
+          size='lg'
         >
           <ModalHeader toggle={toggle}>
             Batch {this.props.currentBatch.batchId}
@@ -142,7 +132,7 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
             <br />
             <Row>
               <Col>
-                <Button onClick={toggle} color="success" size="lg">
+                <Button onClick={toggle} color='success' size='lg'>
                   OK
                 </Button>
               </Col>

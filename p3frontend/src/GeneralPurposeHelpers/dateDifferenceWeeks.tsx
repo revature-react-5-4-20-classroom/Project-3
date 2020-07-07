@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { prnt } from "./Prnt";
 import { Table } from "reactstrap";
 import Calendar from "react-calendar";

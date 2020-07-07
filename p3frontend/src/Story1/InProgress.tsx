@@ -1,31 +1,17 @@
 import React from "react";
-import Calendar from "react-calendar";
 import "./Calendar.css";
 import "./Table.css";
 import { Row, Col, Table, Container, Button } from "reactstrap";
 import { EasyDropdown } from "../GeneralPurposeHelpers/EasyDropdown";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
-import { dateDifferenceWeeks } from "../GeneralPurposeHelpers/dateDifferenceWeeks";
-import { TimelineComponent, TimelineRedux } from "./Timeline";
-import { axiosClient } from "../api/axios";
+import { TimelineRedux } from "./Timeline";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { Batch } from "../models/Batch";
-import { trainerGetName } from "../models/Trainer";
-import { associatesGetActiveTotal } from "../models/Associate";
-import { locationGetName } from "../models/Location";
-import { seeIt } from "../GeneralPurposeHelpers/seeIt";
-import { connect, batch } from "react-redux";
-import {
-  allTheActionMappers,
-  batchClickActionMapper,
-} from "../redux/action-mapper";
-import { IState, allTheMapStateToProps } from "../redux/reducers";
-import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
+import { connect } from "react-redux";
+import { allTheActionMappers } from "../redux/action-mapper";
+import { allTheMapStateToProps } from "../redux/reducers";
 import { getAllBatches } from "../api/batch";
-import { EasyTooltip } from "../GeneralPurposeHelpers/EasyTooltip";
-import { timeStamp } from "console";
 import { FilterForm } from "./FilterForm";
-import moment from "moment";
 import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 import { BatchForDisplay } from "./BatchForDisplay";
 import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
@@ -74,8 +60,8 @@ export class InProgress extends React.Component<any, any> {
           message={this.state.errorMessage}
           error={this.state.error}
         />
-        
-        <PageTitleBar pageTitle={'In Progress'} />
+
+        <PageTitleBar pageTitle={"In Progress"} />
 
         <Row>
           <Col>
@@ -84,7 +70,7 @@ export class InProgress extends React.Component<any, any> {
               onSelected={(item: string) => {
                 this.setState({ viewType: item });
               }}
-              hoverText="Please enjoy viewing the batches in a table or calendar format."
+              hoverText='Please enjoy viewing the batches in a table or calendar format.'
               items={["Table", "Calendar"]}
             />
           </Col>
@@ -124,7 +110,12 @@ export class InProgress extends React.Component<any, any> {
           <Table bordered>
             <tbody>
               {this.state.filteredBatches.map((batch: Batch, index: number) => {
-                console.log("filter is " + this.state.programType+", rendering batch " + batch.batchId);
+                console.log(
+                  "filter is " +
+                    this.state.programType +
+                    ", rendering batch " +
+                    batch.batchId
+                );
                 return (
                   <tr key={index}>
                     <BatchForDisplay batch={batch} parentTop={this} />
@@ -186,26 +177,27 @@ export class InProgress extends React.Component<any, any> {
     try {
       let batchData = await getAllBatches();
 
-      let activebatches=batchData.filter((batch:Batch)=>{
-     
+      let activebatches = batchData.filter((batch: Batch) => {
         let dateEnd = convertDateToUTC(batch.endDate);
-       
 
-        return (Date.now() <= dateEnd.getTime());
-      })
-      batchData=activebatches;
+        return Date.now() <= dateEnd.getTime();
+      });
+      batchData = activebatches;
 
-      let sortedbatch=batchData.sort((batch:Batch, batch1:Batch)=>{
-        let x=batch.location.locationName;
-        let y=batch1.location.locationName;
-        if(x<y){return -1};
-        if(x>y){ return 1}
+      let sortedbatch = batchData.sort((batch: Batch, batch1: Batch) => {
+        let x = batch.location.locationName;
+        let y = batch1.location.locationName;
+        if (x < y) {
+          return -1;
+        }
+        if (x > y) {
+          return 1;
+        }
         return 0;
-      
       });
 
-      console.log(sortedbatch)
-      batchData=sortedbatch;
+      console.log(sortedbatch);
+      batchData = sortedbatch;
 
       // getting the selections for the filters from the batches
       let programtype = batchData.map((batch: Batch) => {

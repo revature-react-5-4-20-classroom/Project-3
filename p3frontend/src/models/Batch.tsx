@@ -1,7 +1,6 @@
 import { Trainer } from "./Trainer";
 import { Curriculum } from "./Curriculum";
 import { Associate } from "./Associate";
-import { Consent } from "./Consent";
 import { Location } from "./Location";
 
 /*
