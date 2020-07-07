@@ -24,7 +24,8 @@ import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
 import { BatchTableTester } from "./Story1/BatchAssocTableTester";
 import { FilterForm } from "./Story1/FilterForm";
-import { Home } from "./Home";
+import { HomePage } from "./Homepage";
+import { PageFooter } from "./Footer";
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -40,13 +41,10 @@ export class App extends React.Component<any, any> {
     return (
       <Container>
         <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          rel='stylesheet'
+          href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
         />
-        <Router>
-          {/* Goto the home page when the page is loaded for te first time */}
-          <Redirect to="/home"></Redirect>
-
+        
           {
             /*
             Generate all the navbar items and routes from the given json
@@ -59,7 +57,7 @@ export class App extends React.Component<any, any> {
               {
                 end: "/home",
                 name: "Home",
-                comp: <Home />,
+                comp: <HomePage />,
               },
               {
                 end: "/in-progress",
@@ -91,7 +89,6 @@ export class App extends React.Component<any, any> {
               // { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
             ])
           }
-        </Router>
       </Container>
     );
   }
@@ -103,17 +100,17 @@ export class App extends React.Component<any, any> {
 */
 function createRoutesAndNavbar(toggler: any, array: any) {
   return (
-    <>
-      <Navbar color="light" light expand="md">
+    <Router>
+      <Navbar color='light' light expand='md'>
         <NavbarToggler onClick={toggler} />
-        <Nav className="mr-auto" tabs>
+        <Nav className='mr-auto' tabs>
           {array.map((navEnd: any) => {
             return (
               <NavItem>
                 <NavLink
                   to={navEnd.end}
-                  className="nav-link"
-                  activeClassName="active"
+                  className='nav-link'
+                  activeClassName='active'
                 >
                   {navEnd.name}
                 </NavLink>
@@ -124,12 +121,19 @@ function createRoutesAndNavbar(toggler: any, array: any) {
       </Navbar>
       <Switch>
         <Provider store={store}>
+          <Route exact path='/'>
+            <Redirect to='/home' />
+          </Route>
           {array.map((navEnd: any) => {
             return <Route path={navEnd.end}>{navEnd.comp}</Route>;
           })}
+          <Route exact path='*'>
+            <Redirect to='/home' />
+          </Route>
         </Provider>
       </Switch>
-    </>
+      <PageFooter />
+    </Router>
   );
 }
 
