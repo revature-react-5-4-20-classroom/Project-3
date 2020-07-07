@@ -69,6 +69,46 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
     };
   }
 
+  // This is to make sure the component will update its state properly whenever the props change
+  componentWillReceiveProps(newProps: any) {
+    
+    let dateStart = convertDateToUTC(newProps.batch.startDate); //convert strings to Date objects
+    let dateEnd = convertDateToUTC(newProps.batch.endDate);
+
+    let weekC = dateDifferenceWeeks(dateStart, convertDateToUTC()); //calc current week we are on
+    let weekR = dateDifferenceWeeks(convertDateToUTC(), dateEnd); //calc weeks remaining
+
+    let jsxWeekC = <>{weekC}</>; //we want to know how to display the weeks
+    let jsxWeekR = <>{weekR}</>; //when now() is outside the week range, we want some nice display text
+
+    if (Date.now() < dateStart.getTime()) {
+      //if the batch hasn't started yet
+      jsxWeekC = <>Happening soon</>;
+    }
+
+    if (Date.now() > dateEnd.getTime()) {
+      //if the batch is overwith
+      jsxWeekR = <>Already happened</>;
+    }
+
+    //transform and copy the server batch object to display batch format
+    this.state = {
+      batch: newProps.batch,
+
+      dateStartText: dateStart.toDateString(), //used to display the date
+      dateEndText: dateEnd.toDateString(),
+
+      dateSortStart: dateStart.getTime(), //used to sort the dates
+      dateSortEnd: dateEnd.getTime(),
+
+      weekSortCurrent: weekC, //the weeks as a number so they can be sorted
+      weekSortRemaining: weekR,
+
+      jsxWeekCurrent: jsxWeekC, //the weeks as jsx for display
+      jsxWeekRemaining: jsxWeekR,
+    };
+  }
+
   render() {
     return this.displayAsTableRow();
   }

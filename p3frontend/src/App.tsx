@@ -8,10 +8,23 @@ import {
   BrowserRouter,
   NavLink,
   Redirect,
+  Link,
 } from "react-router-dom";
 
-import { InProgress, ReduxInProgress } from "./Story1/InProgress";
-import { Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
+import { ReduxInProgress } from "./Story1/InProgress";
+import {
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem,
+  Container,
+  NavbarBrand,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  Collapse,
+  DropdownItem,
+} from "reactstrap";
 import { TestConvertToObject } from "./GeneralPurposeHelpers/convertToObject";
 import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
 import { OverviewTraining } from "./Story3/OverviewTraining";
@@ -30,111 +43,174 @@ import { PageFooter } from "./Footer";
 export class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
+    this.state = {
+      isBatchOpen: false,
+      isTrainerOpen: false,
+    };
   }
 
-  toggleNavbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    setIsOpen(!isOpen);
+  toggleBatches = () => {
+    this.setState({
+      isBatchOpen: !this.state.isBatchOpen,
+    });
+  };
+
+  toggleTrainers = () => {
+    this.setState({
+      isTrainerOpen: !this.state.isTrainerOpen,
+    });
+  };
+
+  /*  
+    returns a jsx component with the navbar and endpoint routes.
+    creates that stuff from the array of endpoints and nav names
+*/
+  createRoutesAndNavbar = (array: any) => {
+    return (
+      <Router>
+        <Navbar color='light' light expand='md'>
+          {array.map((navEnd: any) => {
+            if (navEnd.end === "/home") {
+              return (
+                <NavbarBrand
+                  key={navEnd.name}
+                  href={navEnd.end}
+                  className='nav-link'
+                  activeClassName='active'
+                >
+                  {navEnd.name}
+                </NavbarBrand>
+              );
+            }
+          })}
+          <Nav className='mr-auto' navbar>
+            <UncontrolledDropdown
+              isOpen={this.state.isBatchOpen}
+              onClick={this.toggleBatches}
+              nav
+              inNavbar
+            >
+              <DropdownToggle nav caret>
+                Batches
+              </DropdownToggle>
+              <DropdownMenu>
+                {array.map((navEnd: any) => {
+                  if (navEnd.end.indexOf("/batch") > -1) {
+                    return (
+                      <>
+                        <Link
+                          to={navEnd.end}
+                          className='nav-link'
+                          key={navEnd.end}
+                        >
+                          {navEnd.name}
+                        </Link>
+                      </>
+                    );
+                  }
+                })}
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            <UncontrolledDropdown
+              isOpen={this.state.isTrainerOpen}
+              onClick={this.toggleTrainers}
+              nav
+              inNavbar
+            >
+              <DropdownToggle nav caret>
+                Trainers
+              </DropdownToggle>
+              <DropdownMenu>
+                {array.map((navEnd: any) => {
+                  if (navEnd.end.indexOf("/trainers") > -1) {
+                    return (
+                      <Link
+                        to={navEnd.end}
+                        className='nav-link'
+                        key={navEnd.end}
+                      >
+                        {navEnd.name}
+                      </Link>
+                    );
+                  }
+                })}
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        </Navbar>
+        <Switch>
+          <Provider store={store}>
+            <Container>
+              <Route exact path='/'>
+                <Redirect to='/home' />
+              </Route>
+              {array.map((navEnd: any) => {
+                return <Route path={navEnd.end}>{navEnd.comp}</Route>;
+              })}
+              <Route exact path='*'>
+                <Redirect to='/home' />
+              </Route>
+            </Container>
+          </Provider>
+        </Switch>
+        <PageFooter />
+      </Router>
+    );
   };
 
   render() {
     return (
-      <Container>
-        <link
-          rel='stylesheet'
-          href='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
-        />
-        
-          {
-            /*
+      <>
+        {
+          /*
             Generate all the navbar items and routes from the given json
 
             end:  is the /endpoint in the url
             name: is displayed in the navbar to look nice
             comp: is the component to display within the route
           */
-            createRoutesAndNavbar(this.toggleNavbar, [
-              {
-                end: "/home",
-                name: "Home",
-                comp: <HomePage />,
-              },
-              {
-                end: "/in-progress",
-                name: "In Progress",
-                comp: <ReduxInProgress />,
-              },
-              {
-                end: "/overview-demand",
-                name: "Demand vs Supply",
-                comp: <OverviewClientDemand />,
-              },
-              {
-                end: "/overview-training",
-                name: "Generate Batch",
-                comp: <OverviewTraining />,
-              },
-              {
-                end: "/trainer-assign",
-                name: "Trainer assignment",
-                comp: <TrainerAssignmentComponent />,
-              },
-              {
-                end: "/consent-requests",
-                name: "Consent requests",
-                comp: <ViewConsentRequests />,
-              },
-
-              // { end: "/test-convert", name: "TCO", comp: <TestConvertToObject /> },
-              // { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
-            ])
-          }
-      </Container>
+          this.createRoutesAndNavbar([
+            {
+              end: "/home",
+              name: "Reservoir",
+              comp: <HomePage />,
+            },
+            {
+              end: "/batch/in-progress",
+              name: "In Progress",
+              comp: <ReduxInProgress />,
+            },
+            {
+              end: "/batch/demand-overview",
+              name: "Supply & Demand Overview",
+              comp: <OverviewClientDemand />,
+            },
+            {
+              end: "/batch/training-overview",
+              name: "Training Overview",
+              comp: <OverviewTraining />,
+            },
+            {
+              end: "/trainers/trainer-assign",
+              name: "Trainer assignment",
+              comp: <TrainerAssignmentComponent />,
+            },
+            {
+              end: "/trainers/consent-requests",
+              name: "Consent requests",
+              comp: <ViewConsentRequests />,
+            },
+            // {
+            //   end: "/test-convert",
+            //   name: "TCO",
+            //   comp: <TestConvertToObject />,
+            // },
+            // { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
+          ])
+        }
+      </>
     );
   }
-}
-
-/*  
-    returns a jsx component with the navbar and endpoint routes.
-    creates that stuff from the array of endpoints and nav names
-*/
-function createRoutesAndNavbar(toggler: any, array: any) {
-  return (
-    <Router>
-      <Navbar color='light' light expand='md'>
-        <NavbarToggler onClick={toggler} />
-        <Nav className='mr-auto' tabs>
-          {array.map((navEnd: any) => {
-            return (
-              <NavItem>
-                <NavLink
-                  to={navEnd.end}
-                  className='nav-link'
-                  activeClassName='active'
-                >
-                  {navEnd.name}
-                </NavLink>
-              </NavItem>
-            );
-          })}
-        </Nav>
-      </Navbar>
-      <Switch>
-        <Provider store={store}>
-          <Route exact path='/'>
-            <Redirect to='/home' />
-          </Route>
-          {array.map((navEnd: any) => {
-            return <Route path={navEnd.end}>{navEnd.comp}</Route>;
-          })}
-          <Route exact path='*'>
-            <Redirect to='/home' />
-          </Route>
-        </Provider>
-      </Switch>
-      <PageFooter />
-    </Router>
-  );
 }
 
 export default App;
