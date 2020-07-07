@@ -17,13 +17,13 @@ public interface SkillsetRepository extends JpaRepository<Skillset, Integer>{
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select * from proj3.skillset where name=:name",
+	  @Query(value = "select * from project3.skillset where name=:name",
 		      nativeQuery = true)
 	List<Skillset> checkSkillset(String name);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "insert into proj3.skillset values(default,:name)",
+	  @Query(value = "insert into project3.skillset values(default,:name)",
 		      nativeQuery = true)
 	void createSkillset(String name);
 	  
