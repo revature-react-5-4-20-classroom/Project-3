@@ -18,7 +18,8 @@ public class TrainerBatch {
   @Column(name = "trainer_id")
   //@GeneratedValue(strategy = GenerationType.IDENTITY)//caused: could not insert trainerId into jump table.
   private Integer trainerId;
-@Id
+  
+  @Id
   @Column(name = "batch_id")
   private Integer batchId;
 

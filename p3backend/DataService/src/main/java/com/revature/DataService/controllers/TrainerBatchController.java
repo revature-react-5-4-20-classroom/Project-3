@@ -103,23 +103,6 @@ public class TrainerBatchController {
        System.out.print("TrainerBatch Post tb=");
        System.out.println(tb);
        
-       //tbr.save(tb);
-       
-//       Optional<Batch> existingBatch = batchRepo.findById(tb.getBatchId());     
-//       Optional<Trainer> existingTrainer = trainerRepo.findById(tb.getTrainerId());
-//       
-//       if(existingBatch.isPresent())
-//       {
-//           Batch batch=existingBatch.get();
-//           Trainer train=existingTrainer.get();
-//           
-//           //batch.add();
-//           
-//           batchRepo.save(batch);
-//           
-//           return "The batch-trainer has been posted";
-//       }
-       
        int total=tbr.getTotalTrainerBatches(tb.getTrainerId(), tb.getBatchId());
        
        if(total==0)//if the tb pair is not already in the join table
