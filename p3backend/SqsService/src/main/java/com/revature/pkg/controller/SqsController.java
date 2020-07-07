@@ -87,7 +87,7 @@ public class SqsController {
 	  TrainerbatchRepository trainerskillsdata;
 	
 
-	@Value("${url}")
+	@Value("${URL}")
 	private String sqsEndPoint;
 	
 
@@ -141,7 +141,7 @@ public class SqsController {
 				Date dateStart = Date.valueOf(startDate);
 				Date dateEnd = Date.valueOf(endDate);
 				//note swap location programtype
-				batchData.createBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower, getLocationId, getCurriculumId, programType);
+				batchData.createBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower, programType, getLocationId, getCurriculumId);
 				LOG.info("batch created ");
 				Integer BatchId = batchService.getBatchInfo(getLocationId, getCurriculumId).get(0).getBatchId();
 				LOG.info("batch_id is : " + BatchId);
@@ -276,7 +276,7 @@ public class SqsController {
 	
 	
 	
-	@JmsListener(destination = "sqs",containerFactory = "jmsListenerContainerFactory")
+	@JmsListener(destination = "${SQS_ENDPOINT}",containerFactory = "jmsListenerContainerFactory")
 	public void receive(@Payload String message) {
 		try {
 			JsonObject jsonObject = new JsonParser().parse(message).getAsJsonObject();
