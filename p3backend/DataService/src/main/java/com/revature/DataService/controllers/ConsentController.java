@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.revature.DataService.models.Batch;
 import com.revature.DataService.models.Consent;
@@ -52,14 +53,18 @@ public class ConsentController implements Serializable{
 
 
   @CrossOrigin(origins = "*")
-  @PatchMapping("/consent")
-  public Consent updateConsentApproval(@RequestBody Consent consent) {
-    System.out.println(consent);
+  @PatchMapping("/consent/{consentId}")
+  public Consent updateConsentApproval(@RequestBody ConsentPost consentPost,@PathVariable Integer consentId) throws Exception {
+    
     System.out.println("patch endpoint hit");
     try {
-      consentService.update(consent);
-      System.out.println(consent);
-      return consent;
+      Trainer trainer = trainerService.getById(consentPost.getTrainerId());
+      Batch batch = batchService.getById(consentPost.getBatchId());
+      Consent newConsent = new Consent(consentId,consentPost.getIsApprovedColumn(), batch, trainer);
+      
+      consentService.update(newConsent);
+      //System.out.println(consent);
+      return newConsent;
     } catch (RuntimeException e) {
       System.out.println(e);
       throw new RuntimeException(e);

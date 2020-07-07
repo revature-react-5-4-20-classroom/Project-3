@@ -203,7 +203,7 @@ export class TimelineComponent extends React.Component<
           <br />
           <Toast isOpen={this.state.toggle}>
 
-            Double click on the batch item to edit or right click to view information.
+            Double click batch to edit or right click to view information.
           </Toast>
           <br />
 

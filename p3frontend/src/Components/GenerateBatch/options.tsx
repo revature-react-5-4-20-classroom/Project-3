@@ -71,7 +71,7 @@ export class Options extends React.Component<any, any> {
             type="number"
             onChange={this.bindInputChangeToState}
             name="quantity"
-            placeholder="number of associates"
+            placeholder="No. of Associates"
           ></Input>
         </InputGroup>
         <br />
@@ -81,7 +81,7 @@ export class Options extends React.Component<any, any> {
             type="number"
             onChange={this.bindInputChangeToState}
             name="interview"
-            placeholder="interview score limit"
+            placeholder="Interview Score Limit"
           ></Input>
         </InputGroup>
         <br />

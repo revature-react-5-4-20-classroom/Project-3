@@ -3,6 +3,7 @@ import {
   approveConsentRequest,
   denyConsentRequest,
   getConsentByTrainerId,
+  createTrainerBatch,
 } from "../api/consent";
 import { Consent } from "../models/Consent";
 import { ListGroup, ListGroupItem, Button, Container } from "reactstrap";
@@ -31,6 +32,7 @@ export class ViewConsentRequests extends React.Component<
     let consentRequest: Consent = this.state.consentRequests[id];
     consentRequest.isApproved = true;
     await approveConsentRequest(consentRequest);
+    await createTrainerBatch(consentRequest.trainer.trainerId, consentRequest.batch.batchId)
     this.getConsentRequests();
   };
 
@@ -38,6 +40,7 @@ export class ViewConsentRequests extends React.Component<
     let consentRequest: Consent = this.state.consentRequests[id];
     consentRequest.isApproved = false;
     await denyConsentRequest(consentRequest);
+   
     this.getConsentRequests();
   };
 
