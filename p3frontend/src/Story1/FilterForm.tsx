@@ -52,7 +52,6 @@ export class FilterForm extends React.Component<
 
   // Setting values to filter for on programType, client, and curriculum
   setProgramType = (e: any) => {
-    console.log(`Setting program type in FilterForm: ${e.value}`);
     console.log(e);
     this.setState({
       programType: e.target.value,

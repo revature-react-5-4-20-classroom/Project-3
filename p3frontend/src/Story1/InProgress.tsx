@@ -70,13 +70,13 @@ export class InProgress extends React.Component<any, any> {
   render() {
     return (
       <Container>
+        <PageTitleBar pageTitle={'Batches In Progress'} />
+
         <ErrorAlert
           message={this.state.errorMessage}
           error={this.state.error}
         />
         
-        <PageTitleBar pageTitle={'In Progress'} />
-
         <Row>
           <Col>
             <b>view type:</b>
@@ -124,8 +124,9 @@ export class InProgress extends React.Component<any, any> {
           <Table bordered>
             <tbody>
               {this.state.filteredBatches.map((batch: Batch, index: number) => {
+                console.log("filter is " + this.state.programType+", rendering batch " + batch.batchId);
                 return (
-                  <tr>
+                  <tr key={index}>
                     <BatchForDisplay batch={batch} parentTop={this} />
                   </tr>
                 );
@@ -349,8 +350,6 @@ export class InProgress extends React.Component<any, any> {
   //Applies all the filters and sets state
   applyFilters = () => {
     let batches = this.state.batches;
-    console.log(`Batches: ${batches}`);
-    console.log(batches);
     let filteredBatches = this.filterBatchesByProgramType(batches);
     filteredBatches = this.filterBatchesByCurriculum(filteredBatches);
     filteredBatches = this.filterBatchesByClient(filteredBatches);

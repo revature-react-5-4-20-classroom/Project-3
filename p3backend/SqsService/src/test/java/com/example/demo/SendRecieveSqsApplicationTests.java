@@ -15,23 +15,24 @@ import com.amazonaws.services.sqs.AmazonSQSAsync;
 @SpringBootTest
 class SendRecieveSqsApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-	
-	@Bean
-    public SimpleMessageListenerContainer simpleMessageListenerContainer(AmazonSQSAsync amazonSQSAsync) {
-        SimpleMessageListenerContainerFactory factory = new SimpleMessageListenerContainerFactory();
-        factory.setAutoStartup(false);
-        factory.setAmazonSqs(amazonSQSAsync);
-        SimpleMessageListenerContainer simpleMessageListenerContainer = factory.createSimpleMessageListenerContainer();
-        simpleMessageListenerContainer.setMessageHandler(messageHandler());
-        return simpleMessageListenerContainer;
-    }
-
-@Bean(name = "messageHandler")
-    public QueueMessageHandler messageHandler() {
-        return mock(QueueMessageHandler.class);
-    }
+//  @Test
+//  void contextLoads() {}
+//
+//  @Bean
+//  public SimpleMessageListenerContainer simpleMessageListenerContainer(
+//      AmazonSQSAsync amazonSQSAsync) {
+//    SimpleMessageListenerContainerFactory factory = new SimpleMessageListenerContainerFactory();
+//    factory.setAutoStartup(false);
+//    factory.setAmazonSqs(amazonSQSAsync);
+//    SimpleMessageListenerContainer simpleMessageListenerContainer =
+//        factory.createSimpleMessageListenerContainer();
+//    simpleMessageListenerContainer.setMessageHandler(messageHandler());
+//    return simpleMessageListenerContainer;
+//  }
+//
+//  @Bean(name = "messageHandler")
+//  public QueueMessageHandler messageHandler() {
+//    return mock(QueueMessageHandler.class);
+//  }
 
 }

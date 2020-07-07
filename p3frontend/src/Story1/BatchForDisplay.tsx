@@ -53,7 +53,47 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
 
     //transform and copy the server batch object to display batch format
     this.state = {
-      batch: props.batch,
+      //batch: props.batch,
+
+      dateStartText: dateStart.toDateString(), //used to display the date
+      dateEndText: dateEnd.toDateString(),
+
+      dateSortStart: dateStart.getTime(), //used to sort the dates
+      dateSortEnd: dateEnd.getTime(),
+
+      weekSortCurrent: weekC, //the weeks as a number so they can be sorted
+      weekSortRemaining: weekR,
+
+      jsxWeekCurrent: jsxWeekC, //the weeks as jsx for display
+      jsxWeekRemaining: jsxWeekR,
+    };
+  }
+
+  // This is to make sure the component will update its state properly whenever the props change
+  componentWillReceiveProps(newProps: any) {
+    
+    let dateStart = convertDateToUTC(newProps.batch.startDate); //convert strings to Date objects
+    let dateEnd = convertDateToUTC(newProps.batch.endDate);
+
+    let weekC = dateDifferenceWeeks(dateStart, convertDateToUTC()); //calc current week we are on
+    let weekR = dateDifferenceWeeks(convertDateToUTC(), dateEnd); //calc weeks remaining
+
+    let jsxWeekC = <>{weekC}</>; //we want to know how to display the weeks
+    let jsxWeekR = <>{weekR}</>; //when now() is outside the week range, we want some nice display text
+
+    if (Date.now() < dateStart.getTime()) {
+      //if the batch hasn't started yet
+      jsxWeekC = <>Happening soon</>;
+    }
+
+    if (Date.now() > dateEnd.getTime()) {
+      //if the batch is overwith
+      jsxWeekR = <>Already happened</>;
+    }
+
+    //transform and copy the server batch object to display batch format
+    this.state = {
+      batch: newProps.batch,
 
       dateStartText: dateStart.toDateString(), //used to display the date
       dateEndText: dateEnd.toDateString(),
@@ -82,14 +122,15 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
       <>
         <td>
           <BatchViewModalRedux
-            currentBatch={this.state.batch}
+            currentBatch={this.props.batch}
             parentTop={this.props.parentTop}
           />
           <br />
-          ID {this.state.batch.batchId}
-          <br />C {this.state.batch.isConfirmed ? "Y" : "N"}
+          ID {this.props.batch.batchId}
+          {/* <br />
+          C {this.props.batch.isConfirmed ? "Y" : "N"}
           <br />
-          AT {this.state.batch.associates.length}
+          AT {this.props.batch.associates.length} */}
         </td>
 
         <td>
@@ -97,19 +138,19 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
           <br />
           <i>ProgramType</i>
           <br />
-          <i>AssociatesActive</i>
+          <i>Curriculum</i>
           <br />
-          <i>AssociatesInactive</i>
+          <i>Associates</i>
           <br />
         </td>
         <td>
-          {this.state.batch.isConfirmed ? "Yes" : "No"}
+          {this.props.batch.isConfirmed ? "Yes" : "No"}
           <br />
-          {this.state.batch.programType}
+          {this.props.batch.programType}
           <br />
-          {associatesGetActiveTotal(this.state.batch.associates, true)}
+          {this.props.batch.curriculum?this.props.batch.curriculum.name:"no-curriculum"}
           <br />
-          {associatesGetActiveTotal(this.state.batch.associates, false)}
+          {this.props.batch.associates?this.props.batch.associates.length:"none"}
           <br />
         </td>
         <td>
@@ -142,16 +183,16 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
         </td>
 
         <td>
-          <i>Location</i> {locationGetName(this.state.batch.location)}
+          <i>Location</i> {locationGetName(this.props.batch.location)}
           <br />
           <i>Skillset</i>{" "}
-          {this.state.batch.curriculum.curriculumSkillset.skillSetName}
+          {this.props.batch.curriculum.curriculumSkillset.skillSetName}
           <br />
           <i>Teachers</i>
-          {this.state.batch.trainers.length == 0 ? (
+          {this.props.batch.trainers.length == 0 ? (
             <> nobody</>
           ) : (
-            this.state.batch.trainers.map((trainer: any) => {
+            this.props.batch.trainers.map((trainer: any) => {
               return <>, {trainer.firstName}</>;
             })
           )}

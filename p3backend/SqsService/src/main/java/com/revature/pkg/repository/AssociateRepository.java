@@ -16,19 +16,19 @@ public interface AssociateRepository extends JpaRepository<Associate, Integer>{
 
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "insert into proj3.associate values(default,:firstname,:lastname,:email,:active,:score,:batchid)",
+	  @Query(value = "insert into project3.associate values(default,:firstname,:lastname,:email,:active,:score,:batchid)",
 		      nativeQuery = true)
 		  void addAssociates(String firstname,String lastname,String email,boolean active, float score,Integer batchid);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "update proj3.associate set assigned_batch_id=:batchid where email=:email",
+	  @Query(value = "update project3.associate set assigned_batch_id=:batchid where email=:email",
 		      nativeQuery = true)
 		  void updateAssociates(Integer batchid,String email);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select * from proj3.associate where email=:email",
+	  @Query(value = "select * from project3.associate where email=:email",
 		      nativeQuery = true)
 	List<Associate> checkAssociate(String email);
 	  

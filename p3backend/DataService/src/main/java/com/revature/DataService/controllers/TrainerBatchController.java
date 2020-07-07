@@ -1,6 +1,7 @@
 package com.revature.DataService.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,10 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.revature.DataService.models.Associate;
+import com.revature.DataService.models.Batch;
+import com.revature.DataService.models.Trainer;
 import com.revature.DataService.models.TrainerBatch;
-import com.revature.DataService.models.TrainerBatchIdentity;
+
 import com.revature.DataService.models.TrainerBatchPost;
+
+import com.revature.DataService.repositories.BatchRepository;
+
 import com.revature.DataService.repositories.TrainerBatchRepository;
+import com.revature.DataService.repositories.TrainerRepository;
 import com.revature.DataService.services.TrainerBatchService;
 
 @CrossOrigin(origins = "*")
@@ -29,6 +36,12 @@ public class TrainerBatchController {
 
   @Autowired
   TrainerBatchRepository tbr;
+  
+  @Autowired
+  BatchRepository batchRepo;
+  
+  @Autowired
+  TrainerRepository trainerRepo;
   
   @GetMapping("/trainerBatchAll")
   public List<TrainerBatch> trainerBatchAll()
@@ -88,14 +101,19 @@ public class TrainerBatchController {
     try
     {
       
-       TrainerBatchIdentity tbi = new TrainerBatchIdentity(tb.getTrainerId(), tb.getBatchId());
-       TrainerBatch tbNew = new TrainerBatch(tbi);
+ 
+       int total=tbr.getTotalTrainerBatches(tb.getTrainerId(), tb.getBatchId());
        
-       //This will not add more than 5 rows into the trainerbatch for some reason
-       //I assume there is some kind of limitation imposed on it by the database
-       //maybe there is some business logic I do not know about
-       trainerBatchService.save(tbNew);
-      return "TrainerBatch has been posted!";
+       if(total==0)//if the tb pair is not already in the join table
+       {
+         tbr.insertTrainerBatch(tb.getTrainerId(), tb.getBatchId());
+         return "TrainerBatch has been posted! total="+total;
+       }
+       else
+       {
+         return "TrainerBatch pair already exists and another was not posted. total="+total;
+       }
+
     } catch (Exception e)
     {
       return e.getMessage();

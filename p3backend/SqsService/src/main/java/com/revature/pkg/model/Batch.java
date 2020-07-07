@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(schema="proj3", name = "batch")
+@Table(schema="project3", name = "batch")
 public class Batch {
 
 	

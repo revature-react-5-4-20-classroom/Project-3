@@ -11,18 +11,6 @@ spring:
     
 server:
   port: 1235
-  
-#SQS information
-aws:
-  accessKey: ${AWS_ACCESS_KEY_ID}
-  secretKey: ${AWS_SECRET_ACCESS_KEY}
-  region: us-east-1
-cloud:
-  aws:
-    region:
-      static: us-east-1
-    stack:
-      auto: false
 
 ---
 spring:

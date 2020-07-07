@@ -8,10 +8,10 @@
 		<version>2.3.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>sendrecievesqs</artifactId>
+	<groupId>com.revature.pkg</groupId>
+	<artifactId>sqsservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sendRecieveSqs</name>
+	<name>sqsservice</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

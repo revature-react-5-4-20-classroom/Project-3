@@ -16,7 +16,6 @@ import {
 } from "reactstrap";
 import { pseudoDataResponse } from "../PseudoData/convertJsonToObjects";
 import "../../src/index.css";
-import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -24,11 +23,13 @@ import { Batch } from "../models/Batch";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
-import BatchTrainersTable, {
-  BatchTrainersTableRedux,
-} from "./BatchTrainersTable";
+import {BatchTrainersTable, BatchTrainersTableRedux} from "./BatchTrainersTable";
 import { store } from "../redux/store";
+<<<<<<< HEAD
 import { TrainerAssignmentRedux } from "../Story4/TrainerAssignment";
+=======
+import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
+>>>>>>> 155a5ecfd25962d19ebe62116d94867f2ed5db2d
 
 /*
   <BatchViewModel currentBatch={aSvererBatch} parentState={this.state}/>
