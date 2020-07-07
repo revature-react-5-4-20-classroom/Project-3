@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { EasyDropdown } from '../GeneralPurposeHelpers/EasyDropdown';
 import { ColumnChartTest } from './colGraphComponent';
+import './style.css';
+import { PageTitleBar } from '../Components/GenerateBatch/PageTitleBar';
 
 export class OverviewClientDemand extends React.Component<any, any> {
   constructor(props: any) {
@@ -15,18 +17,24 @@ export class OverviewClientDemand extends React.Component<any, any> {
   render() {
     return (
       <Container>
-        <h6>Story 2. "Overview"</h6>
-        <br />
-        <p>
-          Given that there is a Client Demand for engineers with a given
-          Curricula Track When I navigate to the `Overview` view Then I see
-          graphics depicting the Quantity Demanded vs Quantity Supplied by
-          Curricula Track (Current, in 1 month, in 3 months)
-        </p>
-        <br />
-
+        <PageTitleBar pageTitle={"Client Demand Overview"}/>
+        <Row>
+          <Col className='center-items-div'>
+            <h3 className='center-text'>Client Demands vs Revature Supply</h3>
+          </Col>
+        </Row>
         <Row>
           <ColumnChartTest />
+        </Row>
+        <Row>
+          <Col className='center-items-div'>
+            <p className='center-text'>
+              The above chart compares all current client demand for any given
+              skillset vs what Revature has available to place today, in 1
+              month, and in 3 months. Supply totals are calculated based on
+              associates' batches' end dates.
+            </p>
+          </Col>
         </Row>
       </Container>
     );

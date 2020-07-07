@@ -28,6 +28,7 @@ import { FilterForm } from "./FilterForm";
 import moment from "moment";
 import { convertDateToUTC } from "../GeneralPurposeHelpers/convertDateToUTC";
 import { BatchForDisplay } from "./BatchForDisplay";
+import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 
 const doPrnt = true; //prnt will work
 
@@ -73,17 +74,9 @@ export class InProgress extends React.Component<any, any> {
           message={this.state.errorMessage}
           error={this.state.error}
         />
-        <h6>Story 1. "In Progress"</h6>
-        <br />
-        <p>
-          Given that batches are currently in operation When I navigate to the
-          'In Progress' view And I optionally select Program Type (ROCP, CF,
-          Standard, Spark) or Curricula or client Then I see current week, weeks
-          remaining, number of active/inactive associates, trainer, location
-          filtered by criteria And this data is shown as a table and a Calendar
-          view
-        </p>
-        <br />
+        
+        <PageTitleBar pageTitle={'In Progress'} />
+
         <Row>
           <Col>
             <b>view type:</b>
@@ -91,7 +84,7 @@ export class InProgress extends React.Component<any, any> {
               onSelected={(item: string) => {
                 this.setState({ viewType: item });
               }}
-              hoverText="Please enjoy viewing the batches in a table or calendar"
+              hoverText="Please enjoy viewing the batches in a table or calendar format."
               items={["Table", "Calendar"]}
             />
           </Col>
@@ -108,6 +101,7 @@ export class InProgress extends React.Component<any, any> {
             <p>{this.state.curriculum}</p>
           </Col>
           <Col>
+            {/* first shows up as a button, when clicked a modal appears. Requires functions that change filter values on the state, as well as filter selections. See FilterForm. */}
             <FilterForm
               setProgramType={this.setProgramType}
               setClient={this.setClient}
@@ -212,6 +206,7 @@ export class InProgress extends React.Component<any, any> {
       console.log(sortedbatch)
       batchData=sortedbatch;
 
+      // getting the selections for the filters from the batches
       let programtype = batchData.map((batch: Batch) => {
         return batch.programType;
       });
@@ -229,6 +224,7 @@ export class InProgress extends React.Component<any, any> {
         return self.indexOf(value) === index;
       });
 
+      // For clients, we're getting values based on client demands with skillsets that correspond to batch curricula
       let clientDemandLists = batchData.map((batch: Batch) => {
         return batch.curriculum.curriculumSkillset.clientDemands;
       });
@@ -281,8 +277,8 @@ export class InProgress extends React.Component<any, any> {
     this.setState({ client: value });
   };
 
+  // For this to work properly, this should be called last when applying multiple filters at once. It's a bit of a shortcut, but it works.
   setCurriculum = (value: string) => {
-    //filter
     this.setState({ curriculum: value }, this.applyFilters);
   };
 
