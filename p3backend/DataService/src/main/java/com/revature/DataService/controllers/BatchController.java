@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import com.revature.DataService.dtos.BatchTrainerJoin;
 import com.revature.DataService.dtos.UpdateBatchDto;
 import com.revature.DataService.models.Batch;
 import com.revature.DataService.services.BatchService;
@@ -85,6 +86,20 @@ public class BatchController {
     }
 
   }
+  
+  @PostMapping("/batches/trainer")
+  public Batch updatebatchtrainer(@RequestBody BatchTrainerJoin batch) {
+    
+    try {
+      return batchService.batchtrain(batch.getTrainerId(), batch.getBatchId());
+      
+    }catch(Exception e) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+    }
+    }
+    
+    
+  
 
 
 }
