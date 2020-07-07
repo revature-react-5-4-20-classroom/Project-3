@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(schema="proj3", name = "trainerbatch")
+@Table(schema="project3", name = "trainerbatch")
 public class Trainerbatch {
 
 	

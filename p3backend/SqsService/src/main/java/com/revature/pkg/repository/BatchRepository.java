@@ -19,23 +19,23 @@ public interface BatchRepository extends JpaRepository<Batch, Integer>{
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select * from proj3.batch where location_id=:locationid and curriculum_id=:curriculumid ",
+	  @Query(value = "select * from project3.batch where location_id=:locationid and curriculum_id=:curriculumid ",
 		      nativeQuery = true)
 	List<Batch> getBatchInfo(Integer locationid,Integer curriculumid);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select * from proj3.batch where true",
+	  @Query(value = "select * from project3.batch where true",
 		      nativeQuery = true)
 	List<Batch> getRandomBatchInfo();
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "insert into proj3.batch values(default,:start,:end,:isConfirmed,:score,"
-	  		+ ":locationid,:curriculumid,:programType)",
+	  @Query(value = "insert into project3.batch values(default,:start,:end,:isConfirmed,:score,:programType,"
+	  		+ ":locationid,:curriculumid)",
 		      nativeQuery = true)
-	void createBatch(Date start,Date end,boolean isConfirmed,Integer score,
-			Integer locationid, Integer curriculumid,String programType);
+	void createBatch(Date start,Date end,boolean isConfirmed,Integer score,String programType,
+			Integer locationid, Integer curriculumid);
 	  
 
 }
