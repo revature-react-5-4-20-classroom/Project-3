@@ -90,7 +90,7 @@ public class TrainerController {
   //
   // }
   
-  // 7/6/20
+  // 7/6/20 SQS MOVE LATER
   @CrossOrigin(origins = "*")
   @GetMapping("/trainer/email/{email}")
   public Trainer getTrainerByEmail(@PathVariable String email) {
