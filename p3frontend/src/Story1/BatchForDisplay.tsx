@@ -140,7 +140,7 @@ export class BatchForDisplay extends React.Component<IPBatchForDisplay, any> {
           <br />
           <i>Curriculum</i>
           <br />
-          <i>Associatess</i>
+          <i>Associates</i>
           <br />
         </td>
         <td>
