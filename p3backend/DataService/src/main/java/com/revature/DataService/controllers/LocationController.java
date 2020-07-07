@@ -18,55 +18,52 @@ import com.revature.DataService.models.Location;
 import com.revature.DataService.services.LocationService;
 
 @RestController
-@RequestMapping(path="/location")
+@RequestMapping(path = "/location")
 public class LocationController {
 
-	
-	@Autowired
-	LocationService locationservice;
-	
-	@GetMapping
-	public List<Location> getall(){
-		
-		return locationservice.getAll();
-		
-	}
-	
-	
-	@GetMapping("/{id}")
-	public Location getById(@PathVariable Integer id) {
-		try {
-			return locationservice.getById(id);
-		}catch(RuntimeException e){
-			e.printStackTrace();
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			
-		}
-		
-	}
-	
-	@PostMapping
-	public Location saveLocation(@RequestBody Location location) {
-		
-		return locationservice.saveOne(location);
-		
-	}
-	
-	@PatchMapping
-	public Location updateLocation(@RequestBody Location location) {
-		try {
-			return locationservice.update(location);
-			
-		}catch(RuntimeException e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			
-		}
-		
-	}
-	
-	
-	
-	
-	
-	
+
+  @Autowired
+  LocationService locationservice;
+
+  @GetMapping
+  public List<Location> getall() {
+
+    return locationservice.getAll();
+
+  }
+
+
+  @GetMapping("/{id}")
+  public Location getById(@PathVariable Integer id) {
+    try {
+      return locationservice.getById(id);
+    } catch (RuntimeException e) {
+      e.printStackTrace();
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+    }
+
+  }
+
+  @PostMapping
+  public Location saveLocation(@RequestBody Location location) {
+
+    return locationservice.saveOne(location);
+
+  }
+
+  @PatchMapping
+  public Location updateLocation(@RequestBody Location location) {
+    try {
+      return locationservice.update(location);
+
+    } catch (RuntimeException e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+    }
+
+  }
+
+
+
 }
