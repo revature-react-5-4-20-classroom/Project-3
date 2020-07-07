@@ -107,12 +107,15 @@ EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclips
 //    return consentRepository.save(consent);
   }
 
+  
   public void update(Consent consent) {
 
 
     // We want to make sure the cat we're given exists before we save it to the DB
     Optional<Consent> existingConsents = consentRepository.findById(consent.getConsentId());
-    if (existingConsents.isPresent()) {
+    System.out.println(existingConsents);
+    System.out.println(consent.getConsentId());
+    //if (existingConsents.isPresent()) {
       
       EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
       
@@ -120,16 +123,16 @@ EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclips
       EntityManager entitymanager = emfactory.createEntityManager( );
       entitymanager.getTransaction( ).begin( );
       
-      entitymanager.createNativeQuery("UPDATE project3.consent SET consent_approved= ? WHERE consent_id=?").setParameter(1, consent.getIsApprovedColumn()).setParameter(2, consent.getConsentId()).executeUpdate();
+      entitymanager.createNativeQuery("UPDATE project3.consent SET consent_approved=? WHERE consent_id=?").setParameter(1, consent.getIsApprovedColumn()).setParameter(2, consent.getConsentId()).executeUpdate();
       
       entitymanager.getTransaction( ).commit( );
 
       entitymanager.close( );
       emfactory.close( );
       //return consentRepository.save(consent);
-    } else {
-      throw new RuntimeException();
-    }
+    //} else {
+      //throw new RuntimeException();
+    //}
 
   }
 }
