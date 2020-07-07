@@ -282,24 +282,30 @@ sleep = (milliseconds : any) => {
       <>
         <Container><PageTitleBar pageTitle={"Trainer Assignment"}/></Container>
         <ListGroup>
-          {this.state.trainers.map((trainer: Trainer, i) => {
-            //trying to use the same item display everywhere
-            return (
-              <ListGroupItem key={i}>
-                <Row>
-                  <Col>
-                    <Row>
-                      <Col>{trainer.firstName + ' ' + trainer.lastName}</Col>
-                    </Row>
-                    <Row>
-                      <Col>{buttonArray[i]}</Col>
-                    </Row>
-                    <Row>{/* <Col>{this.getButton(trainer, i)}</Col> */}</Row>
-                  </Col>
-                </Row>
-              </ListGroupItem>
-            );
-          })}
+          {
+              this.state.trainers.length==0?
+                <>There are no trainers</>
+              :
+                this.state.trainers.map((trainer: Trainer, i) => 
+                {
+                    //trying to use the same item display everywhere
+                    return (
+                      <ListGroupItem key={i}>
+                        <Row>
+                          <Col>
+                            <Row>
+                              <Col>{trainer.firstName + ' ' + trainer.lastName}</Col>
+                            </Row>
+                            <Row>
+                              <Col>{buttonArray[i]}</Col>
+                            </Row>
+                            <Row>{/* <Col>{this.getButton(trainer, i)}</Col> */}</Row>
+                          </Col>
+                        </Row>
+                      </ListGroupItem>
+                    )
+                  })
+          }
         </ListGroup>
       </>
     );
