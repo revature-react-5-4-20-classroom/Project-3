@@ -64,6 +64,7 @@ export class OverviewTraining extends React.Component<any, any> {
       errorMessage: "",
       currentBatchIndex: undefined,
       allEligibleAssociates: [],
+      success:false,
     };
   }
   componentDidMount = async () => {
@@ -88,7 +89,7 @@ export class OverviewTraining extends React.Component<any, any> {
       notConfirmedBatches: tempBatchses,
     });
   };
-  
+
   bindInputChangeToState = (changeEvent: any) => {
     //@ts-ignore
     this.setState({
@@ -185,23 +186,26 @@ export class OverviewTraining extends React.Component<any, any> {
     assoc.batch = this.props.currentBatch;
     this.setState({});
   };
-  
+
   confirmBatch = async (e: any) => {
     e.preventDefault();
 
     try {
       for (const i of this.state.associatesInBatch) {
         i.batchId = this.state.currentBatch1.batchId;
-        await updateAssociate(i);
+        // await updateAssociate(i);
         // console.log(i);
       }
-      const newBatch = await updateBatch(
-        this.state.currentBatch1.batchId,
-        true
-      );
+      // const newBatch = await updateBatch(
+      //   this.state.currentBatch1.batchId,
+      //   true
+      // );
       this.state.notConfirmedBatches.splice(this.state.currentBatchIndex, 1);
       console.log(this.state.notConfirmedBatches);
-      this.setState({});
+      this.setState({
+        success:true,
+      });
+      
       // this.props.batchUpdateActionMapper(newBatch);
     } catch (e) {
       this.setState({
@@ -216,7 +220,7 @@ export class OverviewTraining extends React.Component<any, any> {
       <>
         <Container>
           <PageTitleBar pageTitle={"Training Overview"} />
-          <Alert color="success">This is a success alert — check it out!</Alert>
+
           <Row>
             <Col md={3}>
               <Container style={{ backgroundColor: "#C0C0C0" }}>
@@ -256,11 +260,16 @@ export class OverviewTraining extends React.Component<any, any> {
             <Col md={8}>
               {this.state.batchFlag ? (
                 <Container>
+                  {this.state.success ? (
+                    <Alert color="success">Batch Successfully Confirmed</Alert>
+                  ) : (
+                    <></>
+                  )}
+
                   <Row>
                     <Col>
                       {this.state.data ? (
                         <Container>
-
                           <ErrorAlert
                             error={this.state.errorObject}
                             message={this.state.errorMessage}
@@ -383,10 +392,6 @@ export class OverviewTraining extends React.Component<any, any> {
               <Button onClick={this.confirmBatch} disabled={!this.state.data}>
                 Confirm
               </Button>
-              <ErrorAlert
-                error={this.state.errorObject}
-                message={this.state.errorMessage}
-              />
             </Col>
           </Row>
         </Container>
