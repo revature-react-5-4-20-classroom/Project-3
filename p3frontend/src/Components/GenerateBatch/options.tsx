@@ -1,8 +1,11 @@
 import React from "react";
-import { Container, Input, Label, Button, InputGroup, InputGroupText } from "reactstrap";
-import { getgeneratedBatch } from "../../api/generateBatch";
+import { Input, Label, Button, InputGroup, InputGroupText } from "reactstrap";
 // import { BatchView } from "./BatchView";
-import { smallBtnStyles, sharpEdge, btnStyles } from "../../Styles/generateBatchStlyes";
+import {
+  smallBtnStyles,
+  sharpEdge,
+  btnStyles,
+} from "../../Styles/generateBatchStlyes";
 //new Date().toISOString().substring(0, 10),
 export class Options extends React.Component<any, any> {
   constructor(props: any) {
@@ -28,45 +31,44 @@ export class Options extends React.Component<any, any> {
     this.setState({
       flaeeg: true,
     });
-    // console.log(this.state.response);
   };
   render() {
-
     return (
       <div id="options-div">
-        <h4 style={{color: "white", fontSize: "1.2rem"}}>Options</h4>
+        <h4 style={{ color: "white", fontSize: "1.2rem" }}>Options</h4>
         <InputGroup>
           {/* <Label>something: </Label> */}
           <Input placeholder="something (text)"></Input>
           <Button style={smallBtnStyles}>Submit</Button>
         </InputGroup>
         <br />
-        
+
         <InputGroup>
-        
           <Input
             type="date"
             name="startDate"
             id="startDate"
             onChange={this.bindInputChangeToState}
           ></Input>
-          <InputGroupText style={sharpEdge}><Label>Start Date</Label></InputGroupText>
+          <InputGroupText style={sharpEdge}>
+            <Label>Start Date</Label>
+          </InputGroupText>
         </InputGroup>
         <br />
 
         <InputGroup>
-        
           <Input
             type="date"
             name="endDate"
             id="endDate"
             onChange={this.bindInputChangeToState}
           ></Input>
-          <InputGroupText style={sharpEdge}><Label>End Date</Label></InputGroupText>
+          <InputGroupText style={sharpEdge}>
+            <Label>End Date</Label>
+          </InputGroupText>
         </InputGroup>
         <br />
         <InputGroup>
-
           <Input
             type="number"
             onChange={this.bindInputChangeToState}
@@ -76,7 +78,6 @@ export class Options extends React.Component<any, any> {
         </InputGroup>
         <br />
         <InputGroup>
-          
           <Input
             type="number"
             onChange={this.bindInputChangeToState}
@@ -85,7 +86,10 @@ export class Options extends React.Component<any, any> {
           ></Input>
         </InputGroup>
         <br />
-        <Button onClick={this.getgeneratedBatch} style={btnStyles}> Generate Batches</Button>
+        <Button onClick={this.getgeneratedBatch} style={btnStyles}>
+          {" "}
+          Generate Batches
+        </Button>
         <br />
         <div style={{ display: this.state.flaeeg ? "block" : "none" }}>
           {" "}

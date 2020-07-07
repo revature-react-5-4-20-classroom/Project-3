@@ -1,21 +1,17 @@
 import React from "react";
-import { Table, Button, Container, Row, Col, Spinner } from "reactstrap";
+import { Container, Spinner } from "reactstrap";
 import { Batch } from "../models/Batch";
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { prnt } from "../GeneralPurposeHelpers/Prnt";
 import { axiosClient } from "../api/axios";
 import { DualTables } from "./DualTables";
+import { connect } from "react-redux";
 import { Trainer } from "../models/Trainer";
 import { getAllTrainers } from "../api/consent";
 import { allTheMapStateToProps } from "../redux/reducers";
-import {
-  allTheActionMappers,
-  addTrainerToBatchActionMapper,
-  removeTrainerFromBatchActionMapper,
-} from "../redux/action-mapper";
+import { allTheActionMappers } from "../redux/action-mapper";
 import { store } from "../redux/store";
 import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
-import { connect } from "react-redux";
 
 const doPrnt = true; //prnt may be toggled
 
@@ -154,8 +150,8 @@ export class BatchTrainersTable extends React.Component<
 
         prnt(doPrnt, `post request=`, request);
 
-        let response=await axiosClient.post("/trainerBatch", request);
-        prnt(doPrnt,`response.data=${response.data}`)
+        let response = await axiosClient.post("/trainerBatch", request);
+        prnt(doPrnt, `response.data=${response.data}`);
 
         this.props.addTrainerToBatchActionMapper(
           store.getState().batch.batch,
@@ -170,8 +166,8 @@ export class BatchTrainersTable extends React.Component<
         };
         prnt(doPrnt, `delete request=`, request);
 
-        let response=await axiosClient.delete("/trainerBatch", request);
-        prnt(doPrnt,`response.data=${response.data}`)
+        let response = await axiosClient.delete("/trainerBatch", request);
+        prnt(doPrnt, `response.data=${response.data}`);
 
         this.props.removeTrainerFromBatchActionMapper(
           store.getState().batch.batch,

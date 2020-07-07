@@ -1,7 +1,6 @@
 import { Consent } from "../models/Consent";
 import { Trainer } from "../models/Trainer";
 import { axiosClient } from "./axios";
-import { Batch } from "../models/Batch";
 
 export async function getAllEligibleTrainers(
   batchId: number
@@ -94,10 +93,9 @@ export async function getAllTrainers(): Promise<Trainer[]> {
 
 export async function createConsentRequest(
   trainerId: number,
-  isApproved:boolean| null,
+  isApproved: boolean | null,
   batchId: number
 ) {
- 
   try {
     console.log(trainerId);
     console.log(batchId);
@@ -130,10 +128,8 @@ export async function createConsentRequest(
 //   }
 // }
 
-
 export async function createTrainerBatch(trainerId: number, batchId: number) {
   try {
-    
     const response = await axiosClient.post("/trainerbatch", {
       trainerId: trainerId,
       batchId: batchId,
@@ -208,7 +204,6 @@ export async function getConsentByTrainerId(id: number): Promise<Consent[]> {
     console.log(response);
 
     return response.data.map((itemObj: Consent) => {
-
       const { consentId, trainer, isApproved, batch } = itemObj;
       return new Consent(consentId, trainer, isApproved, batch);
     });
