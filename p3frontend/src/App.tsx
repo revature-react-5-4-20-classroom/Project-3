@@ -37,28 +37,15 @@ import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
 import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
 import { BatchTableTester } from "./Story1/BatchAssocTableTester";
 import { FilterForm } from "./Story1/FilterForm";
-<<<<<<< HEAD
-import {approveConsentRequest, denyConsentRequest,getConsentByTrainerId} from "../src/api/consent";
-import { trackPromise } from 'react-promise-tracker';
-=======
 import { HomePage } from "./Homepage";
 import { PageFooter } from "./Footer";
->>>>>>> 155a5ecfd25962d19ebe62116d94867f2ed5db2d
+import { trackPromise } from 'react-promise-tracker';
+import {getConsentByTrainerId} from '../src/api/consent';
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-      update : []
-    }
-  }
-  toggleNavbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    setIsOpen(!isOpen);
-  };
-  render() {
-=======
       isBatchOpen: false,
       isTrainerOpen: false,
     };
@@ -76,12 +63,13 @@ export class App extends React.Component<any, any> {
     });
   };
 
+ 
+
   /*  
     returns a jsx component with the navbar and endpoint routes.
     creates that stuff from the array of endpoints and nav names
 */
   createRoutesAndNavbar = (array: any) => {
->>>>>>> 155a5ecfd25962d19ebe62116d94867f2ed5db2d
     return (
       <Router>
         <Navbar color='light' light expand='md'>
@@ -206,19 +194,11 @@ export class App extends React.Component<any, any> {
               name: "Training Overview",
               comp: <OverviewTraining />,
             },
-<<<<<<< HEAD
             // {
             //   end: "/trainer-assign",
             //   name: "Trainer assignment",
             //   comp: <TrainerAssignmentComponent />,
             // },
-=======
-            {
-              end: "/trainers/trainer-assign",
-              name: "Trainer assignment",
-              comp: <TrainerAssignmentComponent />,
-            },
->>>>>>> 155a5ecfd25962d19ebe62116d94867f2ed5db2d
             {
               end: "/trainers/consent-requests",
               name: "Consent requests",

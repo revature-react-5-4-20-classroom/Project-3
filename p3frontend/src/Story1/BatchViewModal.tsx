@@ -25,11 +25,8 @@ import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
 import {BatchTrainersTable, BatchTrainersTableRedux} from "./BatchTrainersTable";
 import { store } from "../redux/store";
-<<<<<<< HEAD
-import { TrainerAssignmentRedux } from "../Story4/TrainerAssignment";
-=======
 import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
->>>>>>> 155a5ecfd25962d19ebe62116d94867f2ed5db2d
+import {TrainerAssignmentRedux} from "../Story4/TrainerAssignment"
 
 /*
   <BatchViewModel currentBatch={aSvererBatch} parentState={this.state}/>

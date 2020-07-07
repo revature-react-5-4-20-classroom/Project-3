@@ -7,6 +7,8 @@ import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
 import { batch, connect } from "react-redux";
 import {Alert} from "reactstrap"
+import { trackPromise } from 'react-promise-tracker';
+import {Spinner} from "../GeneralPurposeComponents/spinner/spinner"
 
 
 import {
@@ -155,14 +157,23 @@ sleep = (milliseconds : any) => {
   //   await assignTrainer(trainer.trainerId, batchId);
   // };
   assign = async(trainerId:number, batchId:number) =>{
-      //await assignTrainer(trainerId, batchId);
-      let success: boolean|undefined = await createTrainerBatch(trainerId, batchId);
 
-      if(success){
-        this.setState({
-          assignIsOpen:true
-        })
-      }
+    trackPromise(
+      createTrainerBatch(trainerId,batchId)
+        .then((consentRequests) =>{
+          this.setState({
+              assignIsOpen:true
+          })
+        }), "loading-area"
+    );
+      //await assignTrainer(trainerId, batchId);
+      //let success: boolean|undefined = await createTrainerBatch(trainerId, batchId);
+
+      // if(success){
+      //   this.setState({
+      //     assignIsOpen:true
+      //   })
+      // }
       
       
   }
@@ -170,14 +181,23 @@ sleep = (milliseconds : any) => {
   //   await createConsentRequest(trainer.trainerId, null, batchId);
   // };
   request = async(trainer:Trainer, batchId:number)=>{
-      
-      let success:boolean|undefined = await createConsentRequest(trainer.trainerId, null, batchId);
 
-      if(success){
-        this.setState({
-          requestIsOpen:true
-        })
-      }
+    trackPromise(
+      createConsentRequest(trainer.trainerId, null, batchId)
+        .then((consentRequests) =>{
+          this.setState({
+            requestIsOpen:true
+          })
+        }),"loading-area"
+    );
+      
+      //let success:boolean|undefined = await createConsentRequest(trainer.trainerId, null, batchId);
+
+      // if(success){
+      //   this.setState({
+      //     requestIsOpen:true
+      //   })
+      // }
       
   }
 
@@ -323,6 +343,9 @@ sleep = (milliseconds : any) => {
     })
     return (
       <>
+        <div>
+        <Spinner area="loading-area" />
+        </div>
         <Alert color="primary" isOpen={this.state.assignIsOpen} toggle={this.toggleAssign.bind(this)}>Trainer Assigned!</Alert>
         <Alert color="primary" isOpen={this.state.requestIsOpen} toggle={this.toggleRequest.bind(this)}>Trainer Requested!</Alert>
         <Container><PageTitleBar pageTitle={"Trainer Assignment"}/></Container>
