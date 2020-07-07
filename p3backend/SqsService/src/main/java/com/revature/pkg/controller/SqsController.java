@@ -87,7 +87,7 @@ public class SqsController {
 	  TrainerbatchRepository trainerskillsdata;
 	
 
-	@Value("${url}")
+	@Value("${URL}")
 	private String sqsEndPoint;
 	
 
