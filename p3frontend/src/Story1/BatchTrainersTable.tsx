@@ -177,13 +177,14 @@ export default class BatchTrainersTable extends React.Component<
           train
         );
       }
+      this.setState({});
     } catch (e) {
       this.setState({
         errorObject: e,
         errorMessage: "Could not update trainer",
       });
-      this.props.parentTop.setState({}); //re-render
     }
+    this.props.parentTop.setState({}); //re-render
   };
 }
 
