@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Input, Label, Button, InputGroup, InputGroupText } from "reactstrap";
 import { getgeneratedBatch } from "../../api/generateBatch";
-import { BatchView } from "./BatchView";
+// import { BatchView } from "./BatchView";
 import { smallBtnStyles, sharpEdge, btnStyles } from "../../Styles/generateBatchStlyes";
 //new Date().toISOString().substring(0, 10),
 export class Options extends React.Component<any, any> {
@@ -90,10 +90,10 @@ export class Options extends React.Component<any, any> {
         <div style={{ display: this.state.flaeeg ? "block" : "none" }}>
           {" "}
           <h4>fsengjn;a</h4>
-          <BatchView
+          {/* <BatchView
             quantity={this.state.quantity}
             interview={this.state.interview}
-          ></BatchView>
+          ></BatchView> */}
         </div>
       </div>
     );
