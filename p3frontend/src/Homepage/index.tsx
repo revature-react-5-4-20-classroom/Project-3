@@ -1,11 +1,10 @@
-import React from 'react';
-import { Container, Row, Col, Jumbotron, CardFooter } from 'reactstrap';
+import React from "react";
+import { Container, Row, Col, Jumbotron, CardFooter } from "reactstrap";
 
 export class HomePage extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
   }
-
   render() {
     return (
       <Container>

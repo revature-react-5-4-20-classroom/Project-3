@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 import {
   BrowserRouter as Router,
@@ -8,24 +8,24 @@ import {
   BrowserRouter,
   NavLink,
   Redirect,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import { ReduxInProgress } from './Story1/InProgress';
-import { Navbar, NavbarToggler, Nav, NavItem, Container } from 'reactstrap';
-import { TestConvertToObject } from './GeneralPurposeHelpers/convertToObject';
-import { OverviewClientDemand } from './Story2/OverviewClientDemand';
-import { OverviewTraining } from './Story3/OverviewTraining';
-import { TestdateDifferenceWeeks } from './GeneralPurposeHelpers/dateDifferenceWeeks';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import { BatchViewModal } from './Story1/BatchViewModal';
-import { ColumnChartTest } from './Story2/colGraphComponent';
-import { TrainerAssignmentComponent } from './Story4/TrainerAssignment';
-import { ViewConsentRequests } from './GeneralPurposeComponents/ViewConsentRequests';
-import { BatchTableTester } from './Story1/BatchAssocTableTester';
-import { FilterForm } from './Story1/FilterForm';
-import { HomePage } from './Homepage';
-import { PageFooter } from './Footer';
+import { ReduxInProgress } from "./Story1/InProgress";
+import { Navbar, NavbarToggler, Nav, NavItem, Container } from "reactstrap";
+import { TestConvertToObject } from "./GeneralPurposeHelpers/convertToObject";
+import { OverviewClientDemand } from "./Story2/OverviewClientDemand";
+import { OverviewTraining } from "./Story3/OverviewTraining";
+import { TestdateDifferenceWeeks } from "./GeneralPurposeHelpers/dateDifferenceWeeks";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import { BatchViewModal } from "./Story1/BatchViewModal";
+import { ColumnChartTest } from "./Story2/colGraphComponent";
+import { TrainerAssignmentComponent } from "./Story4/TrainerAssignment";
+import { ViewConsentRequests } from "./GeneralPurposeComponents/ViewConsentRequests";
+import { BatchTableTester } from "./Story1/BatchAssocTableTester";
+import { FilterForm } from "./Story1/FilterForm";
+import { HomePage } from "./Homepage";
+import { PageFooter } from "./Footer";
 
 export class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -55,42 +55,42 @@ export class App extends React.Component<any, any> {
           */
           createRoutesAndNavbar(this.toggleNavbar, [
             {
-              end: '/home',
-              name: 'Home',
+              end: "/home",
+              name: "Home",
               comp: <HomePage />,
             },
             {
-              end: '/in-progress',
-              name: 'S1 In Progress',
+              end: "/in-progress",
+              name: "S1 In Progress",
               comp: <ReduxInProgress />,
             },
             {
-              end: '/overview-demand',
-              name: 'S2 Overview Demand',
+              end: "/overview-demand",
+              name: "S2 Overview Demand",
               comp: <OverviewClientDemand />,
             },
             {
-              end: '/overview-training',
-              name: 'S3 Overview Training',
+              end: "/overview-training",
+              name: "S3 Overview Training",
               comp: <OverviewTraining />,
             },
             {
-              end: '/trainer-assign',
-              name: 'Trainer assignment',
+              end: "/trainer-assign",
+              name: "Trainer assignment",
               comp: <TrainerAssignmentComponent />,
             },
             {
-              end: '/consent-requests',
-              name: 'Consent requests',
+              end: "/consent-requests",
+              name: "Consent requests",
               comp: <ViewConsentRequests />,
             },
 
             {
-              end: '/test-convert',
-              name: 'TCO',
+              end: "/test-convert",
+              name: "TCO",
               comp: <TestConvertToObject />,
             },
-            { end: '/test-ASTable', name: 'BTT', comp: <BatchTableTester /> },
+            { end: "/test-ASTable", name: "BTT", comp: <BatchTableTester /> },
           ])
         }
       </Container>
