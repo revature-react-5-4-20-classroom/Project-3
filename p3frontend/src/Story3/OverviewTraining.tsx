@@ -194,7 +194,7 @@ export class OverviewTraining extends React.Component<any, any> {
                 <h4>Select Associates</h4>
                 <br />
                 <InputGroup>
-                  <Label>No of Associates: </Label>
+                  <Label>No. of Associates: </Label>
                   <Input
                     type="number"
                     value={this.state.quantity}
@@ -204,7 +204,7 @@ export class OverviewTraining extends React.Component<any, any> {
                 </InputGroup>
                 <br />
                 <InputGroup>
-                  <Label>Interview Score limit: </Label>
+                  <Label>Interview Score Limit: </Label>
                   <Input
                     type="number"
                     value={this.state.interview}
