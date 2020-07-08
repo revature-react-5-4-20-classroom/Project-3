@@ -267,41 +267,6 @@ export class OverviewTraining extends React.Component<any, any> {
                   ) : (
                     <></>
                   )}
-
-                  <Row>
-                    <Col>
-                      {this.state.data ? (
-                        <Container style={{ height: "300px" }}>
-                          <ErrorAlert
-                            error={this.state.errorObject}
-                            message={this.state.errorMessage}
-                          />
-                          <Row>
-                            <Col>
-                              <h6>All Available Associates</h6>
-                              {this.displayTable(
-                                this.state.eligibleAssociates,
-                                "No eligible associates left.",
-                                "Add",
-                                this.associateAdd
-                              )}
-                            </Col>
-                            <Col>
-                              <h6>Batch Associates</h6>
-                              {this.displayTable(
-                                this.state.associatesInBatch,
-                                "No associates currently assigned to this batch.",
-                                "Remove",
-                                this.associateRemove
-                              )}
-                            </Col>
-                          </Row>
-                        </Container>
-                      ) : (
-                        <></>
-                      )}
-                    </Col>
-                  </Row>
                   {this.state.notConfirmedBatches.length != 0 ? (
                     <Row className="overview-nav">
                       <Col>
@@ -387,6 +352,40 @@ export class OverviewTraining extends React.Component<any, any> {
                                   }
                                 )}
                               </Table>
+                            </Col>
+                          </Row>
+                        </Container>
+                      ) : (
+                        <></>
+                      )}
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      {this.state.data ? (
+                        <Container style={{ height: "300px" }}>
+                          <ErrorAlert
+                            error={this.state.errorObject}
+                            message={this.state.errorMessage}
+                          />
+                          <Row>
+                            <Col>
+                              <h6>All Available Associates</h6>
+                              {this.displayTable(
+                                this.state.eligibleAssociates,
+                                "No eligible associates left.",
+                                "Add",
+                                this.associateAdd
+                              )}
+                            </Col>
+                            <Col>
+                              <h6>Batch Associates</h6>
+                              {this.displayTable(
+                                this.state.associatesInBatch,
+                                "No associates currently assigned to this batch.",
+                                "Remove",
+                                this.associateRemove
+                              )}
                             </Col>
                           </Row>
                         </Container>
