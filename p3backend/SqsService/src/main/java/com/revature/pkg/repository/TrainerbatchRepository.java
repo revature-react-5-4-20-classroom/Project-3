@@ -25,6 +25,12 @@ public interface TrainerbatchRepository extends JpaRepository<Trainerbatch, Inte
 	  @Query(value = "select * from  project3.trainerbatch where trainer_id=:trainerid and batch_id=:batchid",
 		      nativeQuery = true)
 	List<Trainerbatch> checkTrainerBatch(Integer trainerid, Integer batchid);
+	
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	  @Query(value = "delete from  project3.trainerbatch where trainer_id=:trainerid and batch_id=:batchid",
+		      nativeQuery = true)
+	void deleteTrainerBatch(Integer trainerid, Integer batchid);
 	  
 
 }

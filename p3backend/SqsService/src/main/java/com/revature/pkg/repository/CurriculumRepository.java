@@ -24,7 +24,7 @@ public interface CurriculumRepository extends JpaRepository<Curriculum, Integer>
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "insert into proj3.curriculum values(default,:name,:id)",
+	  @Query(value = "insert into project3.curriculum values(default,:name,:id)",
 		      nativeQuery = true)
 	void createCurriculum(String name,Integer id);
 	  
