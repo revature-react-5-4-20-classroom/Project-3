@@ -34,9 +34,6 @@ The Data Service communicates with the RDS using Hibernate as an ORM. The data m
 ### SQS Service
 The SQS Service receives messages in a standard queue from other parts of Revature. The SQS Service manipulates the messages it receives in order to modify the database used by Reservoir. Currently, the SQS Service can add, update, and delete on **Batches, Skills, Associates, and Trainers** depending on the message received. All the messages received are JSON, and have key value pairs for *objectType*, *requestType*, and *values*. The *objectType* is a string that specifies the object that will be passed in. The *values* are the objects contained in an array. The *requestType* is a string that determines which CRUD operation to perform in our SQS Service. It should be noted that *Read* is not an option provided by this service (look into data service or report service).
 
-### Testing
-*Insert information about unit testing*
-
 ## Front End
 The front end of Reservoir is a single-page application which can display batch data, assign trainers and associates to batches, create consent requests for trainers being assigned to a batch, and generate potential batches based on associate availability and client demand. See "Usage" section for details.
 
@@ -54,31 +51,23 @@ The user can use the navigation bar at the top of the application to navigate to
 This will lead the user to a view which displays information all the batches currently in progress, as well as all future batches. By default, this is a table, but this can be switched to a calendar view at any time. Clicking on "Set Filters" will bring up a form which will allow the user to filter out batches based on Program Type, Client, and Curriculum.
 ![table image](./screenshots/insertimagehere.png)
 
-Clicking "view" will bring up more information about the batch, including its status, associates, and trainers. This view will also allow the user to add and remove trainers to and from the batch, as well set the batch's status to "confirmed".
+Clicking "view" will bring up more information about the batch, including its status, associates, and trainers. This view will also allow the user to add and remove associates to and from the batch, as well set the batch's status to "confirmed". Under "Request Consent", the user can view all available trainers and assign them to the batch if its curriculum corresponds to their skillset. If the user wants to assign a trainer whose skillset does not apply to the curriculum, the user can instead create a consent request, which the trainer can accept or deny
 ![view image](./screenshots/insertimagehere.png)
 
 In the calendar view, the batches are sorted by location, and the calendar can be navigated to view the full time interval of each batch. Right clicking on the batch will show more information, while double clicking on the batch will allow the user to edit it, as above.
 ![calendar image](./screenshots/insertimagehere.png)
 
-#### Demand Overview (/overview-demand)
+#### Supply and Demand (/overview-demand)
 This page provides an overview of client demand associated with a particular skillset. Depending on the skillset selected, it generates a graph which shows the total number of associates demanded as well as the number of associates available immediately, in one month, and in three months.
 ![overview demand image](./screenshots/insertimagehere.png)
-
-#### Training Overview (/overview-training)
-This page allows the user to generate scenarios about possible batch placements based on client demand and available associates. **When this page is finished, this should have a fuller explanation**
-![overview training image](./screenshots/insertimagehere.png)
-
-#### Trainer Assignment (/trainer-assign)
-This page allows the user to view all available trainers and assign them to a batch with a curriculum corresponding to their skillset. If the user wants to assign the trainer to a batch whose curriculum does not correspond to their skillset, the user can instead create a consent request, which the trainer can accept or deny. **Again, this could use more detail when the page is finished**
-![trainer assignment image](./screenshots/insertimagehere.png)
-
-#### Consent Requests (/consent-requests)
-**(not sure exactly what will be here)**
-![consent request image](./screenshots/insertimagehere.png)
 
 #### Generate Batch (/BatchPage)
 **(again, someone else should probably fill in the details)**
 ![generate batch image](./screenshots/insertimagehere.png)
+
+#### Consent Requests (/consent-requests)
+A trainer can view the consent requests page and see all the consent requests they have. If they accept the consent request they will be assigned to that batch.
+![consent request image](./screenshots/insertimagehere.png)
 
 # Contributors
 [List of Contributors](./contributors.md)
