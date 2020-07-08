@@ -20,7 +20,7 @@ public class BatchService {
       return batchRepository.findAll();
     } catch (Exception e) {
       return null;
-      // hrow new Exception("Issue getting all batches "+e.getMessage());
+      // throw new Exception("Issue getting all batches "+e.getMessage());
     }
   }
 
