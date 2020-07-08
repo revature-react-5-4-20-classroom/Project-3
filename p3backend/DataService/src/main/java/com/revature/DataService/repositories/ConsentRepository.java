@@ -14,6 +14,12 @@ import com.revature.DataService.models.Consent;
 public interface ConsentRepository extends JpaRepository<Consent, Integer> {
 
     Optional<Consent> findById(Integer consentId);
+    
+    @Query(value="SELECT * FROM  project3.consent WHERE (consent_approved is null and trainer_id = :trainerId)", nativeQuery=true)
+    List<Consent> getConsentsByTrainerId(Integer trainerId);
+    
+    @Query(value="INSERT INTO project3.consent(consent_id, trainer_id, batch_id, consent_approved) VALUES (default, ?, ?, null)", nativeQuery=true)
+    void createConsent(Integer trainerId, Integer batchId);
 
   
   
