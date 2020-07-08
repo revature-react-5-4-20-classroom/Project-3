@@ -87,13 +87,162 @@ public class SqsController {
 	  TrainerbatchRepository trainerskillsdata;
 	
 
-	@Value("${url}")
+	@Value("${URL}")
 	private String sqsEndPoint;
 	
 
 	//Batch -- needs to wait
 	public void handleBatch(JsonArray jsonArray, String request) {	
 		LOG.info("this is batch & ("+ request +") "+jsonArray.toString());
+		if(request.equals("update")) {
+			LOG.info("start updation");
+			//update start
+			for(JsonElement element : jsonArray) {
+				JsonObject singleObject = element.getAsJsonObject();
+				boolean checkLocation = locationService.checkLocation(singleObject.get("location").getAsString());
+				boolean checkCurriculum= curriculumService.checkCurriculum(singleObject.get("curriculum").getAsString());
+				if(!checkLocation) {
+					LOG.info("location found: "+checkLocation + " creating new location" );
+					locationData.createLocation(singleObject.get("location").getAsString());
+				}
+				if(!checkCurriculum) {
+					LOG.info("Curriculum found: "+checkCurriculum + " checking skillset" );
+					boolean checkSkillset = skillsetService.checkSkillset(singleObject.get("curriculum").getAsString());
+					if(!checkSkillset) {
+						skillsetData.createSkillset(singleObject.get("curriculum").getAsString());
+					}
+					Integer skillsetId = skillsetService.getSkillsetInfo(singleObject.get("curriculum").getAsString()).get(0).getSkillSetId();
+
+					curriculumData.createCurriculum(singleObject.get("curriculum").getAsString(),skillsetId);
+				}
+				Integer interviewScoreLower;
+				boolean isconfirmed;
+				String programType;
+				
+				Integer getLocationId = locationService.getLocationInfo(singleObject.get("location").getAsString()).get(0).getLocationId();
+				Integer getCurriculumId = curriculumService.getCurriculumInfo(singleObject.get("curriculum").getAsString()).get(0).getCurriculumId();
+				@SuppressWarnings("unused")
+				Integer getSkillsetId = skillsetService.getSkillsetInfo(singleObject.get("curriculum").getAsString()).get(0).getSkillSetId();
+				String startDate = singleObject.get("startDate").getAsString();
+				String endDate = singleObject.get("endDate").getAsString();
+				@SuppressWarnings("unused")
+				String location = singleObject.get("location").getAsString();
+				Integer BatchId = singleObject.get("batchId").getAsInt();
+				
+				//remove all associates belong to this batch
+				associateData.unassignAssociates(BatchId);
+				LOG.info("warming associates");
+
+
+				//trainers object array
+				
+				if(singleObject.has("isConfirmed")) {  isconfirmed = singleObject.get("isConfirmed").getAsBoolean();}else {  isconfirmed = false;}
+				if(singleObject.has("programType")) {  programType = singleObject.get("programType").getAsString();}else {  programType = "null";}
+				if(singleObject.has("interviewScoreLower")) { interviewScoreLower = singleObject.get("interviewScoreLower").getAsInt();}else {  interviewScoreLower = 0;}
+
+				
+				Date dateStart = Date.valueOf(startDate);
+				Date dateEnd = Date.valueOf(endDate);
+
+				batchData.updateBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower,programType, getLocationId,
+						getCurriculumId,BatchId);
+				LOG.info("batch created ");
+
+				LOG.info("batch_id is : /// " + BatchId);
+
+				
+				JsonArray trainers = singleObject.get("trainers").getAsJsonArray();
+				for(JsonElement trainer : trainers) {
+					JsonObject singleTrainer = trainer.getAsJsonObject();
+					String trainerFirstname = singleTrainer.get("firstName").getAsString();
+					String trainerLastname = singleTrainer.get("lastName").getAsString();
+					String trainerEmail = singleTrainer.get("email").getAsString();
+					boolean isEligible;
+					if(singleTrainer.has("isEligible")) {  isEligible = singleTrainer.get("isEligible").getAsBoolean();}else {  isEligible = true;}
+					boolean checkTrainer = trainerService.checkTrainer(trainerEmail);
+					LOG.info("working with trainer");
+					if(!checkTrainer) {
+						trainerData.createTrainer(trainerFirstname, trainerLastname, trainerEmail, isEligible);
+						LOG.info("adding a trainer");
+
+					}else {
+					LOG.info("Trainer already exist");
+					}
+					Integer TrainerId = trainerService.getTrainerInfo(trainerEmail).get(0).getTrainerId();
+					boolean checkTrainerBatch = trainerbatchService.checkTrainerBatch(TrainerId,BatchId);
+					if(!checkTrainerBatch) {
+						LOG.info("assignment attempt");
+						trainerbatchData.createTrainerBatch(TrainerId, BatchId);
+						LOG.info("Trainer assigned to batch");
+					}else {
+						LOG.info("Trainer was assigned to batch previously .. no action was made");
+
+					}
+					
+				}
+				//associates object array
+				JsonArray associates = singleObject.get("associates").getAsJsonArray();
+				for(JsonElement associate : associates) {
+					JsonObject singleAssociate = associate.getAsJsonObject();
+					String associateFirstname = singleAssociate.get("firstName").getAsString();
+					String associateLastname = singleAssociate.get("lastName").getAsString();
+					String associateEmail = singleAssociate.get("email").getAsString();
+					boolean active;
+					float score;
+					if(singleAssociate.has("active")) {  active = singleAssociate.get("active").getAsBoolean();}else {  active = true;}
+					if(singleAssociate.has("interviewScore")) {  score = singleAssociate.get("interviewScore").getAsFloat();}else {  score = 0;}
+					boolean checkAssociate = associateService.checkAssociate(associateEmail);
+					LOG.info("working with asscoiate");
+					if(!checkAssociate) {
+						associateData.addAssociates(associateFirstname, associateLastname, associateEmail, active, score, BatchId);
+						LOG.info("associate added and assinged to a batch with id: " +BatchId);
+					}else {
+						associateData.updateAssociates(BatchId, associateEmail);
+					LOG.info("Associate already exist-> re-assigned to a batch id of "+BatchId);
+					}
+
+
+				}
+				LOG.info("Continue Listening to SQS");
+
+
+			}
+			
+			//updates ends
+
+		}
+		if(request.equals("delete")) {
+			LOG.info("start deletion");
+			for(JsonElement element : jsonArray) {
+				JsonObject singleObject = element.getAsJsonObject();
+				Integer batchId = singleObject.get("batchId").getAsInt();
+				boolean checkBatch = batchService.checkBatchById(batchId);
+				if(checkBatch) {
+					
+					JsonArray trainers = singleObject.get("trainers").getAsJsonArray();
+					for(JsonElement trainer : trainers) {
+						JsonObject singleTrainer = trainer.getAsJsonObject();
+						Integer trainerId = singleTrainer.get("trainerId").getAsInt();
+						//removing trainer from this batch
+						trainerbatchData.deleteTrainerBatch(trainerId, batchId);
+						LOG.info("trainer removed from batch");
+					}
+					//remove associate from batch
+					associateData.unassignAssociates(batchId);
+					LOG.info("associate removed from batch");
+					
+					//delete Batch
+					batchData.deleteBatch(batchId);
+					LOG.info("final - batch deleted");
+					
+				}else {
+					LOG.info("no patch with id "+batchId);
+				}
+				LOG.info("Continue listening");
+
+			}
+
+		}
 		if(request.equals("add")) {
 			LOG.info("add this to batch");
 			for(JsonElement element : jsonArray) {
@@ -120,10 +269,11 @@ public class SqsController {
 				
 				Integer getLocationId = locationService.getLocationInfo(singleObject.get("location").getAsString()).get(0).getLocationId();
 				Integer getCurriculumId = curriculumService.getCurriculumInfo(singleObject.get("curriculum").getAsString()).get(0).getCurriculumId();
+				@SuppressWarnings("unused")
 				Integer getSkillsetId = skillsetService.getSkillsetInfo(singleObject.get("curriculum").getAsString()).get(0).getSkillSetId();
 				String startDate = singleObject.get("startDate").getAsString();
 				String endDate = singleObject.get("endDate").getAsString();
-				String location = singleObject.get("location").toString();
+				String location = singleObject.get("location").getAsString();
 				//trainers object array
 				
 				if(singleObject.has("isConfirmed")) {  isconfirmed = singleObject.get("isConfirmed").getAsBoolean();}else {  isconfirmed = false;}
@@ -141,7 +291,7 @@ public class SqsController {
 				Date dateStart = Date.valueOf(startDate);
 				Date dateEnd = Date.valueOf(endDate);
 				//note swap location programtype
-				batchData.createBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower, getLocationId, getCurriculumId, programType);
+				batchData.createBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower,programType, getLocationId, getCurriculumId);
 				LOG.info("batch created ");
 				Integer BatchId = batchService.getBatchInfo(getLocationId, getCurriculumId).get(0).getBatchId();
 				LOG.info("batch_id is : " + BatchId);
@@ -217,17 +367,15 @@ public class SqsController {
 				JsonObject singleObject = element.getAsJsonObject();
 				try {
 					boolean active;
-					Integer batchid;
-					Integer randomBatch;
-					randomBatch = batchService.getRandomBatchInfo().get(0).getBatchId();
 					if(singleObject.has("active")) { active = singleObject.get("active").getAsBoolean(); }else {active = false;}
-					if(singleObject.has("assignedBatchId")) { batchid = singleObject.get("assignedBatchId").getAsInt(); }
-					else {batchid = randomBatch;
-					LOG.info("Random Batch "+ randomBatch+ " will be assigned to associate because no batch was specified");	
-					}
-				associateData.addAssociates(singleObject.get("firstName").getAsString(), singleObject.get("lastName").getAsString()
-						, singleObject.get("email").getAsString(),active, singleObject.get("technicalScreeningScore").getAsFloat(),batchid);
+					boolean checkAssociate = associateService.checkAssociate(singleObject.get("email").getAsString());
+					if(!checkAssociate) {
+				associateData.addAssociateswithoutBatch(singleObject.get("firstName").getAsString(), singleObject.get("lastName").getAsString()
+						, singleObject.get("email").getAsString(),active, singleObject.get("technicalScreeningScore").getAsFloat());
 				counting++;
+					}else {
+						LOG.info("Associate found");	
+					}
 				}catch(Exception e) {
 				LOG.info("Fail to add an Associate");	
 				}
@@ -276,7 +424,7 @@ public class SqsController {
 	
 	
 	
-	@JmsListener(destination = "sqs",containerFactory = "jmsListenerContainerFactory")
+	@JmsListener(destination = "${SQS_ENDPOINT}",containerFactory = "jmsListenerContainerFactory")
 	public void receive(@Payload String message) {
 		try {
 			JsonObject jsonObject = new JsonParser().parse(message).getAsJsonObject();
@@ -301,12 +449,7 @@ public class SqsController {
 			LOG.info("Error: "+e.getMessage());
 		}
 	}
-
 	     
-	
-
-
-
 }
 	
 	
@@ -315,57 +458,3 @@ public class SqsController {
 	
 	
 	
-
-	
-//	try {
-//	JsonArray jsonObject = new JsonParser().parse(message).getAsJsonArray();
-//		JsonObject jsonObj = new JsonObject(message);
-//	if(jsonObject.isJsonArray()) {
-//		for(JsonElement pa : jsonObject) {
-//			JsonObject All = pa.getAsJsonObject();
-//			if(All.get("objectType").getAsString() == "Batch") {
-//				LOG.info("this is "+All.get("objectType"));
-//			}
-//			JsonObject trainers = pa.getAsJsonObject().get("trainers").getAsJsonArray().get(0).getAsJsonObject();
-//			JsonObject associates = pa.getAsJsonObject().get("associates").getAsJsonArray().get(0).getAsJsonObject();
-//			
-//		     LOG.info("to database");
-//		     push(All.get("location").toString());
-//		     pushUsers(associates.get("firstName").getAsString(),
-//		    		 associates.get("lastName").getAsString(),
-//		    		 associates.get("email").getAsString());
-//
-//		}
-//	     LOG.info("Received {}", jsonObject.toString());
-//	}
-//	if(jsonObject.has("ele2")) {
-//	     LOG.info("Received {}", jsonObject.get("ele2").getAsJsonObject().get("age"));
-//	     String value = jsonObject.get("ele2").getAsJsonObject().get("age").getAsString();
-//	     dataa.feed(value);
-//	}
-
-//	}catch(Exception e) {
-//		LOG.info(""+e.getMessage());
-//	} 
-	
-
-
-
-
-//public void push(String pushed) {
-//try {
-//dataa.feed(pushed);
-//LOG.info("submitted to test data");
-//}catch(Exception e) {
-//	LOG.info("Error: "+e.getMessage());
-//}
-//}
-//
-//public void pushUsers(String firstname,String lastname,String email) {
-//try {
-//users.users(firstname, lastname, email);
-//LOG.info("submitted to users");
-//}catch(Exception e) {
-//	LOG.info("Error: "+e.getMessage());
-//}
-//}

@@ -20,6 +20,14 @@ public List<Batch> getBatchInfo(Integer locationid,Integer curriculumid) {
 	    return batchData.getBatchInfo(locationid, curriculumid);
 	  }
 
+public boolean checkBatchById(Integer id) {
+    return batchData.getBatchInfoById(id).size() > 0;
+  }
+
+public List<Batch> getBatchInfoById(Integer id) {
+    return batchData.getBatchInfoById(id);
+  }
+
 public List<Batch> getRandomBatchInfo() {
     return batchData.getRandomBatchInfo();
   }
