@@ -27,6 +27,7 @@ import {
 import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { PageTitleBar } from "../Components/GenerateBatch/PageTitleBar";
 import "./overviewtraining.css";
+import { axiosClient } from "../api/axios";
 interface IBatchPageState {
   // currentBatch: Batch,
   batches: Batch[];
@@ -194,9 +195,27 @@ export class OverviewTraining extends React.Component<any, any> {
     try {
       for (const i of this.state.associatesInBatch) {
         i.batchId = this.state.currentBatch1.batchId;
-        await updateAssociate(i);
+        // await updateAssociate(i);
         // console.log(i);
+        const nonCircularAssocPatch = {
+          associateId: i.associateId, //copy over all fields. typescript prevents easier copying
+          firstName: i.firstName,
+          lastName: i.lastName,
+          email: i.email,
+          active: i.active, //set active to true or false
+          interviewScore: i.interviewScore,
+          batch: true ? this.state.currentBatch1 : null, //assign to a batch.
+          //we have to watch out because this batch has an array of
+          //associates and associates have batches and we get circular json errors when sending
+        };
+        await axiosClient.patch("/associates", nonCircularAssocPatch);
+
+        // prnt(doPrnt, `nonCircularAssocPatch=`, nonCircularAssocPatch);
       }
+
+
+
+
       const newBatch = await updateBatch(
         this.state.currentBatch1.batchId,
         true
