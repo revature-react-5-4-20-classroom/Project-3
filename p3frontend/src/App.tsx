@@ -58,36 +58,63 @@ export class App extends React.Component<any, any> {
   createRoutesAndNavbar = (array: any) => {
     return (
       <Router>
-        <Navbar color="light" light expand="md">
-          {array.map((navEnd: any) => {
-            if (navEnd.end === "/home") {
-              return (
-                <NavbarBrand
-                  key={navEnd.name}
-                  href={navEnd.end}
-                  className="nav-link"
-                  activeClassName="active"
-                >
-                  {navEnd.name}
-                </NavbarBrand>
-              );
-            }
-          })}
-          <Nav className="mr-auto" navbar>
-            <UncontrolledDropdown
-              isOpen={this.state.isBatchOpen}
-              onClick={this.toggleBatches}
-              nav
-              inNavbar
-            >
-              <DropdownToggle nav caret>
-                Batches
-              </DropdownToggle>
-              <DropdownMenu>
-                {array.map((navEnd: any) => {
-                  if (navEnd.end.indexOf("/batch") > -1) {
-                    return (
-                      <>
+        <div className="main-container">
+          <Navbar color="light" light expand="md">
+            {array.map((navEnd: any) => {
+              if (navEnd.end === "/home") {
+                return (
+                  <NavbarBrand
+                    key={navEnd.name}
+                    href={navEnd.end}
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    {navEnd.name}
+                  </NavbarBrand>
+                );
+              }
+            })}
+            <Nav className="mr-auto" navbar>
+              <UncontrolledDropdown
+                isOpen={this.state.isBatchOpen}
+                onClick={this.toggleBatches}
+                nav
+                inNavbar
+              >
+                <DropdownToggle nav caret>
+                  Batches
+                </DropdownToggle>
+                <DropdownMenu>
+                  {array.map((navEnd: any) => {
+                    if (navEnd.end.indexOf("/batch") > -1) {
+                      return (
+                        <>
+                          <Link
+                            to={navEnd.end}
+                            className="nav-link"
+                            key={navEnd.end}
+                          >
+                            {navEnd.name}
+                          </Link>
+                        </>
+                      );
+                    }
+                  })}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <UncontrolledDropdown
+                isOpen={this.state.isTrainerOpen}
+                onClick={this.toggleTrainers}
+                nav
+                inNavbar
+              >
+                <DropdownToggle nav caret>
+                  Trainers
+                </DropdownToggle>
+                <DropdownMenu>
+                  {array.map((navEnd: any) => {
+                    if (navEnd.end.indexOf("/trainers") > -1) {
+                      return (
                         <Link
                           to={navEnd.end}
                           className="nav-link"
@@ -95,55 +122,30 @@ export class App extends React.Component<any, any> {
                         >
                           {navEnd.name}
                         </Link>
-                      </>
-                    );
-                  }
-                })}
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            <UncontrolledDropdown
-              isOpen={this.state.isTrainerOpen}
-              onClick={this.toggleTrainers}
-              nav
-              inNavbar
-            >
-              <DropdownToggle nav caret>
-                Trainers
-              </DropdownToggle>
-              <DropdownMenu>
+                      );
+                    }
+                  })}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          </Navbar>
+          <Switch>
+            <Provider store={store}>
+              <Container className="wrapping-container">
+                <Route exact path="/">
+                  <Redirect to="/home" />
+                </Route>
                 {array.map((navEnd: any) => {
-                  if (navEnd.end.indexOf("/trainers") > -1) {
-                    return (
-                      <Link
-                        to={navEnd.end}
-                        className="nav-link"
-                        key={navEnd.end}
-                      >
-                        {navEnd.name}
-                      </Link>
-                    );
-                  }
+                  return <Route path={navEnd.end}>{navEnd.comp}</Route>;
                 })}
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
-        </Navbar>
-        <Switch>
-          <Provider store={store}>
-            <Container>
-              <Route exact path="/">
-                <Redirect to="/home" />
-              </Route>
-              {array.map((navEnd: any) => {
-                return <Route path={navEnd.end}>{navEnd.comp}</Route>;
-              })}
-              <Route exact path="*">
-                <Redirect to="/home" />
-              </Route>
-            </Container>
-          </Provider>
-        </Switch>
-        <PageFooter />
+                <Route exact path="*">
+                  <Redirect to="/home" />
+                </Route>
+              </Container>
+            </Provider>
+          </Switch>
+          <PageFooter />
+        </div>
       </Router>
     );
   };
