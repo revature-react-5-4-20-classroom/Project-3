@@ -43,7 +43,7 @@ public class Consent {
   // Changing at Nick's request
   @JsonIgnoreProperties({"consent", "batches"})
   @ManyToOne
-  @JoinColumn(name = "trainerId")
+  @JoinColumn(name = "trainer_id")
   // @Column(name="trainer_id")
   private Trainer trainer;
 
