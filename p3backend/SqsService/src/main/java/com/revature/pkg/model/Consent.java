@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema="proj3", name = "consent")
+@Table(schema="project3", name = "consent")
 public class Consent {
 	
 	  @Id
@@ -15,67 +15,77 @@ public class Consent {
 	private Integer consentId;
 	  @Column(name = "trainer_id")
 	private Integer trainerId;
-	  @Column(name = "consent")
-	private Integer consent;
+	  @Column(name = "batch_id")
+	private Integer batchId;
 	  @Column(name = "consent_approved")
 	private boolean consentApproved;
-	  @Column(name = "trainer")
-	private Integer trainer;
+
 	  
+
 	  
 	  public Consent() {
 			super();
 		}
 	  
 	  
-	  public Consent(Integer consentId, Integer trainerId, Integer consent,
-			  boolean consentApproved, Integer trainer) {
+	  public Consent(Integer consentId, Integer trainerId, Integer batchId,
+			  boolean consentApproved) {
 		  super();
 		  this.consentId = consentId;
 		  this.trainerId = trainerId;
-		  this.consent =consent;
+		  this.batchId =batchId;
 		  this.consentApproved = consentApproved;
-		  this.trainer = trainer;
 	  }
-	
-	
+
+
 	public Integer getConsentId() {
 		return consentId;
 	}
+
+
 	public void setConsentId(Integer consentId) {
 		this.consentId = consentId;
 	}
+
+
 	public Integer getTrainerId() {
 		return trainerId;
 	}
+
+
 	public void setTrainerId(Integer trainerId) {
 		this.trainerId = trainerId;
 	}
-	public Integer getConsent() {
-		return consent;
+
+
+	public Integer getBatchId() {
+		return batchId;
 	}
-	public void setConsent(Integer consent) {
-		this.consent = consent;
+
+
+	public void setBatchId(Integer batchId) {
+		this.batchId = batchId;
 	}
+
+
 	public boolean isConsentApproved() {
 		return consentApproved;
 	}
+
+
 	public void setConsentApproved(boolean consentApproved) {
 		this.consentApproved = consentApproved;
 	}
-	public Integer getTrainer() {
-		return trainer;
-	}
-	public void setTrainer(Integer trainer) {
-		this.trainer = trainer;
-	}
-	
-	
+
+
 	@Override
 	public String toString() {
-		return "Consent [consentId=" + consentId + ", trainerId=" + trainerId + ", consent=" + consent
-				+ ", consentApproved=" + consentApproved + ", trainer=" + trainer + "]";
+		return "Consent [consentId=" + consentId + ", trainerId=" + trainerId + ", batchId=" + batchId
+				+ ", consentApproved=" + consentApproved + "]";
 	}
+	  
+	
+	
 	
 	
 	

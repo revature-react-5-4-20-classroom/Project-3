@@ -14,19 +14,19 @@ public interface SkillsRepository extends JpaRepository<Skills, Integer>{
 
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "insert into proj3.skills values(:skillId,:name)",
+	  @Query(value = "insert into project3.skills values(:skillId,:name)",
 		      nativeQuery = true)
 	void addSkill(Integer skillId,String name);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "delete from proj3.skills where skill_id=:skillId and skill_name=:name",
+	  @Query(value = "delete from project3.skills where skill_id=:skillId and skill_name=:name",
 		      nativeQuery = true)
 	void deleteSkill(Integer skillId,String name);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	  @Query(value = "select from proj3.skills where skill_id=:skillId and skill_name=:name",
+	  @Query(value = "select from project3.skills where skill_id=:skillId and skill_name=:name",
 		      nativeQuery = true)
 	boolean checkSkill(Integer skillId,String name);
 	  

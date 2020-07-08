@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(schema="proj3", name = "trainer")
+@Table(schema="project3", name = "trainer")
 public class Trainer {
 
 	
