@@ -329,7 +329,7 @@ export class TrainerAssignmentComponent extends React.Component<
         </div>
         <Alert color="primary" isOpen={this.state.assignIsOpen} toggle={this.toggleAssign.bind(this)}>Trainer Assigned!</Alert>
         <Alert color="primary" isOpen={this.state.requestIsOpen} toggle={this.toggleRequest.bind(this)}>Trainer Requested!</Alert>
-        <Container><PageTitleBar pageTitle={"Trainer Assignment"}/></Container>
+        {/* <Container><PageTitleBar pageTitle={"Trainer Assignment"}/></Container> */}
         <ListGroup>
           {
               this.state.trainers.length==0?
