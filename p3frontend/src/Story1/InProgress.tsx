@@ -107,6 +107,7 @@ export class InProgress extends React.Component<any, any> {
         <br />
         <br />
         {this.state.viewType === "Table" ? (
+          <div style={{overflowY:"scroll",maxHeight:"55vh",borderStyle:"solid",borderWidth:"1px"}}>
           <Table bordered>
             <tbody>
               {this.state.filteredBatches.map((batch: Batch, index: number) => {
@@ -124,6 +125,7 @@ export class InProgress extends React.Component<any, any> {
               })}
             </tbody>
           </Table>
+          </div>
         ) : (
           <TimelineRedux
             batches={this.state.filteredBatches}
