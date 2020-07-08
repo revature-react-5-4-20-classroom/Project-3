@@ -22,7 +22,7 @@ public interface ConsentRepository extends JpaRepository<Consent, Integer> {
     
     @Modifying
     @Transactional
-    @Query(value="INSERT INTO project3.consent(consent_id, trainer_id, batch_id, consent_approved) VALUES (default, ?, ?, null)", nativeQuery=true)
+    @Query(value="INSERT INTO project3.consent(consent_id, trainer_id, batch_id, consent_approved) VALUES (default, :trainerId, :batchId, null)", nativeQuery=true)
     void createConsent(Integer trainerId, Integer batchId);
 
   
