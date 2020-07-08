@@ -77,14 +77,14 @@ export class ViewConsentRequests extends React.Component<
 
 
   getConsentRequests = async () =>{
-    trackPromise(
-      getConsentByTrainerId(4)
-        .then((consentRequests) => {
-          this.setState({
-            consentRequests:consentRequests
-          })
-        }), "loading-area2"
-    );
+    // trackPromise(
+    //   getConsentByTrainerId(4)
+    //     .then((consentRequests) => {
+    //       this.setState({
+    //         consentRequests:consentRequests
+    //       })
+    //     }), "loading-area2"
+    // );
     let consentRequests : Consent[] = await getConsentByTrainerId(4);
     console.log(consentRequests);
     this.setState({

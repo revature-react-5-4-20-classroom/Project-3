@@ -45,8 +45,9 @@ public class ConsentController implements Serializable{
   @CrossOrigin(origins = "*")
   @GetMapping("/consent/{trainerId}")
   public List<Consent> getAllReviews(@PathVariable Integer trainerId) throws Exception{
+    System.out.println("I GOT THE REQUEST " + trainerId);
     List<Consent> consents = consentService.getConsentByTrainerId(trainerId);
-    
+    System.out.println(consents);
     return consents;
   }
 

@@ -18,8 +18,8 @@ import com.revature.DataService.repositories.ConsentRepository;
 
 
 
-
 @Service
+@Transactional
 public class ConsentService {
 
 
@@ -33,6 +33,7 @@ public class ConsentService {
   public List<Consent> getAll() {
     return consentRepository.findAll();
   }
+
 
 
   public List<Consent> getConsentByTrainerId(Integer trainerId) throws Exception {
@@ -89,8 +90,8 @@ public class ConsentService {
 
 
   
-  @Transactional
   public void create(Consent consent) {
+
     
     consentRepository.createConsent(consent.getTrainer().getTrainerId(), consent.getBatch().getBatchId());
     
@@ -109,9 +110,10 @@ public class ConsentService {
 //    emfactory.close( );
 //    consent.setConsentId(0);
 //    return consentRepository.save(consent);
+
   }
 
-  
+
   public void update(Consent consent) {
 
 
@@ -119,24 +121,27 @@ public class ConsentService {
     Optional<Consent> existingConsents = consentRepository.findById(consent.getConsentId());
     System.out.println(existingConsents);
     System.out.println(consent.getConsentId());
-    //if (existingConsents.isPresent()) {
-      
-      EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
-      
-      
-      EntityManager entitymanager = emfactory.createEntityManager( );
-      entitymanager.getTransaction( ).begin( );
-      
-      entitymanager.createNativeQuery("UPDATE project3.consent SET consent_approved=? WHERE consent_id=?").setParameter(1, consent.getIsApprovedColumn()).setParameter(2, consent.getConsentId()).executeUpdate();
-      
-      entitymanager.getTransaction( ).commit( );
+    // if (existingConsents.isPresent()) {
 
-      entitymanager.close( );
-      emfactory.close( );
-      //return consentRepository.save(consent);
-    //} else {
-      //throw new RuntimeException();
-    //}
+    EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+
+
+    EntityManager entitymanager = emfactory.createEntityManager();
+    entitymanager.getTransaction().begin();
+
+    entitymanager
+        .createNativeQuery("UPDATE project3.consent SET consent_approved=? WHERE consent_id=?")
+        .setParameter(1, consent.getIsApprovedColumn()).setParameter(2, consent.getConsentId())
+        .executeUpdate();
+
+    entitymanager.getTransaction().commit();
+
+    entitymanager.close();
+    emfactory.close();
+    // return consentRepository.save(consent);
+    // } else {
+    // throw new RuntimeException();
+    // }
 
   }
 }
