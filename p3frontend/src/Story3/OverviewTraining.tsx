@@ -363,6 +363,7 @@ export class OverviewTraining extends React.Component<any, any> {
                                     associatesInBatch: this.state.associatesInBatch.concat(
                                       this.state.associatesList
                                     ),
+                                    associatesList: [],
                                   });
                                 }}
                               >
