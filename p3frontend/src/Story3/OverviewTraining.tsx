@@ -104,7 +104,10 @@ export class OverviewTraining extends React.Component<any, any> {
       associatesList: await getgeneratedBatch(
         this.state.interview,
         this.state.quantity
+
       ),
+      interview:70,
+      quantity:0,
       eligibleAssociates: this.state.allEligibleAssociates,
       flaeeg: true,
     });
@@ -261,6 +264,7 @@ export class OverviewTraining extends React.Component<any, any> {
                   <Label>No. of Associates: </Label>
                   <Input
                     type="number"
+                    min="0"
                     value={this.state.quantity}
                     onChange={this.bindInputChangeToState}
                     name="quantity"
