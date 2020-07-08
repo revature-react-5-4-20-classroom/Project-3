@@ -14,6 +14,8 @@ The back end of Reservoir is responsible for retrieving and altering data in a r
   * Eureka - service registry
   * Zuul - gateway
   * Feign Client - HTTP client
+  
+#### Test Suite [Details](https://docs.google.com/document/d/1fQQrJagsrcd6AHQ7Z_wkABkK3EyJziBAnjlPdNukbU4/edit?usp=sharing)
 
 ### Services
 * Data Service - responsible for communicating with the RDS to retrieve and alter data about batches, associates, clients, trainers, skill sets, and more using Spring Data JPA and Hibernate. Also responsible for setting up RESTful endpoints using Spring Web.
@@ -21,6 +23,7 @@ The back end of Reservoir is responsible for retrieving and altering data in a r
 * SQS Service - receives incoming data from an SQS and adds it to the database. **This section could be expanded**
 * Registry Service - creates the Microservice Service Registry using Eureka.
 * Gateway Service - creates a routing gateway using Zuul.
+
 
 ### Data Service
 The Data Service communicates with the RDS using Hibernate as an ORM. The data models that Hibernate uses are: *Associate, Batch, Client, ClientDemand, Consent, Curriculum, Location, Skills, Skillset,* and *Trainer*. Each model has a service and repository for retrieving the data from the database based on specific criteria, as well as a controller which receives HTTP requests and directs them to the appropriate endpoint. For example, sending a GET request to the endpoint "/batches/date/{yyyy-mm-dd}" will return any batches where the provided date falls in between their start date and end date. The front end uses these endpoints to get data to be displayed for the user. It will also send PATCH requests which modify the data, such as adding associates or trainers to a batch. The Reports service will also access these endpoints using a Feign client.
