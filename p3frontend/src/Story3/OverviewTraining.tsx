@@ -127,7 +127,7 @@ export class OverviewTraining extends React.Component<any, any> {
       associatesList: [],
       associatesInBatch: e.associates,
       quantity: 0,
-      interview: 0,
+      interview: 70,
       currentBatch1: e,
       data: true,
       currentBatchIndex: i,
