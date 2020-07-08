@@ -23,7 +23,6 @@ import com.revature.DataService.services.TrainerService;
 
 @CrossOrigin(origins = "*")
 @RestController
-
 public class ConsentController implements Serializable{
 
 
@@ -78,6 +77,9 @@ public class ConsentController implements Serializable{
   @PostMapping("/consent")
   public Consent createConsent(@RequestBody ConsentPost consentPost) throws Exception {
    System.out.println(consentPost.getIsApprovedColumn());
+   System.out.println(consentPost.getTrainerId());
+   System.out.println(consentPost.getBatchId());
+   
     try {
       Trainer trainer = trainerService.getById(consentPost.getTrainerId());
       Batch batch = batchService.getById(consentPost.getBatchId());
