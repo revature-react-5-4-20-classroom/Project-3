@@ -49,9 +49,10 @@ export class OverviewTraining extends React.Component<any, any> {
     this.state = {
       // batches: [],
       notConfirmedBatches: [],
+      isDisabled: false,
       batchFlag: false,
       quantity: 0,
-      interview: 0,
+      interview: 70,
       associatesList: [],
       flaeeg: false,
       assoiates: false,
@@ -70,7 +71,6 @@ export class OverviewTraining extends React.Component<any, any> {
   }
   componentDidMount = async () => {
     const associateArray: any[] = await getActiveAssociates();
-    // console.log(associateArray);
     const batches = await getAllBatches();
     const eligibleAssociateArray = associateArray.filter(function (assoc) {
       return assoc.interviewScore >= 70 && assoc.batch == null;
@@ -104,7 +104,10 @@ export class OverviewTraining extends React.Component<any, any> {
       associatesList: await getgeneratedBatch(
         this.state.interview,
         this.state.quantity
+
       ),
+      interview:70,
+      quantity:0,
       eligibleAssociates: this.state.allEligibleAssociates,
       flaeeg: true,
     });
@@ -127,13 +130,12 @@ export class OverviewTraining extends React.Component<any, any> {
       associatesList: [],
       associatesInBatch: e.associates,
       quantity: 0,
-      interview: 0,
+      interview: 70,
       currentBatch1: e,
       data: true,
       currentBatchIndex: i,
       eligibleAssociates: this.state.allEligibleAssociates,
     });
-    console.log(e);
   };
 
   displayTable = (
@@ -155,7 +157,10 @@ export class OverviewTraining extends React.Component<any, any> {
                     {obj.firstName}, {obj.lastName}, {obj.interviewScore}
                   </td>
                   <td>
-                    <Button onClick={() => itemClick(obj, index)}>
+                    <Button
+                      onClick={() => itemClick(obj, index)}
+                      // disabled={isDisabled}
+                    >
                       {displayText}
                     </Button>
                   </td>
@@ -171,6 +176,18 @@ export class OverviewTraining extends React.Component<any, any> {
   associateRemove = async (assoc: any, i: number) => {
     this.state.associatesInBatch.splice(i, 1);
     this.state.eligibleAssociates.push(assoc);
+    const nonCircularAssocPatch = {
+      associateId: assoc.associateId, //copy over all fields. typescript prevents easier copying
+      firstName: assoc.firstName,
+      lastName: assoc.lastName,
+      email: assoc.email,
+      active: assoc.active, //set active to true or false
+      interviewScore: assoc.interviewScore,
+      batch: null, //assign to a batch.
+      //we have to watch out because this batch has an array of
+      //associates and associates have batches and we get circular json errors when sending
+    };
+    await axiosClient.patch("/associates", nonCircularAssocPatch);
     assoc.batch = this.state.eligibleAssociates[0].batch;
     this.setState({});
   };
@@ -196,7 +213,6 @@ export class OverviewTraining extends React.Component<any, any> {
       for (const i of this.state.associatesInBatch) {
         i.batchId = this.state.currentBatch1.batchId;
         // await updateAssociate(i);
-        // console.log(i);
         const nonCircularAssocPatch = {
           associateId: i.associateId, //copy over all fields. typescript prevents easier copying
           firstName: i.firstName,
@@ -213,15 +229,11 @@ export class OverviewTraining extends React.Component<any, any> {
         // prnt(doPrnt, `nonCircularAssocPatch=`, nonCircularAssocPatch);
       }
 
-
-
-
       const newBatch = await updateBatch(
         this.state.currentBatch1.batchId,
         true
       );
       this.state.notConfirmedBatches.splice(this.state.currentBatchIndex, 1);
-      console.log(this.state.notConfirmedBatches);
       this.setState({
         success: true,
         data: false,
@@ -252,6 +264,7 @@ export class OverviewTraining extends React.Component<any, any> {
                   <Label>No. of Associates: </Label>
                   <Input
                     type="number"
+                    min="0"
                     value={this.state.quantity}
                     onChange={this.bindInputChangeToState}
                     name="quantity"
@@ -262,6 +275,8 @@ export class OverviewTraining extends React.Component<any, any> {
                   <Label>Lower Interview Score: </Label>
                   <Input
                     type="number"
+                    min="70"
+                    max="100"
                     value={this.state.interview}
                     onChange={this.bindInputChangeToState}
                     name="interview"
@@ -294,7 +309,7 @@ export class OverviewTraining extends React.Component<any, any> {
                           {this.state.notConfirmedBatches.map(
                             (obj: any, index: number) => {
                               return (
-                                <NavItem>
+                                <NavItem key={index}>
                                   <NavLink
                                     style={{ color: "#fff" }}
                                     href="#"
@@ -345,6 +360,19 @@ export class OverviewTraining extends React.Component<any, any> {
 
                               <hr />
                               <h6>Associates:</h6>
+                              <Button
+                                onClick={(e: any) => {
+                                  e.preventDefault();
+                                  this.setState({
+                                    associatesInBatch: this.state.associatesInBatch.concat(
+                                      this.state.associatesList
+                                    ),
+                                    associatesList: [],
+                                  });
+                                }}
+                              >
+                                Add All
+                              </Button>
                               <Table
                                 style={{ width: "00px" }}
                                 className="overview-table"
