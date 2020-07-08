@@ -77,6 +77,7 @@ export class App extends React.Component<any, any> {
               <UncontrolledDropdown
                 isOpen={this.state.isBatchOpen}
                 toggle={this.toggleBatches}
+                onClick={this.toggleBatches}
                 nav
                 inNavbar
               >
@@ -103,6 +104,7 @@ export class App extends React.Component<any, any> {
               </UncontrolledDropdown>
               <UncontrolledDropdown
                 isOpen={this.state.isTrainerOpen}
+                onClick={this.toggleTrainers}
                 toggle={this.toggleTrainers}
                 nav
                 inNavbar
