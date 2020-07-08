@@ -192,6 +192,7 @@ export class TimelineBatchModal extends React.Component<IPBatchViewModal, any> {
       );
 
       this.props.batchUpdateActionMapper(this.props.currentBatch);
+      this.setState({});
     } catch (e) {
       this.setState({
         errorObj: e,

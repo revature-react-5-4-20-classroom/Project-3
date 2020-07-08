@@ -291,7 +291,7 @@ public class SqsController {
 				Date dateStart = Date.valueOf(startDate);
 				Date dateEnd = Date.valueOf(endDate);
 				//note swap location programtype
-				batchData.createBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower,programType, getLocationId, getCurriculumId);
+				batchData.createBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower, programType, getLocationId, getCurriculumId);
 				LOG.info("batch created ");
 				Integer BatchId = batchService.getBatchInfo(getLocationId, getCurriculumId).get(0).getBatchId();
 				LOG.info("batch_id is : " + BatchId);

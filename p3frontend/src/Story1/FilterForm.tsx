@@ -52,7 +52,6 @@ export class FilterForm extends React.Component<
 
   // Setting values to filter for on programType, client, and curriculum
   setProgramType = (e: any) => {
-    console.log(`Setting program type in FilterForm: ${e.value}`);
     console.log(e);
     this.setState({
       programType: e.target.value,
@@ -102,9 +101,9 @@ export class FilterForm extends React.Component<
       <>
         <Button onClick={this.toggle}>Set Filters &nbsp;<FontAwesomeIcon icon={faBars}/></Button>
         <Modal isOpen={this.state.isOpen} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Set Batch Filters</ModalHeader>
-          <Jumbotron>
-            <Button onClick={this.reset} color="info"><FontAwesomeIcon icon={faRedoAlt}/>&nbsp;Reset Selection</Button>
+          <ModalHeader toggle={this.toggle} style={{backgroundColor:"#474c55", color:"#ffffff"}}>Set Batch Filters</ModalHeader>
+          <Jumbotron style={{backgroundColor:"#ffffff"}}>
+            <Button onClick={this.reset}><FontAwesomeIcon icon={faRedoAlt}/>&nbsp;Reset Selection</Button>
             <br/><br/>
             <Form onSubmit={this.applyAllFilters}>
               <Row form>
@@ -199,7 +198,7 @@ export class FilterForm extends React.Component<
               </Row>
               <br/>
               {/* Clicking this button submits the form, calls the applyAllFilters function */}
-              <Button color="primary">Apply Filters</Button>
+              <Button style={{backgroundColor:"#f26925"}}>Apply Filters</Button>
             </Form>
           </Jumbotron>
         </Modal>
