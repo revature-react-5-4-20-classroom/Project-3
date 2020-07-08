@@ -102,7 +102,7 @@ export class App extends React.Component<any, any> {
                   })}
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <UncontrolledDropdown
+              {/* <UncontrolledDropdown
                 isOpen={this.state.isTrainerOpen}
                 onClick={this.toggleTrainers}
                 toggle={this.toggleTrainers}
@@ -127,7 +127,7 @@ export class App extends React.Component<any, any> {
                     }
                   })}
                 </DropdownMenu>
-              </UncontrolledDropdown>
+              </UncontrolledDropdown> */}
             </Nav>
           </Navbar>
           <Switch>
