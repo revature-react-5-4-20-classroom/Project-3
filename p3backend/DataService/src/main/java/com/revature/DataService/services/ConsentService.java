@@ -18,8 +18,8 @@ import com.revature.DataService.repositories.ConsentRepository;
 
 
 
-
 @Service
+@Transactional
 public class ConsentService {
 
 
@@ -35,79 +35,87 @@ public class ConsentService {
   }
 
 
-  public List<Consent> getConsentByTrainerId(Integer trainerId) throws Exception {
-    List<Consent> consents = new ArrayList<Consent>();
+  public List<Consent> getConsentByTrainerId(Integer trainerId) {
     
-EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
- 
-    
-    EntityManager entitymanager = emfactory.createEntityManager( );
-    entitymanager.getTransaction( ).begin( );
-    
-    
-    Query queryResult = entitymanager.createNativeQuery("SELECT * FROM  project3.consent WHERE (consent_approved is null and trainer_id = ?)").setParameter(1, trainerId);
-   
-    List<Object[]> qr =  queryResult.getResultList();
-    
-    for(Object[] row : qr) {
-      Consent newConsent = new Consent();
-      
-      int consentId = Integer.parseInt(row[0].toString());
-      int trainerId2 = Integer.parseInt(row[1].toString());
-      int batchId = Integer.parseInt(row[2].toString());
-      Boolean isApproved = null;
-      if(row[3] == null) {
-        isApproved = null;
-      }else {
-        isApproved = Boolean.parseBoolean(row[3].toString());
-      }
-      
-      
-      Trainer trainer = trainerService.getById(trainerId2);
-      Batch batch = batchService.getById(batchId);
-      
-      newConsent.setBatch(batch);
-      newConsent.setConsentId(consentId);
-      newConsent.setIsApprovedColumn(isApproved);
-      newConsent.setTrainer(trainer);
-      
-      consents.add(newConsent);
-    }
-    entitymanager.getTransaction( ).commit( );
+      return consentRepository.getConsentByTrainerId(trainerId);
+//    List<Consent> consents = new ArrayList<Consent>();
+//
+//    EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+//
+//
+//    EntityManager entitymanager = emfactory.createEntityManager();
+//    entitymanager.getTransaction().begin();
+//
+//
+//    Query queryResult = entitymanager
+//        .createNativeQuery(
+//            "SELECT * FROM  project3.consent WHERE (consent_approved is null and trainer_id = ?)")
+//        .setParameter(1, trainerId);
+//
+//    List<Object[]> qr = queryResult.getResultList();
+//
+//    for (Object[] row : qr) {
+//      Consent newConsent = new Consent();
+//
+//      int consentId = Integer.parseInt(row[0].toString());
+//      int trainerId2 = Integer.parseInt(row[1].toString());
+//      int batchId = Integer.parseInt(row[2].toString());
+//      Boolean isApproved = null;
+//      if (row[3] == null) {
+//        isApproved = null;
+//      } else {
+//        isApproved = Boolean.parseBoolean(row[3].toString());
+//      }
+//
+//
+//      Trainer trainer = trainerService.getById(trainerId2);
+//      Batch batch = batchService.getById(batchId);
+//
+//      newConsent.setBatch(batch);
+//      newConsent.setConsentId(consentId);
+//      newConsent.setIsApprovedColumn(isApproved);
+//      newConsent.setTrainer(trainer);
+//
+//      consents.add(newConsent);
+//    }
+//    entitymanager.getTransaction().commit();
+//
+//    entitymanager.close();
+//    emfactory.close();
+//    // consent.setConsentId(0);
+//    // return consentRepository.save(consent);
+//
+//    return consents;
 
-    entitymanager.close();
-    emfactory.close( );
-//    consent.setConsentId(0);
-//    return consentRepository.save(consent);
-    
-    return consents;
-    
-    //return consentRepository.getConsentByTrainerId(trainerId);
+    // return consentRepository.getConsentByTrainerId(trainerId);
   }
 
 
-  
+
   @Transactional
   public void create(Consent consent) {
-    
-    EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
- 
-    
-    EntityManager entitymanager = emfactory.createEntityManager( );
-    entitymanager.getTransaction( ).begin( );
-    System.out.println(consent.getIsApprovedColumn());
-    
-    entitymanager.createNativeQuery("INSERT INTO project3.consent(consent_id, trainer_id, batch_id, consent_approved) VALUES (default, ?, ?, null)").setParameter(1, consent.getTrainer().getTrainerId()).setParameter(2, consent.getBatch().getBatchId()).executeUpdate();
-    
-    entitymanager.getTransaction( ).commit( );
 
-    entitymanager.close( );
-    emfactory.close( );
-//    consent.setConsentId(0);
-//    return consentRepository.save(consent);
+    EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+
+
+    EntityManager entitymanager = emfactory.createEntityManager();
+    entitymanager.getTransaction().begin();
+    System.out.println(consent.getIsApprovedColumn());
+
+    entitymanager.createNativeQuery(
+        "INSERT INTO project3.consent(consent_id, trainer_id, batch_id, consent_approved) VALUES (default, ?, ?, null)")
+        .setParameter(1, consent.getTrainer().getTrainerId())
+        .setParameter(2, consent.getBatch().getBatchId()).executeUpdate();
+
+    entitymanager.getTransaction().commit();
+
+    entitymanager.close();
+    emfactory.close();
+    // consent.setConsentId(0);
+    // return consentRepository.save(consent);
   }
 
-  
+
   public void update(Consent consent) {
 
 
@@ -115,24 +123,27 @@ EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclips
     Optional<Consent> existingConsents = consentRepository.findById(consent.getConsentId());
     System.out.println(existingConsents);
     System.out.println(consent.getConsentId());
-    //if (existingConsents.isPresent()) {
-      
-      EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
-      
-      
-      EntityManager entitymanager = emfactory.createEntityManager( );
-      entitymanager.getTransaction( ).begin( );
-      
-      entitymanager.createNativeQuery("UPDATE project3.consent SET consent_approved=? WHERE consent_id=?").setParameter(1, consent.getIsApprovedColumn()).setParameter(2, consent.getConsentId()).executeUpdate();
-      
-      entitymanager.getTransaction( ).commit( );
+    // if (existingConsents.isPresent()) {
 
-      entitymanager.close( );
-      emfactory.close( );
-      //return consentRepository.save(consent);
-    //} else {
-      //throw new RuntimeException();
-    //}
+    EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+
+
+    EntityManager entitymanager = emfactory.createEntityManager();
+    entitymanager.getTransaction().begin();
+
+    entitymanager
+        .createNativeQuery("UPDATE project3.consent SET consent_approved=? WHERE consent_id=?")
+        .setParameter(1, consent.getIsApprovedColumn()).setParameter(2, consent.getConsentId())
+        .executeUpdate();
+
+    entitymanager.getTransaction().commit();
+
+    entitymanager.close();
+    emfactory.close();
+    // return consentRepository.save(consent);
+    // } else {
+    // throw new RuntimeException();
+    // }
 
   }
 }

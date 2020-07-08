@@ -17,8 +17,8 @@ public interface ConsentRepository extends JpaRepository<Consent, Integer> {
 
   
   
-//  @Query("select c from Consent c where (c.trainer.trainerId=:id and c.isApprovedColumn is null)") // HQL
-//  List<Consent> getConsentByTrainerId(Integer id);
+  @Query(value = "select * from consent outer join trainer on consent.trainer_id = trainer.trainer_id where trainer.trainer_id = :id and consent.consent_approved = null", nativeQuery=true)
+  List<Consent> getConsentByTrainerId(Integer id);
   
 //  @Query("select c from Consent c where c.isApprovedColumn is null") // HQL
 //  List<Consent> getConsentByTrainerId(Integer id);
