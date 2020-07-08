@@ -9,7 +9,6 @@ import {
   ButtonGroup,
 } from "reactstrap";
 import "../../src/index.css";
-import { BatchAssocTableRedux } from "./BatchAssocTable";
 import { connect } from "react-redux";
 import { allTheMapStateToProps } from "../redux/reducers";
 import { allTheActionMappers } from "../redux/action-mapper";
@@ -18,6 +17,8 @@ import { ErrorAlert } from "../GeneralPurposeHelpers/ErrorAlert";
 import { axiosClient } from "../api/axios";
 import { BatchTrainersTableRedux } from "./BatchTrainersTable";
 import { store } from "../redux/store";
+import BatchAssocTable, { BatchAssocTableRedux } from "./BatchAssocTable";
+import {TrainerAssignmentRedux} from "../Story4/TrainerAssignment"
 
 /*
   <BatchViewModel currentBatch={aSvererBatch} parentState={this.state}/>
@@ -41,7 +42,7 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
     super(props);
     this.state = {
       showThis: false,
-      showTrainers: true, //T to show trainers. F to show associates
+      displayType: 'AA', //what else do we display in this modal? 'AA' 'AT' 'RC'
       errorObj: null,
       errorMsg: "",
     };
@@ -132,46 +133,72 @@ export class BatchViewModal extends React.Component<IPBatchViewModal, any> {
             <br />
             <Row>
               <Col>
-                <Button onClick={toggle} color="success" size="lg">
+                <Button onClick={toggle} color="success">
                   OK
                 </Button>
               </Col>
+
+
               <Col>
-                <Button
-                  color={this.state.showTrainers ? "secondary" : "primary"}
+                <Button color={this.state.displayType=='AA' ? "primary" : "secondary"}
                   onClick={() => {
-                    this.setState({ showTrainers: false });
+                    this.setState({ displayType: 'AA' });
                   }}
                 >
-                  Associates
+                  Assign Associates
                 </Button>
               </Col>
+
+
               <Col>
                 <Button
-                  color={this.state.showTrainers ? "primary" : "secondary"}
+                  color={this.state.displayType=='AT'? "primary" : "secondary"}
                   onClick={() => {
-                    this.setState({ showTrainers: true });
+                    this.setState({ displayType: 'AT' });
                   }}
                 >
-                  Trainers
+                  Assign Trainers
                 </Button>
               </Col>
+
+              <Col>
+                <Button
+                  color={this.state.displayType=='RC' ? "primary" : "secondary"}
+                  onClick={() => {
+                    this.setState({ displayType: 'RC' });
+                  }}
+                >
+                  Request Consent
+                </Button>
+              </Col>
+
             </Row>
             <hr />
           </ModalBody>
 
           <ModalBody>
-            {this.state.showTrainers ? (
-              <BatchTrainersTableRedux
+            {
+            
+            
+            this.state.displayType=='RC' ? ( //request consent for trainers
+              <TrainerAssignmentRedux
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />
-            ) : (
+            ) : this.state.displayType=='AA' ? ( //assign associates to this batch
               <BatchAssocTableRedux
                 currentBatch={this.props.currentBatch}
                 parentTop={this.props.parentTop}
               />
-            )}
+            ) : this.state.displayType=='AT' ? ( //assign trainers to this batch
+              <BatchTrainersTableRedux
+                currentBatch={this.props.currentBatch}
+                parentTop={this.props.parentTop}
+              />
+            )
+              :(<></>)//free space
+            
+            }
           </ModalBody>
         </Modal>
       </>

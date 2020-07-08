@@ -3,10 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { Spinner } from "../src/GeneralPurposeComponents/spinner/spinner";
+
+
 
 ReactDOM.render(
   <React.StrictMode>
+    
     <App />
+    <Spinner area="invalid"/>
   </React.StrictMode>,
   document.getElementById("root")
 );

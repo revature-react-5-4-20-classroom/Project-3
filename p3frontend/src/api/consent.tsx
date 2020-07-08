@@ -105,7 +105,8 @@ export async function createConsentRequest(
       isApprovedColumn: isApproved,
     });
     console.log(response);
-    return response;
+    let success : boolean = true;
+    return success;
   } catch (e) {
     console.log(e);
   }
@@ -130,12 +131,16 @@ export async function createConsentRequest(
 
 export async function createTrainerBatch(trainerId: number, batchId: number) {
   try {
+
+    console.log(trainerId);
+    console.log(batchId);
     const response = await axiosClient.post("/trainerbatch", {
       trainerId: trainerId,
       batchId: batchId,
-    });
+  });
     console.log(response);
-    return response;
+    let success:boolean = true;
+    return success;
   } catch (e) {
     console.log(e);
   }
