@@ -99,10 +99,15 @@ public class SqsController {
 			//update start
 			for(JsonElement element : jsonArray) {
 				JsonObject singleObject = element.getAsJsonObject();
+				Integer BatchId = singleObject.get("batchId").getAsInt();
+				
+				boolean checkBatch = batchService.checkBatchById(BatchId);
+				if(checkBatch) {
+
 				boolean checkLocation = locationService.checkLocation(singleObject.get("location").getAsString());
 				boolean checkCurriculum= curriculumService.checkCurriculum(singleObject.get("curriculum").getAsString());
 				if(!checkLocation) {
-					LOG.info("location found: "+checkLocation + " creating new location" );
+					LOG.info("location found: "+ checkLocation + " creating new location" );
 					locationData.createLocation(singleObject.get("location").getAsString());
 				}
 				if(!checkCurriculum) {
@@ -127,7 +132,6 @@ public class SqsController {
 				String endDate = singleObject.get("endDate").getAsString();
 				@SuppressWarnings("unused")
 				String location = singleObject.get("location").getAsString();
-				Integer BatchId = singleObject.get("batchId").getAsInt();
 				
 				//remove all associates belong to this batch
 				associateData.unassignAssociates(BatchId);
@@ -203,11 +207,13 @@ public class SqsController {
 
 
 				}
-				LOG.info("Continue Listening to SQS");
 
-
+//after this line
+				}else {
+					LOG.info("Batch doesn't exist");
+				}
 			}
-			
+			LOG.info("Continue Listening to SQS");
 			//updates ends
 
 		}
@@ -291,7 +297,7 @@ public class SqsController {
 				Date dateStart = Date.valueOf(startDate);
 				Date dateEnd = Date.valueOf(endDate);
 				//note swap location programtype
-				batchData.createBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower, programType, getLocationId, getCurriculumId);
+				batchData.createBatch(dateStart, dateEnd, isconfirmed, interviewScoreLower,programType, getLocationId, getCurriculumId);
 				LOG.info("batch created ");
 				Integer BatchId = batchService.getBatchInfo(getLocationId, getCurriculumId).get(0).getBatchId();
 				LOG.info("batch_id is : " + BatchId);
