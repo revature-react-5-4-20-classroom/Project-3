@@ -90,7 +90,6 @@ export class BatchTrainersTable extends React.Component<
 
     return (
       <Container>
-        <PageTitleBar pageTitle="Batch Trainers" />
         <ErrorAlert
           error={this.state.errorObject}
           message={this.state.errorMessage}
