@@ -32,7 +32,8 @@ The Data Service communicates with the RDS using Hibernate as an ORM. The data m
 *Insert further details about how the SQS service works*
 
 ### Testing
-*Insert information about unit testing*
+The link below details the QC considersations and testing done for Reservoir:
+https://docs.google.com/document/d/1fQQrJagsrcd6AHQ7Z_wkABkK3EyJziBAnjlPdNukbU4/edit#
 
 ## Front End
 The front end of Reservoir is a single-page application which can display batch data, assign trainers and associates to batches, create consent requests for trainers being assigned to a batch, and generate potential batches based on associate availability and client demand. See "Usage" section for details.
