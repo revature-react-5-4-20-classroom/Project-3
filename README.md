@@ -29,7 +29,7 @@ The Data Service communicates with the RDS using Hibernate as an ORM. The data m
 *Insert further details about how the reports service works*
 
 ### SQS Service
-*Insert further details about how the SQS service works*
+The SQS Service receives messages in a standard queue from other parts of Revature. The SQS Service manipulates the messages it receives in order to modify the database used by Reservoir. Currently, the SQS Service can add, update, and delete on **Batches, Skills, Associates, and Trainers** depending on the message received. All the messages received are JSON, and have key value pairs for *objectType*, *requestType*, and *values*. The *objectType* is a string that specifies the object that will be passed in. The *values* are the objects contained in an array. The *requestType* is a string that determines which CRUD operation to perform in our SQS Service. It should be noted that *Read* is not an option provided by this service (look into data service or report service).
 
 ### Testing
 *Insert information about unit testing*
