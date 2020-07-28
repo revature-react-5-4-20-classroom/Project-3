@@ -5,7 +5,8 @@ pipeline {
       agent {
         docker {
           image 'djagent:latest'
-          args '-v /var/run/docker.sock:/var/run/docker.sock'
+          args '''-v /var/run/docker.sock:/var/run/docker.sock
+--group-add 993'''
         }
 
       }
@@ -27,7 +28,6 @@ pipeline {
       steps {
         sh '''cd p3backend/DataService
 chmod +x mvnw
-sleep 5000
 docker images
 #./mvnw install dockerfile:build'''
       }
