@@ -27,7 +27,8 @@ pipeline {
       steps {
         sh '''cd p3backend/DataService
 chmod +x mvnw
-./mvnw install dockerfile:build'''
+docker images
+#./mvnw install dockerfile:build'''
       }
     }
 
