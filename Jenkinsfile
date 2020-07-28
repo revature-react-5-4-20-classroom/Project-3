@@ -4,7 +4,7 @@ pipeline {
     stage('Build DataService') {
       agent {
         docker {
-          image 'alpine:latest'
+          image 'openjdk:8-alpine'
         }
 
       }
