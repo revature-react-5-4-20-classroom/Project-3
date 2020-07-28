@@ -4,7 +4,8 @@ pipeline {
     stage('Build DataService') {
       agent {
         docker {
-          image 'openjdk:8-alpine'
+          image 'djagent:latest'
+          args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
 
       }
@@ -26,7 +27,6 @@ pipeline {
       steps {
         sh '''cd p3backend/DataService
 chmod +x mvnw
-./mvnw package
 ./mvnw install dockerfile:build'''
       }
     }
