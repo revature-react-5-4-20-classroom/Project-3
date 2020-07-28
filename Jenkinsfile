@@ -2,7 +2,12 @@ pipeline {
   agent any
   stages {
     stage('Build DataService') {
-      agent any
+      agent {
+        docker {
+          image 'alpine:latest'
+        }
+
+      }
       when {
         expression {
           env.BRANCH_NAME == 'master' ||
@@ -11,9 +16,9 @@ pipeline {
           env.BRANCH_NAME == 'development-dataservice' ||
           env.CHANGE_TARGET == 'master' ||
           env.CHANGE_TARGET == 'development' ||
-          env.CHANGE_TARGET == 'development-dataservice' 
-
+          env.CHANGE_TARGET == 'development-dataservice'
         }
+
       }
       environment {
         SPRING_PROFILES_ACTIVE = 'local'
@@ -31,6 +36,7 @@ chmod +x mvnw
         docker {
           image 'node:13-alpine'
         }
+
       }
       when {
         expression {
@@ -46,6 +52,7 @@ chmod +x mvnw
           env.CHANGE_TARGET == 'development-reportservice' ||
           env.CHANGE_TARGET == 'development-sqsservice'
         }
+
       }
       environment {
         npm_config_cache = 'npm-cache'
