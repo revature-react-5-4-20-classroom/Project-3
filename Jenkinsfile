@@ -65,5 +65,19 @@ npm run build'''
       }
     }
 
+    stage('Deploy Dataservice') {
+      agent {
+        docker {
+          image 'djagent:latest'
+          args '''-v /var/run/docker.sock:/var/run/docker.sock
+--group-add 993'''
+        }
+
+      }
+      steps {
+        sh 'docker run -p 1337:1235 --name hithere dataservice:latest'
+      }
+    }
+
   }
 }
